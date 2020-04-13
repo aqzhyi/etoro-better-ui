@@ -84,6 +84,8 @@ const configration = {
         // @run-at        document-idle
         // @noframes
         // @namespace     http://tampermonkey.net/
+        // @connect       cdn.jsdelivr.net
+        // @connect       bot.com.tw
         // ==/UserScript==
 
         window.GM_xmlhttpRequest({
