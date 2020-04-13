@@ -89,7 +89,7 @@ const configration = {
         // ==/UserScript==
 
         window.GM_xmlhttpRequest({
-          // url: 'https://127.0.0.1/etoro.bundle.js', // 開發模式
+          // url: 'https://127.0.0.1:3210/etoro.bundle.js', // 開發模式
           url: 'https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@v0.3.0/src_dist/etoro.bundle.js',
           onload: event => {
             eval(event.responseText)
