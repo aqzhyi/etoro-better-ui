@@ -1,6 +1,6 @@
 {
   "name": "tampermonkey-etoro-better-ui",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "debug": "^4.1.1"
+    "debug": "^4.1.1",
+    "emittery": "^0.6.0"
   }
 }

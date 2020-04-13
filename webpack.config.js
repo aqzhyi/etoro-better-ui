@@ -70,20 +70,29 @@ const configration = {
     }),
     new BannerPlugin({
       test: /etoro/,
-      raw: true,
+      raw: false,
       banner: `
         // ==UserScript==
-        // @name         Better etoro UI for Taiwan
-        // @description  提供你更好的 etoro 新台幣介面增強懶人包
-        // @version      0.2
-        // @author       hilezir
-        // @match        https://*.etoro.com/*
-        // @match        https://etoro.com/*
-        // @grant        GM_xmlhttpRequest
-        // @grant        GM_addStyle
-        // @namespace    http://tampermonkey.net/
-        /** ℹ️ @require     https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@master/src_dist/etoro.bundle.js */
+        // @name          Better etoro UI for Taiwan
+        // @description   提供你更好的 etoro 新台幣介面增強懶人包
+        // @version       0.3
+        // @author        hilezir
+        // @grant         GM_xmlhttpRequest
+        // @grant         GM_addStyle
+        // @match         https://*.etoro.com/*
+        // @match         https://etoro.com/*
+        // @run-at        document-idle
+        // @noframes
+        // @namespace     http://tampermonkey.net/
         // ==/UserScript==
+
+        window.GM_xmlhttpRequest({
+          // url: 'https://127.0.0.1/etoro.bundle.js', // 開發模式
+          url: 'https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@v0.3.0/src_dist/etoro.bundle.js',
+          onload: event => {
+            eval(event.responseText)
+          },
+        })
       `,
     }),
   ],

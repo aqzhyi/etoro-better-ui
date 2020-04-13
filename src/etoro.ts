@@ -1,24 +1,43 @@
 import { debugAPI } from './debugAPI'
 import { GM } from './GM'
+import Emittery from 'emittery'
 
-console.info(
-  '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
-)
+const emitter = new Emittery()
+enum EmitterEvents {
+  ready = 'ready',
+}
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
 
-/** 預估 etoro 完全載入時間 */
-const loadedETA = 17500
 /** 介面更新頻率 */
 const loadedInterval = 5000
 /** 預設的 USD 兌 TWD。若允許外界資源，則此值依不具作用。 */
 const USDTWD = 30
 
 /**
+ * 載入腳本的時機點
+ */
+const readyIntervalId = globalThis.setInterval(() => {
+  if ($('.w-menu-footer .e-btn-big-2').length > 0) {
+    globalThis.clearInterval(readyIntervalId)
+    emitter.emit(EmitterEvents.ready)
+  }
+}, 100)
+
+/**
+ * 歡迎訊息
+ */
+emitter.on(EmitterEvents.ready, () => {
+  console.info(
+    '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
+  )
+})
+
+/**
  * 提供新台幣入金匯率
  */
-;(async () => {
+emitter.on(EmitterEvents.ready, async () => {
   const log = debugAPI.tampermonkey.extend(`提供新台幣入金匯率`)
 
   const htmlText = await GM.ajax({
@@ -42,22 +61,24 @@ const USDTWD = 30
   } else {
     log('失敗，找不到元素')
   }
-})()
+})
 
 /**
  * 提供新台幣價值匯率價值顯示
  */
-GM.addStyle(`
-  .footer-unit[_ngcontent-qlo-c4] {
-    height: 100px;
-  }
+emitter.on(EmitterEvents.ready, () => {
+  GM.addStyle(`
+    .footer-unit[_ngcontent-qlo-c4] {
+      height: 100px;
+    }
 
-  .footer-unit-value-TWD {
-    font-size: 10pt;
-    margin-left: 4px;
-  }
-`)
-;(async () => {
+    .footer-unit-value-TWD {
+      font-size: 10pt;
+      margin-left: 4px;
+    }
+  `)
+})
+emitter.on(EmitterEvents.ready, async () => {
   const log = debugAPI.tampermonkey.extend(
     `提供台灣銀行新台幣即期買入價值（每 ${loadedInterval / 1000} 秒）`,
   )
@@ -113,15 +134,17 @@ GM.addStyle(`
 
     log('成功')
   }
-})()
+})
 
 /**
  * 修正「添加到列表」被其它元素蓋住的問題
  *
  * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
  */
-GM.addStyle(`
-  body .inner-header {
-    z-index: 1
-  }
-`)
+emitter.on(EmitterEvents.ready, () => {
+  GM.addStyle(`
+    body .inner-header {
+      z-index: 1
+    }
+  `)
+})
