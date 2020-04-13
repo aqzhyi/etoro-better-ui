@@ -148,3 +148,16 @@ emitter.on(EmitterEvents.ready, () => {
     }
   `)
 })
+
+/**
+ * 使「買入與賣出按鈕」更加立體明確
+ *
+ * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
+ */
+emitter.on(EmitterEvents.ready, () => {
+  GM.addStyle(`
+    .execution-head .execution-head-button.active:after {
+      content: "✅";
+    }
+  `)
+})
