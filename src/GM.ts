@@ -1,0 +1,21 @@
+export const GM = {
+  addStyle: globalThis['GM_addStyle'] as (css: string) => void,
+  ajax: (detail: { method: 'GET'; url: string }) => {
+    type SuccessEvent = {
+      status: number
+      statusText: string
+      responseText: string
+    }
+    return new Promise<SuccessEvent>((resolve, reject) => {
+      globalThis['GM_xmlhttpRequest']({
+        ...detail,
+        onload: (event: SuccessEvent) => {
+          resolve(event)
+        },
+        onerror: error => {
+          reject(error)
+        },
+      })
+    })
+  },
+}

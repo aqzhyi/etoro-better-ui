@@ -1,7 +1,8 @@
 import { debugAPI } from './debugAPI'
+import { GM } from './GM'
 
 console.info(
-  '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/etoro-tampermonkey-4fe69cd704434ff1b82f0cd48dd219c3',
+  '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
 )
 
 interface $ extends JQueryStatic {}
@@ -9,38 +10,18 @@ globalThis.localStorage.setItem('debug', '*')
 
 /** 預估 etoro 完全載入時間 */
 const loadedETA = 17500
+/** 介面更新頻率 */
 const loadedInterval = 5000
+/** 預設的 USD 兌 TWD。若允許外界資源，則此值依不具作用。 */
 const USDTWD = 30
-
-/**
- * see https://www.tampermonkey.net/documentation.php GM_xmlhttpRequest(details)
- */
-const tmAjax = (detail: { method: 'GET'; url: string }) => {
-  type SuccessEvent = {
-    status: number
-    statusText: string
-    responseText: string
-  }
-  return new Promise<SuccessEvent>((resolve, reject) => {
-    globalThis['GM_xmlhttpRequest']({
-      ...detail,
-      onload: (event: SuccessEvent) => {
-        resolve(event)
-      },
-      onerror: error => {
-        reject(error)
-      },
-    })
-  })
-}
 
 /**
  * 提供新台幣入金匯率
  */
-globalThis.setTimeout(async () => {
+;(async () => {
   const log = debugAPI.tampermonkey.extend(`提供新台幣入金匯率`)
 
-  const htmlText = await tmAjax({
+  const htmlText = await GM.ajax({
     method: 'GET',
     url: 'https://rate.bot.com.tw/xrt?Lang=zh-TW',
   })
@@ -61,12 +42,12 @@ globalThis.setTimeout(async () => {
   } else {
     log('失敗，找不到元素')
   }
-}, loadedETA)
+})()
 
 /**
  * 提供新台幣價值匯率價值顯示
  */
-globalThis['GM_addStyle'](`
+GM.addStyle(`
   .footer-unit[_ngcontent-qlo-c4] {
     height: 100px;
   }
@@ -81,7 +62,7 @@ globalThis['GM_addStyle'](`
     `提供台灣銀行新台幣即期買入價值（每 ${loadedInterval / 1000} 秒）`,
   )
 
-  const htmlText = await tmAjax({
+  const htmlText = await GM.ajax({
     method: 'GET',
     url: 'https://rate.bot.com.tw/xrt?Lang=zh-TW',
   })
@@ -94,10 +75,8 @@ globalThis['GM_addStyle'](`
     )?.groups?.TWD || USDTWD,
   )
 
-  globalThis.setTimeout(() => {
-    provideNTD()
-    globalThis.setInterval(provideNTD, loadedInterval)
-  }, loadedETA)
+  provideNTD()
+  globalThis.setInterval(provideNTD, loadedInterval)
 
   async function provideNTD() {
     const unitValues = Array.from(
@@ -141,7 +120,7 @@ globalThis['GM_addStyle'](`
  *
  * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
  */
-globalThis['GM_addStyle'](`
+GM.addStyle(`
   body .inner-header {
     z-index: 1
   }
