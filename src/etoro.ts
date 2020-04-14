@@ -244,3 +244,12 @@ emitter.on(EmitterEvents.ready, () => {
     }
   `)
 })
+
+emitter.on(EmitterEvents.ready, () => {
+  $('.w-menu-main').append(`
+    <div class="i-menu-sep">新台幣增強腳本</div>
+  `).append(`
+    <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3"><span class="i-menu-icon sprite news"></span>腳本官網</a>
+    <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2"><span class="i-menu-icon sprite help"></span>聯絡作者</a>
+  `)
+})
