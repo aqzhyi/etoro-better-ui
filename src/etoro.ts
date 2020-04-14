@@ -45,10 +45,11 @@ emitter.on(EmitterEvents.ready, async () => {
     .user-meta {
       margin: 0 8px;
       font-size: 10pt;
-      background: #ffebc6;
+      background: #ffcf76;
       padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
+      width: 96px;
     }
   `)
 
@@ -73,11 +74,7 @@ emitter.on(EmitterEvents.ready, async () => {
       )?.groups?.cid
 
       if (cid && !hasAppended) {
-        $(`<button class="user-meta">餘額</button>`).appendTo(
-          userFinder.find(
-            '.row-wrap [automation-id="watchlist-item-list-user-wrapp-investors"]',
-          ),
-        )
+        userFinder.prepend($(`<button class="user-meta">餘額</button>`))
 
         const button = userFinder.find('.user-meta')
 
