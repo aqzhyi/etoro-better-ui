@@ -1,6 +1,7 @@
 import { debugAPI } from './debugAPI'
 import { GM } from './GM'
 import Emittery from 'emittery'
+import { stringifyUrl } from 'query-string'
 
 const emitter = new Emittery()
 enum EmitterEvents {
@@ -32,6 +33,93 @@ emitter.on(EmitterEvents.ready, () => {
   console.info(
     '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
   )
+})
+
+/**
+ * 關注的使用者們的餘額
+ */
+emitter.on(EmitterEvents.ready, async () => {
+  const log = debugAPI.tampermonkey.extend('關注的使用者們的餘額')
+
+  GM.addStyle(`
+    .user-meta {
+      margin: 0 8px;
+      font-size: 10pt;
+      background: #ffebc6;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  `)
+
+  const updater = () => {
+    $('et-user-row').each((index, element) => {
+      const userFinder = $(element)
+      const hasAppended = !!userFinder.find('.user-meta').length
+
+      if (hasAppended) {
+        return
+      }
+
+      log('開始處理')
+
+      const cidFinder = userFinder.find('[automation-id="trade-item-avatar"]')
+      /**
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
+       */
+      const cid = /avatars\/[\s\S]+\/(?<cid>[\d]+)\/?[\d]+.jpg/.exec(
+        $(element).find('[automation-id="trade-item-avatar"]').attr('src') ||
+          '',
+      )?.groups?.cid
+
+      if (!cid) {
+        log('找不到 cid', cidFinder)
+      }
+
+      if (cid && !hasAppended) {
+        $(`<button class="user-meta">餘額</button>`).appendTo(
+          userFinder.find(
+            '.row-wrap [automation-id="watchlist-item-list-user-wrapp-investors"]',
+          ),
+        )
+
+        const button = userFinder.find('.user-meta')
+
+        button.on('click', () => {
+          const button = userFinder.find('.user-meta')
+          button.html('讀取中')
+
+          GM.ajax({
+            method: 'GET',
+            url: stringifyUrl({
+              url:
+                'https://www.etoro.com/sapi/trade-data-real/live/public/portfolios',
+              query: {
+                cid,
+              },
+            }),
+          })
+            .then(event => {
+              const model = JSON.parse(
+                /var model = (?<model>{[\s\S]+}),/i.exec(event.responseText)
+                  ?.groups?.model || `{}`,
+              ) as {
+                /** 餘額 */
+                CreditByRealizedEquity?: number
+              }
+
+              button.html(`餘額 ${model.CreditByRealizedEquity?.toFixed(2)}%`)
+            })
+            .finally(() => {
+              log(`獲取 cid=${cid} 餘額`)
+            })
+        })
+      }
+    })
+  }
+
+  globalThis.setInterval(updater, 2500)
 })
 
 /**
