@@ -1,6 +1,14 @@
+import { debugAPI } from './debugAPI'
+
+const log = debugAPI.tampermonkey.extend('GM')
+
 export const GM = {
   addStyle: globalThis['GM_addStyle'] as (css: string) => void,
   ajax: (detail: { method: 'GET'; url: string }) => {
+    const ownlog = log.extend('ajax')
+
+    ownlog(`${detail.method} ${detail.url}`)
+
     type SuccessEvent = {
       status: number
       statusText: string
