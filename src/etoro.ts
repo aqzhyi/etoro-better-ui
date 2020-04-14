@@ -53,6 +53,8 @@ emitter.on(EmitterEvents.ready, async () => {
   `)
 
   const updater = () => {
+    log('安排好按鈕')
+
     $('et-user-row').each((index, element) => {
       const userFinder = $(element)
       const hasAppended = !!userFinder.find('.user-meta').length
@@ -61,9 +63,6 @@ emitter.on(EmitterEvents.ready, async () => {
         return
       }
 
-      log('開始處理')
-
-      const cidFinder = userFinder.find('[automation-id="trade-item-avatar"]')
       /**
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
@@ -72,10 +71,6 @@ emitter.on(EmitterEvents.ready, async () => {
         $(element).find('[automation-id="trade-item-avatar"]').attr('src') ||
           '',
       )?.groups?.cid
-
-      if (!cid) {
-        log('找不到 cid', cidFinder)
-      }
 
       if (cid && !hasAppended) {
         $(`<button class="user-meta">餘額</button>`).appendTo(
