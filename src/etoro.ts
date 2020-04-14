@@ -65,10 +65,13 @@ emitter.on(EmitterEvents.ready, async () => {
       }
 
       /**
+       * tests https://regexr.com/52ft5
+       *
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
        */
-      const cid = /avatars\/[\s\S]+\/(?<cid>[\d]+)\/?[\d]+.jpg/.exec(
+      const cid = /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
         $(element).find('[automation-id="trade-item-avatar"]').attr('src') ||
           '',
       )?.groups?.cid
