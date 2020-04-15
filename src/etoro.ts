@@ -39,7 +39,7 @@ emitter.on(EmitterEvents.ready, () => {
  * 關注的使用者們的餘額
  */
 emitter.on(EmitterEvents.ready, async () => {
-  const log = debugAPI.tampermonkey.extend('關注的使用者們的餘額')
+  const log = debugAPI.log.extend('關注的使用者們的餘額')
 
   GM.addStyle(`
     .user-meta {
@@ -121,7 +121,7 @@ emitter.on(EmitterEvents.ready, async () => {
  * 提供新台幣入金匯率
  */
 emitter.on(EmitterEvents.ready, async () => {
-  const log = debugAPI.tampermonkey.extend(`提供新台幣入金匯率`)
+  const log = debugAPI.log.extend(`提供新台幣入金匯率`)
 
   const htmlText = await GM.ajax({
     method: 'GET',
@@ -162,7 +162,7 @@ emitter.on(EmitterEvents.ready, () => {
   `)
 })
 emitter.on(EmitterEvents.ready, async () => {
-  const log = debugAPI.tampermonkey.extend(
+  const log = debugAPI.log.extend(
     `提供台灣銀行新台幣即期買入價值（每 ${loadedInterval / 1000} 秒）`,
   )
 
@@ -246,6 +246,7 @@ emitter.on(EmitterEvents.ready, () => {
 })
 
 emitter.on(EmitterEvents.ready, () => {
+  debugAPI.log('安排側邊欄')
   $('.w-menu-main').append(`
     <div class="i-menu-sep">新台幣增強腳本</div>
   `).append(`

@@ -1,6 +1,6 @@
 import { debugAPI } from './debugAPI'
 
-const log = debugAPI.tampermonkey.extend('GM')
+const log = debugAPI.log.extend('GM')
 
 export const GM = {
   addStyle: globalThis['GM_addStyle'] as (css: string) => void,
