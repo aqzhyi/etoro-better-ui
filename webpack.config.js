@@ -84,8 +84,18 @@ const configration = {
         // @run-at        document-idle
         // @noframes
         // @namespace     http://tampermonkey.net/
+
+        ///////////////////** 開源程式碼庫 */
         // @connect       cdn.jsdelivr.net
+        // @connect       cdnjs.cloudflare.com
+
+        ///////////////////** 台灣臺灣銀行 */
         // @connect       bot.com.tw
+
+        ///////////////////** 馬國大眾銀行 */
+        // @connect       www.pbebank.com
+
+        ///////////////////** 本地開發專用 */
         // !@connect       127.0.0.1
         // ==/UserScript==
 
