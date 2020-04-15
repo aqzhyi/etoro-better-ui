@@ -86,10 +86,11 @@ const configration = {
         // @namespace     http://tampermonkey.net/
         // @connect       cdn.jsdelivr.net
         // @connect       bot.com.tw
+        // !@connect       127.0.0.1
         // ==/UserScript==
 
         window.GM_xmlhttpRequest({
-          // url: 'https://127.0.0.1:3210/etoro.bundle.js', // 開發模式
+          // url: 'http://127.0.0.1:8080/etoro.bundle.js', // 開發模式
           url: 'https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@v0.3.0/src_dist/etoro.bundle.js',
           onload: event => {
             eval(event.responseText)
