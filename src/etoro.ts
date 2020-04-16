@@ -13,6 +13,7 @@ const exchangeInterval = 5000
 
 enum Selector {
   setupExchanage = `github-com-hilezir-set-exchanage`,
+  exchanageField = `github-com-hilezir-exchanage-display`,
 }
 
 /**
@@ -232,7 +233,7 @@ emitter.on(EmitterEvents.ready, () => {
   `).append(`
     <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3"><span class="i-menu-icon sprite news"></span>腳本官網</a>
     <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2"><span class="i-menu-icon sprite help"></span>聯絡作者</a>
-    <span id='${Selector.setupExchanage}' class="i-menu-link pointer"><span class="i-menu-icon sprite settings"></span>設定幣別</span>
+    <span id='${Selector.setupExchanage}' class="i-menu-link pointer"><span class="i-menu-icon sprite settings"></span>設定幣別（當前：<span class="${Selector.exchanageField}">${exchange.selected}</span>）</span>
   `)
 
   emitter.emit(EmitterEvents.sidebarButtonsArranged)
@@ -266,6 +267,7 @@ emitter.on(EmitterEvents.sidebarButtonsArranged, async () => {
 
       exchange.selected = selectedExchange
       localStorage.setSelectedExchange(selectedExchange)
+      $(`.${Selector.exchanageField}`).html(selectedExchange)
       emitter.emit(EmitterEvents.exchangeChanged)
       log(`已變更`, exchange)
     } else {
