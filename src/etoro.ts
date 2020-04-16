@@ -1,14 +1,7 @@
 import { debugAPI } from './debugAPI'
 import { GM } from './GM'
-import Emittery from 'emittery'
 import { stringifyUrl } from 'query-string'
-
-const emitter = new Emittery()
-enum EmitterEvents {
-  ready = 'ready',
-  sidebarButtonsArranged = 'sidebarButtonsArranged',
-  exchangeChanged = 'exchangeChanged',
-}
+import { emitter, EmitterEvents } from './emitter'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
