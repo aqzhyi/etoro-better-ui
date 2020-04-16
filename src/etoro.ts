@@ -2,42 +2,14 @@ import { debugAPI } from './debugAPI'
 import { GM } from './GM'
 import { stringifyUrl } from 'query-string'
 import { emitter, EmitterEvents } from './emitter'
+import { getNTD, getMYR, exchange } from './exchange'
+import { localStorage } from './localStorage'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
 
-const storage = {
-  getSelectedExchange: () =>
-    (globalThis.localStorage.getItem('selected_exchange') ||
-      'NTD') as typeof exchange['selected'],
-  setSelectedExchange: (value: typeof exchange['selected']) =>
-    globalThis.localStorage.setItem('selected_exchange', value),
-}
-
 /** 介面更新頻率 */
 const exchangeInterval = 5000
-
-type ExchangeType = {
-  buy: number
-  sell: number
-}
-
-/** 匯率幣別選擇 */
-const exchange: {
-  selected: 'NTD' | 'MYR'
-  NTD: ExchangeType
-  MYR: ExchangeType
-} = {
-  selected: storage.getSelectedExchange(),
-  NTD: {
-    sell: 30,
-    buy: 30,
-  },
-  MYR: {
-    sell: 4.25,
-    buy: 4.25,
-  },
-}
 
 enum Selector {
   setupExchanage = `github-com-hilezir-set-exchanage`,
@@ -266,50 +238,6 @@ emitter.on(EmitterEvents.ready, () => {
   emitter.emit(EmitterEvents.sidebarButtonsArranged)
 })
 
-const getMYR = async (): Promise<ExchangeType> => {
-  try {
-    const MyrFinder = await GM.ajax({
-      method: 'GET',
-      url: `https://www.pbebank.com/rates/forex.html?id=${new Date()}`,
-    }).then(event => $(`<div>${event.responseText}</div>`))
-
-    return {
-      buy: Number(MyrFinder.find('tbody .optional').eq(0).html()),
-      sell: Number(MyrFinder.find('tbody .essential').eq(1).html()),
-    }
-  } catch (error) {
-    debugAPI.log.extend('大眾銀行馬幣錯誤')(error)
-
-    return {
-      buy: 1,
-      sell: 1,
-    }
-  }
-}
-
-const getNTD = async (): Promise<ExchangeType> => {
-  const htmlText = await GM.ajax({
-    method: 'GET',
-    url: 'https://rate.bot.com.tw/xrt?Lang=zh-TW',
-  })
-    .then(event => event.responseText)
-    .catch(() => ``)
-
-  const sell = Number(
-    /<td data-table="本行即期賣出" class="text-right display_none_print_show print_width">(?<TWD>[\d.]+)<\/td>/gim.exec(
-      htmlText,
-    )?.groups?.TWD || 1,
-  )
-
-  const buy = Number(
-    /<td data-table="本行即期買入" class="text-right display_none_print_show print_width">(?<TWD>[\d.]+)<\/td>/gim.exec(
-      htmlText,
-    )?.groups?.TWD || 1,
-  )
-
-  return { buy, sell }
-}
-
 /**
  * 匯兌選擇器
  */
@@ -337,7 +265,7 @@ emitter.on(EmitterEvents.sidebarButtonsArranged, async () => {
       }
 
       exchange.selected = selectedExchange
-      storage.setSelectedExchange(selectedExchange)
+      localStorage.setSelectedExchange(selectedExchange)
       emitter.emit(EmitterEvents.exchangeChanged)
       log(`已變更`, exchange)
     } else {
