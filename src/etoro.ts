@@ -4,6 +4,7 @@ import { stringifyUrl } from 'query-string'
 import { emitter, EmitterEvents } from './emitter'
 import { getNTD, getMYR, exchange } from './exchange'
 import { localStorage } from './localStorage'
+import { toCurrency } from './toCurrency'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -143,8 +144,16 @@ emitter.on(EmitterEvents.ready, () => {
     }
 
     .footer-unit-value-exchange {
-      font-size: 10pt;
+      font-size: 12pt;
       margin-left: 4px;
+    }
+
+    .footer-unit-value-exchange-main {
+      font-weight: bold;
+    }
+
+    .footer-unit-value-exchange-small {
+      font-size: 8pt;
     }
   `)
 })
@@ -185,11 +194,21 @@ emitter.on(EmitterEvents.exchangeChanged, async () => {
             ?.groups?.USD.replace(/,/g, '') || 0,
         )
 
-        twdBox.html(
-          `${exchange.selected} ${Math.ceil(
-            USD * exchange[exchange.selected].buy,
-          )}`,
-        )
+        const currencyValue = USD * exchange[exchange.selected].buy
+        const displayCurrency =
+          exchange.selected === 'MYR'
+            ? toCurrency(currencyValue)
+            : toCurrency(Math.ceil(currencyValue))
+
+        if (displayCurrency[1]) {
+          twdBox.html(
+            `${exchange.selected} <span class="footer-unit-value-exchange-main">${displayCurrency[0]}</span>.<span class="footer-unit-value-exchange-small">${displayCurrency[1]}</span>`,
+          )
+        } else {
+          twdBox.html(
+            `${exchange.selected} <span class="footer-unit-value-exchange-main">${displayCurrency[0]}</span>`,
+          )
+        }
       }
     })
 
