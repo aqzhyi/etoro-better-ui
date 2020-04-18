@@ -276,12 +276,13 @@ emitter.on(EmitterEvents.ready, () => {
  * 匯兌選擇器
  */
 emitter.on(EmitterEvents.sidebarButtonsArranged, async () => {
-  const log = debugAPI.log.extend('匯兌選擇器')
   exchange.NTD.buy = (await getNTD())?.buy || 1
   exchange.NTD.sell = (await getNTD())?.sell || 1
   emitter.emit(EmitterEvents.exchangeChanged)
 
   $(`#${Selector.setupExchanage}`).on('click', async () => {
+    const loading = toast.loading('設定變更中...')
+
     const selectedExchange = prompt(
       '請輸入你要選擇的幣別：「NTD」或「MYR」',
       'NTD',
@@ -302,9 +303,20 @@ emitter.on(EmitterEvents.sidebarButtonsArranged, async () => {
       localStorage.setSelectedExchange(selectedExchange)
       $(`.${Selector.exchanageField}`).html(selectedExchange)
       emitter.emit(EmitterEvents.exchangeChanged)
-      log(`已變更`, exchange)
+      toast.success(`設定已變更，當前：${exchange.selected}`)
     } else {
-      log(`沒有變更`, exchange)
+      toast.info(`設定沒有變更，當前：${exchange.selected}`)
     }
+
+    loading.hide?.()
   })
 })
+
+/**
+ * 確保 toast 不會被蓋住
+ */
+GM.addStyle(`
+  #ct-container {
+    z-index: 1000000
+  }
+`)
