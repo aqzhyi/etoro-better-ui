@@ -35,6 +35,17 @@ const configration = {
         test: /\.tsx?$/,
       },
       {
+        test: /\.css/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      {
         exclude: /node_modules/,
         test: /\.tsx?/,
         use: [

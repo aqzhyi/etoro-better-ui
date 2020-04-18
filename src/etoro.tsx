@@ -8,6 +8,8 @@ import { getNTD, getMYR, exchange } from './exchange'
 import { localStorage } from './localStorage'
 import { toCurrency } from './toCurrency'
 import toast from 'cogo-toast'
+import ExecutionDialog from './components/ExecutionDialog'
+import '@blueprintjs/core/lib/css/blueprint.css'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -30,6 +32,54 @@ const readyIntervalId = globalThis.setInterval(async () => {
     emitter.emit(EmitterEvents.ready)
   }
 }, 100)
+
+/**
+ * 載入跳出框框增強介面的時機點
+ *
+ * .trade-button-title                            // e.g. https://www.etoro.com/watchlists 的「買」「賣」按鈕
+ * [automation-id="buy-sell-button-rate-value"]   // e.g. https://www.etoro.com/watchlists 的買或賣的價格「7088.30」按鈕
+ * [automation-id="trade-button"]                 // e.g. https://www.etoro.com/markets/spx500 的「交易」大藍色按鈕
+ *
+ * （目前無法運作，原因暫不明）
+ * .etoro-trade-button                            // e.g. https://www.etoro.com/portfolio/btc 的「買 7088.30」「賣 7088.30」按鈕
+ */
+emitter.on(EmitterEvents.ready, () => {
+  ExecutionDialog.log(`安排好按鈕`)
+
+  $('body').delegate(
+    `
+      .trade-button-title
+      , [automation-id="buy-sell-button-rate-value"]
+      , [automation-id="trade-button"]
+      , .etoro-trade-button
+    `,
+    'click',
+    () => {
+      if (!localStorage.getExecutionMacroEnabled()) {
+        ExecutionDialog.log(`功能未開啟`)
+        return
+      }
+
+      ExecutionDialog.log(`開始偵測`)
+
+      const watchId = globalThis.setInterval(() => {
+        ExecutionDialog.log('偵測中...', ExecutionDialog)
+
+        if (
+          ExecutionDialog.isParentConstructed &&
+          !ExecutionDialog.isConstructed
+        ) {
+          ExecutionDialog.construct()
+        }
+
+        if (ExecutionDialog.isConstructed) {
+          globalThis.clearInterval(watchId)
+          ExecutionDialog.log(`結束偵測`)
+        }
+      }, 250)
+    },
+  )
+})
 
 /**
  * 歡迎訊息
@@ -261,14 +311,12 @@ emitter.on(EmitterEvents.ready, () => {
 /**
  * 安排側邊欄
  */
-emitter.on(EmitterEvents.ready, () => {
-  debugAPI.log('安排側邊欄')
+const Sidebar = () => {
+  const [enabled, setEnabled] = React.useState(
+    localStorage.getExecutionMacroEnabled(),
+  )
 
-  $('.w-menu-main').append(`
-    <div id="${Selector.sidebar}"></div>
-  `)
-
-  ReactDOM.render(
+  return (
     <React.Fragment>
       <div className='i-menu-sep'>新台幣＆馬幣增強腳本</div>
       <a
@@ -289,7 +337,32 @@ emitter.on(EmitterEvents.ready, () => {
         <span className='i-menu-icon sprite settings'></span>設定幣別（當前：
         <span className={Selector.exchanageField}>{exchange.selected}</span>）
       </span>
-    </React.Fragment>,
+      <span
+        onClick={() => {
+          localStorage.setExecutionMacroEnabled(!enabled)
+          setEnabled(!enabled)
+        }}
+        className='i-menu-link pointer'
+      >
+        <span className='i-menu-icon sprite settings'></span>下單巨集（當前：
+        <span className={Selector.exchanageField}>
+          {enabled ? '啟用' : '停用'}
+        </span>
+        ）
+      </span>
+    </React.Fragment>
+  )
+}
+
+emitter.on(EmitterEvents.ready, () => {
+  debugAPI.log('安排側邊欄')
+
+  $('.w-menu-main').append(`
+    <div id="${Selector.sidebar}"></div>
+  `)
+
+  ReactDOM.render(
+    <Sidebar />,
     globalThis.document.querySelector(`#${Selector.sidebar}`),
   )
 

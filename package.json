@@ -21,6 +21,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.1.0",
+    "css-loader": "^3.5.2",
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-loader": "^4.0.0",
@@ -28,6 +29,8 @@
     "globby": "^11.0.0",
     "http-server": "^0.12.1",
     "prettier": "^2.0.4",
+    "scss-loader": "0.0.1",
+    "style-loader": "^1.1.4",
     "ts-loader": "^7.0.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
@@ -35,6 +38,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.25.0",
+    "@blueprintjs/docs-theme": "^3.4.0",
     "cogo-toast": "^4.2.3",
     "debug": "^4.1.1",
     "emittery": "^0.6.0",
