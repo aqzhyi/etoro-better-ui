@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { debugAPI } from './debugAPI'
 import { GM } from './GM'
 import { stringifyUrl } from 'query-string'
@@ -17,6 +18,7 @@ const exchangeInterval = 5000
 enum Selector {
   setupExchanage = `github-com-hilezir-set-exchanage`,
   exchanageField = `github-com-hilezir-exchanage-display`,
+  sidebar = `github-com-hilezir-sidebar`,
 }
 
 /**
@@ -261,13 +263,35 @@ emitter.on(EmitterEvents.ready, () => {
  */
 emitter.on(EmitterEvents.ready, () => {
   debugAPI.log('安排側邊欄')
+
   $('.w-menu-main').append(`
-    <div class="i-menu-sep">新台幣增強腳本</div>
-  `).append(`
-    <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3"><span class="i-menu-icon sprite news"></span>腳本官網</a>
-    <a class="i-menu-link pointer" target="_blank" href="https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2"><span class="i-menu-icon sprite help"></span>聯絡作者</a>
-    <span id='${Selector.setupExchanage}' class="i-menu-link pointer"><span class="i-menu-icon sprite settings"></span>設定幣別（當前：<span class="${Selector.exchanageField}">${exchange.selected}</span>）</span>
+    <div id="${Selector.sidebar}"></div>
   `)
+
+  ReactDOM.render(
+    <React.Fragment>
+      <div className='i-menu-sep'>新台幣＆馬幣增強腳本</div>
+      <a
+        className='i-menu-link pointer'
+        target='_blank'
+        href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
+      >
+        <span className='i-menu-icon sprite news'></span>腳本官網
+      </a>
+      <a
+        className='i-menu-link pointer'
+        target='_blank'
+        href='https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2'
+      >
+        <span className='i-menu-icon sprite help'></span>聯絡作者
+      </a>
+      <span id={Selector.setupExchanage} className='i-menu-link pointer'>
+        <span className='i-menu-icon sprite settings'></span>設定幣別（當前：
+        <span className={Selector.exchanageField}>{exchange.selected}</span>）
+      </span>
+    </React.Fragment>,
+    globalThis.document.querySelector(`#${Selector.sidebar}`),
+  )
 
   emitter.emit(EmitterEvents.sidebarButtonsArranged)
 })
