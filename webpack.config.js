@@ -24,7 +24,7 @@ const configration = {
   },
   resolve: {
     mainFields: ['main'],
-    extensions: ['.js', '.tsx', '.ts'],
+    extensions: ['.js', '.tsx', '.ts', '.tsx'],
   },
   module: {
     rules: [

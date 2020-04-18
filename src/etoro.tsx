@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { debugAPI } from './debugAPI'
 import { GM } from './GM'
 import { stringifyUrl } from 'query-string'
@@ -5,6 +6,7 @@ import { emitter, EmitterEvents } from './emitter'
 import { getNTD, getMYR, exchange } from './exchange'
 import { localStorage } from './localStorage'
 import { toCurrency } from './toCurrency'
+import toast from 'cogo-toast'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -31,8 +33,20 @@ const readyIntervalId = globalThis.setInterval(async () => {
  * 歡迎訊息
  */
 emitter.on(EmitterEvents.ready, () => {
-  console.info(
-    '🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰 https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
+  toast.success(
+    <React.Fragment>
+      <span>🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰詢：</span>
+      <a
+        style={{
+          color: 'blue',
+        }}
+        href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
+        target='_blank'
+      >
+        better-etoro-ui 工具官方網站
+      </a>
+    </React.Fragment>,
+    { position: 'top-right', hideAfter: 5 },
   )
 })
 
