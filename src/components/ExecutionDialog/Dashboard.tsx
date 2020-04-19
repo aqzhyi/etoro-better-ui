@@ -94,7 +94,7 @@ export const Dashboard = () => {
         </div>
       </React.Fragment>
 
-      <HelperContent.RiskSpecification />
+      <HelperContent.RiskSpecification aStyle={{ color: 'blue' }} />
     </React.Fragment>
   )
 }

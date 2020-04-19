@@ -1,18 +1,22 @@
 import * as React from 'react'
 import { GM } from '../../GM'
 
+const RiskSpecification: React.FunctionComponent<{
+  aClassName?: string
+  aStyle?: React.CSSProperties
+}> = props => (
+  <a
+    className={props.aClassName}
+    style={props.aStyle}
+    href='https://www.notion.so/hilezi/df93abe54fb94d9f90f25679957737ef'
+    target='_blank'
+  >
+    {props.children}風險說明書
+  </a>
+)
+
 const com = {
-  RiskSpecification: () => (
-    <span>
-      <a
-        style={{ color: 'blue' }}
-        href='https://www.notion.so/hilezi/df93abe54fb94d9f90f25679957737ef'
-        target='_blank'
-      >
-        風險說明書
-      </a>
-    </span>
-  ),
+  RiskSpecification,
   WhoDeveloper: () => (
     <span className='HelperContent'>
       本功能由{' '}

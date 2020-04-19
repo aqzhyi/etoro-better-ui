@@ -10,6 +10,7 @@ import { toCurrency } from './toCurrency'
 import toast from 'cogo-toast'
 import ExecutionDialog from './components/ExecutionDialog'
 import '@blueprintjs/core/lib/css/blueprint.css'
+import HelperContent from './components/HelperContent'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -333,6 +334,11 @@ const Sidebar = () => {
       >
         <span className='i-menu-icon sprite help'></span>聯絡作者
       </a>
+
+      <HelperContent.RiskSpecification aClassName={'i-menu-link'}>
+        <span className={'i-menu-icon sprite help'}></span>
+      </HelperContent.RiskSpecification>
+
       <span id={Selector.setupExchanage} className='i-menu-link pointer'>
         <span className='i-menu-icon sprite settings'></span>設定幣別（當前：
         <span className={Selector.exchanageField}>{exchange.selected}</span>）
