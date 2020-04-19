@@ -351,10 +351,7 @@ const Sidebar = () => {
         className='i-menu-link pointer'
       >
         <span className='i-menu-icon sprite settings'></span>下單巨集（當前：
-        <span className={Selector.exchanageField}>
-          {enabled ? '啟用' : '停用'}
-        </span>
-        ）
+        <span>{enabled ? '啟用' : '停用'}</span>）
       </span>
     </React.Fragment>
   )
