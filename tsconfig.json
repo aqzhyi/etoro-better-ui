@@ -22,7 +22,10 @@
     "target": "ESNext",
     "allowJs": true,
     "sourceMap": true,
-    "noEmitOnError": false
+    "noEmitOnError": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
   "include": ["src"]

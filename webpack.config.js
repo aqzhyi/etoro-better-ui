@@ -6,6 +6,28 @@ const webpackNodeExternals = require('webpack-node-externals')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { BannerPlugin } = require('webpack')
 
+const srcSubAlias = globby
+  .sync(['src/*'], {
+    expandDirectories: false,
+    onlyDirectories: true,
+  })
+  .reduce((alias, item) => {
+    const [, directory] = item.split('/')
+    alias[`@/${directory}`] = path.join(__dirname, item)
+    return alias
+  }, {})
+
+const srcRootFilesAlias = globby
+  .sync(['src/*'], {
+    onlyFiles: true,
+  })
+  .reduce((alias, item) => {
+    const [, filename] = item.split('/')
+    alias[`@/${filename.replace(/\.tsx?$/, '')}`] = path.join(__dirname, item)
+    return alias
+  }, {})
+
+/** @ts-check */
 const configration = {
   externals: [],
   stats: {
@@ -23,6 +45,17 @@ const configration = {
     path: path.resolve(__dirname, 'src_dist'),
   },
   resolve: {
+    /**
+     * going
+     *   @/actions: __dirname + src/actions
+     *   @/lib: __dirname + src/lib
+     *   ....
+     * and so on
+     */
+    alias: {
+      ...srcSubAlias,
+      ...srcRootFilesAlias,
+    },
     mainFields: ['main'],
     extensions: ['.js', '.tsx', '.ts', '.tsx'],
   },
