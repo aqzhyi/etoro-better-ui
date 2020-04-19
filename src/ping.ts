@@ -1,4 +1,4 @@
-import { EmitterEvents, emitter } from './emitter'
+import { Events, emitter } from './emitter'
 
 /**
  * 取得使用者當前瀏覽器與 www.etoro.com 頁面之間的延遲數值

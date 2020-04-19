@@ -2,9 +2,8 @@ import Emittery from 'emittery'
 
 export const emitter = new Emittery()
 
-export enum EmitterEvents {
+export enum Events {
   ready = 'ready',
-  sidebarButtonsArranged = 'sidebarButtonsArranged',
-  exchangeChanged = 'exchangeChanged',
   onPing = 'onPing',
+  settingChange = 'settingChange',
 }

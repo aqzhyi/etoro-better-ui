@@ -45,6 +45,7 @@
     "emittery": "^0.6.0",
     "query-string": "^6.12.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-use": "^14.1.1"
   }
 }
