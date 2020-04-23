@@ -5,10 +5,10 @@ import {
   combineReducers,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
+import { setExchangeSelected } from '@/actions/setExchangeSelected'
+import { setMacroEnabled } from '@/actions/setMacroEnabled'
 
-const setExchangeSelected = createAction<'NTD' | 'MYR'>('setExchangeSelected')
-
-const settingsReducer = createReducer<{
+const settings = createReducer<{
   isMacroEnabled: boolean
   exchange: {
     selected: 'NTD' | 'MYR'
@@ -37,15 +37,28 @@ const settingsReducer = createReducer<{
     },
   },
   builder =>
-    builder.addCase(setExchangeSelected, (state, action) =>
-      produce(state, () => {
-        state.exchange.selected = action.payload
-      }),
-    ),
+    builder
+      .addCase(setExchangeSelected, (state, action) =>
+        produce(state, () => {
+          state.exchange.selected = action.payload
+          return state
+        }),
+      )
+      .addCase(setMacroEnabled, (state, action) =>
+        produce(state, () => {
+          state.isMacroEnabled = action.payload
+          return state
+        }),
+      ),
 )
 
+const rootReducers = combineReducers({ settings })
+
 const store = configureStore({
-  reducer: combineReducers({ settingsReducer }),
+  reducer: rootReducers,
 })
+
+export type RootState = ReturnType<typeof rootReducers>
+export type AppDispatch = typeof store.dispatch
 
 export default store

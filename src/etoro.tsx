@@ -11,6 +11,8 @@ import toast from 'cogo-toast'
 import ExecutionDialog from './components/ExecutionDialog'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import Sidebar from '@/components/Sidebar/Sidebar'
+import { Provider } from 'react-redux'
+import store from '@/store/_store'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -303,9 +305,9 @@ const onSidebarUpdate = () => {
   `)
 
   ReactDOM.render(
-    <span>
-      <Sidebar settings={settings} />
-    </span>,
+    <Provider store={store}>
+      <Sidebar />
+    </Provider>,
     globalThis.document.querySelector(`#${Selector.sidebar}`),
   )
   log('渲染左側欄 settings=', settings)
