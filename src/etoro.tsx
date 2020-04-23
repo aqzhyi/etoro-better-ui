@@ -20,12 +20,6 @@ globalThis.localStorage.setItem('debug', '*')
 /** 介面更新頻率 */
 const exchangeInterval = 5000
 
-enum Selector {
-  setupExchanage = `github-com-hilezir-set-exchanage`,
-  exchanageField = `github-com-hilezir-exchanage-display`,
-  sidebar = `github-com-hilezir-sidebar`,
-}
-
 /**
  * 載入腳本的時機點
  */
@@ -295,22 +289,22 @@ emitter.on(Events.settingChange, async () => {
 const onSidebarUpdate = () => {
   const log = debugAPI.log.extend('安排側邊欄')
 
-  const settings = {
-    exchangeSelect: localStorage.getSelectedExchange(),
-    macroEnabled: localStorage.getExecutionMacroEnabled(),
-  }
+  const selector = 'github-com-hilezir-sidebar'
 
-  $('.w-menu-main').append(`
-    <div id="${Selector.sidebar}"></div>
-  `)
+  const container = $(`<div id="${selector}"></div>`)
+
+  if (!$(`#${selector}`).length) {
+    $('.w-menu-main').append(container)
+  }
 
   ReactDOM.render(
     <Provider store={store}>
       <Sidebar />
     </Provider>,
-    globalThis.document.querySelector(`#${Selector.sidebar}`),
+    globalThis.document.querySelector(`#${selector}`),
   )
-  log('渲染左側欄 settings=', settings)
+
+  log('渲染左側欄 settings=')
 }
 emitter.on(Events.ready, onSidebarUpdate)
 emitter.on(Events.settingChange, onSidebarUpdate)
