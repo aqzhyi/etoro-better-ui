@@ -9,9 +9,12 @@ const com = {
   get isParentConstructed() {
     return (
       !!$('.uidialog').length &&
-      !!$('[data-etoro-automation-id="execution-is-refund-daily-value"]')
+      (!!$('[data-etoro-automation-id="execution-is-refund-daily-value"]')
         .html()
-        ?.trim()
+        ?.trim() ||
+        $('[data-etoro-automation-id="execution-deposit-button"]')
+          .html()
+          .trim())
     )
   },
   get isConstructed() {
