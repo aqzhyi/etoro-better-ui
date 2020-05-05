@@ -2,10 +2,12 @@ import * as React from 'react'
 import { GM } from '../../GM'
 
 const RiskSpecification: React.FunctionComponent<{
+  attrs?: object
   aClassName?: string
   aStyle?: React.CSSProperties
 }> = props => (
   <a
+    {...props.attrs}
     className={props.aClassName}
     style={props.aStyle}
     href='https://www.notion.so/hilezi/df93abe54fb94d9f90f25679957737ef'

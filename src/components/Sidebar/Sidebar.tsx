@@ -13,31 +13,51 @@ const Sidebar: React.FunctionComponent = () => {
   const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
 
+  /**
+   * etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式
+   */
+  const dynamicStyleClassName =
+    Array.from($('.w-menu').get(0).attributes).find(value =>
+      value.name.includes('_ngcontent'),
+    )?.name || ''
+
+  const attrsToAppend = { [dynamicStyleClassName]: '' }
+
   return (
     <React.Fragment>
-      <div className='i-menu-sep'>新台幣＆馬幣增強腳本</div>
+      <div {...attrsToAppend} className='i-menu-sep'>
+        新台幣＆馬幣增強腳本
+      </div>
 
       <a
+        {...attrsToAppend}
         className='i-menu-link pointer'
         target='_blank'
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
       >
-        <span className='i-menu-icon sprite news'></span>腳本官網
+        <span {...attrsToAppend} className='i-menu-icon sprite news'></span>
+        腳本官網
       </a>
 
       <a
+        {...attrsToAppend}
         className='i-menu-link pointer'
         target='_blank'
         href='https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2'
       >
-        <span className='i-menu-icon sprite help'></span>聯絡作者
+        <span {...attrsToAppend} className='i-menu-icon sprite help'></span>
+        聯絡作者
       </a>
 
-      <HelperContent.RiskSpecification aClassName={'i-menu-link'}>
-        <span className={'i-menu-icon sprite help'}></span>
+      <HelperContent.RiskSpecification
+        aClassName={'i-menu-link'}
+        attrs={attrsToAppend}
+      >
+        <span {...attrsToAppend} className={'i-menu-icon sprite help'}></span>
       </HelperContent.RiskSpecification>
 
       <span
+        {...attrsToAppend}
         onClick={async () => {
           const loading = toast.loading('設定變更中...', {
             position: 'bottom-left',
@@ -65,11 +85,12 @@ const Sidebar: React.FunctionComponent = () => {
         }}
         className='i-menu-link pointer'
       >
-        <span className='i-menu-icon sprite settings'></span>
+        <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
         設定幣別（當前：<span>{settings.exchange.selected}</span>）
       </span>
 
       <span
+        {...attrsToAppend}
         onClick={() => {
           const yourEnabled = !settings.isMacroEnabled
           dispatch(setMacroEnabled(yourEnabled))
@@ -81,7 +102,7 @@ const Sidebar: React.FunctionComponent = () => {
         }}
         className='i-menu-link pointer'
       >
-        <span className='i-menu-icon sprite settings'></span>
+        <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
         下單巨集（當前：
         <span>{settings.isMacroEnabled ? '啟用' : '停用'}</span>）
       </span>
