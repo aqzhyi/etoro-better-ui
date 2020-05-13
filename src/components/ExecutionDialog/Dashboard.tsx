@@ -3,6 +3,7 @@ import toast from 'cogo-toast'
 import { ButtonGroup, Button } from '@blueprintjs/core'
 import HelperContent from '../HelperContent'
 import { storage } from '../../storage'
+import { useTypedSelector } from '@/store/_store'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -26,18 +27,23 @@ const toLever = (value: number) => {
     targetTabEl.text().includes('槓杆')
 
   if (isTarget) {
+    // tab 先按下後，等到 ng-if 使元素出現，在 select 按下
     targetTabEl.click()
 
-    // tag 先按後，等到 ng-if 使元素出現，在 select 按下
-    $('.risk-itemlevel')
-      .eq(value - 1)
-      .click()
+    $(`.risk-itemlevel:contains(" x${value} ")`).click()
   } else {
     toast.info(<div>動作沒有執行，因為發現可能的出錯</div>)
   }
 }
 
 export const Dashboard = () => {
+  const amounts = useTypedSelector(
+    state => state.settings.betterEtoroUIConfig.executionAmount,
+  )
+  const levers = useTypedSelector(
+    state => state.settings.betterEtoroUIConfig.executionLever,
+  )
+
   React.useEffect(() => {
     toast.warn(
       <span>
@@ -60,36 +66,34 @@ export const Dashboard = () => {
         <div style={{ marginBottom: 16 }}>
           <h2 style={{ textAlign: 'center' }}>金額</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
-            <Button onClick={toAmount.bind(toAmount, 50)} intent='primary'>
-              $50
-            </Button>
-            <Button onClick={toAmount.bind(toAmount, 100)} intent='primary'>
-              $100
-            </Button>
-            <Button onClick={toAmount.bind(toAmount, 200)} intent='primary'>
-              $200
-            </Button>
-            <Button onClick={toAmount.bind(toAmount, 300)} intent='primary'>
-              $300
-            </Button>
-            <Button onClick={toAmount.bind(toAmount, 500)} intent='primary'>
-              $500
-            </Button>
-            <Button onClick={toAmount.bind(toAmount, 1000)} intent='primary'>
-              $1000
-            </Button>
+            {amounts.map(value => {
+              return (
+                <Button
+                  onClick={toAmount.bind(toAmount, value)}
+                  intent='primary'
+                >
+                  $<span>{value}</span>
+                </Button>
+              )
+            })}
           </ButtonGroup>
         </div>
 
         <div style={{ marginBottom: 16 }}>
           <h2 style={{ textAlign: 'center' }}>槓桿</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
-            <Button onClick={toLever.bind(toLever, 1)} intent='primary'>
-              x1
-            </Button>
-            <Button onClick={toLever.bind(toLever, 2)} intent='primary'>
-              x2
-            </Button>
+            <ButtonGroup fill={true} large={true} vertical={true}>
+              {levers.map(value => {
+                return (
+                  <Button
+                    onClick={toLever.bind(toLever, value)}
+                    intent='primary'
+                  >
+                    x<span>{value}</span>
+                  </Button>
+                )
+              })}
+            </ButtonGroup>
           </ButtonGroup>
         </div>
       </React.Fragment>

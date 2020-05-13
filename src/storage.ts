@@ -1,8 +1,10 @@
 import { exchange } from './exchange'
 import toast from 'cogo-toast'
 
-type BetterEtoroUIConfig = {
+export type BetterEtoroUIConfig = {
   executionMacroEnabled: boolean
+  executionAmount: number[]
+  executionLever: number[]
   selectedExchange: 'NTD' | 'MYR'
 }
 
@@ -24,6 +26,8 @@ const findLegacyConfig = () => {
 
 const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   executionMacroEnabled: findLegacyConfig().executionMacroEnabled ?? false,
+  executionAmount: [50, 100, 200, 300, 500],
+  executionLever: [1, 2, 5, 10, 20],
   selectedExchange: findLegacyConfig().selectedExchange ?? 'NTD',
 }
 
@@ -35,7 +39,10 @@ export const storage = {
 
     try {
       if (_config) {
-        return JSON.parse(_config) as BetterEtoroUIConfig
+        return {
+          ...DEFAULT_CONFIG,
+          ...JSON.parse(_config),
+        } as BetterEtoroUIConfig
       } else {
         return DEFAULT_CONFIG
       }

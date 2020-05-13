@@ -8,10 +8,21 @@ import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
+import { useInterval } from 'react-use'
 
 const Sidebar: React.FunctionComponent = () => {
   const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
+  const [ping, setPing] = React.useState(0)
+
+  useInterval(() => {
+    const start = new Date().getTime()
+
+    fetch('https://www.etoro.com/discover/copyportfolios').finally(() => {
+      const end = new Date().getTime()
+      setPing(end - start)
+    })
+  }, 10000)
 
   /**
    * etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式
@@ -105,6 +116,14 @@ const Sidebar: React.FunctionComponent = () => {
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
         下單巨集（當前：
         <span>{settings.isMacroEnabled ? '啟用' : '停用'}</span>）
+      </span>
+
+      <span {...attrsToAppend} className='i-menu-link'>
+        <span
+          {...attrsToAppend}
+          className='i-menu-icon sprite clubs-ref'
+        ></span>
+        大概延遲：<span>{ping}ms</span>
       </span>
     </React.Fragment>
   )

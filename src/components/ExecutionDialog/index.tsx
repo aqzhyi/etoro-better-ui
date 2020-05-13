@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { debugAPI } from '../../debugAPI'
 import { GM } from '../../GM'
 import { Dashboard } from './Dashboard'
+import { Provider } from 'react-redux'
+import store from '@/store/_store'
 
 const com = {
   log: debugAPI.log.extend('下單輔助巨集'),
@@ -27,7 +29,9 @@ const com = {
     )
 
     ReactDOM.render(
-      <Dashboard />,
+      <Provider store={store}>
+        <Dashboard />
+      </Provider>,
       globalThis.document.querySelector('#ExecutionDialog-ExecutionWrap'),
     )
 

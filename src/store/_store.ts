@@ -7,9 +7,13 @@ import {
 import { produce } from 'immer'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
-import { storage } from '@/storage'
+import { setMacroAmount } from '@/actions/setMacroAmount'
+import { setMacroLever } from '@/actions/setMacroLever'
+import { storage, BetterEtoroUIConfig } from '@/storage'
+import { TypedUseSelectorHook, useSelector } from 'react-redux'
 
 const settings = createReducer<{
+  betterEtoroUIConfig: BetterEtoroUIConfig
   isMacroEnabled: boolean
   exchange: {
     selected: 'NTD' | 'MYR'
@@ -24,6 +28,7 @@ const settings = createReducer<{
   }
 }>(
   {
+    betterEtoroUIConfig: storage.findConfig(),
     isMacroEnabled: storage.findConfig().executionMacroEnabled,
     exchange: {
       selected: storage.findConfig().selectedExchange,
@@ -50,7 +55,15 @@ const settings = createReducer<{
           state.isMacroEnabled = action.payload
           return state
         }),
-      ),
+      )
+      .addCase(setMacroAmount, (state, action) => {
+        state.betterEtoroUIConfig.executionAmount = action.payload
+        return state
+      })
+      .addCase(setMacroLever, (state, action) => {
+        state.betterEtoroUIConfig.executionLever = action.payload
+        return state
+      }),
 )
 
 const rootReducers = combineReducers({ settings })
@@ -61,5 +74,6 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof rootReducers>
 export type AppDispatch = typeof store.dispatch
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export default store
