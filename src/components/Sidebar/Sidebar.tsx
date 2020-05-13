@@ -2,7 +2,7 @@ import * as React from 'react'
 import HelperContent from '@/components/HelperContent'
 import toast from 'cogo-toast'
 import { exchange, getMYR, getNTD } from '@/exchange'
-import { localStorage } from '@/localStorage'
+import { storage } from '@/storage'
 import { emitter, Events } from '@/emitter'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
@@ -75,7 +75,7 @@ const Sidebar: React.FunctionComponent = () => {
           }
 
           dispatch(setExchangeSelected(youSelected))
-          localStorage.setSelectedExchange(youSelected)
+          storage.saveConfig({ selectedExchange: youSelected })
           emitter.emit(Events.settingChange)
           toast.success(`設定已變更，當前：${youSelected}`, {
             position: 'bottom-left',
@@ -94,7 +94,7 @@ const Sidebar: React.FunctionComponent = () => {
         onClick={() => {
           const yourEnabled = !settings.isMacroEnabled
           dispatch(setMacroEnabled(yourEnabled))
-          localStorage.setExecutionMacroEnabled(yourEnabled)
+          storage.saveConfig({ executionMacroEnabled: yourEnabled })
           emitter.emit(Events.settingChange)
           toast.success(`設定已變更，啟用：${yourEnabled}`, {
             position: 'bottom-left',

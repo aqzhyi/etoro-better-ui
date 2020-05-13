@@ -2,7 +2,7 @@ import * as React from 'react'
 import toast from 'cogo-toast'
 import { ButtonGroup, Button } from '@blueprintjs/core'
 import HelperContent from '../HelperContent'
-import { localStorage } from '../../localStorage'
+import { storage } from '../../storage'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -48,7 +48,7 @@ export const Dashboard = () => {
     )
   }, [])
 
-  if (!localStorage.getExecutionMacroEnabled()) {
+  if (!storage.findConfig().executionMacroEnabled) {
     return null
   }
 

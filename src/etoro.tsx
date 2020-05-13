@@ -5,7 +5,7 @@ import { GM } from './GM'
 import { stringifyUrl } from 'query-string'
 import { emitter, Events } from './emitter'
 import { getNTD, getMYR, exchange } from './exchange'
-import { localStorage } from './localStorage'
+import { storage } from './storage'
 import { toCurrency } from './toCurrency'
 import toast from 'cogo-toast'
 import ExecutionDialog from './components/ExecutionDialog'
@@ -52,7 +52,7 @@ emitter.on(Events.ready, () => {
     `,
     'click',
     () => {
-      if (!localStorage.getExecutionMacroEnabled()) {
+      if (!storage.findConfig().executionMacroEnabled) {
         ExecutionDialog.log(`功能未開啟`)
         return
       }
@@ -191,7 +191,9 @@ emitter.on(Events.settingChange, async () => {
 
   if (target.length) {
     target.html(
-      `入金（${exchange[localStorage.getSelectedExchange()].sell} 銀行賣出）`,
+      `入金（${
+        exchange[storage.findConfig().selectedExchange].sell
+      } 銀行賣出）`,
     )
     log('成功')
   } else {
@@ -231,7 +233,7 @@ emitter.on(Events.settingChange, async () => {
   globalThis.setInterval(provideNTD, exchangeInterval)
 
   async function provideNTD() {
-    const exchangeSelected = localStorage.getSelectedExchange()
+    const exchangeSelected = storage.findConfig().selectedExchange
 
     const unitValues = Array.from(
       document.querySelectorAll('.footer-unit-value'),

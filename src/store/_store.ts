@@ -7,7 +7,7 @@ import {
 import { produce } from 'immer'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
-import { localStorage } from '@/localStorage'
+import { storage } from '@/storage'
 
 const settings = createReducer<{
   isMacroEnabled: boolean
@@ -24,9 +24,9 @@ const settings = createReducer<{
   }
 }>(
   {
-    isMacroEnabled: localStorage.getExecutionMacroEnabled(),
+    isMacroEnabled: storage.findConfig().executionMacroEnabled,
     exchange: {
-      selected: localStorage.getSelectedExchange(),
+      selected: storage.findConfig().selectedExchange,
       NTD: {
         buy: 30,
         sell: 30,

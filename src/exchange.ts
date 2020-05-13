@@ -1,5 +1,5 @@
 import { GM } from './GM'
-import { localStorage } from './localStorage'
+import { storage } from './storage'
 import { debugAPI } from './debugAPI'
 
 type ExchangeType = {
@@ -13,7 +13,7 @@ export const exchange: {
   NTD: ExchangeType
   MYR: ExchangeType
 } = {
-  selected: localStorage.getSelectedExchange(),
+  selected: storage.findConfig().selectedExchange,
   NTD: {
     sell: 30,
     buy: 30,
