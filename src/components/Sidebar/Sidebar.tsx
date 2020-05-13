@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { useInterval } from 'react-use'
+import { setMacroAmount } from '@/actions/setMacroAmount'
 
 const Sidebar: React.FunctionComponent = () => {
   const settings = useAppSelector(state => state.settings)
@@ -116,6 +117,32 @@ const Sidebar: React.FunctionComponent = () => {
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
         下單巨集（當前：
         <span>{settings.isMacroEnabled ? '啟用' : '停用'}</span>）
+      </span>
+
+      <span
+        {...attrsToAppend}
+        className='i-menu-link'
+        onClick={() => {
+          const newValue = prompt(
+            `請輸入「數字」，以「,」分隔。例如 200,500,1000,2000,3000`,
+            settings.betterEtoroUIConfig.executionAmount.join(','),
+          )
+
+          if (newValue) {
+            storage.saveConfig({
+              executionAmount: newValue.split(',').map(Number),
+            })
+
+            dispatch(setMacroAmount(newValue.split(',').map(Number)))
+          }
+
+          toast.info(`設定已變更，當前：${newValue}`, {
+            position: 'bottom-left',
+          })
+        }}
+      >
+        <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
+        巨集金額設定
       </span>
 
       <span {...attrsToAppend} className='i-menu-link'>
