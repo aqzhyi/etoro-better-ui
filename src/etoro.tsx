@@ -32,13 +32,6 @@ const readyIntervalId = globalThis.setInterval(async () => {
 
 /**
  * 載入跳出框框增強介面的時機點
- *
- * .trade-button-title                            // e.g. https://www.etoro.com/watchlists 的「買」「賣」按鈕
- * [automation-id="buy-sell-button-rate-value"]   // e.g. https://www.etoro.com/watchlists 的買或賣的價格「7088.30」按鈕
- * [automation-id="trade-button"]                 // e.g. https://www.etoro.com/markets/spx500 的「交易」大藍色按鈕
- *
- * （目前無法運作，原因暫不明）
- * .etoro-trade-button                            // e.g. https://www.etoro.com/portfolio/btc 的「買 7088.30」「賣 7088.30」按鈕
  */
 emitter.on(Events.ready, () => {
   ExecutionDialog.log(`安排好按鈕`)
