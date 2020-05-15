@@ -43,39 +43,40 @@ const readyIntervalId = globalThis.setInterval(async () => {
 emitter.on(Events.ready, () => {
   ExecutionDialog.log(`安排好按鈕`)
 
-  $('body').delegate(
-    `
-      .trade-button-title
-      , [automation-id="buy-sell-button-rate-value"]
-      , [automation-id="trade-button"]
-      , .etoro-trade-button
-    `,
-    'click',
-    () => {
-      if (!storage.findConfig().executionMacroEnabled) {
-        ExecutionDialog.log(`功能未開啟`)
-        return
-      }
+  let watchId
 
-      ExecutionDialog.log(`開始偵測`)
+  const construct = () => {
+    ExecutionDialog.log('偵測中...', ExecutionDialog)
 
-      const watchId = globalThis.setInterval(() => {
-        ExecutionDialog.log('偵測中...', ExecutionDialog)
+    if (ExecutionDialog.isParentConstructed && !ExecutionDialog.isConstructed) {
+      ExecutionDialog.construct()
+    }
 
-        if (
-          ExecutionDialog.isParentConstructed &&
-          !ExecutionDialog.isConstructed
-        ) {
-          ExecutionDialog.construct()
-        }
+    if (ExecutionDialog.isConstructed) {
+      globalThis.clearInterval(watchId)
+      ExecutionDialog.log(`結束偵測`)
+    }
+  }
 
-        if (ExecutionDialog.isConstructed) {
-          globalThis.clearInterval(watchId)
-          ExecutionDialog.log(`結束偵測`)
-        }
-      }, 250)
-    },
-  )
+  $('body').delegate(`.uidialog-content`, 'mouseover', () => {
+    if (!storage.findConfig().executionMacroEnabled) {
+      ExecutionDialog.log(`功能未開啟`)
+      return
+    }
+
+    ExecutionDialog.log(`開始偵測`)
+
+    globalThis.clearInterval(watchId)
+    construct()
+    watchId = globalThis.setInterval(construct, 250)
+  })
+
+  $('body').delegate(`.uidialog-content`, 'mouseout', () => {
+    globalThis.setTimeout(() => {
+      ExecutionDialog.log(`結束偵測`)
+      globalThis.clearInterval(watchId)
+    }, 300)
+  })
 })
 
 /**

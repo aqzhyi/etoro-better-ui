@@ -16,7 +16,7 @@ const com = {
         ?.trim() ||
         $('[data-etoro-automation-id="execution-deposit-button"]')
           .html()
-          .trim())
+          ?.trim())
     )
   },
   get isConstructed() {
