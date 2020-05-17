@@ -13,6 +13,7 @@ import '@blueprintjs/core/lib/css/blueprint.css'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { Provider } from 'react-redux'
 import store from '@/store/_store'
+import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
 
 interface $ extends JQueryStatic {}
 globalThis.localStorage.setItem('debug', '*')
@@ -101,13 +102,7 @@ emitter.on(Events.ready, async () => {
 
   GM.addStyle(`
     .user-meta {
-      margin: 0 8px;
-      font-size: 10pt;
-      background: #ffcf76;
-      padding: 4px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 96px;
+      margin-right: 8px;
     }
   `)
 
@@ -134,40 +129,21 @@ emitter.on(Events.ready, async () => {
           '',
       )?.groups?.cid
 
+      const traderName = $(element)
+        .find('[automation-id="trade-item-name"]')
+        .html()
+
       if (cid && !hasAppended) {
-        userFinder.prepend($(`<button class="user-meta">餘額</button>`))
+        userFinder.prepend(
+          $(`<button class="user-meta" id="user-meta-${cid}"></button>`),
+        )
 
-        const button = userFinder.find('.user-meta')
-
-        button.on('click', () => {
-          const button = userFinder.find('.user-meta')
-          button.html('讀取中')
-
-          GM.ajax({
-            method: 'GET',
-            url: stringifyUrl({
-              url:
-                'https://www.etoro.com/sapi/trade-data-real/live/public/portfolios',
-              query: {
-                cid,
-              },
-            }),
-          })
-            .then(event => {
-              const model = JSON.parse(
-                /var model = (?<model>{[\s\S]+}),/i.exec(event.responseText)
-                  ?.groups?.model || `{}`,
-              ) as {
-                /** 餘額 */
-                CreditByRealizedEquity?: number
-              }
-
-              button.html(`餘額 ${model.CreditByRealizedEquity?.toFixed(2)}%`)
-            })
-            .finally(() => {
-              log(`獲取 cid=${cid} 餘額`)
-            })
-        })
+        ReactDOM.render(
+          <Provider store={store}>
+            <WatchlistUserControls cid={cid} traderName={traderName} />
+          </Provider>,
+          globalThis.document.querySelector(`#user-meta-${cid}`),
+        )
       }
     })
   }
