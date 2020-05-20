@@ -123,22 +123,7 @@ const Sidebar: React.FunctionComponent = () => {
         {...attrsToAppend}
         className='i-menu-link'
         onClick={() => {
-          const newValue = prompt(
-            `請輸入「數字」，以「,」分隔。例如 200,500,1000,2000,3000`,
-            settings.betterEtoroUIConfig.executionAmount.join(','),
-          )
-
-          if (newValue) {
-            storage.saveConfig({
-              executionAmount: newValue.split(',').map(Number),
-            })
-
-            dispatch(setMacroAmount(newValue.split(',').map(Number)))
-          }
-
-          toast.info(`設定已變更，當前：${newValue}`, {
-            position: 'bottom-left',
-          })
+          dispatch(setMacroAmount())
         }}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>

@@ -4,6 +4,8 @@ import { ButtonGroup, Button } from '@blueprintjs/core'
 import HelperContent from '../HelperContent'
 import { storage } from '../../storage'
 import { useTypedSelector } from '@/store/_store'
+import { setMacroAmount } from '@/actions/setMacroAmount'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -42,6 +44,8 @@ const toLever = (value: number) => {
 }
 
 export const Dashboard = () => {
+  const dispatch = useAppDispatch()
+
   const amounts = useTypedSelector(
     state => state.settings.betterEtoroUIConfig.executionAmount,
   )
@@ -68,7 +72,7 @@ export const Dashboard = () => {
       <HelperContent.WhoDeveloper />
 
       <React.Fragment>
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: 8 }}>
           <h2 style={{ textAlign: 'center' }}>金額</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
             {amounts.map(value => {
@@ -85,20 +89,26 @@ export const Dashboard = () => {
         </div>
 
         <div style={{ marginBottom: 16 }}>
+          <Button
+            icon='settings'
+            onClick={() => {
+              dispatch(setMacroAmount())
+            }}
+          >
+            設定
+          </Button>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
           <h2 style={{ textAlign: 'center' }}>槓桿</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
-            <ButtonGroup fill={true} large={true} vertical={true}>
-              {levers.map(value => {
-                return (
-                  <Button
-                    onClick={toLever.bind(toLever, value)}
-                    intent='primary'
-                  >
-                    x<span>{value}</span>
-                  </Button>
-                )
-              })}
-            </ButtonGroup>
+            {levers.map(value => {
+              return (
+                <Button onClick={toLever.bind(toLever, value)} intent='primary'>
+                  x<span>{value}</span>
+                </Button>
+              )
+            })}
           </ButtonGroup>
         </div>
       </React.Fragment>

@@ -35,6 +35,11 @@ const com = {
       globalThis.document.querySelector('#ExecutionDialog-ExecutionWrap'),
     )
 
+    $('#ExecutionDialog-ExecutionWrap')
+      .eq(0)
+      .nextAll('#ExecutionDialog-ExecutionWrap')
+      .remove()
+
     com.log('安排')
   },
 }

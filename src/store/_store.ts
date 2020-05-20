@@ -3,6 +3,7 @@ import {
   createAction,
   createReducer,
   combineReducers,
+  createAsyncThunk,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
@@ -56,14 +57,18 @@ const settings = createReducer<{
           return state
         }),
       )
-      .addCase(setMacroAmount, (state, action) => {
-        state.betterEtoroUIConfig.executionAmount = action.payload
-        return state
-      })
-      .addCase(setMacroLever, (state, action) => {
-        state.betterEtoroUIConfig.executionLever = action.payload
-        return state
-      }),
+      .addCase(setMacroAmount.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.betterEtoroUIConfig.executionAmount = [...action.payload]
+          return state
+        }),
+      )
+      .addCase(setMacroLever, (state, action) =>
+        produce(state, () => {
+          state.betterEtoroUIConfig.executionLever = [...action.payload]
+          return state
+        }),
+      ),
 )
 
 const rootReducers = combineReducers({ settings })
