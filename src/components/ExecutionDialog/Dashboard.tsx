@@ -7,9 +7,14 @@ import { useTypedSelector } from '@/store/_store'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
-  $('[data-etoro-automation-id="input"]').val(`${value}`)
-  $('[data-etoro-automation-id="input"]').change()
-  $('[data-etoro-automation-id="input"]').blur()
+
+  const inputEl = $(
+    '[data-etoro-automation-id="execution-amount-input-section"]',
+  ).find('input')
+
+  inputEl.val(`${value}`)
+  inputEl.change()
+  inputEl.blur()
 }
 
 const toLever = (value: number) => {
