@@ -15,7 +15,7 @@ import { Provider } from 'react-redux'
 import store from '@/store/_store'
 import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
 
-interface $ extends JQueryStatic {}
+type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', '*')
 
 /** 介面更新頻率 */

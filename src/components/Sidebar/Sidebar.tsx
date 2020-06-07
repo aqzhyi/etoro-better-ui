@@ -108,7 +108,7 @@ const Sidebar: React.FunctionComponent = () => {
           dispatch(setMacroEnabled(yourEnabled))
           storage.saveConfig({ executionMacroEnabled: yourEnabled })
           emitter.emit(Events.settingChange)
-          toast.success(`設定已變更，啟用：${yourEnabled}`, {
+          toast.success(`設定已變更，啟用：${String(yourEnabled)}`, {
             position: 'bottom-left',
           })
         }}

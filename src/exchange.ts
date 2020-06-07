@@ -51,7 +51,7 @@ export const getMYR = async (): Promise<ExchangeType> => {
   try {
     const MyrFinder = await GM.ajax({
       method: 'GET',
-      url: `https://www.pbebank.com/rates/forex.html?id=${new Date()}`,
+      url: `https://www.pbebank.com/rates/forex.html?id=${new Date().toString()}`,
     }).then(event => $(`<div>${event.responseText}</div>`))
 
     return {

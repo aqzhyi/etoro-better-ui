@@ -38,6 +38,15 @@ module.exports = {
     '@typescript-eslint/unbound-method': 'warn',
     // TypeScript Assertion Function 可以不需要 stataments
     '@typescript-eslint/no-empty-function': 'warn',
+    // see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-floating-promises.md
+    '@typescript-eslint/no-floating-promises': 'off',
+    // 這個交由 prettier
+    '@typescript-eslint/no-extra-semi': 'off',
+    // 我不想每個都寫明 return type 想讓它自行 infer
+    '@typescript-eslint/explicit-module-boundary-types': [
+      'off',
+      { allowDirectConstAssertionInArrowFunctions: true },
+    ],
   },
   overrides: [
     {
@@ -59,7 +68,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.js'],
+      files: ['src/**/*.js'],
       parser: 'babel-eslint',
     },
   ],

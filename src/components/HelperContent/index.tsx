@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GM } from '../../GM'
 
 const RiskSpecification: React.FunctionComponent<{
-  attrs?: object
+  attrs?: Record<string, unknown>
   aClassName?: string
   aStyle?: React.CSSProperties
 }> = props => (

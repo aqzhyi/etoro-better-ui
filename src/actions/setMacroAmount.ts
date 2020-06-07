@@ -30,7 +30,9 @@ export const setMacroAmount = createAsyncThunk<
   }
 
   toast.info(
-    `設定未變更，當前：${state.settings.betterEtoroUIConfig.executionAmount}`,
+    `設定未變更，當前：${state.settings.betterEtoroUIConfig.executionAmount.join(
+      ',',
+    )}`,
     {
       position: 'bottom-left',
     },

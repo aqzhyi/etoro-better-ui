@@ -5,6 +5,8 @@ const globby = require('globby')
 const webpackNodeExternals = require('webpack-node-externals')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { BannerPlugin } = require('webpack')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const srcSubAlias = globby
   .sync(['src/*'], {
@@ -112,6 +114,8 @@ const configration = {
       reportFiles: ['src/**/*.{ts,tsx}'],
       silent: false,
     }),
+    new ProgressBarPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
     new BannerPlugin({
       test: /etoro/,
       raw: false,

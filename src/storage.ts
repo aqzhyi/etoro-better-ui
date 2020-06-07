@@ -16,12 +16,14 @@ const findLegacyConfig = () => {
     'selected_exchange',
   ) as 'NTD' | 'MYR' | null
 
-  return {
+  const config = {
     executionMacroEnabled: JSON.parse(
       rawEtoroBetterUiExecutionMacroEnabled || 'false',
-    ),
+    ) as boolean,
     selectedExchange: rawSelectedExchange || 'NTD',
-  } as BetterEtoroUIConfig
+  }
+
+  return config
 }
 
 const DEFAULT_CONFIG: BetterEtoroUIConfig = {
@@ -34,7 +36,7 @@ const DEFAULT_CONFIG: BetterEtoroUIConfig = {
 const CONFIG_STORAGE_KEY = 'better_etoro_ui_config'
 
 export const storage = {
-  findConfig: () => {
+  findConfig: (): typeof DEFAULT_CONFIG => {
     const _config = globalThis.localStorage.getItem(CONFIG_STORAGE_KEY)
 
     try {
@@ -47,13 +49,14 @@ export const storage = {
         return DEFAULT_CONFIG
       }
     } catch (error) {
-      toast.error(error.message, {
-        position: 'bottom-left',
-      })
+      error instanceof Error &&
+        toast.error(error.message, {
+          position: 'bottom-left',
+        })
       return DEFAULT_CONFIG
     }
   },
-  saveConfig: (config: Partial<BetterEtoroUIConfig>) => {
+  saveConfig: (config: Partial<BetterEtoroUIConfig>): boolean => {
     const _config = JSON.stringify({
       ...storage.findConfig(),
       ...config,
@@ -70,9 +73,10 @@ export const storage = {
       globalThis.localStorage.setItem(CONFIG_STORAGE_KEY, _config)
       return true
     } catch (error) {
-      toast.error(error.message, {
-        position: 'bottom-left',
-      })
+      error instanceof Error &&
+        toast.error(error.message, {
+          position: 'bottom-left',
+        })
       return false
     }
   },
