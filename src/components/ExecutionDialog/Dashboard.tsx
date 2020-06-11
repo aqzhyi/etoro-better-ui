@@ -6,6 +6,7 @@ import { storage } from '../../storage'
 import { useTypedSelector } from '@/store/_store'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { i18n } from '@/i18n'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -39,7 +40,7 @@ const toLever = (value: number) => {
 
     $(`.risk-itemlevel:contains(" x${value} ")`).click()
   } else {
-    toast.info(<div>動作沒有執行，因為發現可能的出錯</div>)
+    toast.info(<div>{i18n.動作沒有執行()}</div>)
   }
 }
 
@@ -56,9 +57,9 @@ export const Dashboard = () => {
   React.useEffect(() => {
     toast.warn(
       <span>
-        在使用 better-etoro-ui 所提供的下單巨集之前，請您確保您已閱讀{' '}
-        <HelperContent.RiskSpecification />
-        ，並你也表示同意。
+        {i18n.確保同意下單巨集風險(() => (
+          <HelperContent.RiskSpecification aStyle={{ color: 'blue' }} />
+        ))}
       </span>,
     )
   }, [])
@@ -73,7 +74,7 @@ export const Dashboard = () => {
 
       <React.Fragment>
         <div style={{ marginBottom: 8 }}>
-          <h2 style={{ textAlign: 'center' }}>金額</h2>
+          <h2 style={{ textAlign: 'center' }}>{i18n.金額()}</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
             {amounts.map(value => {
               return (
@@ -95,12 +96,12 @@ export const Dashboard = () => {
               dispatch(setMacroAmount())
             }}
           >
-            設定
+            {i18n.設定()}
           </Button>
         </div>
 
         <div style={{ marginBottom: 16 }}>
-          <h2 style={{ textAlign: 'center' }}>槓桿</h2>
+          <h2 style={{ textAlign: 'center' }}>{i18n.槓桿()}</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
             {levers.map(value => {
               return (

@@ -5,6 +5,7 @@ import { GM } from '@/GM'
 import { stringifyUrl } from 'query-string'
 import { debugAPI } from '@/debugAPI'
 import toast from 'cogo-toast'
+import { i18n } from '@/i18n'
 
 export const WatchlistUserControls: React.FunctionComponent<{
   cid: string
@@ -49,12 +50,12 @@ export const WatchlistUserControls: React.FunctionComponent<{
           equityQuery()
         }}
       >
-        {equityState.value ? `${equityState.value}%` : '餘額'}
+        {equityState.value ? `${equityState.value}%` : i18n.餘額()}
       </Button>
 
       <Button>
         <a href={`/people/${props.traderName.toLowerCase()}/portfolio`}>
-          投資組合
+          {i18n.投資組合()}
         </a>
       </Button>
     </span>

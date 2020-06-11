@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { GM } from '../../GM'
+import { i18n } from '@/i18n'
 
 const RiskSpecification: React.FunctionComponent<{
   attrs?: Record<string, unknown>
@@ -13,7 +14,8 @@ const RiskSpecification: React.FunctionComponent<{
     href='https://www.notion.so/hilezi/df93abe54fb94d9f90f25679957737ef'
     target='_blank'
   >
-    {props.children}風險說明書
+    {props.children}
+    {i18n.風險說明書()}
   </a>
 )
 
@@ -21,14 +23,14 @@ const com = {
   RiskSpecification,
   WhoDeveloper: () => (
     <span className='HelperContent'>
-      本功能由{' '}
-      <a
-        href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
-        target='_blank'
-      >
-        better-etoro-ui
-      </a>{' '}
-      提供
+      {i18n.功能提供者述敘(() => (
+        <a
+          href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
+          target='_blank'
+        >
+          better-etoro-ui
+        </a>
+      ))}
     </span>
   ),
 }

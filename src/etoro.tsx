@@ -14,6 +14,7 @@ import Sidebar from '@/components/Sidebar/Sidebar'
 import { Provider } from 'react-redux'
 import store from '@/store/_store'
 import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
+import { i18n } from '@/i18n'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', '*')
@@ -78,8 +79,7 @@ emitter.on(Events.ready, () => {
  */
 emitter.on(Events.ready, () => {
   toast.success(
-    <React.Fragment>
-      <span>🙏 感謝您使用 better etoro UI for Taiwan 更多資訊請恰詢：</span>
+    i18n.感謝使用提示語(() => (
       <a
         style={{
           color: 'blue',
@@ -87,9 +87,9 @@ emitter.on(Events.ready, () => {
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
         target='_blank'
       >
-        better-etoro-ui 工具官方網站
+        better-etoro-ui
       </a>
-    </React.Fragment>,
+    )),
     { position: 'top-right', hideAfter: 5 },
   )
 })

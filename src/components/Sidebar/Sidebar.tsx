@@ -10,6 +10,7 @@ import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { useInterval } from 'react-use'
 import { setMacroAmount } from '@/actions/setMacroAmount'
+import { i18n } from '@/i18n'
 
 const Sidebar: React.FunctionComponent = () => {
   const settings = useAppSelector(state => state.settings)
@@ -38,7 +39,7 @@ const Sidebar: React.FunctionComponent = () => {
   return (
     <React.Fragment>
       <div {...attrsToAppend} className='i-menu-sep'>
-        新台幣＆馬幣增強腳本
+        {i18n.腳本標題()}
       </div>
 
       <a
@@ -48,7 +49,7 @@ const Sidebar: React.FunctionComponent = () => {
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
       >
         <span {...attrsToAppend} className='i-menu-icon sprite news'></span>
-        腳本官網
+        {i18n.腳本官網()}
       </a>
 
       <a
@@ -58,7 +59,7 @@ const Sidebar: React.FunctionComponent = () => {
         href='https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2'
       >
         <span {...attrsToAppend} className='i-menu-icon sprite help'></span>
-        聯絡作者
+        {i18n.聯絡作者()}
       </a>
 
       <HelperContent.RiskSpecification
@@ -89,16 +90,19 @@ const Sidebar: React.FunctionComponent = () => {
           dispatch(setExchangeSelected(youSelected))
           storage.saveConfig({ selectedExchange: youSelected })
           emitter.emit(Events.settingChange)
-          toast.success(`設定已變更，當前：${youSelected}`, {
-            position: 'bottom-left',
-          })
+          toast.success(
+            i18n.設定已變更(() => <span>{youSelected}</span>),
+            {
+              position: 'bottom-left',
+            },
+          )
 
           loading.hide?.()
         }}
         className='i-menu-link pointer'
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
-        設定幣別（當前：<span>{settings.exchange.selected}</span>）
+        {i18n.設定幣別(settings.exchange.selected)}
       </span>
 
       <span
@@ -108,15 +112,17 @@ const Sidebar: React.FunctionComponent = () => {
           dispatch(setMacroEnabled(yourEnabled))
           storage.saveConfig({ executionMacroEnabled: yourEnabled })
           emitter.emit(Events.settingChange)
-          toast.success(`設定已變更，啟用：${String(yourEnabled)}`, {
-            position: 'bottom-left',
-          })
+          toast.success(
+            i18n.設定已變更(() => <span>{JSON.stringify(yourEnabled)}</span>),
+            {
+              position: 'bottom-left',
+            },
+          )
         }}
         className='i-menu-link pointer'
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
-        下單巨集（當前：
-        <span>{settings.isMacroEnabled ? '啟用' : '停用'}</span>）
+        {i18n.下單巨集(settings.isMacroEnabled)}
       </span>
 
       <span
@@ -127,7 +133,7 @@ const Sidebar: React.FunctionComponent = () => {
         }}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
-        巨集金額設定
+        {i18n.巨集金額設定()}
       </span>
 
       <span {...attrsToAppend} className='i-menu-link'>
@@ -135,7 +141,7 @@ const Sidebar: React.FunctionComponent = () => {
           {...attrsToAppend}
           className='i-menu-icon sprite clubs-ref'
         ></span>
-        大概延遲：<span>{ping}ms</span>
+        {i18n.大概延遲(ping)}
       </span>
     </React.Fragment>
   )
