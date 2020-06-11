@@ -9,14 +9,31 @@ import store from '@/store/_store'
 const com = {
   log: debugAPI.log.extend('下單輔助巨集'),
   get isParentConstructed() {
+    /** 每日利息說明區塊 */
+    const hasDailyValueMessage = !!$(
+      '[data-etoro-automation-id="execution-is-refund-daily-value"]',
+    )
+      .html()
+      ?.trim()
+
+    /** 入金按鈕 */
+    const hasDepositButton = $(
+      '[data-etoro-automation-id="execution-deposit-button"]',
+    )
+      .html()
+      ?.trim()
+
+    /** 以 X1 購買時的股票說明 */
+    const hasStockMessage = $(
+      '[data-etoro-automation-id="execution-bottom-stock-message"]',
+    )
+      .html()
+      ?.trim()
+
+    // data-etoro-automation-id="execution-bottom-stock-message"
     return (
       !!$('.uidialog').length &&
-      (!!$('[data-etoro-automation-id="execution-is-refund-daily-value"]')
-        .html()
-        ?.trim() ||
-        $('[data-etoro-automation-id="execution-deposit-button"]')
-          .html()
-          ?.trim())
+      (hasDailyValueMessage || hasDepositButton || hasStockMessage)
     )
   },
   get isConstructed() {
