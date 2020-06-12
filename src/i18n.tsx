@@ -66,7 +66,7 @@ const en: typeof zh = {
         <span>
           🙏 Thanks for install {this.腳本標題}, for more information in{' '}
         </span>
-        <Link /> {this.腳本官網}
+        <Link /> {this.腳本官網()}
       </React.Fragment>
     )
   },
@@ -81,7 +81,7 @@ const en: typeof zh = {
   確保同意下單巨集風險(Link: React.FC) {
     return (
       <span>
-        Before use the Macro support by {this.腳本標題}, Make sure you
+        Before use the Macro support by {this.腳本標題()}, Make sure you
         understand <Link />, and you must agree the possible risk.
       </span>
     )
