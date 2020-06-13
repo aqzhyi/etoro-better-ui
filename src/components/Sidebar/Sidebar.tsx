@@ -12,6 +12,10 @@ import { useInterval } from 'react-use'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { i18n } from '@/i18n'
 
+const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
+
+export const sidebarCheckReady = () => !!$(`.${READY_FLAG}`).length
+
 const Sidebar: React.FunctionComponent = () => {
   const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
@@ -37,7 +41,7 @@ const Sidebar: React.FunctionComponent = () => {
   const attrsToAppend = { [dynamicStyleClassName]: '' }
 
   return (
-    <React.Fragment>
+    <span className={READY_FLAG}>
       <div {...attrsToAppend} className='i-menu-sep'>
         {i18n.腳本標題()}
       </div>
@@ -143,7 +147,7 @@ const Sidebar: React.FunctionComponent = () => {
         ></span>
         {i18n.大概延遲(ping)}
       </span>
-    </React.Fragment>
+    </span>
   )
 }
 

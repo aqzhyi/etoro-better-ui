@@ -15,6 +15,7 @@ import { Provider } from 'react-redux'
 import store from '@/store/_store'
 import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
 import { i18n } from '@/i18n'
+import { sidebarConstructor } from '@/components/Sidebar/sidebarConstructor'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', '*')
@@ -31,6 +32,15 @@ const readyIntervalId = globalThis.setInterval(async () => {
     emitter.emit(Events.ready)
   }
 }, 100)
+
+/**
+ * 事件驅動
+ */
+emitter.on(Events.ready, () => {
+  $('body').delegate(`[automation-id="menu-layout"]`, 'mouseover', () => {
+    emitter.emit(Events.onSidebarHover)
+  })
+})
 
 /**
  * 載入跳出框框增強介面的時機點
@@ -258,28 +268,9 @@ emitter.on(Events.settingChange, async () => {
 /**
  * 左側欄連結項目與設定
  */
-const onSidebarUpdate = () => {
-  const log = debugAPI.log.extend('安排側邊欄')
-
-  const selector = 'github-com-hilezir-sidebar'
-
-  const container = $(`<div id="${selector}"></div>`)
-
-  if (!$(`#${selector}`).length) {
-    $('.w-menu-main').append(container)
-  }
-
-  ReactDOM.render(
-    <Provider store={store}>
-      <Sidebar />
-    </Provider>,
-    globalThis.document.querySelector(`#${selector}`),
-  )
-
-  log('渲染左側欄 settings=')
-}
-emitter.on(Events.ready, onSidebarUpdate)
-emitter.on(Events.settingChange, onSidebarUpdate)
+emitter.on(Events.ready, sidebarConstructor)
+emitter.on(Events.settingChange, sidebarConstructor)
+emitter.on(Events.onSidebarHover, sidebarConstructor)
 
 /**
  * 取得匯率
