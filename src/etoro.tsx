@@ -183,7 +183,7 @@ emitter.on(Events.ready, async () => {
 /**
  * 提供左側欄入金按鈕，匯率換算結果顯示
  */
-emitter.on(Events.settingChange, async () => {
+const constructDepositButton = async () => {
   const log = debugAPI.log.extend(`提供入金匯率`)
 
   const target = $('.w-menu-footer .e-btn-big-2')
@@ -198,7 +198,9 @@ emitter.on(Events.settingChange, async () => {
   } else {
     log('失敗，找不到元素')
   }
-})
+}
+emitter.on(Events.onSidebarHover, constructDepositButton)
+emitter.on(Events.settingChange, constructDepositButton)
 
 /**
  * 提供價值的匯率
