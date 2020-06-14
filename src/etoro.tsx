@@ -16,6 +16,8 @@ import store from '@/store/_store'
 import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
 import { i18n } from '@/i18n'
 import { sidebarConstructor } from '@/components/Sidebar/sidebarConstructor'
+import { watchlistHeaderConstructor } from '@/components/WatchlistHeader/WatchlistHeader'
+// import { initializeIcons } from '@uifabric/icons'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', '*')
@@ -37,10 +39,24 @@ const readyIntervalId = globalThis.setInterval(async () => {
  * 事件驅動
  */
 emitter.on(Events.ready, () => {
+  // initializeIcons()
+
   $('body').delegate(`[automation-id="menu-layout"]`, 'mouseover', () => {
     emitter.emit(Events.onSidebarHover)
   })
+
+  $('body').delegate('.main-app-view', 'mouseover', () => {
+    if (globalThis.location.pathname.includes('watchlists')) {
+      emitter.emit(Events.onWatchlistPageHover)
+    }
+  })
 })
+
+/**
+ *
+ */
+emitter.on(Events.ready, watchlistHeaderConstructor)
+emitter.on(Events.onWatchlistPageHover, watchlistHeaderConstructor)
 
 /**
  * 載入跳出框框增強介面的時機點

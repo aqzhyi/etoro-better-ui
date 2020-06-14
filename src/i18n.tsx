@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  輸入以過濾: () => '過濾...',
   腳本標題: () => 'eToro better UI',
   功能提供者述敘: (Link: React.FC) => {
     return (
@@ -49,6 +50,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  輸入以過濾: () => 'Filter...',
   腳本標題: () => 'eToro better UI',
   功能提供者述敘: (Link: React.FC) => {
     return (
