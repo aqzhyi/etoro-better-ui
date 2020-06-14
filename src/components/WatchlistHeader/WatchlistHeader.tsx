@@ -4,7 +4,12 @@ import { Provider } from 'react-redux'
 import store from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
-import { InputGroup } from '@blueprintjs/core'
+import { InputGroup, Button, ControlGroup } from '@blueprintjs/core'
+import { storage } from '@/storage'
+import { useAppSelector } from '@/hooks/useAppSelector'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { setListCompact } from '@/actions/setListCompact'
+import { useMount } from 'react-use'
 
 const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
 
@@ -23,9 +28,24 @@ const showMeBy = (filterText: string) => {
   })
 }
 
+const toggleListCompact = (onOff: boolean) => {
+  $(
+    '[automation-id="watchlist-item-list-instrument-chart"], [automation-id="watchlist-item-list-instrument-sentiment"]',
+  ).toggle(!onOff)
+}
+
 export const WatchlistHeader: React.FC = () => {
+  const listCompactOn = useAppSelector(
+    state => state.settings.betterEtoroUIConfig.listCompactOn,
+  )
+  const dispatch = useAppDispatch()
+
+  useMount(() => {
+    toggleListCompact(listCompactOn)
+  })
+
   return (
-    <span className={NAME_HAS_FLAG}>
+    <ControlGroup className={NAME_HAS_FLAG}>
       <InputGroup
         leftIcon='filter'
         onChange={event => {
@@ -34,7 +54,17 @@ export const WatchlistHeader: React.FC = () => {
         }}
         placeholder={i18n.輸入以過濾()}
       />
-    </span>
+      <Button
+        icon={(listCompactOn && 'small-tick') || 'small-cross'}
+        onClick={() => {
+          storage.saveConfig({ listCompactOn: !listCompactOn })
+          toggleListCompact(!listCompactOn)
+          dispatch(setListCompact(!listCompactOn))
+        }}
+      >
+        {i18n.使緊湊()}
+      </Button>
+    </ControlGroup>
   )
 }
 
