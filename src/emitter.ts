@@ -9,6 +9,7 @@ export enum Events {
   onWatchlistPageHover = 'onWatchlistPageHover',
   onPortfolioPageHover = 'onPortfolioPageHover',
   onSidebarHover = 'onSidebarHover',
+  onDialogHover = 'onDialogHover',
 }
 
 export const emitter = new Emittery.Typed<
@@ -22,7 +23,8 @@ emitter.on = new Proxy(emitter.on.bind(emitter), {
     if (typeof receiver[1] === 'function') {
       receiver[1] = new Proxy(receiver[1], {
         apply(listenserTarget, listenserKey, listenserReceiver) {
-          debugAPI.log.extend('events')(receiver[0], receiver[1].name)
+          const log = debugAPI.log.extend('events')
+          log(receiver[0], receiver[1].name)
           return Reflect.apply(listenserTarget, listenserKey, listenserReceiver)
         },
       })

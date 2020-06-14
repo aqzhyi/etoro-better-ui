@@ -76,9 +76,10 @@ export const Dashboard = () => {
         <div style={{ marginBottom: 8 }}>
           <h2 style={{ textAlign: 'center' }}>{i18n.金額()}</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
-            {amounts.map(value => {
+            {amounts.map((value, index) => {
               return (
                 <Button
+                  key={index}
                   onClick={toAmount.bind(toAmount, value)}
                   intent='primary'
                 >
@@ -103,9 +104,13 @@ export const Dashboard = () => {
         <div style={{ marginBottom: 16 }}>
           <h2 style={{ textAlign: 'center' }}>{i18n.槓桿()}</h2>
           <ButtonGroup fill={true} large={true} vertical={true}>
-            {levers.map(value => {
+            {levers.map((value, index) => {
               return (
-                <Button onClick={toLever.bind(toLever, value)} intent='primary'>
+                <Button
+                  key={index}
+                  onClick={toLever.bind(toLever, value)}
+                  intent='primary'
+                >
                   x<span>{value}</span>
                 </Button>
               )

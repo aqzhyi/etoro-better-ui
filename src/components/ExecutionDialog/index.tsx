@@ -57,7 +57,7 @@ const com = {
       .nextAll('#ExecutionDialog-ExecutionWrap')
       .remove()
 
-    com.log('安排')
+    com.log('加載完成')
   },
 }
 

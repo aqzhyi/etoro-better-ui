@@ -1,112 +1,117 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import '@blueprintjs/core/lib/css/blueprint.css'
+import ExecutionDialog from './components/ExecutionDialog'
 import { debugAPI } from './debugAPI'
-import { GM } from './GM'
-import { stringifyUrl } from 'query-string'
 import { emitter, Events } from './emitter'
-import { getNTD, getMYR, exchange } from './exchange'
+import { exchange, getMYR, getNTD } from './exchange'
+import { GM } from './GM'
 import { storage } from './storage'
 import { toCurrency } from './toCurrency'
-import toast from 'cogo-toast'
-import ExecutionDialog from './components/ExecutionDialog'
-import '@blueprintjs/core/lib/css/blueprint.css'
-import Sidebar from '@/components/Sidebar/Sidebar'
-import { Provider } from 'react-redux'
-import store from '@/store/_store'
-import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
-import { i18n } from '@/i18n'
 import { sidebarConstructor } from '@/components/Sidebar/sidebarConstructor'
 import { watchlistHeaderConstructor } from '@/components/WatchlistHeader/WatchlistHeader'
+import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
+import { i18n } from '@/i18n'
+import store from '@/store/_store'
+import toast from 'cogo-toast'
+import { throttle } from 'lodash'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
 // import { initializeIcons } from '@uifabric/icons'
 
 type $ = JQueryStatic
-globalThis.localStorage.setItem('debug', '*')
+globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
 
 /** 介面更新頻率 */
 const exchangeInterval = 5000
 
-/**
- * 載入腳本的時機點
- */
-const readyIntervalId = globalThis.setInterval(async () => {
-  if ($('.w-menu-footer .e-btn-big-2').length > 0) {
-    globalThis.clearInterval(readyIntervalId)
-    emitter.emit(Events.ready)
-  }
-}, 100)
+/** 計算啟動時間 */
+const bootstrapStartAt = new Date()
 
 /**
- * 事件驅動
+ * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
+ * 因為才能夠開始將「本腳本」部件透過 jQuery 掛載上去
  */
-emitter.on(Events.ready, () => {
+$('body').delegate(
+  '.main-app-view',
+  'mouseover',
+  throttle(() => {
+    debugAPI.log.extend('log')('頁面加載完成')
+    $('body').undelegate('.main-app-view', 'mouseover')
+    emitter.emit(Events.ready)
+  }, 1000),
+)
+
+/**
+ * 以事件驅動分別在各頁面中，渲染「本腳本」的各個部件到 etoro 頁面上
+ *
+ * 然而，「本腳本」介面會因 etoro 換頁而導致消失
+ *
+ * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
+ */
+emitter.on(Events.ready, function constructTriggerDelegate() {
   // initializeIcons()
 
-  $('body').delegate(`[automation-id="menu-layout"]`, 'mouseover', () => {
-    emitter.emit(Events.onSidebarHover)
-  })
+  // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
+  $('body').delegate(
+    `[automation-id="menu-layout"]`,
+    'mouseover',
+    throttle(() => {
+      emitter.emit(Events.onSidebarHover)
+    }, 30000),
+  )
 
-  $('body').delegate('.main-app-view', 'mouseover', () => {
-    if (globalThis.location.pathname.includes('watchlists')) {
-      emitter.emit(Events.onWatchlistPageHover)
-    }
-    if (globalThis.location.pathname.includes('portfolio')) {
-      emitter.emit(Events.onPortfolioPageHover)
-    }
-  })
+  // 內頁常因換頁而導致 UI 消失，因此配置較短的觸發時間(throttle)
+  $('body').delegate(
+    '.main-app-view',
+    'mouseover',
+    throttle(event => {
+      if (globalThis.location.pathname.includes('watchlists')) {
+        emitter.emit(Events.onWatchlistPageHover)
+      }
+      if (globalThis.location.pathname.includes('portfolio')) {
+        emitter.emit(Events.onPortfolioPageHover)
+      }
+    }, 5000),
+  )
+
+  // 彈出視窗畫面，此框用於下單，為實現加速下單的設計本意，使用較短的觸發時間(throttle)
+  $('body').delegate(
+    '.execution-main',
+    'mouseover',
+    throttle(event => {
+      emitter.emit(Events.onDialogHover)
+    }, 1000),
+  )
 })
 
 /**
- *
+ * 我的關注列表
  */
-emitter.on(Events.ready, watchlistHeaderConstructor)
 emitter.on(Events.onWatchlistPageHover, watchlistHeaderConstructor)
 
 /**
- * 載入跳出框框增強介面的時機點
+ * 下單框框增強介面
  */
-emitter.on(Events.ready, () => {
-  ExecutionDialog.log(`安排好按鈕`)
-
-  let watchId
-
-  const construct = () => {
-    ExecutionDialog.log('偵測中...', ExecutionDialog)
-
-    if (ExecutionDialog.isParentConstructed && !ExecutionDialog.isConstructed) {
-      ExecutionDialog.construct()
-    }
-
-    if (ExecutionDialog.isConstructed) {
-      globalThis.clearInterval(watchId)
-      ExecutionDialog.log(`結束偵測`)
-    }
+emitter.on(Events.onDialogHover, function constructDialogMacro() {
+  if (!storage.findConfig().executionMacroEnabled) {
+    return
   }
 
-  $('body').delegate(`.uidialog-content`, 'mouseover', () => {
-    if (!storage.findConfig().executionMacroEnabled) {
-      ExecutionDialog.log(`功能未開啟`)
-      return
-    }
+  if (ExecutionDialog.isConstructed) {
+    return
+  }
 
-    ExecutionDialog.log(`開始偵測`)
-
-    globalThis.clearInterval(watchId)
-    construct()
-    watchId = globalThis.setInterval(construct, 250)
-  })
-
-  $('body').delegate(`.uidialog-content`, 'mouseout', () => {
-    globalThis.setTimeout(() => {
-      ExecutionDialog.log(`結束偵測`)
-      globalThis.clearInterval(watchId)
-    }, 300)
-  })
+  if (ExecutionDialog.isParentConstructed && !ExecutionDialog.isConstructed) {
+    ExecutionDialog.construct()
+    return
+  }
 })
 
 /**
  * 歡迎訊息
  */
-emitter.on(Events.ready, () => {
+emitter.on(Events.ready, function welcomeMessage() {
   toast.success(
     i18n.感謝使用提示語(() => (
       <a
@@ -119,73 +124,66 @@ emitter.on(Events.ready, () => {
         better-etoro-ui
       </a>
     )),
-    { position: 'top-right', hideAfter: 5 },
+    { position: 'top-center', hideAfter: 5 },
   )
+
+  const bootstrapEndedAt = new Date()
+  const bootstrapUsedTime =
+    bootstrapEndedAt.getTime() - bootstrapStartAt.getTime()
+  debugAPI.log.extend('log')(`起動時間 = ${bootstrapUsedTime}ms`)
 })
 
 /**
  * 關注的使用者們的餘額
  */
-emitter.on(Events.ready, async () => {
-  const log = debugAPI.log.extend('關注的使用者們的餘額')
-
-  GM.addStyle(`
-    .user-meta {
-      margin-right: 8px;
-    }
-  `)
-
-  const updater = () => {
-    log('安排好按鈕')
-
-    $('et-user-row').each((index, element) => {
-      const userFinder = $(element)
-      const hasAppended = !!userFinder.find('.user-meta').length
-
-      if (hasAppended) {
-        return
-      }
-
-      /**
-       * tests https://regexr.com/52ft5
-       *
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
-       */
-      const cid = /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
-        $(element).find('[automation-id="trade-item-avatar"]').attr('src') ||
-          '',
-      )?.groups?.cid
-
-      const traderName = $(element)
-        .find('[automation-id="trade-item-name"]')
-        .html()
-
-      if (cid && !hasAppended) {
-        userFinder.prepend(
-          $(`<span class="user-meta" id="user-meta-${cid}"></span>`),
-        )
-
-        ReactDOM.render(
-          <Provider store={store}>
-            <WatchlistUserControls cid={cid} traderName={traderName} />
-          </Provider>,
-          globalThis.document.querySelector(`#user-meta-${cid}`),
-        )
-      }
-    })
+GM.addStyle(`
+  .user-meta {
+    margin-right: 8px;
   }
+`)
+emitter.on(Events.onWatchlistPageHover, async function constructPeopleExtra() {
+  $('et-user-row').each((index, element) => {
+    const userFinder = $(element)
+    const hasAppended = !!userFinder.find('.user-meta').length
 
-  globalThis.setInterval(updater, 2500)
+    if (hasAppended) {
+      return
+    }
+
+    /**
+     * tests https://regexr.com/52ft5
+     *
+     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
+     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
+     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
+     */
+    const cid = /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
+      $(element).find('[automation-id="trade-item-avatar"]').attr('src') || '',
+    )?.groups?.cid
+
+    const traderName = $(element)
+      .find('[automation-id="trade-item-name"]')
+      .html()
+
+    if (cid && !hasAppended) {
+      userFinder.prepend(
+        $(`<span class="user-meta" id="user-meta-${cid}"></span>`),
+      )
+
+      ReactDOM.render(
+        <Provider store={store}>
+          <WatchlistUserControls cid={cid} traderName={traderName} />
+        </Provider>,
+        globalThis.document.querySelector(`#user-meta-${cid}`),
+      )
+    }
+  })
 })
 
 /**
  * 提供左側欄入金按鈕，匯率換算結果顯示
  */
 const constructDepositButton = async () => {
-  const log = debugAPI.log.extend(`提供入金匯率`)
-
   const target = $('.w-menu-footer .e-btn-big-2')
 
   if (target.length) {
@@ -194,9 +192,6 @@ const constructDepositButton = async () => {
         exchange[storage.findConfig().selectedExchange].sell
       } 銀行賣出）`,
     )
-    log('成功')
-  } else {
-    log('失敗，找不到元素')
   }
 }
 emitter.on(Events.onSidebarHover, constructDepositButton)
@@ -205,7 +200,7 @@ emitter.on(Events.settingChange, constructDepositButton)
 /**
  * 提供價值的匯率
  */
-emitter.on(Events.ready, () => {
+emitter.on(Events.ready, function constructFooterUnitValueCSS() {
   GM.addStyle(`
     .footer-unit[_ngcontent-qlo-c4] {
       height: 100px;
@@ -225,7 +220,7 @@ emitter.on(Events.ready, () => {
     }
   `)
 })
-emitter.on(Events.settingChange, async () => {
+emitter.on(Events.settingChange, function constructFooterUnitValue() {
   const log = debugAPI.log.extend(
     `提供價值的匯率（每 ${exchangeInterval / 1000} 秒）`,
   )
@@ -233,7 +228,8 @@ emitter.on(Events.settingChange, async () => {
   provideNTD()
   globalThis.setInterval(provideNTD, exchangeInterval)
 
-  async function provideNTD() {
+  function provideNTD() {
+    log('處理中...')
     const exchangeSelected = storage.findConfig().selectedExchange
 
     const unitValues = Array.from(
@@ -281,15 +277,12 @@ emitter.on(Events.settingChange, async () => {
         }
       }
     })
-
-    log('成功')
   }
 })
 
 /**
  * 左側欄連結項目與設定
  */
-emitter.on(Events.ready, sidebarConstructor)
 emitter.on(Events.settingChange, sidebarConstructor)
 emitter.on(Events.onSidebarHover, sidebarConstructor)
 
