@@ -14,11 +14,11 @@ const zh = {
   腳本官網: () => '腳本官網',
   聯絡作者: () => '聯絡作者',
   風險說明書: () => '風險說明書',
-  感謝使用提示語(Link: React.FC) {
+  感謝使用提示語: (Link: React.FC) => {
     return (
       <React.Fragment>
-        <span>🙏 感謝您使用 {this.腳本標題} 更多資訊請恰詢：</span>
-        <Link /> {this.腳本官網}
+        <span>🙏 感謝您使用 {zh.腳本標題()} 更多資訊請恰詢：</span>
+        <Link /> {zh.腳本官網()}
       </React.Fragment>
     )
   },
@@ -64,13 +64,13 @@ const en: typeof zh = {
   腳本官網: () => 'Website',
   聯絡作者: () => 'Contact Developer',
   風險說明書: () => 'Risk Agreement',
-  感謝使用提示語(Link: React.FC) {
+  感謝使用提示語: (Link: React.FC) => {
     return (
       <React.Fragment>
         <span>
-          🙏 Thanks for install {this.腳本標題}, for more information in{' '}
+          🙏 Thanks for install {en.腳本標題()}, for more information in{' '}
         </span>
-        <Link /> {this.腳本官網()}
+        <Link /> {en.腳本官網()}
       </React.Fragment>
     )
   },
