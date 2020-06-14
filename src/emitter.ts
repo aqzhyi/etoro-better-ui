@@ -6,6 +6,7 @@ export enum Events {
   onPing = 'onPing',
   settingChange = 'settingChange',
   onWatchlistPageHover = 'onWatchlistPageHover',
+  onPortfolioPageHover = 'onPortfolioPageHover',
   onSidebarHover = 'onSidebarHover',
 }
 

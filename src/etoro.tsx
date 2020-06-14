@@ -49,6 +49,9 @@ emitter.on(Events.ready, () => {
     if (globalThis.location.pathname.includes('watchlists')) {
       emitter.emit(Events.onWatchlistPageHover)
     }
+    if (globalThis.location.pathname.includes('portfolio')) {
+      emitter.emit(Events.onPortfolioPageHover)
+    }
   })
 })
 
