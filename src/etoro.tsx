@@ -164,7 +164,7 @@ emitter.on(Events.ready, async () => {
 
       if (cid && !hasAppended) {
         userFinder.prepend(
-          $(`<button class="user-meta" id="user-meta-${cid}"></button>`),
+          $(`<span class="user-meta" id="user-meta-${cid}"></span>`),
         )
 
         ReactDOM.render(
