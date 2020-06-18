@@ -8,6 +8,7 @@ export enum Events {
   settingChange = 'settingChange',
   onWatchlistPageHover = 'onWatchlistPageHover',
   onPortfolioPageHover = 'onPortfolioPageHover',
+  onPortfolioHistoryPageHover = 'onPortfolioHistoryPageHover',
   onSidebarHover = 'onSidebarHover',
   onDialogHover = 'onDialogHover',
 }

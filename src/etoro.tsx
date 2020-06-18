@@ -19,6 +19,7 @@ import { Provider } from 'react-redux'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { initializeIcons } from '@fluentui/react'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
+import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -67,8 +68,9 @@ const unbindConstructTriggerDelegate = emitter.on(
       globalThis.setTimeout(() => {
         if (globalThis.location.pathname.includes('watchlists')) {
           emitter.emit(Events.onWatchlistPageHover)
-        }
-        if (globalThis.location.pathname.includes('portfolio')) {
+        } else if (globalThis.location.pathname.includes('portfolio/history')) {
+          emitter.emit(Events.onPortfolioHistoryPageHover)
+        } else if (globalThis.location.pathname.includes('portfolio')) {
           emitter.emit(Events.onPortfolioPageHover)
         }
       }, 500)
@@ -81,8 +83,9 @@ const unbindConstructTriggerDelegate = emitter.on(
       throttle(event => {
         if (globalThis.location.pathname.includes('watchlists')) {
           emitter.emit(Events.onWatchlistPageHover)
-        }
-        if (globalThis.location.pathname.includes('portfolio')) {
+        } else if (globalThis.location.pathname.includes('portfolio/history')) {
+          emitter.emit(Events.onPortfolioHistoryPageHover)
+        } else if (globalThis.location.pathname.includes('portfolio')) {
           emitter.emit(Events.onPortfolioPageHover)
         }
       }, 5000),
@@ -98,6 +101,16 @@ const unbindConstructTriggerDelegate = emitter.on(
     )
 
     unbindConstructTriggerDelegate()
+  },
+)
+
+/**
+ * 我的歷史記錄
+ */
+emitter.on(
+  Events.onPortfolioHistoryPageHover,
+  function constructPortfolioHistoryPage() {
+    PortfolioHistoryHeaderExtraButtons.construct()
   },
 )
 
