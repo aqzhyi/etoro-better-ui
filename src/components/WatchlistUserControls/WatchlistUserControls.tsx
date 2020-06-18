@@ -24,7 +24,7 @@ export const WatchlistUserControls: React.FunctionComponent<{
     })
       .then(event => {
         const model = JSON.parse(
-          /var model = (?<model>{[\s\S]+}),/i.exec(event.responseText)?.groups
+          /var model = (?<model>\{[\s\S]+\}),/i.exec(event.responseText)?.groups
             ?.model || `{}`,
         ) as {
           /** 餘額 */
