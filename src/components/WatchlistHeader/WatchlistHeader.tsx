@@ -64,6 +64,9 @@ export const WatchlistHeader: React.FC = () => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           showMeBy(event.target.value)
         }}
+        onMouseEnter={event => {
+          ;(event.target as HTMLInputElement)?.focus()
+        }}
         placeholder={i18n.輸入以過濾()}
       />
       <Button
