@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  使已投資顯示: () => '已投資',
   左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
   使鎖定下單重複一致否定: () => '自動上次?',
@@ -56,6 +57,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  使已投資顯示: () => 'Invested',
   左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
   使鎖定下單重複一致否定: () => 'Same Order?',

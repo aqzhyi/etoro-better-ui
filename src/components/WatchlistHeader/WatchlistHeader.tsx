@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store from '@/store/_store'
+import store, { useTypedSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 import { InputGroup, Button, ControlGroup } from '@blueprintjs/core'
@@ -11,6 +11,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { setListCompact } from '@/actions/setListCompact'
 import { useMount } from 'react-use'
 import { Toggle, TextField, Stack, TextFieldBase } from '@fluentui/react'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
 
@@ -39,6 +40,17 @@ const showMeBy = (filterText = '') => {
   }
 }
 
+const toggleListInvested = (onOff: boolean) => {
+  if (onOff) {
+    $('et-instrument-row, et-user-row').hide()
+    $('.instrument-list-pie-link')
+      .closest('et-instrument-row, et-user-row')
+      .show()
+  } else {
+    $('et-instrument-row, et-user-row').show()
+  }
+}
+
 const toggleListCompact = (onOff: boolean) => {
   $(
     `
@@ -54,12 +66,16 @@ export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(
     state => state.settings.betterEtoroUIConfig.listCompactOn,
   )
+  const shouldShowInvested = useTypedSelector(
+    state => state.settings.betterEtoroUIConfig.showInvested,
+  )
   const dispatch = useAppDispatch()
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
   const searchBoxRef = React.createRef<TextFieldBase>()
 
   useMount(() => {
     toggleListCompact(listCompactOn)
+    toggleListInvested(shouldShowInvested)
   })
 
   return (
@@ -72,6 +88,10 @@ export const WatchlistHeader: React.FC = () => {
           onChange={(event, newValue) => {
             filterTextSet(newValue)
             showMeBy(newValue)
+
+            if (!newValue) {
+              toggleListInvested(shouldShowInvested)
+            }
           }}
           onMouseEnter={() => {
             // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
@@ -81,6 +101,7 @@ export const WatchlistHeader: React.FC = () => {
           }}
         />
       </Stack.Item>
+
       <Stack.Item>
         <Toggle
           label={i18n.使緊湊()}
@@ -90,6 +111,20 @@ export const WatchlistHeader: React.FC = () => {
             storage.saveConfig({ listCompactOn: !listCompactOn })
             toggleListCompact(!listCompactOn)
             dispatch(setListCompact(!listCompactOn))
+          }}
+        />
+      </Stack.Item>
+
+      <Stack.Item>
+        <Toggle
+          label={i18n.使已投資顯示()}
+          inlineLabel
+          checked={shouldShowInvested}
+          onClick={() => {
+            toggleListInvested(!shouldShowInvested)
+            dispatch(
+              setBetterEtoroUIConfig({ showInvested: !shouldShowInvested }),
+            )
           }}
         />
       </Stack.Item>
