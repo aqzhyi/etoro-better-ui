@@ -13,6 +13,7 @@ import { setMacroLever } from '@/actions/setMacroLever'
 import { storage, BetterEtoroUIConfig } from '@/storage'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { setListCompact } from '@/actions/setListCompact'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 const settings = createReducer<{
   betterEtoroUIConfig: BetterEtoroUIConfig
@@ -46,6 +47,12 @@ const settings = createReducer<{
   },
   builder =>
     builder
+      .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.betterEtoroUIConfig = action.payload
+          return state
+        }),
+      )
       .addCase(setExchangeSelected, (state, action) =>
         produce(state, () => {
           state.exchange.selected = action.payload

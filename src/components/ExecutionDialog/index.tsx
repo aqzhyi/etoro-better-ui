@@ -72,7 +72,9 @@ GM.addStyle(`
       margin: 0 auto;
       margin-bottom: 16px;
       text-align: center;
-      flex: 0.5;
+      flex: 0.9;
+      /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
+      z-index: 1;
     }
   }
 

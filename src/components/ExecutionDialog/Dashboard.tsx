@@ -1,12 +1,15 @@
 import * as React from 'react'
 import toast from 'cogo-toast'
-import { ButtonGroup, Button } from '@blueprintjs/core'
+import { ButtonGroup, Button, Tooltip } from '@blueprintjs/core'
 import HelperContent from '../HelperContent'
 import { storage } from '../../storage'
 import { useTypedSelector } from '@/store/_store'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { i18n } from '@/i18n'
+import { Toggle } from '@fluentui/react'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { useMount, useEffectOnce, useUpdateEffect } from 'react-use'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -54,6 +57,21 @@ export const Dashboard = () => {
     state => state.settings.betterEtoroUIConfig.executionLever,
   )
 
+  const executionUseApplyLast = useTypedSelector(
+    state => state.settings.betterEtoroUIConfig.executionUseApplyLast,
+  )
+
+  const lastApplied = useTypedSelector(state => {
+    return {
+      amount: state.settings.betterEtoroUIConfig.executionAmountLast,
+      lever: state.settings.betterEtoroUIConfig.executionLeverLast,
+    }
+  })
+
+  if (!storage.findConfig().executionMacroEnabled) {
+    return null
+  }
+
   React.useEffect(() => {
     toast.warn(
       <span>
@@ -64,9 +82,12 @@ export const Dashboard = () => {
     )
   }, [])
 
-  if (!storage.findConfig().executionMacroEnabled) {
-    return null
-  }
+  useMount(() => {
+    if (executionUseApplyLast) {
+      toAmount(lastApplied.amount)
+      toLever(lastApplied.lever)
+    }
+  })
 
   return (
     <React.Fragment>
@@ -80,7 +101,12 @@ export const Dashboard = () => {
               return (
                 <Button
                   key={index}
-                  onClick={toAmount.bind(toAmount, value)}
+                  onClick={() => {
+                    toAmount(value)
+                    dispatch(
+                      setBetterEtoroUIConfig({ executionAmountLast: value }),
+                    )
+                  }}
                   intent='primary'
                 >
                   $<span>{value}</span>
@@ -108,7 +134,12 @@ export const Dashboard = () => {
               return (
                 <Button
                   key={index}
-                  onClick={toLever.bind(toLever, value)}
+                  onClick={() => {
+                    toLever(value)
+                    dispatch(
+                      setBetterEtoroUIConfig({ executionLeverLast: value }),
+                    )
+                  }}
                   intent='primary'
                 >
                   x<span>{value}</span>
@@ -119,7 +150,23 @@ export const Dashboard = () => {
         </div>
       </React.Fragment>
 
-      <HelperContent.RiskSpecification aStyle={{ color: 'blue' }} />
+      <Tooltip content={i18n.使鎖定下單重複一致之說明()}>
+        <Toggle
+          checked={executionUseApplyLast}
+          label={
+            executionUseApplyLast
+              ? i18n.使鎖定下單重複一致()
+              : i18n.使鎖定下單重複一致否定()
+          }
+          onChange={(event, checked) => {
+            dispatch(
+              setBetterEtoroUIConfig({
+                executionUseApplyLast: checked,
+              }),
+            )
+          }}
+        ></Toggle>
+      </Tooltip>
     </React.Fragment>
   )
 }

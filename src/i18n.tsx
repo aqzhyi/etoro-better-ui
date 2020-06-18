@@ -1,6 +1,10 @@
 import * as React from 'react'
 
 const zh = {
+  使鎖定下單重複一致: () => '自動上次',
+  使鎖定下單重複一致否定: () => '自動上次?',
+  使鎖定下單重複一致之說明: () =>
+    '始終以你上一次點擊巨集為基準，同步每次下單金額與槓桿',
   使緊湊: () => '緊湊',
   輸入以過濾: () => '過濾...',
   腳本標題: () => 'eToro better UI',
@@ -51,6 +55,10 @@ const zh = {
 }
 
 const en: typeof zh = {
+  使鎖定下單重複一致: () => 'Same Order',
+  使鎖定下單重複一致否定: () => 'Same Order?',
+  使鎖定下單重複一致之說明: () =>
+    'Always use the last Amount and Lever which you last click in macro buttons.',
   使緊湊: () => 'compact',
   輸入以過濾: () => 'Filter...',
   腳本標題: () => 'eToro better UI',

@@ -6,7 +6,10 @@ export type BetterEtoroUIConfig = {
   executionMacroEnabled: boolean
   executionAmount: number[]
   executionLever: number[]
+  executionAmountLast: number
+  executionLeverLast: number
   selectedExchange: 'NTD' | 'MYR'
+  executionUseApplyLast: boolean
 }
 
 const findLegacyConfig = () => {
@@ -32,7 +35,10 @@ const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   executionMacroEnabled: findLegacyConfig().executionMacroEnabled ?? false,
   executionAmount: [50, 100, 200, 300, 500],
   executionLever: [1, 2, 5, 10, 20],
+  executionAmountLast: 200,
+  executionLeverLast: 1,
   selectedExchange: findLegacyConfig().selectedExchange ?? 'NTD',
+  executionUseApplyLast: false,
 }
 
 const CONFIG_STORAGE_KEY = 'better_etoro_ui_config'

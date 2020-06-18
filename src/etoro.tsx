@@ -373,5 +373,14 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
+  /**
+   * blueprintjs 的 tooltip 之 z-index 需要高於「下單 dialog」才好正確提示資訊
+   */
+  GM.addStyle(`
+    .bp3-transition-container {
+      z-index: 10001
+    }
+  `)
+
   constructCssUnbind()
 })
