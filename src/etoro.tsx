@@ -64,7 +64,7 @@ const unbindConstructTriggerDelegate = emitter.on(
     )
 
     // A按鈕大多屬換頁性質，使A按鈕切換後，盡可能快地將「本腳本UI」掛載至 etoro 頁面
-    $('body').delegate('a[href]', 'click', () => {
+    $('body').delegate('a[href], a[ng-click]', 'click', () => {
       globalThis.setTimeout(() => {
         if (globalThis.location.pathname.includes('watchlists')) {
           emitter.emit(Events.onWatchlistPageHover)
