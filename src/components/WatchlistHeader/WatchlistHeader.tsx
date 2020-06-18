@@ -16,14 +16,26 @@ const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
 const showMeBy = (filterText: string) => {
   $('[automation-id=trade-item-name]').each((index, element) => {
     if (!filterText) {
-      $(element).closest('et-user-row, et-instrument-row').show()
+      $(element)
+        .closest(
+          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+        )
+        .show()
       return
     }
 
     if (element.innerText.toUpperCase().includes(filterText.toUpperCase())) {
-      $(element).closest('et-user-row, et-instrument-row').show()
+      $(element)
+        .closest(
+          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+        )
+        .show()
     } else {
-      $(element).closest('et-user-row, et-instrument-row').hide()
+      $(element)
+        .closest(
+          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+        )
+        .hide()
     }
   })
 }
