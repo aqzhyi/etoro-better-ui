@@ -18,12 +18,10 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { initializeIcons } from '@fluentui/react'
+import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
-
-/** 介面更新頻率 */
-const exchangeInterval = 5000
 
 /** 計算啟動時間 */
 const bootstrapStartAt = new Date()
@@ -165,14 +163,6 @@ const unbindWelcomeMessage = emitter.on(
   },
 )
 
-/**
- * 關注的使用者們的餘額
- */
-GM.addStyle(`
-  .user-meta {
-    margin-right: 8px;
-  }
-`)
 emitter.on(Events.onWatchlistPageHover, async function constructPeopleExtra() {
   $('et-user-row').each((index, element) => {
     const userFinder = $(element)
@@ -230,64 +220,9 @@ emitter.on(Events.settingChange, constructDepositButton)
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
  */
-emitter.on(Events.settingChange, function constructFooterUnitValue() {
-  const log = debugAPI.log.extend(
-    `提供價值的匯率（每 ${exchangeInterval / 1000} 秒）`,
-  )
-
-  provideNTD()
-  globalThis.setInterval(provideNTD, exchangeInterval)
-
-  function provideNTD() {
-    log('處理中...')
-    const exchangeSelected = storage.findConfig().selectedExchange
-
-    const unitValues = Array.from(
-      document.querySelectorAll('.footer-unit-value'),
-    )
-
-    unitValues.forEach(element => {
-      let twdBox: JQuery<HTMLSpanElement>
-
-      twdBox = $(element)
-        .parent()
-        .find('.footer-unit-value-exchange') as JQuery<HTMLSpanElement>
-
-      if (!twdBox.length) {
-        $(element)
-          .prepend()
-          .append(`<span class='footer-unit-value-exchange'></span>`)
-      }
-
-      twdBox = $(element)
-        .parent()
-        .find('.footer-unit-value-exchange') as JQuery<HTMLSpanElement>
-
-      if (twdBox.length) {
-        const USD = Number(
-          /\$(?<USD>[\d,.]+)?/
-            .exec(element.innerHTML)
-            ?.groups?.USD.replace(/,/g, '') || 0,
-        )
-
-        const currencyValue = USD * exchange[exchangeSelected].buy
-        const displayCurrency =
-          exchangeSelected === 'MYR'
-            ? toCurrency(currencyValue)
-            : toCurrency(Math.ceil(currencyValue))
-
-        if (displayCurrency[1]) {
-          twdBox.html(
-            `${exchangeSelected} <span class="footer-unit-value-exchange-main">${displayCurrency[0]}</span>.<span class="footer-unit-value-exchange-small">${displayCurrency[1]}</span>`,
-          )
-        } else {
-          twdBox.html(
-            `${exchangeSelected} <span class="footer-unit-value-exchange-main">${displayCurrency[0]}</span>`,
-          )
-        }
-      }
-    })
-  }
+emitter.on(Events.settingChange, renderFooterUnitValues)
+emitter.on(Events.ready, function constructFooterUnitValues() {
+  globalThis.setInterval(renderFooterUnitValues, 5000)
 })
 
 /**
@@ -377,6 +312,15 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
   GM.addStyle(`
     .bp3-transition-container {
       z-index: 10001
+    }
+  `)
+
+  /**
+   * 關注的使用者們的餘額
+   */
+  GM.addStyle(`
+    .user-meta {
+      margin-right: 8px;
     }
   `)
 
