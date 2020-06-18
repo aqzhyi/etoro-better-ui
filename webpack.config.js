@@ -7,6 +7,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { BannerPlugin } = require('webpack')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+const packageJSON = require('./package.json')
 
 const srcSubAlias = globby
   .sync(['src/*'], {
@@ -125,7 +126,7 @@ const configration = {
         // ==UserScript==
         // @name          Better etoro UI for Taiwan
         // @description   提供你更好的 etoro 新台幣介面增強懶人包
-        // @version       0.13.0
+        // @version       ${packageJSON.version}
         // @author        hilezir
         // @grant         GM_xmlhttpRequest
         // @grant         GM_addStyle
@@ -151,7 +152,7 @@ const configration = {
 
         window.GM_xmlhttpRequest({
           // url: 'http://127.0.0.1:8080/etoro.bundle.js', // 開發模式
-          url: 'https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@v0.13.0/src_dist/etoro.bundle.js',
+          url: 'https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@v${packageJSON.version}/src_dist/etoro.bundle.js',
           onload: event => {
             eval(event.responseText)
           },

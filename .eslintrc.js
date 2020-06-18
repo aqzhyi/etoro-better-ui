@@ -16,6 +16,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: 'tsconfig.json',
   },
   rules: {
     // 提升可靠性，但沒有也沒關係。
@@ -50,26 +51,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.ts', '**/*.tsx'],
-      parserOptions: {
-        project: 'tsconfig.json',
+      files: ['**/webpack.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
       },
-    },
-    {
-      files: ['**/webpack.config.ts'],
-      parserOptions: {
-        project: 'tsconfig.webpack.json',
-      },
-    },
-    {
-      files: ['**/*.test.js'],
-      env: {
-        jest: true,
-      },
-    },
-    {
-      files: ['src/**/*.js'],
-      parser: 'babel-eslint',
     },
   ],
 }
