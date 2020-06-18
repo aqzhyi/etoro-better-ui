@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
   使鎖定下單重複一致否定: () => '自動上次?',
   使鎖定下單重複一致之說明: () =>
@@ -55,6 +56,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
   使鎖定下單重複一致否定: () => 'Same Order?',
   使鎖定下單重複一致之說明: () =>
@@ -82,7 +84,7 @@ const en: typeof zh = {
       </React.Fragment>
     )
   },
-  設定幣別: (selectedText: string) => `Set Currency（Now：${selectedText}）`,
+  設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
   下單巨集: enabled => `Macro（Now：${enabled ? 'enabled' : 'disabled'}）`,
   巨集金額設定: () => 'Order Macro Setting',
   大概延遲: (msValue: number) => `Infer Delay：${msValue}ms`,

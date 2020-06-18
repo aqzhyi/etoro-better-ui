@@ -220,9 +220,7 @@ const constructDepositButton = async () => {
 
   if (target.length) {
     target.html(
-      `入金（${
-        exchange[storage.findConfig().selectedExchange].sell
-      } 銀行賣出）`,
+      i18n.左下入金按鈕(exchange[storage.findConfig().selectedExchange].sell),
     )
   }
 }
