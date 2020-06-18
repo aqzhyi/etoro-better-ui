@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack -w",
-    "server": "concurrently 'http-server -c-1 src_dist'"
+    "server": "concurrently 'http-server -c-1 src_dist'",
+    "changelog": "standard-version"
   },
   "author": "lezi.chen",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "prettier": "^2.0.5",
     "progress-bar-webpack-plugin": "^2.1.0",
     "scss-loader": "0.0.1",
+    "standard-version": "^8.0.0",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
