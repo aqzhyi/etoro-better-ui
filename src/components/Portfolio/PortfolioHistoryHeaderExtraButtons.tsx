@@ -13,17 +13,19 @@ const showMeBy = (filterText = '') => {
   if (filterText) {
     $('.ui-table-row').hide()
 
-    $('.i-portfolio-table-inner-name-symbol').each((index, element) => {
-      const didMatch = element.innerText
-        .trim()
-        .toLowerCase()
-        .replace(/[\s]*/gi, '')
-        .includes(filterText.toLowerCase())
+    $('.i-portfolio-table-inner-name-symbol, .ui-table-row').each(
+      (index, element) => {
+        const didMatch = element.innerText
+          .trim()
+          .toLowerCase()
+          .replace(/[\s]*/gi, '')
+          .includes(filterText.toLowerCase())
 
-      if (didMatch) {
-        $(element).closest('.ui-table-row').show()
-      }
-    })
+        if (didMatch) {
+          $(element).closest('.ui-table-row').show()
+        }
+      },
+    )
   } else {
     $('.ui-table-row').show()
   }
@@ -63,8 +65,8 @@ PortfolioHistoryHeaderExtraButtons.construct = () => {
   }
 
   if (!$(`#${ELEMENT_ID}-container`).length) {
-    $(`<span id='${ELEMENT_ID}-container'></span>`).appendTo(
-      '.p-portfolio.history .inner-header tab-switch',
+    $(`<span id='${ELEMENT_ID}-container'></span>`).insertBefore(
+      $('.p-portfolio.history .inner-header .inner-header-buttons'),
     )
   }
 
