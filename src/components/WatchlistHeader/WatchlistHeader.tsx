@@ -10,39 +10,43 @@ import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { setListCompact } from '@/actions/setListCompact'
 import { useMount } from 'react-use'
+import { Toggle, TextField, Stack, TextFieldBase } from '@fluentui/react'
 
 const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
 
-const showMeBy = (filterText: string) => {
-  $('[automation-id=trade-item-name]').each((index, element) => {
-    if (!filterText) {
-      $(element)
-        .closest(
-          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
-        )
-        .show()
-      return
-    }
+const showMeBy = (filterText = '') => {
+  if (filterText) {
+    $('et-user-row, et-user-card, et-instrument-row, et-instrument-card').hide()
 
-    if (element.innerText.toUpperCase().includes(filterText.toUpperCase())) {
-      $(element)
-        .closest(
-          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
-        )
-        .show()
-    } else {
-      $(element)
-        .closest(
-          'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
-        )
-        .hide()
-    }
-  })
+    $(
+      '[automation-id=trade-item-name], [automation-id="trade-item-full-name"]',
+    ).each((index, element) => {
+      const didMatch = element.innerText
+        .trim()
+        .toUpperCase()
+        .includes(filterText.trim().toUpperCase())
+
+      if (didMatch) {
+        $(element)
+          .closest(
+            'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+          )
+          .show()
+      }
+    })
+  } else {
+    $('et-user-row, et-user-card, et-instrument-row, et-instrument-card').show()
+  }
 }
 
 const toggleListCompact = (onOff: boolean) => {
   $(
-    '[automation-id="watchlist-item-list-instrument-chart"], [automation-id="watchlist-item-list-instrument-sentiment"]',
+    `
+    [automation-id="watchlist-item-list-instrument-chart"],
+    [automation-id="watchlist-item-list-instrument-sentiment"],
+    et-fifty-two-weeks,
+    [automation-id="watchlist-item-list-user-wrapp-investors"]
+    `,
   ).toggle(!onOff)
 }
 
@@ -51,35 +55,45 @@ export const WatchlistHeader: React.FC = () => {
     state => state.settings.betterEtoroUIConfig.listCompactOn,
   )
   const dispatch = useAppDispatch()
+  const [filterText, filterTextSet] = React.useState<string | undefined>('')
+  const searchBoxRef = React.createRef<TextFieldBase>()
 
   useMount(() => {
     toggleListCompact(listCompactOn)
   })
 
   return (
-    <ControlGroup className={NAME_HAS_FLAG}>
-      <InputGroup
-        leftIcon='filter'
-        onChange={event => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          showMeBy(event.target.value)
-        }}
-        onMouseEnter={event => {
-          ;(event.target as HTMLInputElement)?.focus()
-        }}
-        placeholder={i18n.輸入以過濾()}
-      />
-      <Button
-        icon={(listCompactOn && 'small-tick') || 'small-cross'}
-        onClick={() => {
-          storage.saveConfig({ listCompactOn: !listCompactOn })
-          toggleListCompact(!listCompactOn)
-          dispatch(setListCompact(!listCompactOn))
-        }}
-      >
-        {i18n.使緊湊()}
-      </Button>
-    </ControlGroup>
+    <Stack horizontal tokens={{ childrenGap: 16 }} className={NAME_HAS_FLAG}>
+      <Stack.Item>
+        <TextField
+          componentRef={searchBoxRef}
+          placeholder={i18n.輸入以過濾()}
+          iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
+          onChange={(event, newValue) => {
+            filterTextSet(newValue)
+            showMeBy(newValue)
+          }}
+          onMouseEnter={() => {
+            // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
+            globalThis.setTimeout(() => {
+              searchBoxRef.current?.focus()
+            })
+          }}
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Toggle
+          label={i18n.使緊湊()}
+          inlineLabel
+          checked={listCompactOn}
+          onClick={() => {
+            storage.saveConfig({ listCompactOn: !listCompactOn })
+            toggleListCompact(!listCompactOn)
+            dispatch(setListCompact(!listCompactOn))
+          }}
+        />
+      </Stack.Item>
+    </Stack>
   )
 }
 
@@ -108,6 +122,6 @@ export const watchlistHeaderConstructor = () => {
 
 GM.addStyle(`
   #${watchlistHeaderConstructor.name} {
-    margin-top: 20px;
+    margin-top: 18px;
   }
 `)
