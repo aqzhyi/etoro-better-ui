@@ -49,41 +49,46 @@ $('body').delegate(
  *
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
-emitter.on(Events.ready, function constructTriggerDelegate() {
-  // initializeIcons()
+const unbindConstructTriggerDelegate = emitter.on(
+  Events.ready,
+  function constructTriggerDelegate() {
+    // initializeIcons()
 
-  // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
-  $('body').delegate(
-    `[automation-id="menu-layout"]`,
-    'mouseover',
-    throttle(() => {
-      emitter.emit(Events.onSidebarHover)
-    }, 30000),
-  )
+    // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
+    $('body').delegate(
+      `[automation-id="menu-layout"]`,
+      'mouseover',
+      throttle(() => {
+        emitter.emit(Events.onSidebarHover)
+      }, 30000),
+    )
 
-  // 內頁常因換頁而導致 UI 消失，因此配置較短的觸發時間(throttle)
-  $('body').delegate(
-    '.main-app-view',
-    'mouseover',
-    throttle(event => {
-      if (globalThis.location.pathname.includes('watchlists')) {
-        emitter.emit(Events.onWatchlistPageHover)
-      }
-      if (globalThis.location.pathname.includes('portfolio')) {
-        emitter.emit(Events.onPortfolioPageHover)
-      }
-    }, 5000),
-  )
+    // 內頁常因換頁而導致 UI 消失，因此配置較短的觸發時間(throttle)
+    $('body').delegate(
+      '.main-app-view',
+      'mouseover',
+      throttle(event => {
+        if (globalThis.location.pathname.includes('watchlists')) {
+          emitter.emit(Events.onWatchlistPageHover)
+        }
+        if (globalThis.location.pathname.includes('portfolio')) {
+          emitter.emit(Events.onPortfolioPageHover)
+        }
+      }, 5000),
+    )
 
-  // 彈出視窗畫面，此框用於下單，為實現加速下單的設計本意，使用較短的觸發時間(throttle)
-  $('body').delegate(
-    '.execution-main',
-    'mouseover',
-    throttle(event => {
-      emitter.emit(Events.onDialogHover)
-    }, 1000),
-  )
-})
+    // 彈出視窗畫面，此框用於下單，為實現加速下單的設計本意，使用較短的觸發時間(throttle)
+    $('body').delegate(
+      '.execution-main',
+      'mouseover',
+      throttle(event => {
+        emitter.emit(Events.onDialogHover)
+      }, 1000),
+    )
+
+    unbindConstructTriggerDelegate()
+  },
+)
 
 /**
  * 我的關注列表
@@ -111,27 +116,31 @@ emitter.on(Events.onDialogHover, function constructDialogMacro() {
 /**
  * 歡迎訊息
  */
-emitter.on(Events.ready, function welcomeMessage() {
-  toast.success(
-    i18n.感謝使用提示語(() => (
-      <a
-        style={{
-          color: 'blue',
-        }}
-        href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
-        target='_blank'
-      >
-        better-etoro-ui
-      </a>
-    )),
-    { position: 'top-center', hideAfter: 5 },
-  )
+const unbindWelcomeMessage = emitter.on(
+  Events.ready,
+  function welcomeMessage() {
+    toast.success(
+      i18n.感謝使用提示語(() => (
+        <a
+          style={{
+            color: 'blue',
+          }}
+          href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
+          target='_blank'
+        >
+          better-etoro-ui
+        </a>
+      )),
+      { position: 'top-center', hideAfter: 5 },
+    )
 
-  const bootstrapEndedAt = new Date()
-  const bootstrapUsedTime =
-    bootstrapEndedAt.getTime() - bootstrapStartAt.getTime()
-  debugAPI.log.extend('log')(`起動時間 = ${bootstrapUsedTime}ms`)
-})
+    const bootstrapEndedAt = new Date()
+    const bootstrapUsedTime =
+      bootstrapEndedAt.getTime() - bootstrapStartAt.getTime()
+    debugAPI.log.extend('log')(`起動時間 = ${bootstrapUsedTime}ms`)
+    unbindWelcomeMessage()
+  },
+)
 
 /**
  * 關注的使用者們的餘額

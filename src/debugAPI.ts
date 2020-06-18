@@ -4,4 +4,5 @@ const log = debug('etoro-better-ui')
 
 export const debugAPI = {
   log,
+  events: log.extend('events'),
 }
