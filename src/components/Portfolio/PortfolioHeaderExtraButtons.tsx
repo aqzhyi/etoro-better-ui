@@ -14,7 +14,9 @@ const showMeBy = (filterText = '') => {
   if (filterText) {
     $('.ui-table-row').hide()
 
-    $('.table-first-name, .table-last-name').each((index, element) => {
+    $(
+      '.table-first-name, .table-last-name, .i-portfolio-table-name-symbol',
+    ).each((index, element) => {
       const didMatch = element.innerHTML
         .trim()
         .toLowerCase()
