@@ -341,5 +341,16 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
+  /**
+   * 為關注列表頁面增加一點 style 質感
+   */
+  GM.addStyle(`
+    et-instrument-trading-row:hover,
+    et-user-row:hover {
+      box-shadow: 1px 1px 5px #42424294;
+      text-shadow: 2px 2px 1px #d2d2d2;
+    }
+  `)
+
   constructCssUnbind()
 })
