@@ -234,9 +234,13 @@ emitter.on(Events.settingChange, constructDepositButton)
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
  */
 emitter.on(Events.settingChange, renderFooterUnitValues)
-emitter.on(Events.ready, function constructFooterUnitValues() {
-  globalThis.setInterval(renderFooterUnitValues, 5000)
-})
+const constructFooterUnitValuesUnbind = emitter.on(
+  Events.ready,
+  function constructFooterUnitValues() {
+    globalThis.setInterval(renderFooterUnitValues, 5000)
+    constructFooterUnitValuesUnbind()
+  },
+)
 
 /**
  * 左側欄連結項目與設定
