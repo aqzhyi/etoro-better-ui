@@ -93,7 +93,7 @@ export const watchlistHeaderConstructor = () => {
   const headerWrap = $('.watchlist-header')
   const buttonWarp = headerWrap.find('.watch-list-buttons')
 
-  if (!$(`#${watchlistHeaderConstructor.name}`).length) {
+  if (buttonWarp.length && !$(`#${watchlistHeaderConstructor.name}`).length) {
     buttonWarp.prepend(`<span id='${watchlistHeaderConstructor.name}'></span>`)
   }
 
