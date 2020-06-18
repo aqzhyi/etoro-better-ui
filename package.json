@@ -51,7 +51,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.28.1",
     "@blueprintjs/docs-theme": "^3.6.0",
-    "@fluentui/react": "^7.120.0",
+    "@fluentui/react": "^7.121.0",
     "@reduxjs/toolkit": "^1.3.6",
     "@types/react-redux": "^7.1.9",
     "cogo-toast": "^4.2.3",

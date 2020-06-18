@@ -16,8 +16,8 @@ import { throttle } from 'lodash'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-
-// import { initializeIcons } from '@uifabric/icons'
+import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import { initializeIcons } from '@fluentui/react'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -52,7 +52,8 @@ const unbindConstructTriggerDelegate = emitter.on(
   Events.ready,
   function constructTriggerDelegate() {
     $('body').undelegate('.main-app-view', 'mouseover')
-    // initializeIcons()
+
+    initializeIcons()
 
     // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
     $('body').delegate(
@@ -106,6 +107,16 @@ const unbindConstructTriggerDelegate = emitter.on(
  * 我的關注列表
  */
 emitter.on(Events.onWatchlistPageHover, watchlistHeaderConstructor)
+
+/**
+ * 我的投資組合
+ */
+emitter.on(
+  Events.onPortfolioPageHover,
+  function constructPortfolioHeaderExtra() {
+    PortfolioHeaderExtraButtons.render()
+  },
+)
 
 /**
  * 下單框框增強介面
