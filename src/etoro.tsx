@@ -289,14 +289,16 @@ emitter.on(Events.onSidebarHover, sidebarConstructor)
 /**
  * 取得匯率
  */
-Promise.all([getNTD(), getMYR()]).then(gets => {
-  const ntd = gets[0]
-  const myr = gets[1]
+emitter.on(Events.ready, async function getExtraCurrencySettings() {
+  await Promise.all([getNTD(), getMYR()]).then(gets => {
+    const ntd = gets[0]
+    const myr = gets[1]
 
-  exchange.NTD = ntd
-  exchange.MYR = myr
+    exchange.NTD = ntd
+    exchange.MYR = myr
 
-  emitter.emit(Events.settingChange)
+    emitter.emit(Events.settingChange)
+  })
 })
 
 /**
