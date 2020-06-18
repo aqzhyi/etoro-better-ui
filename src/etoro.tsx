@@ -37,7 +37,6 @@ $('body').delegate(
   'mouseover',
   throttle(() => {
     debugAPI.log.extend('log')('頁面加載完成')
-    $('body').undelegate('.main-app-view', 'mouseover')
     emitter.emit(Events.ready)
   }, 1000),
 )
@@ -52,6 +51,7 @@ $('body').delegate(
 const unbindConstructTriggerDelegate = emitter.on(
   Events.ready,
   function constructTriggerDelegate() {
+    $('body').undelegate('.main-app-view', 'mouseover')
     // initializeIcons()
 
     // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
