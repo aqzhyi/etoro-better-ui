@@ -63,7 +63,19 @@ const unbindConstructTriggerDelegate = emitter.on(
       }, 30000),
     )
 
-    // 內頁常因換頁而導致 UI 消失，因此配置較短的觸發時間(throttle)
+    // A按鈕大多屬換頁性質，使A按鈕切換後，盡可能快地將「本腳本UI」掛載至 etoro 頁面
+    $('body').delegate('a[href]', 'click', () => {
+      globalThis.setTimeout(() => {
+        if (globalThis.location.pathname.includes('watchlists')) {
+          emitter.emit(Events.onWatchlistPageHover)
+        }
+        if (globalThis.location.pathname.includes('portfolio')) {
+          emitter.emit(Events.onPortfolioPageHover)
+        }
+      }, 500)
+    })
+
+    // 避免「本腳本UI」被 etoro 重新 render 而消失，配置較短的再觸發時間(throttle)
     $('body').delegate(
       '.main-app-view',
       'mouseover',
@@ -207,28 +219,8 @@ emitter.on(Events.onSidebarHover, constructDepositButton)
 emitter.on(Events.settingChange, constructDepositButton)
 
 /**
- * 提供價值的匯率
+ * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
  */
-emitter.on(Events.ready, function constructFooterUnitValueCSS() {
-  GM.addStyle(`
-    .footer-unit[_ngcontent-qlo-c4] {
-      height: 100px;
-    }
-
-    .footer-unit-value-exchange {
-      font-size: 12pt;
-      margin-left: 4px;
-    }
-
-    .footer-unit-value-exchange-main {
-      font-weight: bold;
-    }
-
-    .footer-unit-value-exchange-small {
-      font-size: 8pt;
-    }
-  `)
-})
 emitter.on(Events.settingChange, function constructFooterUnitValue() {
   const log = debugAPI.log.extend(
     `提供價值的匯率（每 ${exchangeInterval / 1000} 秒）`,
@@ -298,45 +290,77 @@ emitter.on(Events.onSidebarHover, sidebarConstructor)
 /**
  * 取得匯率
  */
-emitter.on(Events.ready, async function getExtraCurrencySettings() {
-  await Promise.all([getNTD(), getMYR()]).then(gets => {
-    const ntd = gets[0]
-    const myr = gets[1]
+const fetchExtraCurrencySettingsUnbind = emitter.on(
+  Events.ready,
+  async function fetchExtraCurrencySettings() {
+    await Promise.all([getNTD(), getMYR()]).then(gets => {
+      const ntd = gets[0]
+      const myr = gets[1]
 
-    exchange.NTD = ntd
-    exchange.MYR = myr
+      exchange.NTD = ntd
+      exchange.MYR = myr
 
-    emitter.emit(Events.settingChange)
-  })
+      emitter.emit(Events.settingChange)
+
+      fetchExtraCurrencySettingsUnbind()
+    })
+  },
+)
+
+// 盡可能不拖慢 etoro 程式啟動時間，將 CSS 統一在 ready 後加載
+const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
+  /**
+   * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
+   */
+  GM.addStyle(`
+    .footer-unit[_ngcontent-qlo-c4] {
+      height: 100px;
+    }
+
+    .footer-unit-value-exchange {
+      font-size: 12pt;
+      margin-left: 4px;
+    }
+
+    .footer-unit-value-exchange-main {
+      font-weight: bold;
+    }
+
+    .footer-unit-value-exchange-small {
+      font-size: 8pt;
+    }
+  `)
+
+  /**
+   * 修正「添加到列表」被其它元素蓋住的問題
+   *
+   * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
+   */
+  GM.addStyle(`
+    body .inner-header {
+      z-index: 1
+    }
+  `)
+
+  /**
+   * 使「買入與賣出按鈕」更加立體明確
+   *
+   * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
+   */
+  GM.addStyle(`
+    .execution-head .execution-head-button.active:after {
+      content: "✅";
+    }
+  `)
+
+  /**
+   * 確保 toast 不會被蓋住
+   */
+  GM.addStyle(`
+    #ct-container {
+      z-index: 1000000
+    }
+  `)
+
+  constructCssUnbind()
 })
-
-/**
- * 修正「添加到列表」被其它元素蓋住的問題
- *
- * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
- */
-GM.addStyle(`
-  body .inner-header {
-    z-index: 1
-  }
-`)
-
-/**
- * 使「買入與賣出按鈕」更加立體明確
- *
- * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
- */
-GM.addStyle(`
-  .execution-head .execution-head-button.active:after {
-    content: "✅";
-  }
-`)
-
-/**
- * 確保 toast 不會被蓋住
- */
-GM.addStyle(`
-  #ct-container {
-    z-index: 1000000
-  }
-`)
