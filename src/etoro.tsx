@@ -290,8 +290,9 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
 
     .footer-unit-value-exchange {
-      font-size: 12pt;
+      font-size: 10pt;
       margin-left: 4px;
+      opacity: 0.65;
     }
 
     .footer-unit-value-exchange-main {

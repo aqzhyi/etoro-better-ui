@@ -9,7 +9,14 @@ export const renderFooterUnitValues = () => {
   log('處理中...')
   const exchangeSelected = storage.findConfig().selectedExchange
 
-  const unitValues = Array.from(document.querySelectorAll('.footer-unit-value'))
+  const unitValues = Array.from(
+    document.querySelectorAll(
+      `
+        .footer-unit-value,
+        [data-etoro-automation-id="detailed-view-header-details-profit-value"]
+      `,
+    ),
+  )
 
   unitValues.forEach(element => {
     let twdBox: JQuery<HTMLSpanElement>
