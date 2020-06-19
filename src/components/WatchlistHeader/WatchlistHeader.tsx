@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import store, { useTypedSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
-import { InputGroup, Button, ControlGroup } from '@blueprintjs/core'
+import { Tooltip } from '@blueprintjs/core'
 import { storage } from '@/storage'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
@@ -81,32 +81,37 @@ export const WatchlistHeader: React.FC = () => {
   return (
     <Stack horizontal tokens={{ childrenGap: 16 }} className={NAME_HAS_FLAG}>
       <Stack.Item>
-        <TextField
-          componentRef={searchBoxRef}
-          placeholder={i18n.輸入以過濾()}
-          iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
-          onChange={(event, newValue) => {
-            filterTextSet(newValue)
-            showMeBy(newValue)
+        <Tooltip
+          position='left'
+          content={i18n.回車鍵使彈出下單框()}
+        >
+          <TextField
+            componentRef={searchBoxRef}
+            placeholder={i18n.輸入以過濾()}
+            iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
+            onChange={(event, newValue) => {
+              filterTextSet(newValue)
+              showMeBy(newValue)
 
-            if (!newValue) {
-              toggleListInvested(shouldShowInvested)
-            }
-          }}
-          onMouseEnter={() => {
-            // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
-            globalThis.setTimeout(() => {
-              searchBoxRef.current?.focus()
-            })
-          }}
-          onKeyDown={event => {
-            if (event.key.toLowerCase() === 'enter') {
-              $('[automation-id="buy-sell-button-container-buy"]:visible')
-                .eq(0)
-                .click()
-            }
-          }}
-        />
+              if (!newValue) {
+                toggleListInvested(shouldShowInvested)
+              }
+            }}
+            onMouseEnter={() => {
+              // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
+              globalThis.setTimeout(() => {
+                searchBoxRef.current?.focus()
+              })
+            }}
+            onKeyDown={event => {
+              if (event.key.toLowerCase() === 'enter') {
+                $('[automation-id="buy-sell-button-container-buy"]:visible')
+                  .eq(0)
+                  .click()
+              }
+            }}
+          />
+        </Tooltip>
       </Stack.Item>
 
       <Stack.Item>

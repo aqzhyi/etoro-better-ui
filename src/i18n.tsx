@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  回車鍵使彈出下單框: () => '使用 enter 時，將會自動開啟第一個篩選標的之下單框',
   使已投資顯示: () => '已投資',
   左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
@@ -57,6 +58,8 @@ const zh = {
 }
 
 const en: typeof zh = {
+  回車鍵使彈出下單框: () =>
+    'Use Enter key to popup the first result of filter items.',
   使已投資顯示: () => 'Invested',
   左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
