@@ -367,5 +367,22 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
+  /** 使顯眼賣出或買入文字 */
+  GM.addStyle(`
+    [data-etoro-automation-id="open-trades-table-body-cell-action-sell"] {
+      color: #ff7171;
+    }
+    [data-etoro-automation-id="open-trades-table-body-cell-action-sell"]:after {
+      content: "📉";
+    }
+
+    [data-etoro-automation-id="open-trades-table-body-cell-action-buy"] {
+      color: #20ae20;
+    }
+    [data-etoro-automation-id="open-trades-table-body-cell-action-buy"]:after {
+      content: "📈";
+    }
+  `)
+
   constructCssUnbind()
 })
