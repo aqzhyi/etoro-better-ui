@@ -37,6 +37,7 @@ $('body').delegate(
   'mouseover',
   throttle(() => {
     debugAPI.log.extend('log')('頁面加載完成')
+    $('body').undelegate('.main-app-view', 'mouseover')
     emitter.emit(Events.ready)
   }, 1000),
 )
