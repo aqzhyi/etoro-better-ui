@@ -100,9 +100,24 @@ const unbindConstructTriggerDelegate = emitter.on(
       }, 1000),
     )
 
+    $('body').delegate(
+      '.more-info-button',
+      'mouseover',
+      throttle(() => {
+        emitter.emit(Events.onMoreInfoButtonHover)
+      }, 50),
+    )
+
     unbindConstructTriggerDelegate()
   },
 )
+
+/**
+ * 查看更多按鈕
+ */
+emitter.on(Events.onMoreInfoButtonHover, function autoTriggerMore() {
+  $('.more-info-button').click()
+})
 
 /**
  * 我的歷史記錄

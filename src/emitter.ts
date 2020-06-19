@@ -11,6 +11,7 @@ export enum Events {
   onPortfolioHistoryPageHover = 'onPortfolioHistoryPageHover',
   onSidebarHover = 'onSidebarHover',
   onDialogHover = 'onDialogHover',
+  onMoreInfoButtonHover = 'onMoreInfoButtonHover',
 }
 
 export const emitter = new Emittery.Typed<
