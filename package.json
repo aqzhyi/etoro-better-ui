@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack -w",
     "server": "concurrently 'http-server -c-1 src_dist'",
-    "changelog": "standard-version"
+    "auto:changelog": "standard-version",
+    "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"
   },
   "author": "lezi.chen",
   "license": "ISC",

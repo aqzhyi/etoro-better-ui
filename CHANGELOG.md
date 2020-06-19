@@ -1,3 +1,26 @@
+# [0.15.0](https://github.com/hilezir/etoro-better-ui/compare/v0.14.0...v0.15.0) (2020-06-19)
+
+
+### Features
+
+* 在投資組合中，試圖增強倉位買入賣出資訊判別 ([bc84966](https://github.com/hilezir/etoro-better-ui/commit/bc8496658640b72576e92abb565b2782a0c57799))
+* 在關注列表的快篩輸入框，現在按下 enter 可快速開啟第一個標的的下單介面 ([998ed9a](https://github.com/hilezir/etoro-better-ui/commit/998ed9ae768b7b6a8ad58de1ea5d8fb65fb8c91f))
+* 提供歷史記錄的篩選輸入框，以便快速查找標的 ([cee0c62](https://github.com/hilezir/etoro-better-ui/commit/cee0c6202852e29865ee8942ff141e5d0ed974e8))
+* 明星投資人之投資組合，現在也能使用輸入框快速篩選 ([4ac6cd0](https://github.com/hilezir/etoro-better-ui/commit/4ac6cd09ac3956b456452d97214805e4f2f8547e))
+* 關注列表可以設定只顯示「已投資的標的」但不會使輸入快篩失效 ([925e825](https://github.com/hilezir/etoro-better-ui/commit/925e82576108c3d4a7e95f1743f467fa2d653eb6))
+* 鼠標移至 more button時，自動幫忙點擊以展開 more rows ([f14d805](https://github.com/hilezir/etoro-better-ui/commit/f14d805fd98fb9b072dfad353d9c738ba1da1384))
+
+
+
+# [0.14.0](https://github.com/hilezir/etoro-better-ui/compare/v0.13.0...v0.14.0) (2020-06-18)
+
+
+### Features
+
+* 提供選項在下單輔助，使你始終能自動套用，上一次選擇的金額與槓桿 ([36c091e](https://github.com/hilezir/etoro-better-ui/commit/36c091e367d3a8d324dfae16f1ba4370bd4a5d9e)), closes [#1](https://github.com/hilezir/etoro-better-ui/issues/1)
+
+
+
 # [0.13.0](https://github.com/hilezir/etoro-better-ui/compare/v0.12.0...v0.13.0) (2020-06-18)
 
 
