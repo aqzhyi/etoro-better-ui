@@ -14,6 +14,7 @@ import { storage, BetterEtoroUIConfig } from '@/storage'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { setListCompact } from '@/actions/setListCompact'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 
 const settings = createReducer<{
   betterEtoroUIConfig: BetterEtoroUIConfig
@@ -47,6 +48,13 @@ const settings = createReducer<{
   },
   builder =>
     builder
+      .addCase(fetchExtraCurrency.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.exchange.MYR = action.payload.MYR
+          state.exchange.NTD = action.payload.NTD
+          return state
+        }),
+      )
       .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) =>
         produce(state, () => {
           state.betterEtoroUIConfig = action.payload

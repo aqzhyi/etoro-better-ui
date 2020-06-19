@@ -20,6 +20,7 @@ import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHea
 import { initializeIcons } from '@fluentui/react'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
+import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -235,10 +236,13 @@ emitter.on(Events.onWatchlistPageHover, async function constructPeopleExtra() {
  */
 const constructDepositButton = async () => {
   const target = $('.w-menu-footer .e-btn-big-2')
+  const state = store.getState()
 
   if (target.length) {
     target.html(
-      i18n.左下入金按鈕(exchange[storage.findConfig().selectedExchange].sell),
+      i18n.左下入金按鈕(
+        state.settings.exchange[state.settings.exchange.selected].sell,
+      ),
     )
   }
 }
@@ -264,22 +268,14 @@ emitter.on(Events.settingChange, sidebarConstructor)
 emitter.on(Events.onSidebarHover, sidebarConstructor)
 
 /**
- * 取得匯率
+ * 取得外部銀行買賣匯率
  */
 const fetchExtraCurrencySettingsUnbind = emitter.on(
   Events.ready,
   async function fetchExtraCurrencySettings() {
-    await Promise.all([getNTD(), getMYR()]).then(gets => {
-      const ntd = gets[0]
-      const myr = gets[1]
-
-      exchange.NTD = ntd
-      exchange.MYR = myr
-
-      emitter.emit(Events.settingChange)
-
-      fetchExtraCurrencySettingsUnbind()
-    })
+    await store.dispatch(fetchExtraCurrency())
+    emitter.emit(Events.settingChange)
+    fetchExtraCurrencySettingsUnbind()
   },
 )
 
