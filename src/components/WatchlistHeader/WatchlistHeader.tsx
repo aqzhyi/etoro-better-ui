@@ -99,6 +99,13 @@ export const WatchlistHeader: React.FC = () => {
               searchBoxRef.current?.focus()
             })
           }}
+          onKeyDown={event => {
+            if (event.key.toLowerCase() === 'enter') {
+              $('[automation-id="buy-sell-button-container-buy"]:visible')
+                .eq(0)
+                .click()
+            }
+          }}
         />
       </Stack.Item>
 
