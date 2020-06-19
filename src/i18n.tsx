@@ -30,8 +30,10 @@ const zh = {
     )
   },
   設定幣別: (selectedText: string) => `設定幣別（當前：${selectedText}）`,
-  下單巨集: enabled => `下單巨集（當前：${enabled ? '啟用' : '停用'}）`,
-  巨集金額設定: () => '巨集金額設定',
+  下單巨集啟用狀態: enabled =>
+    `下單巨集輔助功能（當前：${enabled ? '啟用' : '停用'}）`,
+  下單巨集金額設定: () =>
+    '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
   大概延遲: (msValue: number) => `大概延遲：${msValue}ms`,
   槓桿: () => '槓桿',
   金額: () => '金額',
@@ -47,10 +49,19 @@ const zh = {
   },
   投資組合: () => '投資組合',
   動作沒有執行: () => '動作沒有執行，因為發現可能的出錯',
+  設定變更中: () => '設定變更中...',
   設定已變更: (PostComponent: React.FC) => {
     return (
       <span>
         設定已變更：
+        <PostComponent />
+      </span>
+    )
+  },
+  設定未變更: (PostComponent: React.FC) => {
+    return (
+      <span>
+        設定未變更：
         <PostComponent />
       </span>
     )
@@ -90,8 +101,10 @@ const en: typeof zh = {
     )
   },
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
-  下單巨集: enabled => `Macro（Now：${enabled ? 'enabled' : 'disabled'}）`,
-  巨集金額設定: () => 'Order Macro Setting',
+  下單巨集啟用狀態: enabled =>
+    `Macro（Now：${enabled ? 'enabled' : 'disabled'}）`,
+  下單巨集金額設定: () =>
+    'Order Macro Setting, each numbers have to split by comma. e.g. 100,200,300,500,1000',
   大概延遲: (msValue: number) => `Infer Delay：${msValue}ms`,
   槓桿: () => 'Lever',
   金額: () => 'Amount',
@@ -107,10 +120,19 @@ const en: typeof zh = {
   },
   投資組合: () => 'portfolio',
   動作沒有執行: () => 'No Action Execution, Seems Somethings broken.',
+  設定變更中: () => 'loading...',
   設定已變更: (PostComponent: React.FC) => {
     return (
       <span>
-        Setting Changed：
+        Has been changed：
+        <PostComponent />
+      </span>
+    )
+  },
+  設定未變更: (PostComponent: React.FC) => {
+    return (
+      <span>
+        nothing changes：
         <PostComponent />
       </span>
     )
