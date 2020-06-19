@@ -21,6 +21,7 @@ import { initializeIcons } from '@fluentui/react'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -111,6 +112,32 @@ const unbindConstructTriggerDelegate = emitter.on(
     )
 
     unbindConstructTriggerDelegate()
+  },
+)
+
+/**
+ * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
+ */
+const rememberRiskItemlevelAsLastUnbind = emitter.on(
+  Events.ready,
+  function rememberRiskItemlevelAsLast() {
+    $('body').delegate('.risk-itemlevel', 'click', (index, element) => {
+      const leverText = (index.target as HTMLAnchorElement).innerText
+        .trim()
+        .replace(/x/i, '')
+
+      const state = store.getState()
+
+      if (state.settings.betterEtoroUIConfig.executionUseApplyLast) {
+        store.dispatch(
+          setBetterEtoroUIConfig({
+            executionLeverLast: Number(leverText),
+          }),
+        )
+      }
+    })
+
+    rememberRiskItemlevelAsLastUnbind()
   },
 )
 
