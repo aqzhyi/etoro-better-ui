@@ -13,6 +13,8 @@ import { ChoiceGroup, Stack, TextField, TextFieldBase } from '@fluentui/react'
 import toast from 'cogo-toast'
 import * as React from 'react'
 import { useInterval } from 'react-use'
+import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
@@ -54,7 +56,7 @@ const Sidebar: React.FunctionComponent = () => {
         {...attrsToAppend}
         className='i-menu-link pointer'
         onClick={() => {
-          settingDialogOpenSet(value => !value)
+          dispatch(toggleSettingsDialog(!settings.betterEtoroUISettingsDialog))
         }}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
@@ -96,116 +98,7 @@ const Sidebar: React.FunctionComponent = () => {
         {i18n.大概延遲(ping)}
       </span>
 
-      <Dialog
-        title={i18n.腳本標題()}
-        canEscapeKeyClose={true}
-        canOutsideClickClose={false}
-        onClose={() => {
-          settingDialogOpenSet(value => !value)
-        }}
-        isOpen={settingDialogOpen}
-      >
-        <Stack tokens={{ padding: 16, childrenGap: 32 }}>
-          <Stack.Item>
-            <TextField
-              componentRef={macroAmountInputRef}
-              label={i18n.下單巨集金額設定()}
-              defaultValue={settings.betterEtoroUIConfig.executionAmount.join(
-                ',',
-              )}
-              onKeyDown={event => {
-                if (event.key.toLowerCase() === 'enter') {
-                  const value = macroAmountInputRef.current?.value || '200'
-                  dispatch(setMacroAmount(value.split(',').map(Number)))
-                }
-              }}
-            ></TextField>
-          </Stack.Item>
-
-          <Stack.Item>
-            <ChoiceGroup
-              label={i18n.下單巨集啟用狀態(settings.isMacroEnabled)}
-              defaultSelectedKey={settings.isMacroEnabled ? 'ON' : 'OFF'}
-              options={[
-                {
-                  key: 'ON',
-                  text: 'ON',
-                  iconProps: { iconName: 'ActivateOrders' },
-                },
-                {
-                  key: 'OFF',
-                  text: 'OFF',
-                  iconProps: { iconName: 'DeactivateOrders' },
-                },
-              ]}
-              onChange={(event, option) => {
-                const yourEnabled = option?.key === 'ON' ? true : false
-
-                dispatch(setMacroEnabled(yourEnabled))
-
-                storage.saveConfig({ executionMacroEnabled: yourEnabled })
-
-                emitter.emit(Events.settingChange)
-
-                toast.success(
-                  i18n.設定已變更(() => (
-                    <span>{JSON.stringify(yourEnabled)}</span>
-                  )),
-                  { position: 'bottom-left' },
-                )
-              }}
-            ></ChoiceGroup>
-          </Stack.Item>
-
-          <Stack.Item>
-            <ChoiceGroup
-              label={i18n.設定幣別(settings.exchange.selected)}
-              defaultSelectedKey={settings.exchange.selected}
-              options={[
-                {
-                  key: 'NTD',
-                  text: 'NTD',
-                  iconProps: { iconName: 'AllCurrency' },
-                },
-                {
-                  key: 'MYR',
-                  text: 'MYR',
-                  iconProps: { iconName: 'AllCurrency' },
-                },
-              ]}
-              onChange={async (event, option) => {
-                const loading = toast.loading(i18n.設定變更中(), {
-                  position: 'bottom-left',
-                })
-
-                const youSelected = (option?.key ||
-                  'NTD') as typeof exchange['selected']
-
-                if (youSelected === 'NTD') {
-                  exchange.NTD = await getNTD()
-                }
-
-                if (youSelected === 'MYR') {
-                  exchange.MYR = await getMYR()
-                }
-
-                dispatch(setExchangeSelected(youSelected))
-
-                storage.saveConfig({ selectedExchange: youSelected })
-
-                emitter.emit(Events.settingChange)
-
-                toast.success(
-                  i18n.設定已變更(() => <span>{youSelected}</span>),
-                  { position: 'bottom-left' },
-                )
-
-                loading.hide?.()
-              }}
-            />
-          </Stack.Item>
-        </Stack>
-      </Dialog>
+      <SidebarSettingsDialog></SidebarSettingsDialog>
     </span>
   )
 }

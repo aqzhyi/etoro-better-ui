@@ -2,6 +2,7 @@ import { exchange } from './exchange'
 import toast from 'cogo-toast'
 
 export type BetterEtoroUIConfig = {
+  useTabKeyBuySell: boolean
   listCompactOn: boolean
   executionMacroEnabled: boolean
   executionAmount: number[]
@@ -32,6 +33,7 @@ const findLegacyConfig = () => {
 }
 
 const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  useTabKeyBuySell: false,
   listCompactOn: false,
   executionMacroEnabled: findLegacyConfig().executionMacroEnabled ?? false,
   executionAmount: [50, 100, 200, 300, 500],

@@ -16,9 +16,13 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { setListCompact } from '@/actions/setListCompact'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
+import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 import { createLogger } from 'redux-logger'
 
 const settings = createReducer<{
+  useTabKeySwitchBuySell: boolean
+  betterEtoroUISettingsDialog: boolean
   betterEtoroUIConfig: BetterEtoroUIConfig
   isMacroEnabled: boolean
   exchange: {
@@ -34,6 +38,8 @@ const settings = createReducer<{
   }
 }>(
   {
+    useTabKeySwitchBuySell: false,
+    betterEtoroUISettingsDialog: false,
     betterEtoroUIConfig: storage.findConfig(),
     isMacroEnabled: storage.findConfig().executionMacroEnabled,
     exchange: {
@@ -50,6 +56,18 @@ const settings = createReducer<{
   },
   builder =>
     builder
+      .addCase(setTabKeyBuySell.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.useTabKeySwitchBuySell = action.payload
+          return state
+        }),
+      )
+      .addCase(toggleSettingsDialog, (state, action) =>
+        produce(state, () => {
+          state.betterEtoroUISettingsDialog = action.payload
+          return state
+        }),
+      )
       .addCase(fetchExtraCurrency.fulfilled, (state, action) =>
         produce(state, () => {
           state.exchange.MYR = action.payload.MYR

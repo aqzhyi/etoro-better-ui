@@ -22,6 +22,7 @@ import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -112,6 +113,17 @@ const unbindConstructTriggerDelegate = emitter.on(
     )
 
     unbindConstructTriggerDelegate()
+  },
+)
+
+/**
+ * 掌握全網站的 keyboard 按下事件
+ */
+const constructKeyboardEventsUnbind = emitter.on(
+  Events.ready,
+  function constructKeyboardEvents() {
+    UniversalControlKeyObserver.construct()
+    constructKeyboardEventsUnbind()
   },
 )
 

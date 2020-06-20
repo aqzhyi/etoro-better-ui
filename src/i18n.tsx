@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 const zh = {
+  使下單視窗能夠單鍵快速切換買賣: () =>
+    '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
   回車鍵使彈出下單框: () => '使用 enter 時，將會自動開啟第一個篩選標的之下單框',
   使已投資顯示: () => '已投資',
   左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
@@ -69,6 +71,8 @@ const zh = {
 }
 
 const en: typeof zh = {
+  使下單視窗能夠單鍵快速切換買賣: () =>
+    'Use Tab key to switch BUY or SELL, effect on Execution Dialog open',
   回車鍵使彈出下單框: () =>
     'Use Enter key to popup the first result of filter items.',
   使已投資顯示: () => 'Invested',
