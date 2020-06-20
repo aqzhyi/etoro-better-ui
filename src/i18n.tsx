@@ -48,7 +48,7 @@ const zh = {
     )
   },
   投資組合: () => '投資組合',
-  動作沒有執行: () => '動作沒有執行，因為發現可能的出錯',
+  動作沒有執行: () => '動作沒有執行，可能介面不存在，或發生錯誤',
   設定變更中: () => '設定變更中...',
   設定已變更: (PostComponent: React.FC) => {
     return (
@@ -119,7 +119,8 @@ const en: typeof zh = {
     )
   },
   投資組合: () => 'portfolio',
-  動作沒有執行: () => 'No Action Execution, Seems Somethings broken.',
+  動作沒有執行: () =>
+    'No Action Execution, Target not found or maybe somethings broken.',
   設定變更中: () => 'loading...',
   設定已變更: (PostComponent: React.FC) => {
     return (

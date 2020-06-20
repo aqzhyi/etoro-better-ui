@@ -209,7 +209,7 @@ const unbindWelcomeMessage = emitter.on(
           better-etoro-ui
         </a>
       )),
-      { position: 'bottom-center', hideAfter: 3 },
+      { position: 'bottom-left', hideAfter: 3 },
     )
 
     const bootstrapEndedAt = new Date()
