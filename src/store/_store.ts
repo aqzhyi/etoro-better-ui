@@ -4,6 +4,7 @@ import {
   createReducer,
   combineReducers,
   createAsyncThunk,
+  applyMiddleware,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
@@ -15,6 +16,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { setListCompact } from '@/actions/setListCompact'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
+import { createLogger } from 'redux-logger'
 
 const settings = createReducer<{
   betterEtoroUIConfig: BetterEtoroUIConfig
@@ -97,6 +99,13 @@ const rootReducers = combineReducers({ settings })
 
 const store = configureStore({
   reducer: rootReducers,
+  enhancers: [
+    applyMiddleware(
+      createLogger({
+        collapsed: true,
+      }),
+    ),
+  ],
 })
 
 export type RootState = ReturnType<typeof rootReducers>
