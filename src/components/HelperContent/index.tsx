@@ -27,6 +27,7 @@ const com = {
         <a
           href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
           target='_blank'
+          tabIndex={-1}
         >
           better-etoro-ui
         </a>
