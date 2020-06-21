@@ -1,34 +1,29 @@
 import '@blueprintjs/core/lib/css/blueprint.css'
-import ExecutionDialog from './components/ExecutionDialog'
 import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
-import { exchange, getMYR, getNTD } from './exchange'
 import { GM } from './GM'
-import { storage } from './storage'
-import { toCurrency } from './toCurrency'
+import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
+import { ExecutionDialogAvailableValueOnEvent } from '@/components/ExecutionDialog/ExecutionDialogAvailableValueOnEvent'
+import { ExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
+import { useExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/useExecutionRiskLeverFromMemory'
+import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
+import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { sidebarConstructor } from '@/components/Sidebar/sidebarConstructor'
+import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
+import { UniversalBootstrapApp } from '@/components/UniversalControl/UniversalBootstrapApp'
+import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
+import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
 import { watchlistHeaderConstructor } from '@/components/WatchlistHeader/WatchlistHeader'
-import { WatchlistUserControls } from '@/components/WatchlistUserControls/WatchlistUserControls'
-import { i18n } from '@/i18n'
+import { renderWatchlistPeople } from '@/components/WatchlistHeader/WatchlistPeople'
 import store from '@/store/_store'
-import toast from 'cogo-toast'
 import { throttle } from 'lodash'
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
-import { initializeIcons } from '@fluentui/react'
-import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
-import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
-import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
 
-/** 計算啟動時間 */
-const bootstrapStartAt = new Date()
+debugAPI.universal('套件正在努力加載...')
 
 /**
  * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
@@ -38,7 +33,7 @@ $('body').delegate(
   '.main-app-view',
   'mouseover',
   throttle(() => {
-    debugAPI.log.extend('log')('頁面加載完成')
+    debugAPI.universal('套件加載完成')
     $('body').undelegate('.main-app-view', 'mouseover')
     emitter.emit(Events.ready)
   }, 1000),
@@ -51,70 +46,7 @@ $('body').delegate(
  *
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
-const unbindConstructTriggerDelegate = emitter.on(
-  Events.ready,
-  function constructTriggerDelegate() {
-    $('body').undelegate('.main-app-view', 'mouseover')
-
-    initializeIcons()
-
-    // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
-    $('body').delegate(
-      `[automation-id="menu-layout"]`,
-      'mouseover',
-      throttle(() => {
-        emitter.emit(Events.onSidebarHover)
-      }, 30000),
-    )
-
-    // A按鈕大多屬換頁性質，使A按鈕切換後，盡可能快地將「本腳本UI」掛載至 etoro 頁面
-    $('body').delegate('a[href], a[ng-click]', 'click', () => {
-      globalThis.setTimeout(() => {
-        if (globalThis.location.pathname.includes('watchlists')) {
-          emitter.emit(Events.onWatchlistPageHover)
-        } else if (globalThis.location.pathname.includes('portfolio/history')) {
-          emitter.emit(Events.onPortfolioHistoryPageHover)
-        } else if (globalThis.location.pathname.includes('portfolio')) {
-          emitter.emit(Events.onPortfolioPageHover)
-        }
-      }, 500)
-    })
-
-    // 避免「本腳本UI」被 etoro 重新 render 而消失，配置較短的再觸發時間(throttle)
-    $('body').delegate(
-      '.main-app-view',
-      'mouseover',
-      throttle(event => {
-        if (globalThis.location.pathname.includes('watchlists')) {
-          emitter.emit(Events.onWatchlistPageHover)
-        } else if (globalThis.location.pathname.includes('portfolio/history')) {
-          emitter.emit(Events.onPortfolioHistoryPageHover)
-        } else if (globalThis.location.pathname.includes('portfolio')) {
-          emitter.emit(Events.onPortfolioPageHover)
-        }
-      }, 5000),
-    )
-
-    // 彈出視窗畫面，此框用於下單，為實現加速下單的設計本意，使用較短的觸發時間(throttle)
-    $('body').delegate(
-      '.execution-main',
-      'mouseover',
-      throttle(event => {
-        emitter.emit(Events.onDialogHover)
-      }, 1000),
-    )
-
-    $('body').delegate(
-      '.more-info-button',
-      'mouseover',
-      throttle(() => {
-        emitter.emit(Events.onMoreInfoButtonHover)
-      }, 50),
-    )
-
-    unbindConstructTriggerDelegate()
-  },
-)
+emitter.once(Events.ready).then(UniversalBootstrapApp)
 
 /**
  * 掌握全網站的 keyboard 按下事件
@@ -130,33 +62,12 @@ const constructKeyboardEventsUnbind = emitter.on(
 /**
  * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
  */
-const rememberRiskItemlevelAsLastUnbind = emitter.on(
-  Events.ready,
-  function rememberRiskItemlevelAsLast() {
-    $('body').delegate('.risk-itemlevel', 'click', (index, element) => {
-      const leverText = (index.target as HTMLAnchorElement).innerText
-        .trim()
-        .replace(/x/i, '')
-
-      const state = store.getState()
-
-      if (state.settings.betterEtoroUIConfig.executionUseApplyLast) {
-        store.dispatch(
-          setBetterEtoroUIConfig({
-            executionLeverLast: Number(leverText),
-          }),
-        )
-      }
-    })
-
-    rememberRiskItemlevelAsLastUnbind()
-  },
-)
+emitter.once(Events.ready).then(useExecutionRiskLeverFromMemory)
 
 /**
  * 查看更多按鈕
  */
-emitter.on(Events.onMoreInfoButtonHover, function autoTriggerMore() {
+emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
   $('.more-info-button').click()
 })
 
@@ -166,7 +77,7 @@ emitter.on(Events.onMoreInfoButtonHover, function autoTriggerMore() {
 emitter.on(
   Events.onPortfolioHistoryPageHover,
   function constructPortfolioHistoryPage() {
-    PortfolioHistoryHeaderExtraButtons.construct()
+    PortfolioHistoryHeaderExtraButtons.render()
   },
 )
 
@@ -186,125 +97,34 @@ emitter.on(
 )
 
 /**
- * 提示可用金額
+ * 下單框框彈出時，提示剩餘可用餘額
  */
-emitter.on(
-  Events.onDialogHover,
-  throttle(function constructAvailableMoney() {
-    const availableValue = $(
-      `[automation-id="account-balance-availible-unit-value"]`,
-    ).html()
-
-    toast.info(i18n.當前可用餘額(availableValue), {
-      position: 'bottom-left',
-      hideAfter: 5,
-    })
-  }, 5100),
-)
+emitter.on(Events.onDialogHover, function constructAvailableValueToast() {
+  ExecutionDialogAvailableValueOnEvent()
+})
 
 /**
  * 下單框框增強介面
  */
-emitter.on(Events.onDialogHover, function constructDialogMacro() {
-  if (!storage.findConfig().executionMacroEnabled) {
-    return
-  }
-
-  if (ExecutionDialog.isConstructed) {
-    return
-  }
-
-  if (ExecutionDialog.isParentConstructed && !ExecutionDialog.isConstructed) {
-    ExecutionDialog.construct()
-    return
-  }
+emitter.on(Events.onDialogHover, function ExecutionDialogControlsConstruct() {
+  ExecutionDialogControls.construct()
 })
 
 /**
  * 歡迎訊息
  */
-const unbindWelcomeMessage = emitter.on(
-  Events.ready,
-  function welcomeMessage() {
-    toast.success(
-      i18n.感謝使用提示語(() => (
-        <a
-          style={{
-            color: 'blue',
-          }}
-          href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
-          target='_blank'
-        >
-          better-etoro-ui
-        </a>
-      )),
-      { position: 'bottom-left', hideAfter: 3 },
-    )
+emitter.once(Events.ready).then(showWelcomeMessage)
 
-    const bootstrapEndedAt = new Date()
-    const bootstrapUsedTime =
-      bootstrapEndedAt.getTime() - bootstrapStartAt.getTime()
-    debugAPI.log.extend('log')(`起動時間 = ${bootstrapUsedTime}ms`)
-    unbindWelcomeMessage()
-  },
-)
-
-emitter.on(Events.onWatchlistPageHover, async function constructPeopleExtra() {
-  $('et-user-row').each((index, element) => {
-    const userFinder = $(element)
-    const hasAppended = !!userFinder.find('.user-meta').length
-
-    if (hasAppended) {
-      return
-    }
-
-    /**
-     * tests https://regexr.com/52ft5
-     *
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
-     */
-    const cid = /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
-      $(element).find('[automation-id="trade-item-avatar"]').attr('src') || '',
-    )?.groups?.cid
-
-    const traderName = $(element)
-      .find('[automation-id="trade-item-name"]')
-      .html()
-
-    if (cid && !hasAppended) {
-      userFinder.prepend(
-        $(`<span class="user-meta" id="user-meta-${cid}"></span>`),
-      )
-
-      ReactDOM.render(
-        <Provider store={store}>
-          <WatchlistUserControls cid={cid} traderName={traderName} />
-        </Provider>,
-        globalThis.document.querySelector(`#user-meta-${cid}`),
-      )
-    }
-  })
-})
+/**
+ * 關注列表中的投資人提供額外功能按鈕
+ */
+emitter.on(Events.onWatchlistPageHover, renderWatchlistPeople)
 
 /**
  * 提供左側欄入金按鈕，匯率換算結果顯示
  */
-const constructDepositButton = async () => {
-  const target = $('.w-menu-footer .e-btn-big-2')
-  const state = store.getState()
-
-  if (target.length) {
-    target.html(
-      i18n.左下入金按鈕(
-        state.settings.exchange[state.settings.exchange.selected].sell,
-      ),
-    )
-  }
-}
-emitter.on(Events.onSidebarHover, constructDepositButton)
-emitter.on(Events.settingChange, constructDepositButton)
+emitter.on(Events.onSidebarHover, renderSidebarDepositButton)
+emitter.on(Events.settingChange, renderSidebarDepositButton)
 
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算

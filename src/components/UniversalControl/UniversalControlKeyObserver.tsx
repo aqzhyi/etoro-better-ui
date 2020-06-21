@@ -14,6 +14,7 @@ export const UniversalControlKeyObserver = () => {
     state => state.settings.betterEtoroUIConfig.useTabKeyBuySell,
   )
 
+  /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
   useKey(
     'Tab',
     event => {

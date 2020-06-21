@@ -59,7 +59,7 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
 PortfolioHistoryHeaderExtraButtons.hasRendered = () =>
   !!$(`#${ELEMENT_ID}`).length
 
-PortfolioHistoryHeaderExtraButtons.construct = () => {
+PortfolioHistoryHeaderExtraButtons.render = () => {
   if (PortfolioHistoryHeaderExtraButtons.hasRendered()) {
     return
   }
