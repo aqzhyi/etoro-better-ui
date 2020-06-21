@@ -79,6 +79,7 @@ export const Dashboard = () => {
           <HelperContent.RiskSpecification aStyle={{ color: 'blue' }} />
         ))}
       </span>,
+      { position: 'top-left' },
     )
   }, [])
 
