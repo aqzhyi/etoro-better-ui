@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "allowUmdGlobalAccess": true,
+    "allowUmdGlobalAccess": false,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
