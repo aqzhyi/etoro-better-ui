@@ -18,8 +18,11 @@ export const UniversalControlKeyObserver = () => {
   useKey(
     'Tab',
     event => {
+      debugAPI.keyboard.extend('tabBuySellEnabled')(
+        tabBuySellEnabled,
+        event.key,
+      )
       if (tabBuySellEnabled) {
-        debugAPI.keyboard(event.key)
         $('.execution-head-buttons .execution-head-button:not(.active)').click()
         $('.execution-head-buttons .execution-head-button.active').focus()
       }

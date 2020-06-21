@@ -52,7 +52,9 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <ChoiceGroup
             label={i18n.使下單視窗能夠單鍵快速切換買賣()}
-            defaultSelectedKey={settings.useTabKeySwitchBuySell ? 'ON' : 'OFF'}
+            defaultSelectedKey={
+              settings.betterEtoroUIConfig.useTabKeyBuySell ? 'ON' : 'OFF'
+            }
             options={[
               {
                 key: 'ON',
@@ -65,8 +67,10 @@ export const SidebarSettingsDialog: React.FC = () => {
                 iconProps: { iconName: 'Cancel' },
               },
             ]}
-            onChange={(event, option) => {
-              dispatch(setTabKeyBuySell(option?.key === 'ON' ? true : false))
+            onChange={async (event, option) => {
+              await dispatch(
+                setTabKeyBuySell(option?.key === 'ON' ? true : false),
+              )
             }}
           ></ChoiceGroup>
         </Stack.Item>

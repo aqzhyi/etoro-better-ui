@@ -21,7 +21,6 @@ import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 import { createLogger } from 'redux-logger'
 
 const settings = createReducer<{
-  useTabKeySwitchBuySell: boolean
   betterEtoroUISettingsDialog: boolean
   betterEtoroUIConfig: BetterEtoroUIConfig
   isMacroEnabled: boolean
@@ -38,7 +37,6 @@ const settings = createReducer<{
   }
 }>(
   {
-    useTabKeySwitchBuySell: false,
     betterEtoroUISettingsDialog: false,
     betterEtoroUIConfig: storage.findConfig(),
     isMacroEnabled: storage.findConfig().executionMacroEnabled,
@@ -58,7 +56,7 @@ const settings = createReducer<{
     builder
       .addCase(setTabKeyBuySell.fulfilled, (state, action) =>
         produce(state, () => {
-          state.useTabKeySwitchBuySell = action.payload
+          state.betterEtoroUIConfig.useTabKeyBuySell = action.payload
           return state
         }),
       )
