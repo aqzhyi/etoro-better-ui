@@ -186,6 +186,29 @@ emitter.on(
 )
 
 /**
+ * 提示可用金額
+ */
+emitter.on(
+  Events.onDialogHover,
+  throttle(function constructAvailableMoney() {
+    const availableValue = $(
+      `[automation-id="account-balance-availible-unit-value"]`,
+    ).html()
+
+    toast.info(
+      <span>
+        您的可用餘額為：
+        <span dangerouslySetInnerHTML={{ __html: availableValue }}></span>
+      </span>,
+      {
+        position: 'bottom-left',
+        hideAfter: 5,
+      },
+    )
+  }, 5100),
+)
+
+/**
  * 下單框框增強介面
  */
 emitter.on(Events.onDialogHover, function constructDialogMacro() {
