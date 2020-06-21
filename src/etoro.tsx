@@ -195,16 +195,10 @@ emitter.on(
       `[automation-id="account-balance-availible-unit-value"]`,
     ).html()
 
-    toast.info(
-      <span>
-        您的可用餘額為：
-        <span dangerouslySetInnerHTML={{ __html: availableValue }}></span>
-      </span>,
-      {
-        position: 'bottom-left',
-        hideAfter: 5,
-      },
-    )
+    toast.info(i18n.當前可用餘額(availableValue), {
+      position: 'bottom-left',
+      hideAfter: 5,
+    })
   }, 5100),
 )
 

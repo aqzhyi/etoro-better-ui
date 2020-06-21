@@ -1,6 +1,11 @@
 import * as React from 'react'
 
 const zh = {
+  當前可用餘額: (htmlText: string) => (
+    <span>
+      當前可用餘額：<span dangerouslySetInnerHTML={{ __html: htmlText }}></span>
+    </span>
+  ),
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
   回車鍵使彈出下單框: () => '使用 enter 時，將會自動開啟第一個篩選標的之下單框',
@@ -71,6 +76,12 @@ const zh = {
 }
 
 const en: typeof zh = {
+  當前可用餘額: (htmlText: string) => (
+    <span>
+      Available Value：
+      <span dangerouslySetInnerHTML={{ __html: htmlText }}></span>
+    </span>
+  ),
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use Tab key to switch BUY or SELL, effect on Execution Dialog open',
   回車鍵使彈出下單框: () =>
