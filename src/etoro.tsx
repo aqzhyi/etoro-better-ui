@@ -31,10 +31,10 @@ debugAPI.universal('套件正在努力加載...')
  */
 $('body').delegate(
   '.main-app-view',
-  'mouseover',
+  'mouseover.bootstrap',
   throttle(() => {
     debugAPI.universal('套件加載完成')
-    $('body').undelegate('.main-app-view', 'mouseover')
+    $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
     emitter.emit(Events.ready)
   }, 1000),
 )

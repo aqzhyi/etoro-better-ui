@@ -4,7 +4,7 @@ import { emitter, Events } from '@/emitter'
 import { debugAPI } from '@/debugAPI'
 
 export function UniversalBootstrapApp() {
-  $('body').undelegate('.main-app-view', 'mouseover')
+  $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
 
   initializeIcons()
 
