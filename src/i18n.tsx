@@ -1,11 +1,7 @@
 import * as React from 'react'
 
 const zh = {
-  當前可用餘額: (htmlText: string) => (
-    <span>
-      當前可用餘額：<span dangerouslySetInnerHTML={{ __html: htmlText }}></span>
-    </span>
-  ),
+  當前可用餘額: () => '可用餘額',
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
   回車鍵使彈出下單框: () => '使用 enter 時，將會自動開啟第一個篩選標的之下單框',
@@ -41,7 +37,7 @@ const zh = {
     `下單巨集輔助功能（當前：${enabled ? '啟用' : '停用'}）`,
   下單巨集金額設定: () =>
     '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
-  大概延遲: (msValue: number) => `大概延遲：${msValue}ms`,
+  大概延遲: () => `大概延遲`,
   槓桿: () => '槓桿',
   金額: () => '金額',
   設定: () => '設定',
@@ -76,12 +72,7 @@ const zh = {
 }
 
 const en: typeof zh = {
-  當前可用餘額: (htmlText: string) => (
-    <span>
-      Available Value：
-      <span dangerouslySetInnerHTML={{ __html: htmlText }}></span>
-    </span>
-  ),
+  當前可用餘額: () => 'Available Value',
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use Tab key to switch BUY or SELL, effect on Execution Dialog open',
   回車鍵使彈出下單框: () =>
@@ -120,7 +111,7 @@ const en: typeof zh = {
     `Macro（Now：${enabled ? 'enabled' : 'disabled'}）`,
   下單巨集金額設定: () =>
     'Order Macro Setting, each numbers have to split by comma. e.g. 100,200,300,500,1000',
-  大概延遲: (msValue: number) => `Infer Delay：${msValue}ms`,
+  大概延遲: () => `Infer Delay`,
   槓桿: () => 'Lever',
   金額: () => 'Amount',
   設定: () => 'Setting',

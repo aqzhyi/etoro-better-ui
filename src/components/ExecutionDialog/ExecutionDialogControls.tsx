@@ -14,6 +14,7 @@ import { useMount, useEffectOnce, useUpdateEffect } from 'react-use'
 import { GM } from '@/GM'
 import { Provider } from 'react-redux'
 import { debugAPI } from '@/debugAPI'
+import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()

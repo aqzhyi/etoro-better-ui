@@ -62,5 +62,9 @@ export function UniversalBootstrapApp() {
     }, 50),
   )
 
+  globalThis.setInterval(() => {
+    emitter.emit(Events.onPing)
+  }, 5000)
+
   debugAPI.universal('套件已做好準備')
 }

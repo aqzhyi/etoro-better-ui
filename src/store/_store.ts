@@ -19,8 +19,15 @@ import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 import { createLogger } from 'redux-logger'
+import {
+  StatusInfoAggregate,
+  fetchStatusInfoAggregate,
+} from '@/actions/fetchStatusInfoAggregate'
+import { fetchPingValue } from '@/actions/setPingValue'
 
 const settings = createReducer<{
+  pingValue: number
+  statusInfoAggregate: Partial<StatusInfoAggregate>
   betterEtoroUISettingsDialog: boolean
   betterEtoroUIConfig: BetterEtoroUIConfig
   isMacroEnabled: boolean
@@ -37,6 +44,8 @@ const settings = createReducer<{
   }
 }>(
   {
+    pingValue: 0,
+    statusInfoAggregate: {},
     betterEtoroUISettingsDialog: false,
     betterEtoroUIConfig: storage.findConfig(),
     isMacroEnabled: storage.findConfig().executionMacroEnabled,
@@ -54,6 +63,24 @@ const settings = createReducer<{
   },
   builder =>
     builder
+      .addCase(fetchPingValue.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.pingValue = action.payload
+          return state
+        }),
+      )
+      .addCase(fetchStatusInfoAggregate.fulfilled, (state, action) =>
+        produce(state, () => {
+          state.statusInfoAggregate = action.payload
+          return state
+        }),
+      )
+      .addCase(fetchStatusInfoAggregate.pending, (state, action) =>
+        produce(state, () => {
+          state.statusInfoAggregate = {}
+          return state
+        }),
+      )
       .addCase(setTabKeyBuySell.fulfilled, (state, action) =>
         produce(state, () => {
           state.betterEtoroUIConfig.useTabKeyBuySell = action.payload

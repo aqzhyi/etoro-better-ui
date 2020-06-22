@@ -27,15 +27,6 @@ const Sidebar: React.FunctionComponent = () => {
   const [settingDialogOpen, settingDialogOpenSet] = React.useState(false)
   const macroAmountInputRef = React.createRef<TextFieldBase>()
 
-  useInterval(() => {
-    const start = new Date().getTime()
-
-    fetch('https://www.etoro.com/discover/copyportfolios').finally(() => {
-      const end = new Date().getTime()
-      setPing(end - start)
-    })
-  }, 10000)
-
   /**
    * etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式
    */
@@ -89,14 +80,6 @@ const Sidebar: React.FunctionComponent = () => {
       >
         <span {...attrsToAppend} className={'i-menu-icon sprite help'}></span>
       </HelperContent.RiskSpecification>
-
-      <span {...attrsToAppend} className='i-menu-link'>
-        <span
-          {...attrsToAppend}
-          className='i-menu-icon sprite clubs-ref'
-        ></span>
-        {i18n.大概延遲(ping)}
-      </span>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>
     </span>

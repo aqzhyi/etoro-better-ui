@@ -3,7 +3,6 @@ import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
-import { ExecutionDialogAvailableValueOnEvent } from '@/components/ExecutionDialog/ExecutionDialogAvailableValueOnEvent'
 import { ExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { useExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/useExecutionRiskLeverFromMemory'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
@@ -19,6 +18,7 @@ import { renderWatchlistPeople } from '@/components/WatchlistHeader/WatchlistPeo
 import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
+import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -47,6 +47,10 @@ $('body').delegate(
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
 emitter.once(Events.ready).then(UniversalBootstrapApp)
+
+emitter.on(Events.onDialogHover, async function constructStatusInfoAggregate() {
+  ExecutionDialogStatusInfo.render()
+})
 
 /**
  * 掌握全網站的 keyboard 按下事件
@@ -95,13 +99,6 @@ emitter.on(
     PortfolioHeaderExtraButtons.render()
   },
 )
-
-/**
- * 下單框框彈出時，提示剩餘可用餘額
- */
-emitter.on(Events.onDialogHover, function constructAvailableValueToast() {
-  ExecutionDialogAvailableValueOnEvent()
-})
 
 /**
  * 下單框框增強介面
