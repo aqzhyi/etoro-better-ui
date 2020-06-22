@@ -77,7 +77,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <ChoiceGroup
-            label={i18n.下單巨集啟用狀態(settings.isMacroEnabled)}
+            label={i18n.下單巨集啟用狀態()}
             defaultSelectedKey={settings.isMacroEnabled ? 'ON' : 'OFF'}
             options={[
               {
