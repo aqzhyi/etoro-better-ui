@@ -116,7 +116,7 @@ const configration = {
       silent: false,
     }),
     new ProgressBarPlugin(),
-    new FriendlyErrorsWebpackPlugin(),
+    // new FriendlyErrorsWebpackPlugin(),
     new BannerPlugin({
       test: /etoro/,
       raw: false,
