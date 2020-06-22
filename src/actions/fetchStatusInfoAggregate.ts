@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-type StatusEnum = 'Degraded Performance' | 'Operational'
+type StatusEnum = 'Degraded Performance' | 'Operational' | 'Partial Outage'
 
 export type StatusInfoAggregate = {
   API: { status: StatusEnum }
