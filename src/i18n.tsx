@@ -33,8 +33,8 @@ const zh = {
     )
   },
   設定幣別: (selectedText: string) => `設定幣別（當前：${selectedText}）`,
-  下單巨集啟用狀態: enabled =>
-    `下單巨集輔助功能（當前：${enabled ? '啟用' : '停用'}）`,
+  下單巨集啟用狀態: () =>
+    `下單巨集輔助功能，此功能同時提供記憶你的上一次交易金額與槓桿`,
   下單巨集金額設定: () =>
     '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
   大概延遲: () => `大概延遲`,
@@ -107,8 +107,8 @@ const en: typeof zh = {
     )
   },
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
-  下單巨集啟用狀態: enabled =>
-    `Macro（Now：${enabled ? 'enabled' : 'disabled'}）`,
+  下單巨集啟用狀態: () =>
+    `Execution Trade Macro, it's also provider your last trade of amount and lever value`,
   下單巨集金額設定: () =>
     'Order Macro Setting, each numbers have to split by comma. e.g. 100,200,300,500,1000',
   大概延遲: () => `Infer Delay`,
