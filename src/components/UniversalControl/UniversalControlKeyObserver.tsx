@@ -32,6 +32,14 @@ export const UniversalControlKeyObserver = () => {
     [tabBuySellEnabled],
   )
 
+  /** 使 ESC 能夠關閉下單視窗 */
+  useKey('Escape', event => {
+    debugAPI.keyboard.extend('下單視窗')(event.key)
+    if ($('.execution-head').length) {
+      $('[automation-id="close-dialog-btn"]').click()
+    }
+  })
+
   return (
     <span id={ELEMENT_ID}>
       <UniversalEtoroStatusObserver></UniversalEtoroStatusObserver>
