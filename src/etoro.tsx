@@ -4,7 +4,7 @@ import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { ExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { useExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/useExecutionRiskLeverFromMemory'
+import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/useExecutionRiskLeverFromMemory'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
@@ -67,7 +67,7 @@ const constructKeyboardEventsUnbind = emitter.on(
 /**
  * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
  */
-emitter.once(Events.ready).then(useExecutionRiskLeverFromMemory)
+emitter.once(Events.ready).then(applyExecutionRiskLeverFromMemory)
 
 /**
  * 查看更多按鈕
