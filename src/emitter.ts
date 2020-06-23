@@ -25,7 +25,7 @@ emitter.on = new Proxy(emitter.on.bind(emitter), {
     if (typeof receiver[1] === 'function') {
       receiver[1] = new Proxy(receiver[1], {
         apply(listenserTarget, listenserKey, listenserReceiver) {
-          receiver[1].name && debugAPI.events(receiver[0], receiver[1].name)
+          debugAPI.events(receiver[0], receiver[1].name || '__NO_NAME__')
           return Reflect.apply(listenserTarget, listenserKey, listenserReceiver)
         },
       })
