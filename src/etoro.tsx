@@ -48,9 +48,10 @@ $('body').delegate(
  */
 emitter.once(Events.ready).then(UniversalBootstrapApp)
 
-emitter.on(Events.onDialogHover, async function constructStatusInfoAggregate() {
-  ExecutionDialogStatusInfo.render()
-})
+/**
+ * 下單視窗的各種關鍵資訊提示 e.g. 延遲、可用餘額 etc.
+ */
+emitter.on(Events.onDialogHover, ExecutionDialogStatusInfo.render)
 
 /**
  * 掌握全網站的 keyboard 按下事件
@@ -80,9 +81,7 @@ emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
  */
 emitter.on(
   Events.onPortfolioHistoryPageHover,
-  function constructPortfolioHistoryPage() {
-    PortfolioHistoryHeaderExtraButtons.render()
-  },
+  PortfolioHistoryHeaderExtraButtons.render,
 )
 
 /**
@@ -93,19 +92,12 @@ emitter.on(Events.onWatchlistPageHover, watchlistHeaderConstructor)
 /**
  * 我的投資組合
  */
-emitter.on(
-  Events.onPortfolioPageHover,
-  function constructPortfolioHeaderExtra() {
-    PortfolioHeaderExtraButtons.render()
-  },
-)
+emitter.on(Events.onPortfolioPageHover, PortfolioHeaderExtraButtons.render)
 
 /**
  * 下單框框增強介面
  */
-emitter.on(Events.onDialogHover, function ExecutionDialogControlsConstruct() {
-  ExecutionDialogControls.construct()
-})
+emitter.on(Events.onDialogHover, ExecutionDialogControls.render)
 
 /**
  * 歡迎訊息

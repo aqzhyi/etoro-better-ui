@@ -60,7 +60,7 @@ PortfolioHeaderExtraButtons.hasRendered = () => !!$(`#${ELEMENT_ID}`).length
 
 PortfolioHeaderExtraButtons.getContainer = () => $(`#${ELEMENT_ID}-container`)
 
-PortfolioHeaderExtraButtons.render = () => {
+PortfolioHeaderExtraButtons.render = function renderPortfolioHeader() {
   if (PortfolioHeaderExtraButtons.hasRendered()) {
     return
   }

@@ -209,10 +209,10 @@ ExecutionDialogControls.isParentReady = () => {
   )
 }
 
-ExecutionDialogControls.isConstruct = () =>
+ExecutionDialogControls.isRendered = () =>
   !!$('#ExecutionDialog-ExecutionWrap').html()?.length
 
-ExecutionDialogControls.construct = () => {
+ExecutionDialogControls.render = function renderExecutionDialog() {
   if (!storage.findConfig().executionMacroEnabled) {
     return
   }
@@ -221,7 +221,7 @@ ExecutionDialogControls.construct = () => {
     return
   }
 
-  if (ExecutionDialogControls.isConstruct()) {
+  if (ExecutionDialogControls.isRendered()) {
     return
   }
 

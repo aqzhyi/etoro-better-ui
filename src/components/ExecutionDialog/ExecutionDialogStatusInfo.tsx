@@ -95,7 +95,7 @@ export const ExecutionDialogStatusInfo = () => {
 
 ExecutionDialogStatusInfo.hasRendered = () => !!$(`#${ELEMENT_ID}`).length
 
-ExecutionDialogStatusInfo.render = () => {
+ExecutionDialogStatusInfo.render = function renderExecutionDialogStatusInfo() {
   if (ExecutionDialogStatusInfo.hasRendered()) {
     return
   }
