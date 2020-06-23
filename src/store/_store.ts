@@ -146,6 +146,8 @@ const store = configureStore({
     applyMiddleware(
       createLogger({
         collapsed: true,
+        timestamp: false,
+        diff: true,
       }),
     ),
   ],
