@@ -1,31 +1,19 @@
-import { setExchangeSelected } from '@/actions/setExchangeSelected'
-import { setMacroAmount } from '@/actions/setMacroAmount'
-import { setMacroEnabled } from '@/actions/setMacroEnabled'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import HelperContent from '@/components/HelperContent'
-import { emitter, Events } from '@/emitter'
-import { exchange, getMYR, getNTD } from '@/exchange'
+import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { i18n } from '@/i18n'
-import { storage } from '@/storage'
-import { Dialog } from '@blueprintjs/core'
-import { ChoiceGroup, Stack, TextField, TextFieldBase } from '@fluentui/react'
-import toast from 'cogo-toast'
-import * as React from 'react'
-import { useInterval } from 'react-use'
-import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
-import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import store from '@/store/_store'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
-export const sidebarCheckReady = () => !!$(`.${READY_FLAG}`).length
-
-const Sidebar: React.FunctionComponent = () => {
+export const SidebarMenuItems = () => {
   const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
-  const [ping, setPing] = React.useState(0)
-  const [settingDialogOpen, settingDialogOpenSet] = React.useState(false)
-  const macroAmountInputRef = React.createRef<TextFieldBase>()
 
   /**
    * etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式
@@ -86,4 +74,22 @@ const Sidebar: React.FunctionComponent = () => {
   )
 }
 
-export default Sidebar
+SidebarMenuItems.hasRendered = () => !!$(`.${READY_FLAG}`).length
+
+SidebarMenuItems.render = function renderSidebarMenuItems() {
+  if (SidebarMenuItems.hasRendered()) {
+    return
+  }
+
+  if (!$('#sidebarConstructor').length) {
+    $('.w-menu-main').append('<span id="sidebarConstructor"><span>')
+  }
+
+  globalThis.document.querySelector('#sidebarConstructor') &&
+    ReactDOM.render(
+      <Provider store={store}>
+        <SidebarMenuItems />
+      </Provider>,
+      globalThis.document.querySelector('#sidebarConstructor'),
+    )
+}

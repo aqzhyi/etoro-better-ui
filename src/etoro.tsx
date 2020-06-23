@@ -8,7 +8,6 @@ import { useExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/us
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
-import { sidebarConstructor } from '@/components/Sidebar/sidebarConstructor'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { UniversalBootstrapApp } from '@/components/UniversalControl/UniversalBootstrapApp'
 import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
@@ -19,6 +18,7 @@ import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
 import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { SidebarMenuItems } from '@/components/Sidebar/Sidebar'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -138,8 +138,8 @@ const constructFooterUnitValuesUnbind = emitter.on(
 /**
  * 左側欄連結項目與設定
  */
-emitter.on(Events.settingChange, sidebarConstructor)
-emitter.on(Events.onSidebarHover, sidebarConstructor)
+emitter.on(Events.settingChange, SidebarMenuItems.render)
+emitter.on(Events.onSidebarHover, SidebarMenuItems.render)
 
 /**
  * 取得外部銀行買賣匯率
