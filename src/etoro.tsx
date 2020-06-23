@@ -18,7 +18,7 @@ import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
 import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import { SidebarMenuItems } from '@/components/Sidebar/Sidebar'
+import { SidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)

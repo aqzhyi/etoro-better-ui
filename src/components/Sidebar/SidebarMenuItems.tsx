@@ -44,6 +44,16 @@ export const SidebarMenuItems = () => {
         {...attrsToAppend}
         className='i-menu-link pointer'
         target='_blank'
+        href='https://www.notion.so/hilezi/Donate-Me-ab484fc786bf44f8b19a017fdbe4a698'
+      >
+        <span {...attrsToAppend} className='i-menu-icon sprite funds'></span>
+        {i18n.幫助作者()}
+      </a>
+
+      <a
+        {...attrsToAppend}
+        className='i-menu-link pointer'
+        target='_blank'
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
       >
         <span {...attrsToAppend} className='i-menu-icon sprite news'></span>

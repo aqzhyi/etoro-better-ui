@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  幫助作者: () => '贊助作者',
   當前可用餘額: () => '可用餘額',
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
@@ -72,6 +73,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  幫助作者: () => 'Donate',
   當前可用餘額: () => 'Available Value',
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use Tab key to switch BUY or SELL, effect on Execution Dialog open',
