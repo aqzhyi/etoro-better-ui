@@ -19,14 +19,18 @@ export const UniversalControlKeyObserver = () => {
   useKey(
     'Tab',
     event => {
+      const targetElement = $('.execution-head-buttons')
+
+      if (!targetElement.length) return
+      if (!tabBuySellEnabled) return
+
       debugAPI.keyboard.extend('tabBuySellEnabled')(
         tabBuySellEnabled,
         event.key,
       )
-      if (tabBuySellEnabled) {
-        $('.execution-head-buttons .execution-head-button:not(.active)').click()
-        $('.execution-head-buttons .execution-head-button.active').focus()
-      }
+
+      targetElement.find('.execution-head-button:not(.active)').click()
+      targetElement.find('.execution-head-button.active').focus()
     },
     {},
     [tabBuySellEnabled],
@@ -34,10 +38,13 @@ export const UniversalControlKeyObserver = () => {
 
   /** 使 ESC 能夠關閉下單視窗 */
   useKey('Escape', event => {
+    const targetElement = $('.execution-head')
+
+    if (!targetElement.length) return
+
     debugAPI.keyboard.extend('下單視窗')(event.key)
-    if ($('.execution-head').length) {
-      $('[automation-id="close-dialog-btn"]').click()
-    }
+
+    $('[automation-id="close-dialog-btn"]').click()
   })
 
   return (
