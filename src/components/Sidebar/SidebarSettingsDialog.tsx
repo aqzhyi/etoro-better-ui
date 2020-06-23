@@ -3,10 +3,9 @@ import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { emitter, Events } from '@/emitter'
 import { exchange, getMYR, getNTD } from '@/exchange'
-import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { i18n } from '@/i18n'
 import { storage } from '@/storage'
-import { useTypedSelector } from '@/store/_store'
+import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { Dialog } from '@blueprintjs/core'
 import { ChoiceGroup, Stack, TextField, TextFieldBase } from '@fluentui/react'
 import toast from 'cogo-toast'
@@ -16,9 +15,9 @@ import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 
 export const SidebarSettingsDialog: React.FC = () => {
   const macroAmountInputRef = React.createRef<TextFieldBase>()
-  const settings = useTypedSelector(state => state.settings)
+  const settings = useAppSelector(state => state.settings)
   const dispatch = useAppDispatch()
-  const dialogOpen = useTypedSelector(
+  const dialogOpen = useAppSelector(
     state => state.settings.betterEtoroUISettingsDialog,
   )
 

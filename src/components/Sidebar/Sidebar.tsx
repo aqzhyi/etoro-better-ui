@@ -1,13 +1,11 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import HelperContent from '@/components/HelperContent'
 import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
-import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { useAppSelector } from '@/hooks/useAppSelector'
 import { i18n } from '@/i18n'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store from '@/store/_store'
+import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 

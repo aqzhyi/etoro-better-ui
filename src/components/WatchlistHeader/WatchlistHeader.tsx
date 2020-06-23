@@ -1,13 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import store, { useTypedSelector } from '@/store/_store'
+import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 import { Tooltip } from '@blueprintjs/core'
 import { storage } from '@/storage'
-import { useAppSelector } from '@/hooks/useAppSelector'
-import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { setListCompact } from '@/actions/setListCompact'
 import { useMount } from 'react-use'
 import { Toggle, TextField, Stack, TextFieldBase } from '@fluentui/react'
@@ -66,7 +64,7 @@ export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(
     state => state.settings.betterEtoroUIConfig.listCompactOn,
   )
-  const shouldShowInvested = useTypedSelector(
+  const shouldShowInvested = useAppSelector(
     state => state.settings.betterEtoroUIConfig.showInvested,
   )
   const dispatch = useAppDispatch()
@@ -81,10 +79,7 @@ export const WatchlistHeader: React.FC = () => {
   return (
     <Stack horizontal tokens={{ childrenGap: 16 }} className={NAME_HAS_FLAG}>
       <Stack.Item>
-        <Tooltip
-          position='left'
-          content={i18n.回車鍵使彈出下單框()}
-        >
+        <Tooltip position='left' content={i18n.回車鍵使彈出下單框()}>
           <TextField
             componentRef={searchBoxRef}
             placeholder={i18n.輸入以過濾()}

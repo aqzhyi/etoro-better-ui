@@ -4,9 +4,8 @@ import toast from 'cogo-toast'
 import { ButtonGroup, Button, Tooltip } from '@blueprintjs/core'
 import HelperContent from '../HelperContent'
 import { storage } from '../../storage'
-import store, { useTypedSelector } from '@/store/_store'
+import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { setMacroAmount } from '@/actions/setMacroAmount'
-import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { i18n } from '@/i18n'
 import { Toggle } from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
@@ -58,18 +57,18 @@ const toLever = (value: number) => {
 export const ExecutionDialogControls = () => {
   const dispatch = useAppDispatch()
 
-  const amounts = useTypedSelector(
+  const amounts = useAppSelector(
     state => state.settings.betterEtoroUIConfig.executionAmount,
   )
-  const levers = useTypedSelector(
+  const levers = useAppSelector(
     state => state.settings.betterEtoroUIConfig.executionLever,
   )
 
-  const executionUseApplyLast = useTypedSelector(
+  const executionUseApplyLast = useAppSelector(
     state => state.settings.betterEtoroUIConfig.executionUseApplyLast,
   )
 
-  const lastApplied = useTypedSelector(state => {
+  const lastApplied = useAppSelector(state => {
     return {
       amount: state.settings.betterEtoroUIConfig.executionAmountLast,
       lever: state.settings.betterEtoroUIConfig.executionLeverLast,

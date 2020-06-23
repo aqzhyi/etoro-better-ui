@@ -1,5 +1,5 @@
 import { GM } from '@/GM'
-import store, { useTypedSelector } from '@/store/_store'
+import store, { useAppSelector } from '@/store/_store'
 import { Label, Callout, Tooltip } from '@blueprintjs/core'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -17,12 +17,10 @@ const ELEMENT_ID = 'execution-dialog-status-info'
 const ELEMENT_ID_ROOT = 'execution-dialog-status-info-root'
 
 export const ExecutionDialogStatusInfo = () => {
-  const statusInfo = useTypedSelector(
-    state => state.settings.statusInfoAggregate,
-  )
+  const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
 
   /** 推測延遲 */
-  const statusPingValue = useTypedSelector(state => state.settings.pingValue)
+  const statusPingValue = useAppSelector(state => state.settings.pingValue)
 
   /** status.etoro.com 目前服務狀況 */
   const labelManualTrading =

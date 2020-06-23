@@ -1,4 +1,4 @@
-import store, { useTypedSelector } from '@/store/_store'
+import store, { useAppSelector } from '@/store/_store'
 import { throttle } from 'lodash'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -11,7 +11,7 @@ const ELEMENT_ID = 'universal-control-key-observer'
 const ELEMENT_ID_ROOT = 'universal-control-key-observer-root'
 
 export const UniversalControlKeyObserver = () => {
-  const tabBuySellEnabled = useTypedSelector(
+  const tabBuySellEnabled = useAppSelector(
     state => state.settings.betterEtoroUIConfig.useTabKeyBuySell,
   )
 

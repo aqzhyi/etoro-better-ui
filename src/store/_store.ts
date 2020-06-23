@@ -12,7 +12,7 @@ import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroLever } from '@/actions/setMacroLever'
 import { storage, BetterEtoroUIConfig } from '@/storage'
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import { setListCompact } from '@/actions/setListCompact'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
@@ -153,6 +153,7 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof rootReducers>
 export type AppDispatch = typeof store.dispatch
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export default store
