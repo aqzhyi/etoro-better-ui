@@ -48,6 +48,8 @@ module.exports = {
       'off',
       { allowDirectConstAssertionInArrowFunctions: true },
     ],
+    // 由於介入他人介面，因此太多 any type，使它 warn 讓開發速度能夠快點
+    '@typescript-eslint/no-unsafe-member-access': ['warn'],
   },
   overrides: [
     {
