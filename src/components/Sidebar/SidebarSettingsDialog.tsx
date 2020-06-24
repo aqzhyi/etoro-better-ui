@@ -20,6 +20,9 @@ export const SidebarSettingsDialog: React.FC = () => {
   const dialogOpen = useAppSelector(
     state => state.settings.betterEtoroUISettingsDialog,
   )
+  const [executionAmount, executionAmountSet] = React.useState(
+    settings.betterEtoroUIConfig.executionAmount,
+  )
 
   return (
     <Dialog
@@ -39,11 +42,18 @@ export const SidebarSettingsDialog: React.FC = () => {
             defaultValue={settings.betterEtoroUIConfig.executionAmount.join(
               ',',
             )}
+            value={executionAmount.join(',')}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'enter') {
-                const value = macroAmountInputRef.current?.value || '200'
-                dispatch(setMacroAmount(value.split(',').map(Number)))
+                const value = (macroAmountInputRef.current?.value || '200')
+                  .split(',')
+                  .map(Number)
+                dispatch(setMacroAmount(value))
+                executionAmountSet(value)
               }
+            }}
+            onBlur={event => {
+              dispatch(setMacroAmount(executionAmount))
             }}
           ></TextField>
         </Stack.Item>

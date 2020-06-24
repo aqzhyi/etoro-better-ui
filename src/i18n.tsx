@@ -116,7 +116,7 @@ const en: typeof zh = {
   下單巨集啟用狀態: () =>
     `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
   下單巨集金額設定: () =>
-    'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000',
+    'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000. Use Enter key to save.',
   大概延遲: () => `Infer Delay`,
   槓桿: () => 'Lever',
   金額: () => 'Amount',
