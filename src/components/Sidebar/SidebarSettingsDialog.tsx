@@ -13,6 +13,8 @@ import React from 'react'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 
+const getArrayNumbers = (values = '200') => values.split(',').map(Number)
+
 export const SidebarSettingsDialog: React.FC = () => {
   const macroAmountInputRef = React.createRef<TextFieldBase>()
   const settings = useAppSelector(state => state.settings)
@@ -42,18 +44,24 @@ export const SidebarSettingsDialog: React.FC = () => {
             defaultValue={settings.betterEtoroUIConfig.executionAmount.join(
               ',',
             )}
-            value={executionAmount.join(',')}
+            onChange={(event, newValue) => {
+              executionAmountSet(getArrayNumbers(newValue))
+            }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'enter') {
-                const value = (macroAmountInputRef.current?.value || '200')
-                  .split(',')
-                  .map(Number)
+                const value = getArrayNumbers(
+                  macroAmountInputRef.current?.value,
+                )
                 dispatch(setMacroAmount(value))
                 executionAmountSet(value)
               }
             }}
             onBlur={event => {
-              dispatch(setMacroAmount(executionAmount))
+              dispatch(
+                setMacroAmount(
+                  getArrayNumbers(macroAmountInputRef.current?.value),
+                ),
+              )
             }}
           ></TextField>
         </Stack.Item>
