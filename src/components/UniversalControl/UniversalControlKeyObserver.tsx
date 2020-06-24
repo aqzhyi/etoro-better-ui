@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { useKey } from 'react-use'
 import { debugAPI } from '@/debugAPI'
-import { UniversalEtoroStatusObserver } from '@/components/UniversalControl/UniversalEtoroStatusObserver'
 
 const ELEMENT_ID = 'universal-control-key-observer'
 const ELEMENT_ID_ROOT = 'universal-control-key-observer-root'
@@ -47,11 +46,7 @@ export const UniversalControlKeyObserver = () => {
     $('[automation-id="close-dialog-btn"]').click()
   })
 
-  return (
-    <span id={ELEMENT_ID}>
-      <UniversalEtoroStatusObserver></UniversalEtoroStatusObserver>
-    </span>
-  )
+  return <span id={ELEMENT_ID}></span>
 }
 
 UniversalControlKeyObserver.hasReady = () => !!$(`#${ELEMENT_ID}`).length

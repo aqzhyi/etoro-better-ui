@@ -5,6 +5,7 @@ import {
   combineReducers,
   createAsyncThunk,
   applyMiddleware,
+  AnyAction,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
 import { setExchangeSelected } from '@/actions/setExchangeSelected'
@@ -148,6 +149,16 @@ const store = configureStore({
         collapsed: true,
         timestamp: false,
         diff: true,
+        predicate: (getState, action: AnyAction) => {
+          if (action.type === fetchStatusInfoAggregate.pending.type)
+            return false
+          if (action.type === fetchStatusInfoAggregate.fulfilled.type)
+            return false
+          if (action.type === fetchPingValue.pending.type) return false
+          if (action.type === fetchPingValue.fulfilled.type) return false
+
+          return true
+        },
       }),
     ),
   ],

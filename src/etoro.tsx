@@ -19,6 +19,8 @@ import { throttle } from 'lodash'
 import * as React from 'react'
 import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { SidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
+import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
+import { fetchPingValue } from '@/actions/setPingValue'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -47,6 +49,15 @@ $('body').delegate(
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
 emitter.once(Events.ready).then(UniversalBootstrapApp)
+
+/** */
+emitter.on(Events.onPing, function checkSystemStatus() {
+  debugAPI.universal('檢查 status.etoro.com 功能狀況')
+  store.dispatch(fetchStatusInfoAggregate())
+
+  debugAPI.universal('推斷大致延遲時間')
+  store.dispatch(fetchPingValue())
+})
 
 /**
  * 下單視窗的各種關鍵資訊提示 e.g. 延遲、可用餘額 etc.
