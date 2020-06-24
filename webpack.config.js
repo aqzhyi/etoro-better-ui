@@ -129,8 +129,8 @@ const configration = {
         /** 更新日誌： https://github.com/hilezir/etoro-better-ui/releases */
 
         // ==UserScript==
-        // @name          Better etoro UI for Taiwan
-        // @description   提供你更好的 etoro 新台幣介面增強懶人包
+        // @name          eToro Better UI
+        // @description   An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
         // @version       ${packageJSON.version}
         // @author        hilezir
         // @grant         GM_xmlhttpRequest
