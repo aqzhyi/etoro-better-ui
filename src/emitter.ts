@@ -13,6 +13,7 @@ export enum Events {
   onDialogHover = 'onDialogHover',
   onDialogNotFount = 'onDialogNotFount',
   onMoreInfoButtonHover = 'onMoreInfoButtonHover',
+  onCloseAllPositionsDialogHover = 'onCloseAllPositionsDialogHover',
 }
 
 export const emitter = new Emittery.Typed<

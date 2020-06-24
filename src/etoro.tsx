@@ -50,6 +50,20 @@ $('body').delegate(
  */
 emitter.once(Events.ready).then(applyEventsObserver)
 
+/** 「全部平倉」自動打勾我想平掉所有交易 */
+emitter.on(
+  Events.onCloseAllPositionsDialogHover,
+  function allPositionsCloseAgree() {
+    const button = $(
+      '[data-etoro-automation-id="close-all-positions-selection-input"]',
+    )
+
+    if (button.hasClass('ng-empty')) {
+      button.click()
+    }
+  },
+)
+
 /** */
 emitter.on(Events.onPing, function checkSystemStatus() {
   debugAPI.universal('檢查 status.etoro.com 功能狀況')

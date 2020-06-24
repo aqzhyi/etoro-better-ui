@@ -9,6 +9,15 @@ export function applyEventsObserver() {
 
   initializeIcons()
 
+  // 「全部平倉」
+  $('body').delegate(
+    `[data-etoro-automation-id="close-all-positions-window"]`,
+    'mouseover',
+    throttle(() => {
+      emitter.emit(Events.onCloseAllPositionsDialogHover)
+    }, 1000),
+  )
+
   // Sidebar 不常因換頁而導致 UI 消失，因此可配置較長的觸發時間(throttle)
   $('body').delegate(
     `[automation-id="menu-layout"]`,
