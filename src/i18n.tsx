@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 const zh = {
+  清除篩選文字: () => '清除輸入',
   幫助作者: () => '贊助作者',
   當前可用餘額: () => '可用餘額',
   使下單視窗能夠單鍵快速切換買賣: () =>
@@ -73,6 +74,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  清除篩選文字: () => 'Remove Text',
   幫助作者: () => 'Donate',
   當前可用餘額: () => 'Available Value',
   使下單視窗能夠單鍵快速切換買賣: () =>

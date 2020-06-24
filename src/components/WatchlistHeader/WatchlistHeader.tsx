@@ -8,7 +8,13 @@ import { Tooltip } from '@blueprintjs/core'
 import { storage } from '@/storage'
 import { setListCompact } from '@/actions/setListCompact'
 import { useMount } from 'react-use'
-import { Toggle, TextField, Stack, TextFieldBase } from '@fluentui/react'
+import {
+  Toggle,
+  TextField,
+  Stack,
+  TextFieldBase,
+  DefaultButton,
+} from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
@@ -79,8 +85,21 @@ export const WatchlistHeader: React.FC = () => {
   return (
     <Stack horizontal tokens={{ childrenGap: 16 }} className={NAME_HAS_FLAG}>
       <Stack.Item>
-        <Tooltip position='left' content={i18n.回車鍵使彈出下單框()}>
+        <DefaultButton
+          text={i18n.清除篩選文字()}
+          onClick={() => {
+            filterTextSet('')
+            showMeBy('')
+            toggleListInvested(shouldShowInvested)
+          }}
+          allowDisabledFocus
+        />
+      </Stack.Item>
+
+      <Stack.Item>
+        <Tooltip position='bottom' content={i18n.回車鍵使彈出下單框()}>
           <TextField
+            value={filterText}
             componentRef={searchBoxRef}
             placeholder={i18n.輸入以過濾()}
             iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
