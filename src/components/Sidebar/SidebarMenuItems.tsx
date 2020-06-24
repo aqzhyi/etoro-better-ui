@@ -1,11 +1,11 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import HelperContent from '@/components/HelperContent'
 import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
 import { i18n } from '@/i18n'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
+import { RiskSpecification } from '@/components/RiskSpecification'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
@@ -70,12 +70,9 @@ export const SidebarMenuItems = () => {
         {i18n.聯絡作者()}
       </a>
 
-      <HelperContent.RiskSpecification
-        aClassName={'i-menu-link'}
-        attrs={attrsToAppend}
-      >
+      <RiskSpecification aClassName={'i-menu-link'} attrs={attrsToAppend}>
         <span {...attrsToAppend} className={'i-menu-icon sprite help'}></span>
-      </HelperContent.RiskSpecification>
+      </RiskSpecification>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>
     </span>

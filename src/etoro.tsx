@@ -4,16 +4,16 @@ import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { ExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/useExecutionRiskLeverFromMemory'
+import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
-import { UniversalBootstrapApp } from '@/components/UniversalControl/UniversalBootstrapApp'
+import { applyEventsObserver } from '@/components/UniversalControl/applyEventsObserver'
 import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
-import { watchlistHeaderConstructor } from '@/components/WatchlistHeader/WatchlistHeader'
-import { renderWatchlistPeople } from '@/components/WatchlistHeader/WatchlistPeople'
+import { watchlistHeaderConstructor } from '@/components/Watchlist/WatchlistHeader'
+import { renderWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
 import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
@@ -48,7 +48,7 @@ $('body').delegate(
  *
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
-emitter.once(Events.ready).then(UniversalBootstrapApp)
+emitter.once(Events.ready).then(applyEventsObserver)
 
 /** */
 emitter.on(Events.onPing, function checkSystemStatus() {

@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import toast from 'cogo-toast'
 import { ButtonGroup, Button, Tooltip } from '@blueprintjs/core'
-import HelperContent from '../HelperContent'
 import { storage } from '../../storage'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { setMacroAmount } from '@/actions/setMacroAmount'
@@ -14,6 +13,8 @@ import { GM } from '@/GM'
 import { Provider } from 'react-redux'
 import { debugAPI } from '@/debugAPI'
 import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { RiskSpecification } from '@/components/RiskSpecification'
+import { ProviderBy } from '@/components/ProviderBy'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -83,7 +84,7 @@ export const ExecutionDialogControls = () => {
     toast.warn(
       <span>
         {i18n.確保同意下單巨集風險(() => (
-          <HelperContent.RiskSpecification aStyle={{ color: 'blue' }} />
+          <RiskSpecification aStyle={{ color: 'blue' }} />
         ))}
       </span>,
       { position: 'top-left' },
@@ -99,7 +100,7 @@ export const ExecutionDialogControls = () => {
 
   return (
     <React.Fragment>
-      <HelperContent.WhoDeveloper />
+      <ProviderBy />
 
       <React.Fragment>
         <div style={{ marginBottom: 8 }}>

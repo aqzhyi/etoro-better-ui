@@ -4,7 +4,7 @@ import { emitter, Events } from '@/emitter'
 import { debugAPI } from '@/debugAPI'
 import { ExecutionDialogStatusInfoRootElement } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
-export function UniversalBootstrapApp() {
+export function applyEventsObserver() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
 
   initializeIcons()
