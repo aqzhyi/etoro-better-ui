@@ -2,6 +2,7 @@ import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
 import { emitter, Events } from '@/emitter'
 import { debugAPI } from '@/debugAPI'
+import { ExecutionDialogStatusInfoRootElement } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
 export function UniversalBootstrapApp() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
@@ -41,6 +42,13 @@ export function UniversalBootstrapApp() {
         emitter.emit(Events.onPortfolioHistoryPageHover)
       } else if (globalThis.location.pathname.includes('portfolio')) {
         emitter.emit(Events.onPortfolioPageHover)
+      }
+
+      if (
+        !$('.execution-head').length &&
+        ExecutionDialogStatusInfoRootElement.html()
+      ) {
+        emitter.emit(Events.onDialogNotFount)
       }
     }, 5000),
   )

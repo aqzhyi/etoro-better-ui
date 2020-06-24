@@ -1,20 +1,19 @@
+import { emitter, Events } from '@/emitter'
 import { GM } from '@/GM'
+import { i18n } from '@/i18n'
 import store, { useAppSelector } from '@/store/_store'
-import { Label, Callout, Tooltip } from '@blueprintjs/core'
+import { Callout, Tooltip } from '@blueprintjs/core'
+import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import {
-  Icon,
-  Spinner,
-  SpinnerSize,
-  ProgressIndicator,
-  ChoiceGroup,
-} from '@fluentui/react'
-import { i18n } from '@/i18n'
 
 const ELEMENT_ID = 'execution-dialog-status-info'
 const ELEMENT_ID_ROOT = 'execution-dialog-status-info-root'
+
+export const ExecutionDialogStatusInfoRootElement = $(
+  `<span id="${ELEMENT_ID_ROOT}"></span>`,
+)
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
@@ -99,7 +98,7 @@ ExecutionDialogStatusInfo.render = function renderExecutionDialogStatusInfo() {
   }
 
   if (!$(`#${ELEMENT_ID_ROOT}`).length) {
-    $(`<span id="${ELEMENT_ID_ROOT}"></span>`).insertBefore('.execution-head')
+    ExecutionDialogStatusInfoRootElement.insertBefore('.execution-head')
   }
 
   $(`#${ELEMENT_ID_ROOT}`).length &&
@@ -107,7 +106,7 @@ ExecutionDialogStatusInfo.render = function renderExecutionDialogStatusInfo() {
       <Provider store={store}>
         <ExecutionDialogStatusInfo />
       </Provider>,
-      $(`#${ELEMENT_ID_ROOT}`).html('').get(0),
+      ExecutionDialogStatusInfoRootElement.get(0),
     )
 }
 
@@ -126,3 +125,15 @@ GM.addStyle(`
     height: 775px;
   }
 `)
+
+emitter.on(
+  Events.onDialogNotFount,
+  function unmountExecutionDialogStatusInfo() {
+    // setTimeout 能防止奇怪的 error
+    globalThis.setTimeout(() => {
+      ReactDOM.unmountComponentAtNode(
+        ExecutionDialogStatusInfoRootElement.get(0),
+      )
+    })
+  },
+)
