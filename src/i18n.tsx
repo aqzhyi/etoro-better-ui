@@ -35,6 +35,7 @@ const zh = {
     )
   },
   設定幣別: (selectedText: string) => `設定幣別（當前：${selectedText}）`,
+  下單巨集設定按鈕: () => '設定',
   下單巨集啟用狀態: () =>
     `下單巨集輔助功能，此功能同時提供記憶你的上一次交易金額與槓桿`,
   下單巨集金額設定: () =>
@@ -111,6 +112,7 @@ const en: typeof zh = {
     )
   },
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
+  下單巨集設定按鈕: () => 'Settings',
   下單巨集啟用狀態: () =>
     `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
   下單巨集金額設定: () =>

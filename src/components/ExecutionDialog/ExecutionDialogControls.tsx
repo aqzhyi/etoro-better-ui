@@ -132,7 +132,7 @@ export const ExecutionDialogControls = () => {
               dispatch(setMacroAmount())
             }}
           >
-            {i18n.設定()}
+            {i18n.下單巨集設定按鈕()}
           </Button>
         </div>
 
