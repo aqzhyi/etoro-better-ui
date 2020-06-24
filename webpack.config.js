@@ -8,6 +8,10 @@ const { BannerPlugin } = require('webpack')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const packageJSON = require('./package.json')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const srcSubAlias = globby
   .sync(['src/*'], {
@@ -37,8 +41,8 @@ const configration = {
     warnings: false,
   },
   /** TODO: cheap-module-eval-source-map is no suit for production */
-  devtool: 'cheap-module-eval-source-map',
-  mode: 'development',
+  devtool: isProd ? '' : 'cheap-module-eval-source-map',
+  mode: isProd ? 'production' : 'development',
   entry: {
     etoro: path.resolve(__dirname, 'src/etoro'),
   },
@@ -100,6 +104,7 @@ const configration = {
     ],
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv({
       defaults: false,
@@ -159,7 +164,7 @@ const configration = {
         })
       `,
     }),
-  ],
+  ].filter(Boolean),
 }
 
 module.exports = configration
