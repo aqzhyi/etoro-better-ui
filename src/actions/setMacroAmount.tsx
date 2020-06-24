@@ -16,7 +16,7 @@ export const setMacroAmount = createAsyncThunk<
 
   const newValue = (props?.join(',') ||
     prompt(
-      `請輸入「數字」，以「,」分隔。例如 200,500,1000,2000,3000`,
+      i18n.下單巨集金額設定(),
       state.settings.betterEtoroUIConfig.executionAmount.join(','),
     )) as string
 

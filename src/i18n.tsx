@@ -6,7 +6,7 @@ const zh = {
   當前可用餘額: () => '可用餘額',
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
-  回車鍵使彈出下單框: () => '使用 enter 時，將會自動開啟第一個篩選標的之下單框',
+  回車鍵使彈出下單框: () => '使用 Enter，可以自動開啟第一個標的下單框',
   使已投資顯示: () => '已投資',
   左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
@@ -78,15 +78,15 @@ const en: typeof zh = {
   幫助作者: () => 'Donate',
   當前可用餘額: () => 'Available Value',
   使下單視窗能夠單鍵快速切換買賣: () =>
-    'Use Tab key to switch BUY or SELL, effect on Execution Dialog open',
+    'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
   回車鍵使彈出下單框: () =>
-    'Use Enter key to popup the first result of filter items.',
+    'Use the Enter key to open the first Execution Dialog.',
   使已投資顯示: () => 'Invested',
   左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
   使鎖定下單重複一致否定: () => 'Same Order?',
   使鎖定下單重複一致之說明: () =>
-    'Always use the last Amount and Lever which you last click in macro buttons.',
+    'Always use the last Amount and Lever, which you previously selected value.',
   使緊湊: () => 'compact',
   輸入以過濾: () => 'Filter...',
   腳本標題: () => 'eToro better UI',
@@ -98,7 +98,7 @@ const en: typeof zh = {
     )
   },
   腳本官網: () => 'Website',
-  聯絡作者: () => 'Contact Developer',
+  聯絡作者: () => 'Contact Me',
   風險說明書: () => 'Risk Agreement',
   感謝使用提示語: (Link: React.FC) => {
     return (
@@ -112,13 +112,13 @@ const en: typeof zh = {
   },
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
   下單巨集啟用狀態: () =>
-    `Execution Trade Macro, it's also provider your last trade of amount and lever value`,
+    `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
   下單巨集金額設定: () =>
-    'Order Macro Setting, each numbers have to split by comma. e.g. 100,200,300,500,1000',
+    'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000',
   大概延遲: () => `Infer Delay`,
   槓桿: () => 'Lever',
   金額: () => 'Amount',
-  設定: () => 'Setting',
+  設定: () => 'Better UI Settings',
   餘額: () => 'Balance',
   確保同意下單巨集風險(Link: React.FC) {
     return (
@@ -143,7 +143,7 @@ const en: typeof zh = {
   設定未變更: (PostComponent: React.FC) => {
     return (
       <span>
-        nothing changes：
+        Nothing changes：
         <PostComponent />
       </span>
     )
