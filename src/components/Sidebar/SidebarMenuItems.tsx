@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { RiskSpecification } from '@/components/RiskSpecification'
+import { stickReactComponent } from '@/utils/stickReactComponent'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
@@ -79,22 +80,17 @@ export const SidebarMenuItems = () => {
   )
 }
 
-SidebarMenuItems.hasRendered = () => !!$(`.${READY_FLAG}`).length
-
-SidebarMenuItems.render = function renderSidebarMenuItems() {
-  if (SidebarMenuItems.hasRendered()) {
-    return
-  }
-
-  if (!$('#sidebarConstructor').length) {
-    $('.w-menu-main').append('<span id="sidebarConstructor"><span>')
-  }
-
-  globalThis.document.querySelector('#sidebarConstructor') &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <SidebarMenuItems />
-      </Provider>,
-      globalThis.document.querySelector('#sidebarConstructor'),
-    )
-}
+export const {
+  mount: mountSidebarMenuItems,
+  unmount: unmountSidebarMenuItems,
+} = stickReactComponent({
+  component: (
+    <Provider store={store}>
+      <SidebarMenuItems />
+    </Provider>
+  ),
+  containerId: 'SidebarMenuItems',
+  containerConstructor: container => {
+    $('.w-menu-main').append(container)
+  },
+})

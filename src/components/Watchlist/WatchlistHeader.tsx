@@ -16,8 +16,7 @@ import {
   DefaultButton,
 } from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-
-const NAME_HAS_FLAG = 'etoro-better-ui-WatchlistHeader-is-ready'
+import { stickReactComponent } from '@/utils/stickReactComponent'
 
 const showMeBy = (filterText = '') => {
   if (filterText) {
@@ -83,7 +82,7 @@ export const WatchlistHeader: React.FC = () => {
   })
 
   return (
-    <Stack horizontal tokens={{ childrenGap: 16 }} className={NAME_HAS_FLAG}>
+    <Stack horizontal tokens={{ childrenGap: 16 }}>
       <Stack.Item>
         <DefaultButton
           text={i18n.清除篩選文字()}
@@ -158,31 +157,24 @@ export const WatchlistHeader: React.FC = () => {
   )
 }
 
-export const watchlistHeaderHasReady = () => !!$(`.${NAME_HAS_FLAG}`).length
-
-export const watchlistHeaderConstructor = () => {
-  if (watchlistHeaderHasReady()) {
-    return
-  }
-
-  const headerWrap = $('.watchlist-header')
-  const buttonWarp = headerWrap.find('.watch-list-buttons')
-
-  if (buttonWarp.length && !$(`#${watchlistHeaderConstructor.name}`).length) {
-    buttonWarp.prepend(`<span id='${watchlistHeaderConstructor.name}'></span>`)
-  }
-
-  globalThis.document.querySelector(`#${watchlistHeaderConstructor.name}`) &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <WatchlistHeader></WatchlistHeader>
-      </Provider>,
-      globalThis.document.querySelector(`#${watchlistHeaderConstructor.name}`),
-    )
-}
+export const {
+  mount: mountWatchlistHeader,
+  unmount: unmountWatchlistHeader,
+  containerId: WatchlistHeaderId,
+} = stickReactComponent({
+  component: (
+    <Provider store={store}>
+      <WatchlistHeader></WatchlistHeader>
+    </Provider>
+  ),
+  containerId: 'WatchlistHeader',
+  containerConstructor: containerElement => {
+    $('.watchlist-header .watch-list-buttons').prepend(containerElement)
+  },
+})
 
 GM.addStyle(`
-  #${watchlistHeaderConstructor.name} {
+  #${WatchlistHeaderId} {
     margin-top: 18px;
   }
 `)

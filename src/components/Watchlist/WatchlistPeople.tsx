@@ -7,11 +7,13 @@ import { stringifyUrl } from 'query-string'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { useAsyncFn } from 'react-use'
+import { useAsyncFn, useUpdateEffect, useMount } from 'react-use'
+import { stickReactComponent } from '@/utils/stickReactComponent'
+import { getRandomString } from '@/utils/getRandomString'
 
-export const WatchlistUserControls: React.FunctionComponent<{
+export const WatchlistUsersControls: React.FunctionComponent<{
+  username: string
   cid: string
-  traderName: string
 }> = props => {
   const [equityState, equityQuery] = useAsyncFn(() => {
     return GM.ajax({
@@ -55,50 +57,73 @@ export const WatchlistUserControls: React.FunctionComponent<{
         {equityState.value ? `${equityState.value}%` : i18n.餘額()}
       </Button>
 
-      <Button>
-        <a href={`/people/${props.traderName.toLowerCase()}/portfolio`}>
-          {i18n.投資組合()}
-        </a>
-      </Button>
+      {props.username && (
+        <Button>
+          <a href={`/people/${props.username.toLowerCase()}/portfolio`}>
+            {i18n.投資組合()}
+          </a>
+        </Button>
+      )}
     </span>
   )
 }
 
+export const unmountWatchlistUsersControlsList: ReturnType<
+  typeof stickReactComponent
+>['unmount'][] = []
+
 export const renderWatchlistPeople = () => {
   $('et-user-row').each((index, element) => {
-    const userFinder = $(element)
-    const hasAppended = !!userFinder.find('.user-meta').length
+    const userRowElement = $(element)
 
-    if (hasAppended) {
-      return
-    }
+    if (userRowElement.length) {
+      const eachId =
+        userRowElement
+          .find('.card-avatar-wrap')
+          .attr('href')
+          ?.replace(/\//gi, '') || getRandomString()
 
-    /**
-     * tests https://regexr.com/52ft5
-     *
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
-     * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
-     */
-    const cid = /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
-      $(element).find('[automation-id="trade-item-avatar"]').attr('src') || '',
-    )?.groups?.cid
+      const username = userRowElement
+        .find('[automation-id="trade-item-name"]')
+        .html()
 
-    const traderName = $(element)
-      .find('[automation-id="trade-item-name"]')
-      .html()
+      /**
+       * tests https://regexr.com/52ft5
+       *
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
+       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
+       */
+      const cid =
+        /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
+          userRowElement
+            ?.find('[automation-id="trade-item-avatar"]')
+            .attr('src') || '',
+        )?.groups?.cid || '__UNKNOWN-CID__'
 
-    if (cid && !hasAppended) {
-      userFinder.prepend(
-        $(`<span class="user-meta" id="user-meta-${cid}"></span>`),
-      )
+      const { mount, unmount } = stickReactComponent({
+        component: (
+          <Provider store={store}>
+            <WatchlistUsersControls cid={cid} username={username} />
+          </Provider>
+        ),
+        containerId: `WatchlistUsersControls-${eachId}`,
+        containerConstructor: containerElement => {
+          $(containerElement).addClass(WatchlistUsersControls.name)
+          userRowElement.prepend(containerElement)
+        },
+      })
 
-      ReactDOM.render(
-        <Provider store={store}>
-          <WatchlistUserControls cid={cid} traderName={traderName} />
-        </Provider>,
-        globalThis.document.querySelector(`#user-meta-${cid}`),
-      )
+      mount()
+
+      unmountWatchlistUsersControlsList.push(unmount)
     }
   })
 }
+
+GM.addStyle(`
+  .${WatchlistUsersControls.name} {
+    margin-right: 8px;
+    margin-top: 5px;
+  }
+`)

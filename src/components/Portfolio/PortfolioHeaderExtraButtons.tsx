@@ -6,9 +6,7 @@ import { SearchBox, TextField, TextFieldBase } from '@fluentui/react'
 import { i18n } from '@/i18n'
 import { debugAPI } from '@/debugAPI'
 import { GM } from '@/GM'
-import { throttle } from 'lodash'
-
-const ELEMENT_ID = 'portfolio-header-extra-buttons'
+import { stickReactComponent } from '@/utils/stickReactComponent'
 
 const showMeBy = (filterText = '') => {
   if (filterText) {
@@ -36,7 +34,7 @@ export const PortfolioHeaderExtraButtons = () => {
   const searchBoxRef = React.createRef<TextFieldBase>()
 
   return (
-    <span id={ELEMENT_ID}>
+    <React.Fragment>
       <TextField
         componentRef={searchBoxRef}
         placeholder={i18n.輸入以過濾()}
@@ -52,39 +50,28 @@ export const PortfolioHeaderExtraButtons = () => {
           })
         }}
       />
-    </span>
+    </React.Fragment>
   )
 }
 
-PortfolioHeaderExtraButtons.hasRendered = () => !!$(`#${ELEMENT_ID}`).length
-
-PortfolioHeaderExtraButtons.getContainer = () => $(`#${ELEMENT_ID}-container`)
-
-PortfolioHeaderExtraButtons.render = function renderPortfolioHeader() {
-  if (PortfolioHeaderExtraButtons.hasRendered()) {
-    return
-  }
-
-  const containerLocation = $('.p-portfolio-header .inner-header')
-
-  if (
-    containerLocation.length &&
-    !PortfolioHeaderExtraButtons.getContainer().length
-  ) {
-    $(`<span id="${ELEMENT_ID}-container"></span>`).appendTo(containerLocation)
-  }
-
-  $(`#${ELEMENT_ID}-container`).length &&
-    ReactDom.render(
-      <Provider store={store}>
-        <PortfolioHeaderExtraButtons />
-      </Provider>,
-      $(`#${ELEMENT_ID}-container`).html('').get(0),
-    )
-}
+export const {
+  mount: mountPortfolioHeaderExtraButtons,
+  unmount: unmountPortfolioHeaderExtraButtons,
+  containerId: PortfolioHeaderExtraButtonsId,
+} = stickReactComponent({
+  component: (
+    <Provider store={store}>
+      <PortfolioHeaderExtraButtons />
+    </Provider>
+  ),
+  containerId: 'PortfolioHeaderExtraButtons',
+  containerConstructor: container => {
+    $(container).appendTo($('.p-portfolio-header .inner-header'))
+  },
+})
 
 GM.addStyle(`
-  #${ELEMENT_ID} {
+  #${PortfolioHeaderExtraButtonsId} {
     display: inline-block;
     margin-left: 16px;
     margin-top: 12px;

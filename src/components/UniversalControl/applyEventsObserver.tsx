@@ -3,6 +3,10 @@ import { throttle } from 'lodash'
 import { emitter, Events } from '@/emitter'
 import { debugAPI } from '@/debugAPI'
 import { angularAPI } from '@/angularAPI'
+import { unmountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
+import { unmountWatchlistUsersControlsList } from '@/components/Watchlist/WatchlistPeople'
+import { unmountPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import { unmountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 
 export function applyEventsObserver() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
@@ -17,6 +21,25 @@ export function applyEventsObserver() {
       if (newValue !== oldValue && newValue === false) {
         emitter.emit(Events.onDialogNotFount)
       }
+    },
+  )
+
+  angularAPI.$rootScope.$watch(
+    () => {
+      return angularAPI.$rootScope.layoutCtrl.$location.path()
+    },
+    (newValue, oldValue) => {
+      unmountPortfolioHistoryHeaderExtraButtons()
+
+      unmountPortfolioHeaderExtraButtons()
+
+      unmountWatchlistHeader()
+
+      unmountWatchlistUsersControlsList.forEach((unmount, index) => {
+        unmount().then(() => {
+          unmountWatchlistUsersControlsList.splice(index, 1)
+        })
+      })
     },
   )
 

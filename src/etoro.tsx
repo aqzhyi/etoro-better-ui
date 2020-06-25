@@ -9,18 +9,27 @@ import {
 } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
-import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
-import { PortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
+import {
+  PortfolioHeaderExtraButtons,
+  mountPortfolioHeaderExtraButtons,
+} from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import {
+  PortfolioHistoryHeaderExtraButtons,
+  mountPortfolioHistoryHeaderExtraButtons,
+} from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { applyEventsObserver } from '@/components/UniversalControl/applyEventsObserver'
 import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
-import { watchlistHeaderConstructor } from '@/components/Watchlist/WatchlistHeader'
+import { mountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
 import { renderWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
 import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
-import { SidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
+import {
+  SidebarMenuItems,
+  mountSidebarMenuItems,
+} from '@/components/Sidebar/SidebarMenuItems'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
 import {
@@ -120,18 +129,18 @@ emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
  */
 emitter.on(
   Events.onPortfolioHistoryPageHover,
-  PortfolioHistoryHeaderExtraButtons.render,
+  mountPortfolioHistoryHeaderExtraButtons,
 )
 
 /**
  * 我的關注列表
  */
-emitter.on(Events.onWatchlistPageHover, watchlistHeaderConstructor)
+emitter.on(Events.onWatchlistPageHover, mountWatchlistHeader)
 
 /**
  * 我的投資組合
  */
-emitter.on(Events.onPortfolioPageHover, PortfolioHeaderExtraButtons.render)
+emitter.on(Events.onPortfolioPageHover, mountPortfolioHeaderExtraButtons)
 
 /**
  * 下單框框增強介面
@@ -170,8 +179,8 @@ const constructFooterUnitValuesUnbind = emitter.on(
 /**
  * 左側欄連結項目與設定
  */
-emitter.on(Events.settingChange, SidebarMenuItems.render)
-emitter.on(Events.onSidebarHover, SidebarMenuItems.render)
+emitter.on(Events.settingChange, mountSidebarMenuItems)
+emitter.on(Events.onSidebarHover, mountSidebarMenuItems)
 
 /**
  * 取得外部銀行買賣匯率
@@ -247,15 +256,6 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
   GM.addStyle(`
     .bp3-transition-container {
       z-index: 10001
-    }
-  `)
-
-  /**
-   * 關注的使用者們的餘額
-   */
-  GM.addStyle(`
-    .user-meta {
-      margin-right: 8px;
     }
   `)
 

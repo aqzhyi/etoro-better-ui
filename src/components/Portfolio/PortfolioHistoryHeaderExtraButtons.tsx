@@ -1,13 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import store from '@/store/_store'
 import { Provider } from 'react-redux'
 import { Stack, TextField, TextFieldBase } from '@fluentui/react'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import { debounce } from 'lodash'
-
-const ELEMENT_ID = 'portfolio-history-header-extra-buttons'
+import { stickReactComponent } from '@/utils/stickReactComponent'
 
 const showMeBy = (filterText = '') => {
   if (filterText) {
@@ -36,7 +34,7 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
 
   return (
-    <Stack horizontal horizontalAlign='center' id={ELEMENT_ID}>
+    <Stack horizontal horizontalAlign='center'>
       <TextField
         componentRef={searchBoxRef}
         placeholder={i18n.輸入以過濾()}
@@ -56,31 +54,26 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
   )
 }
 
-PortfolioHistoryHeaderExtraButtons.hasRendered = () =>
-  !!$(`#${ELEMENT_ID}`).length
-
-PortfolioHistoryHeaderExtraButtons.render = function renderPortfolioHistoryHeader() {
-  if (PortfolioHistoryHeaderExtraButtons.hasRendered()) {
-    return
-  }
-
-  if (!$(`#${ELEMENT_ID}-container`).length) {
-    $(`<span id='${ELEMENT_ID}-container'></span>`).insertBefore(
+export const {
+  mount: mountPortfolioHistoryHeaderExtraButtons,
+  unmount: unmountPortfolioHistoryHeaderExtraButtons,
+  containerId: PortfolioHistoryHeaderExtraButtonsId,
+} = stickReactComponent({
+  component: (
+    <Provider store={store}>
+      <PortfolioHistoryHeaderExtraButtons />
+    </Provider>
+  ),
+  containerId: 'PortfolioHistoryHeaderExtraButtons',
+  containerConstructor: container => {
+    $(container).insertBefore(
       $('.p-portfolio.history .inner-header .inner-header-buttons'),
     )
-  }
-
-  $(`#${ELEMENT_ID}-container`).length &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <PortfolioHistoryHeaderExtraButtons></PortfolioHistoryHeaderExtraButtons>
-      </Provider>,
-      $(`#${ELEMENT_ID}-container`).get(0),
-    )
-}
+  },
+})
 
 GM.addStyle(`
-  #${ELEMENT_ID}-container {
+  #${PortfolioHistoryHeaderExtraButtonsId} {
     display: inline-block;
     margin-left: 16px;
   }
