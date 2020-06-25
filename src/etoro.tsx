@@ -17,10 +17,13 @@ import { renderWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
 import store from '@/store/_store'
 import { throttle } from 'lodash'
 import * as React from 'react'
-import { ExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { SidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
+import {
+  mountExecutionDialogStatusInfo,
+  unmountExecutionDialogStatusInfo,
+} from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -76,7 +79,8 @@ emitter.on(Events.onPing, function checkSystemStatus() {
 /**
  * 下單視窗的各種關鍵資訊提示 e.g. 延遲、可用餘額 etc.
  */
-emitter.on(Events.onDialogHover, ExecutionDialogStatusInfo.render)
+emitter.on(Events.onDialogHover, mountExecutionDialogStatusInfo)
+emitter.on(Events.onDialogNotFount, unmountExecutionDialogStatusInfo)
 
 /**
  * 掌握全網站的 keyboard 按下事件

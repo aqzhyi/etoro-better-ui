@@ -1,19 +1,11 @@
-import { emitter, Events } from '@/emitter'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import store, { useAppSelector } from '@/store/_store'
 import { Callout, Tooltip } from '@blueprintjs/core'
 import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-
-const ELEMENT_ID = 'execution-dialog-status-info'
-const ELEMENT_ID_ROOT = 'execution-dialog-status-info-root'
-
-export const ExecutionDialogStatusInfoRootElement = $(
-  `<span id="${ELEMENT_ID_ROOT}"></span>`,
-)
+import { stickReactComponent } from '@/utils/stickReactComponent'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
@@ -47,7 +39,7 @@ export const ExecutionDialogStatusInfo = () => {
     .replace(/[A-Za-z].*/i, '')
 
   return (
-    <span id={ELEMENT_ID}>
+    <React.Fragment>
       <Tooltip position='top' content={'source https://status.etoro.com/'}>
         <Callout style={{ width: 120 }}>
           <ProgressIndicator
@@ -86,37 +78,33 @@ export const ExecutionDialogStatusInfo = () => {
           />
         </Callout>
       </Tooltip>
-    </span>
+    </React.Fragment>
   )
 }
 
-ExecutionDialogStatusInfo.hasRendered = () => !!$(`#${ELEMENT_ID}`).length
-
-ExecutionDialogStatusInfo.render = function renderExecutionDialogStatusInfo() {
-  if (ExecutionDialogStatusInfo.hasRendered()) {
-    return
-  }
-
-  if (!$(`#${ELEMENT_ID_ROOT}`).length) {
-    ExecutionDialogStatusInfoRootElement.insertBefore('.execution-head')
-  }
-
-  $(`#${ELEMENT_ID_ROOT}`).length &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <ExecutionDialogStatusInfo />
-      </Provider>,
-      ExecutionDialogStatusInfoRootElement.get(0),
-    )
-}
+export const {
+  mount: mountExecutionDialogStatusInfo,
+  unmount: unmountExecutionDialogStatusInfo,
+  containerId: ExecutionDialogStatusInfoId,
+} = stickReactComponent({
+  containerId: 'ExecutionDialogStatusInfo',
+  component: (
+    <Provider store={store}>
+      <ExecutionDialogStatusInfo />
+    </Provider>
+  ),
+  containerConstructor: containerElement => {
+    $(containerElement).insertBefore('.execution-head')
+  },
+})
 
 GM.addStyle(`
-  #${ELEMENT_ID_ROOT} {
+  #${ExecutionDialogStatusInfoId} {
     display: flex;
     align-items: flex-start;
   }
 
-  #${ELEMENT_ID_ROOT} .bp3-popover-target {
+  #${ExecutionDialogStatusInfoId} .bp3-popover-target {
     border-right: 1px solid #cccccc;
   }
 
@@ -125,15 +113,3 @@ GM.addStyle(`
     height: 775px;
   }
 `)
-
-emitter.on(
-  Events.onDialogNotFount,
-  function unmountExecutionDialogStatusInfo() {
-    // setTimeout 能防止奇怪的 error
-    globalThis.setTimeout(() => {
-      ReactDOM.unmountComponentAtNode(
-        ExecutionDialogStatusInfoRootElement.get(0),
-      )
-    })
-  },
-)
