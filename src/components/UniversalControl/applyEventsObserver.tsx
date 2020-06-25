@@ -74,7 +74,7 @@ export function applyEventsObserver() {
       if (angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen === true) {
         emitter.emit(Events.onDialogHover)
       }
-    }, 1000),
+    }, 500),
   )
 
   $('body').delegate(

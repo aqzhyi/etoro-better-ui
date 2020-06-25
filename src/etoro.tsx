@@ -3,7 +3,10 @@ import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
-import { ExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
+import {
+  mountExecutionDialogControls,
+  unmountExecutionDialogControls,
+} from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
 import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
 import { PortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
@@ -133,7 +136,8 @@ emitter.on(Events.onPortfolioPageHover, PortfolioHeaderExtraButtons.render)
 /**
  * 下單框框增強介面
  */
-emitter.on(Events.onDialogHover, ExecutionDialogControls.render)
+emitter.on(Events.onDialogHover, mountExecutionDialogControls)
+emitter.on(Events.onDialogNotFount, unmountExecutionDialogControls)
 
 /**
  * 歡迎訊息

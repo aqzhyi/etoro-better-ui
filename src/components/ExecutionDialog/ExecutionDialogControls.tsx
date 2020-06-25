@@ -1,19 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import toast from 'cogo-toast'
-import { ButtonGroup, Button, Tooltip } from '@blueprintjs/core'
 import { storage } from '../../storage'
-import store, { useAppSelector, useAppDispatch } from '@/store/_store'
-import { setMacroAmount } from '@/actions/setMacroAmount'
-import { i18n } from '@/i18n'
-import { Toggle } from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { useMount, useEffectOnce, useUpdateEffect } from 'react-use'
-import { GM } from '@/GM'
-import { Provider } from 'react-redux'
-import { debugAPI } from '@/debugAPI'
-import { RiskSpecification } from '@/components/RiskSpecification'
+import { setMacroAmount } from '@/actions/setMacroAmount'
 import { ProviderBy } from '@/components/ProviderBy'
+import { RiskSpecification } from '@/components/RiskSpecification'
+import { GM } from '@/GM'
+import { i18n } from '@/i18n'
+import store, { useAppDispatch, useAppSelector } from '@/store/_store'
+import { stickReactComponent } from '@/utils/stickReactComponent'
+import { Button, ButtonGroup, Tooltip } from '@blueprintjs/core'
+import { Toggle } from '@fluentui/react'
+import toast from 'cogo-toast'
+import pWaitFor from 'p-wait-for'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { useMount } from 'react-use'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -92,8 +92,20 @@ export const ExecutionDialogControls = () => {
 
   useMount(() => {
     if (executionUseApplyLast) {
-      toAmount(lastApplied.amount)
-      toLever(lastApplied.lever)
+      pWaitFor(() => {
+        return (
+          $('[ng-click="$ctrl.tabsCtrl.selectTab($ctrl, $event)"]').length >
+            0 &&
+          $('[data-etoro-automation-id="execution-amount-input-section"] input')
+            .length > 0
+        )
+      }).then(() => {
+        // 在很極端地情況下，連續開開關關 dialog 時，有機會無法正確執行，以 setTimeout 解決
+        globalThis.setTimeout(() => {
+          toAmount(lastApplied.amount)
+          toLever(lastApplied.lever)
+        }, 100)
+      })
     }
   })
 
@@ -179,71 +191,21 @@ export const ExecutionDialogControls = () => {
   )
 }
 
-ExecutionDialogControls.isParentReady = () => {
-  /** 每日利息說明區塊 */
-  const hasDailyValueMessage = !!$(
-    '[data-etoro-automation-id="execution-is-refund-daily-value"]',
-  )
-    .html()
-    ?.trim()
-
-  /** 入金按鈕 */
-  const hasDepositButton = $(
-    '[data-etoro-automation-id="execution-deposit-button"]',
-  )
-    .html()
-    ?.trim()
-
-  /** 以 X1 購買時的股票說明 */
-  const hasStockMessage = $(
-    '[data-etoro-automation-id="execution-bottom-stock-message"]',
-  )
-    .html()
-    ?.trim()
-
-  // data-etoro-automation-id="execution-bottom-stock-message"
-  return (
-    !!$('.uidialog').length &&
-    (hasDailyValueMessage || hasDepositButton || hasStockMessage)
-  )
-}
-
-ExecutionDialogControls.isRendered = () =>
-  !!$('#ExecutionDialog-ExecutionWrap').html()?.length
-
-ExecutionDialogControls.render = function renderExecutionDialog() {
-  if (!storage.findConfig().executionMacroEnabled) {
-    return
-  }
-
-  if (!ExecutionDialogControls.isParentReady()) {
-    return
-  }
-
-  if (ExecutionDialogControls.isRendered()) {
-    return
-  }
-
-  // 確保元素存在，可以加多新介面進去
-  $('.uidialog .execution-main').prepend(
-    '<div id="ExecutionDialog-ExecutionWrap"></div>',
-  )
-
-  $('#ExecutionDialog-ExecutionWrap').length &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <ExecutionDialogControls />
-      </Provider>,
-      globalThis.document.querySelector('#ExecutionDialog-ExecutionWrap'),
-    )
-
-  $('#ExecutionDialog-ExecutionWrap')
-    .eq(0)
-    .nextAll('#ExecutionDialog-ExecutionWrap')
-    .remove()
-
-  debugAPI.dialog('加載完成')
-}
+export const {
+  mount: mountExecutionDialogControls,
+  unmount: unmountExecutionDialogControls,
+  containerId: ExecutionDialogControlsId,
+} = stickReactComponent({
+  component: (
+    <Provider store={store}>
+      <ExecutionDialogControls />
+    </Provider>
+  ),
+  containerId: 'ExecutionDialogControls',
+  containerConstructor: containerElement => {
+    $('.uidialog .execution-main').prepend(containerElement)
+  },
+})
 
 GM.addStyle(`
   @media (min-width:741px) {
@@ -252,7 +214,7 @@ GM.addStyle(`
       justify-content: center;
     }
 
-    #ExecutionDialog-ExecutionWrap {
+    #${ExecutionDialogControlsId} {
       margin: 0 auto;
       margin-bottom: 16px;
       text-align: center;
@@ -263,7 +225,7 @@ GM.addStyle(`
   }
 
   @media (max-width:740px) {
-    #ExecutionDialog-ExecutionWrap {
+    #${ExecutionDialogControlsId} {
       display: none;
     }
   }
