@@ -2,11 +2,23 @@ import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
 import { emitter, Events } from '@/emitter'
 import { debugAPI } from '@/debugAPI'
+import { angularAPI } from '@/angularAPI'
 
 export function applyEventsObserver() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
 
   initializeIcons()
+
+  angularAPI.$rootScope.$watch(
+    () => {
+      return angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen
+    },
+    (newValue, oldValue) => {
+      if (newValue !== oldValue && newValue === false) {
+        emitter.emit(Events.onDialogNotFount)
+      }
+    },
+  )
 
   // 「全部平倉」
   $('body').delegate(
@@ -51,10 +63,6 @@ export function applyEventsObserver() {
       } else if (globalThis.location.pathname.includes('portfolio')) {
         emitter.emit(Events.onPortfolioPageHover)
       }
-
-      if (!$('.execution-head').length) {
-        emitter.emit(Events.onDialogNotFount)
-      }
     }, 5000),
   )
 
@@ -63,7 +71,9 @@ export function applyEventsObserver() {
     '.execution-main',
     'mouseover',
     throttle(event => {
-      emitter.emit(Events.onDialogHover)
+      if (angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen === true) {
+        emitter.emit(Events.onDialogHover)
+      }
     }, 1000),
   )
 
