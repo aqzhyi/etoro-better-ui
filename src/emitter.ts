@@ -23,13 +23,17 @@ export const emitter = new Emittery.Typed<
 
 // 使每個 emitter 之 events 的接受端受到 emit 觸發時，皆會記錄在 console
 emitter.on = new Proxy(emitter.on.bind(emitter), {
-  apply(target, key, receiver: [Events, (...args) => any]) {
+  apply(
+    target,
+    key,
+    receiver: [Events, ((...args) => any) & { displayName?: string }],
+  ) {
     if (typeof receiver[1] === 'function') {
       receiver[1] = new Proxy(receiver[1], {
         apply(listenserTarget, listenserKey, listenserReceiver) {
           debugAPI.events.extend('.on')(
             receiver[0],
-            receiver[1].name || '__NO_NAME__',
+            receiver[1]?.displayName || receiver[1].name || '__NO_NAME__',
           )
           return Reflect.apply(listenserTarget, listenserKey, listenserReceiver)
         },
