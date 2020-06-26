@@ -7,6 +7,8 @@ import { unmountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
 import { unmountWatchlistUsersControlsList } from '@/components/Watchlist/WatchlistPeople'
 import { unmountPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { unmountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
+import { ExecutionDialogControlsId } from '@/components/ExecutionDialog/ExecutionDialogControls'
+import { ExecutionDialogStatusInfoId } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 
 export function applyEventsObserver() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
@@ -88,7 +90,7 @@ export function applyEventsObserver() {
       } else if (globalThis.location.pathname.includes('portfolio')) {
         emitter.emit(Events.onPortfolioPageHover)
       }
-    }, 5000),
+    }, 3000),
   )
 
   // 彈出視窗畫面，此框用於下單，為實現加速下單的設計本意，使用較短的觸發時間(throttle)
@@ -96,7 +98,15 @@ export function applyEventsObserver() {
     '.execution-main',
     'mouseover',
     throttle(event => {
-      if (angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen === true) {
+      const dialogComponentsNotReady = [
+        $(`#${ExecutionDialogControlsId}`).length > 0,
+        $(`#${ExecutionDialogStatusInfoId}`).length > 0,
+      ].some(isReady => !isReady)
+
+      const isDialogOpen =
+        angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen
+
+      if (isDialogOpen && dialogComponentsNotReady) {
         emitter.emit(Events.onDialogHover)
       }
     }, 500),

@@ -127,4 +127,9 @@ GM.addStyle(`
     border: 1px solid rgb(204, 204, 204);
     margin-right: -1px;
   }
+
+  /** 因為加高了視窗，為了放置額外資訊 */
+  .uidialog-content .execution {
+    height: 755px;
+  }
 `)

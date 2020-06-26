@@ -7,7 +7,7 @@ import { debugAPI } from '@/debugAPI'
 const bootstrapStartAt = new Date()
 
 export const showWelcomeMessage = () => {
-  cogoToast.success(
+  const { hide } = cogoToast.success(
     i18n.感謝使用提示語(() => (
       <a
         style={{
@@ -19,7 +19,13 @@ export const showWelcomeMessage = () => {
         better-etoro-ui
       </a>
     )),
-    { position: 'top-left', hideAfter: 8 },
+    {
+      position: 'top-left',
+      hideAfter: 8,
+      onClick: () => {
+        hide?.()
+      },
+    },
   )
 
   const bootstrapEndedAt = new Date()

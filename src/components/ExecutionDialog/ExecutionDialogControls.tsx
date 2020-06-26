@@ -14,6 +14,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
 import Tooltip from 'rc-tooltip'
+import { throttle } from 'lodash'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -51,6 +52,22 @@ const toLever = (value: number) => {
   }
 }
 
+const showRiskAgreement = throttle(() => {
+  const { hide } = toast.warn(
+    <span>
+      {i18n.確保同意下單巨集風險(() => (
+        <RiskSpecification aStyle={{ color: 'blue' }} />
+      ))}
+    </span>,
+    {
+      position: 'top-left',
+      onClick: () => {
+        hide?.()
+      },
+    },
+  )
+}, 30000)
+
 /**
  * 下單輔助巨集
  */
@@ -80,14 +97,7 @@ export const ExecutionDialogControls = () => {
   }
 
   React.useEffect(() => {
-    toast.warn(
-      <span>
-        {i18n.確保同意下單巨集風險(() => (
-          <RiskSpecification aStyle={{ color: 'blue' }} />
-        ))}
-      </span>,
-      { position: 'top-left' },
-    )
+    showRiskAgreement()
   }, [])
 
   useMount(() => {
