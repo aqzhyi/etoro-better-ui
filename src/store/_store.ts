@@ -8,7 +8,6 @@ import {
   AnyAction,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
-import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroLever } from '@/actions/setMacroLever'
 import { storage, BetterEtoroUIConfig } from '@/storage'
@@ -81,12 +80,6 @@ const settings = createReducer<{
       .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) =>
         produce(state, () => {
           state.betterEtoroUIConfig = action.payload
-          return state
-        }),
-      )
-      .addCase(setMacroEnabled, (state, action) =>
-        produce(state, () => {
-          state.isMacroEnabled = action.payload
           return state
         }),
       )

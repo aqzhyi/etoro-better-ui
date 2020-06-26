@@ -1,5 +1,4 @@
 import { setMacroAmount } from '@/actions/setMacroAmount'
-import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { emitter, Events } from '@/emitter'
 import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
@@ -22,13 +21,13 @@ const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
 export const SidebarSettingsDialog: React.FC = () => {
   const macroAmountInputRef = React.createRef<TextFieldBase>()
-  const settings = useAppSelector(state => state.settings)
+  const configs = useAppSelector(state => state.settings.betterEtoroUIConfig)
   const dispatch = useAppDispatch()
   const dialogOpen = useAppSelector(
     state => state.settings.betterEtoroUISettingsDialog,
   )
   const [executionAmount, executionAmountSet] = React.useState(
-    settings.betterEtoroUIConfig.executionAmount,
+    configs.executionAmount,
   )
 
   return (
@@ -46,9 +45,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <TextField
             componentRef={macroAmountInputRef}
             label={i18n.下單巨集金額設定()}
-            defaultValue={settings.betterEtoroUIConfig.executionAmount.join(
-              ',',
-            )}
+            defaultValue={configs.executionAmount.join(',')}
             onChange={(event, newValue) => {
               executionAmountSet(getArrayNumbers(newValue))
             }}
@@ -74,9 +71,7 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <ChoiceGroup
             label={i18n.使下單視窗能夠單鍵快速切換買賣()}
-            defaultSelectedKey={
-              settings.betterEtoroUIConfig.useTabKeyBuySell ? 'ON' : 'OFF'
-            }
+            defaultSelectedKey={configs.useTabKeyBuySell ? 'ON' : 'OFF'}
             options={[
               {
                 key: 'ON',
@@ -100,7 +95,7 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <ChoiceGroup
             label={i18n.下單巨集啟用狀態()}
-            defaultSelectedKey={settings.isMacroEnabled ? 'ON' : 'OFF'}
+            defaultSelectedKey={configs.executionMacroEnabled ? 'ON' : 'OFF'}
             options={[
               {
                 key: 'ON',
@@ -116,7 +111,9 @@ export const SidebarSettingsDialog: React.FC = () => {
             onChange={(event, option) => {
               const yourEnabled = option?.key === 'ON' ? true : false
 
-              dispatch(setMacroEnabled(yourEnabled))
+              dispatch(
+                setBetterEtoroUIConfig({ executionMacroEnabled: yourEnabled }),
+              )
 
               storage.saveConfig({ executionMacroEnabled: yourEnabled })
 
@@ -134,8 +131,8 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <ChoiceGroup
-            label={i18n.設定幣別(settings.betterEtoroUIConfig.selectedExchange)}
-            defaultSelectedKey={settings.betterEtoroUIConfig.selectedExchange}
+            label={i18n.設定幣別(configs.selectedExchange)}
+            defaultSelectedKey={configs.selectedExchange}
             options={[
               {
                 key: 'NTD',
