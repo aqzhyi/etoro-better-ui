@@ -23,6 +23,7 @@ export const stickReactComponent = (options: {
    *  })
    */
   containerConstructor: (containerElement: Element) => void
+  disabled?: () => boolean
 }) => {
   const containerTag = options.containerTag || 'span'
   const newContainerElement = $(`<${containerTag}>`)
@@ -40,8 +41,10 @@ export const stickReactComponent = (options: {
   const containerId = options.containerId || getRandomString()
   newContainerElement.attr('id', `${containerId}`)
 
+  const checkDisabled = () => options.disabled?.() ?? false
+
   const mount = () => {
-    if (checkExists() === false) {
+    if (checkExists() === false && checkDisabled() === false) {
       options.containerConstructor(targetContainerElement)
       ReactDOM.render(options.component, targetContainerElement)
     }

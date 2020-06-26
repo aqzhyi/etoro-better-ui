@@ -74,6 +74,14 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls = () => {
   const dispatch = useAppDispatch()
 
+  const enabled = useAppSelector(
+    state => state.settings.betterEtoroUIConfig.executionMacroEnabled,
+  )
+
+  if (!enabled) {
+    return null
+  }
+
   const amounts = useAppSelector(
     state => state.settings.betterEtoroUIConfig.executionAmount,
   )
@@ -91,10 +99,6 @@ export const ExecutionDialogControls = () => {
       lever: state.settings.betterEtoroUIConfig.executionLeverLast,
     }
   })
-
-  if (!storage.findConfig().executionMacroEnabled) {
-    return null
-  }
 
   React.useEffect(() => {
     showRiskAgreement()
@@ -230,6 +234,7 @@ export const {
   containerConstructor: containerElement => {
     $('.uidialog .execution-main').prepend(containerElement)
   },
+  disabled: () => !storage.findConfig().executionMacroEnabled,
 })
 
 GM.addStyle(`
