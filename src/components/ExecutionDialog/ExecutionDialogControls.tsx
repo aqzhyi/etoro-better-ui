@@ -7,13 +7,13 @@ import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import store, { useAppDispatch, useAppSelector } from '@/store/_store'
 import { stickReactComponent } from '@/utils/stickReactComponent'
-import { Button, ButtonGroup, Tooltip } from '@blueprintjs/core'
-import { Toggle } from '@fluentui/react'
+import { Toggle, Stack, PrimaryButton } from '@fluentui/react'
 import toast from 'cogo-toast'
 import pWaitFor from 'p-wait-for'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
+import Tooltip from 'rc-tooltip'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -113,80 +113,95 @@ export const ExecutionDialogControls = () => {
     <React.Fragment>
       <ProviderBy />
 
-      <React.Fragment>
-        <div style={{ marginBottom: 8 }}>
+      <Stack horizontal={false} tokens={{ childrenGap: 16 }}>
+        <Stack.Item>
           <h2 style={{ textAlign: 'center' }}>{i18n.金額()}</h2>
-          <ButtonGroup fill={true} large={true} vertical={true}>
+
+          <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
             {amounts.map((value, index) => {
               return (
-                <Button
-                  key={index}
-                  onClick={() => {
-                    toAmount(value)
-                    dispatch(
-                      setBetterEtoroUIConfig({ executionAmountLast: value }),
-                    )
-                  }}
-                  intent='primary'
-                >
-                  $<span>{value}</span>
-                </Button>
+                <Stack.Item key={index}>
+                  <PrimaryButton
+                    onClick={() => {
+                      toAmount(value)
+                      dispatch(
+                        setBetterEtoroUIConfig({ executionAmountLast: value }),
+                      )
+                    }}
+                  >
+                    $<span>{value}</span>
+                  </PrimaryButton>
+                </Stack.Item>
               )
             })}
-          </ButtonGroup>
-        </div>
+          </Stack>
+        </Stack.Item>
 
-        <div style={{ marginBottom: 16 }}>
-          <Button
-            icon='settings'
-            onClick={() => {
-              dispatch(setMacroAmount())
-            }}
-          >
-            {i18n.下單巨集設定按鈕()}
-          </Button>
-        </div>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <PrimaryButton
+                onClick={() => {
+                  dispatch(setMacroAmount())
+                }}
+              >
+                {i18n.下單巨集設定按鈕()}
+              </PrimaryButton>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
 
-        <div style={{ marginBottom: 16 }}>
+        <Stack.Item>
           <h2 style={{ textAlign: 'center' }}>{i18n.槓桿()}</h2>
-          <ButtonGroup fill={true} large={true} vertical={true}>
+          <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
             {levers.map((value, index) => {
               return (
-                <Button
-                  key={index}
-                  onClick={() => {
-                    toLever(value)
-                    dispatch(
-                      setBetterEtoroUIConfig({ executionLeverLast: value }),
-                    )
-                  }}
-                  intent='primary'
-                >
-                  x<span>{value}</span>
-                </Button>
+                <Stack.Item key={index}>
+                  <PrimaryButton
+                    onClick={() => {
+                      toLever(value)
+                      dispatch(
+                        setBetterEtoroUIConfig({ executionLeverLast: value }),
+                      )
+                    }}
+                  >
+                    x<span>{value}</span>
+                  </PrimaryButton>
+                </Stack.Item>
               )
             })}
-          </ButtonGroup>
-        </div>
-      </React.Fragment>
+          </Stack>
+        </Stack.Item>
 
-      <Tooltip content={i18n.使鎖定下單重複一致之說明()}>
-        <Toggle
-          checked={executionUseApplyLast}
-          label={
-            executionUseApplyLast
-              ? i18n.使鎖定下單重複一致()
-              : i18n.使鎖定下單重複一致否定()
-          }
-          onChange={(event, checked) => {
-            dispatch(
-              setBetterEtoroUIConfig({
-                executionUseApplyLast: checked,
-              }),
-            )
-          }}
-        ></Toggle>
-      </Tooltip>
+        <Stack.Item>
+          <Tooltip
+            placement='left'
+            overlay={
+              <span style={{ display: 'inline-block', width: 200 }}>
+                {i18n.使鎖定下單重複一致之說明()}
+              </span>
+            }
+          >
+            <span style={{ display: 'inline-block' }}>
+              <Toggle
+                checked={executionUseApplyLast}
+                label={
+                  executionUseApplyLast
+                    ? i18n.使鎖定下單重複一致()
+                    : i18n.使鎖定下單重複一致否定()
+                }
+                onChange={(event, checked) => {
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      executionUseApplyLast: checked,
+                    }),
+                  )
+                }}
+              ></Toggle>
+            </span>
+          </Tooltip>
+        </Stack.Item>
+      </Stack>
     </React.Fragment>
   )
 }

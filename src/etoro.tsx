@@ -1,4 +1,3 @@
-import '@blueprintjs/core/lib/css/blueprint.css'
 import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
 import { GM } from './GM'
@@ -36,6 +35,7 @@ import {
   mountExecutionDialogStatusInfo,
   unmountExecutionDialogStatusInfo,
 } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import 'rc-tooltip/assets/bootstrap_white.css'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -243,19 +243,12 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
 
   /**
    * 確保 toast 不會被蓋住
+   *
+   * @fluentui/react Dialog 的 z-index: 1000000，為避免被蓋掉，則 +1
    */
   GM.addStyle(`
     #ct-container {
-      z-index: 1000000
-    }
-  `)
-
-  /**
-   * blueprintjs 的 tooltip 之 z-index 需要高於「下單 dialog」才好正確提示資訊
-   */
-  GM.addStyle(`
-    .bp3-transition-container {
-      z-index: 10001
+      z-index: 1000001
     }
   `)
 
@@ -284,6 +277,13 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
     [data-etoro-automation-id="open-trades-table-body-cell-action-buy"]:after {
       content: "📈";
+    }
+  `)
+
+  /** dialog z-index:10000, therefore must set tooltip to 10001 */
+  GM.addStyle(`
+    .rc-tooltip {
+      z-index: 10001
     }
   `)
 

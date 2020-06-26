@@ -2,14 +2,13 @@ import { debugAPI } from '@/debugAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import store from '@/store/_store'
-import { Button } from '@blueprintjs/core'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { useAsyncFn, useUpdateEffect, useMount } from 'react-use'
+import { useAsyncFn } from 'react-use'
 import { stickReactComponent } from '@/utils/stickReactComponent'
 import { getRandomString } from '@/utils/getRandomString'
+import { DefaultButton, Stack } from '@fluentui/react'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string
@@ -45,26 +44,33 @@ export const WatchlistUsersControls: React.FunctionComponent<{
       })
   }, [])
 
+  const minimalStyle: React.CSSProperties = {
+    paddingLeft: '2px',
+    paddingRight: '2px',
+  }
+
   return (
-    <span>
-      <Button
-        loading={equityState.loading}
-        icon={'dollar'}
+    <Stack tokens={{ childrenGap: 1 }} horizontal>
+      <DefaultButton
+        style={minimalStyle}
+        iconProps={{
+          iconName: equityState.loading ? 'Refresh' : 'AllCurrency',
+        }}
         onClick={() => {
           equityQuery()
         }}
       >
         {equityState.value ? `${equityState.value}%` : i18n.餘額()}
-      </Button>
+      </DefaultButton>
 
       {props.username && (
-        <Button>
+        <DefaultButton style={minimalStyle}>
           <a href={`/people/${props.username.toLowerCase()}/portfolio`}>
             {i18n.投資組合()}
           </a>
-        </Button>
+        </DefaultButton>
       )}
-    </span>
+    </Stack>
   )
 }
 
@@ -124,6 +130,6 @@ export const renderWatchlistPeople = () => {
 GM.addStyle(`
   .${WatchlistUsersControls.name} {
     margin-right: 8px;
-    margin-top: 5px;
+    margin-top: 4px;
   }
 `)

@@ -6,8 +6,13 @@ import { exchange, getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
 import { storage } from '@/storage'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { Dialog } from '@blueprintjs/core'
-import { ChoiceGroup, Stack, TextField, TextFieldBase } from '@fluentui/react'
+import {
+  ChoiceGroup,
+  Stack,
+  TextField,
+  TextFieldBase,
+  Dialog,
+} from '@fluentui/react'
 import toast from 'cogo-toast'
 import React from 'react'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
@@ -29,9 +34,9 @@ export const SidebarSettingsDialog: React.FC = () => {
   return (
     <Dialog
       title={i18n.腳本標題()}
-      canEscapeKeyClose={true}
-      canOutsideClickClose={false}
-      onClose={() => {
+      dialogContentProps={{ showCloseButton: true }}
+      minWidth={642}
+      onDismiss={() => {
         dispatch(toggleSettingsDialog(false))
       }}
       isOpen={dialogOpen}

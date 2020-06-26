@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
-import { Tooltip } from '@blueprintjs/core'
 import { storage } from '@/storage'
 import { setListCompact } from '@/actions/setListCompact'
 import { useMount } from 'react-use'
@@ -14,9 +13,11 @@ import {
   Stack,
   TextFieldBase,
   DefaultButton,
+  DirectionalHint,
 } from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { stickReactComponent } from '@/utils/stickReactComponent'
+import Tooltip from 'rc-tooltip'
 
 const showMeBy = (filterText = '') => {
   if (filterText) {
@@ -96,7 +97,10 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip position='bottom' content={i18n.回車鍵使彈出下單框()}>
+        <Tooltip
+          placement='bottom'
+          overlay={<span>{i18n.回車鍵使彈出下單框()}</span>}
+        >
           <TextField
             value={filterText}
             componentRef={searchBoxRef}

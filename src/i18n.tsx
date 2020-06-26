@@ -125,7 +125,7 @@ const en: typeof zh = {
     )
   },
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
-  下單巨集設定按鈕: () => 'Settings',
+  下單巨集設定按鈕: () => 'Setup',
   下單巨集啟用狀態: () =>
     `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
   下單巨集金額設定: () =>

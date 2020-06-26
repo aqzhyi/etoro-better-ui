@@ -1,11 +1,11 @@
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import store, { useAppSelector } from '@/store/_store'
-import { Callout, Tooltip } from '@blueprintjs/core'
 import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { stickReactComponent } from '@/utils/stickReactComponent'
+import Tooltip from 'rc-tooltip'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
@@ -26,7 +26,7 @@ export const ExecutionDialogStatusInfo = () => {
   /** 可用餘額 */
   const labelPingValue =
     statusPingValue > 0 ? (
-      statusPingValue
+      `${statusPingValue}ms`
     ) : (
       <Spinner label='inferring...' labelPosition='right' />
     )
@@ -40,43 +40,54 @@ export const ExecutionDialogStatusInfo = () => {
 
   return (
     <React.Fragment>
-      <Tooltip position='top' content={'source https://status.etoro.com/'}>
-        <Callout style={{ width: 120 }}>
+      <Tooltip
+        placement='top'
+        overlay={() => (
+          <span>
+            Manual Trading Status{' '}
+            <a
+              style={{ color: 'blue' }}
+              href='https://status.etoro.com/'
+              target='_blank'
+            >
+              (Ref)
+            </a>
+          </span>
+        )}
+      >
+        <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{
               itemDescription: { textAlign: 'center' },
               itemName: { textAlign: 'center' },
             }}
             label={labelManualTrading}
-            description='Manual Trading'
           />
-        </Callout>
+        </span>
       </Tooltip>
 
-      <Tooltip position='top' content={i18n.大概延遲()}>
-        <Callout style={{ width: 120 }}>
+      <Tooltip placement='top' overlay={i18n.大概延遲()}>
+        <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{
               itemDescription: { textAlign: 'center' },
               itemName: { textAlign: 'center' },
             }}
             label={labelPingValue}
-            description={i18n.大概延遲()}
           />
-        </Callout>
+        </span>
       </Tooltip>
 
-      <Tooltip position='top' content={i18n.當前可用餘額()}>
-        <Callout style={{ width: 120 }}>
+      <Tooltip placement='top' overlay={i18n.當前可用餘額()}>
+        <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{
               itemDescription: { textAlign: 'center' },
               itemName: { textAlign: 'center' },
             }}
             label={availableValue}
-            description={i18n.當前可用餘額()}
           />
-        </Callout>
+        </span>
       </Tooltip>
     </React.Fragment>
   )
@@ -108,8 +119,12 @@ GM.addStyle(`
     border-right: 1px solid #cccccc;
   }
 
-  /** 因為加高了視窗，為了放置額外資訊 */
-  .uidialog-content .execution {
-    height: 775px;
+  #${ExecutionDialogStatusInfoId} .indicator-callout-box {
+    display: inline-block;
+    width: 120px;
+    background-color: rgb(235, 235, 235);
+    padding: 4px 12px;
+    border: 1px solid rgb(204, 204, 204);
+    margin-right: -1px;
   }
 `)
