@@ -38,7 +38,7 @@ export const SidebarSettingsDialog: React.FC = () => {
       onDismiss={() => {
         dispatch(toggleSettingsDialog(false))
       }}
-      isOpen={dialogOpen}
+      hidden={!dialogOpen}
     >
       <Stack tokens={{ padding: 16, childrenGap: 32 }}>
         <Stack.Item>
