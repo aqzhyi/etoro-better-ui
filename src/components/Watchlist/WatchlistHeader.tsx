@@ -97,10 +97,7 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip
-          placement='bottom'
-          overlay={<span>{i18n.回車鍵使彈出下單框()}</span>}
-        >
+        <Tooltip placement='bottom' overlay={i18n.輸入以過濾提示窗說明()}>
           <TextField
             value={filterText}
             componentRef={searchBoxRef}
@@ -121,10 +118,18 @@ export const WatchlistHeader: React.FC = () => {
               })
             }}
             onKeyDown={event => {
+              if (event.key.toLowerCase() === 'escape') {
+                filterTextSet('')
+                showMeBy('')
+                toggleListInvested(shouldShowInvested)
+              }
+
               if (event.key.toLowerCase() === 'enter') {
                 $('[automation-id="buy-sell-button-container-buy"]:visible')
                   .eq(0)
                   .click()
+
+                searchBoxRef.current?.blur()
               }
             }}
           />

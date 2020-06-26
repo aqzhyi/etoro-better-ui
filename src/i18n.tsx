@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { TooltipHighlightText } from '@/components/TooltipHighlightText'
 
 const zh = {
   清除篩選文字: () => '清除輸入',
@@ -6,7 +7,6 @@ const zh = {
   當前可用餘額: () => '可用餘額',
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
-  回車鍵使彈出下單框: () => '使用 Enter，可以自動開啟第一個標的下單框',
   使已投資顯示: () => '已投資',
   左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
@@ -14,6 +14,13 @@ const zh = {
   使鎖定下單重複一致之說明: () =>
     '始終以你上一次點擊巨集為基準，同步每次下單金額與槓桿',
   使緊湊: () => '緊湊',
+  輸入以過濾提示窗說明: () => (
+    <span>
+      使用 <TooltipHighlightText>Enter</TooltipHighlightText>{' '}
+      可以開啟第一個標的之下單框。使用{' '}
+      <TooltipHighlightText>Escape</TooltipHighlightText> 可以清除輸入框。
+    </span>
+  ),
   輸入以過濾: () => '過濾...',
   腳本標題: () => 'eToro better UI',
   功能提供者述敘: (Link: React.FC) => {
@@ -86,8 +93,6 @@ const en: typeof zh = {
   當前可用餘額: () => 'Available Value',
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
-  回車鍵使彈出下單框: () =>
-    'Use the Enter key to open the first Execution Dialog.',
   使已投資顯示: () => 'Invested',
   左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
@@ -95,6 +100,13 @@ const en: typeof zh = {
   使鎖定下單重複一致之說明: () =>
     'Always use the last Amount and Lever, which you previously selected value.',
   使緊湊: () => 'compact',
+  輸入以過濾提示窗說明: () => (
+    <span>
+      Use the <TooltipHighlightText>Enter</TooltipHighlightText> key to open the
+      first Execution Dialog. Use the{' '}
+      <TooltipHighlightText>Escape</TooltipHighlightText> to clear the input .
+    </span>
+  ),
   輸入以過濾: () => 'Filter...',
   腳本標題: () => 'eToro better UI',
   功能提供者述敘: (Link: React.FC) => {
