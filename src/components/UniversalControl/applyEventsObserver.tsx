@@ -29,6 +29,8 @@ export function applyEventsObserver() {
       return angularAPI.$rootScope.layoutCtrl.$location.path()
     },
     (newValue, oldValue) => {
+      if (newValue === oldValue) return
+
       unmountPortfolioHistoryHeaderExtraButtons()
 
       unmountPortfolioHeaderExtraButtons()
