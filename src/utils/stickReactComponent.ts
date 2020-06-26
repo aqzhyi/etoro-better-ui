@@ -46,6 +46,9 @@ export const stickReactComponent = (options: {
   const mount = () => {
     if (checkExists() === false && checkDisabled() === false) {
       options.containerConstructor(targetContainerElement)
+    }
+
+    if (checkDisabled() === false) {
       ReactDOM.render(options.component, targetContainerElement)
     }
   }

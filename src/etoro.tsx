@@ -8,7 +8,7 @@ import {
 } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
 import {
-  renderFooterUnitValues,
+  mountAllFooterUnitValues,
   componentsFooterUnitValue,
 } from '@/components/Footer/renderFooterUnitValues'
 import {
@@ -170,11 +170,12 @@ emitter.on(Events.settingChange, renderSidebarDepositButton)
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
  */
-emitter.on(Events.ready, renderFooterUnitValues)
-emitter.on(Events.settingChange, renderFooterUnitValues)
-emitter.on(Events.onWatchlistPageHover, renderFooterUnitValues)
-emitter.on(Events.onPortfolioPageHover, renderFooterUnitValues)
-emitter.on(Events.onPortfolioHistoryPageHover, renderFooterUnitValues)
+emitter.on(Events.ready, mountAllFooterUnitValues)
+emitter.on(Events.settingChange, mountAllFooterUnitValues)
+emitter.on(Events.onWatchlistPageHover, mountAllFooterUnitValues)
+emitter.on(Events.onPortfolioPageHover, mountAllFooterUnitValues)
+emitter.on(Events.onPortfolioHistoryPageHover, mountAllFooterUnitValues)
+emitter.on(Events.onPing, mountAllFooterUnitValues)
 
 /**
  * 左側欄連結項目與設定

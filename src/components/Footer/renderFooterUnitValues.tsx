@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import store, { useAppSelector } from '@/store/_store'
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
+import { throttle } from 'lodash'
 
 const FooterUnitValue: React.FC<{
   USD: number
@@ -42,15 +43,21 @@ const FooterUnitValue: React.FC<{
   )
 }
 
-export const componentsFooterUnitValue: ReturnType<
-  typeof stickReactComponent
->[] = []
+type StickComponent = ReturnType<typeof stickReactComponent>
 
-export const renderFooterUnitValues = () => {
-  if ($('.FooterUnitValue-Container').length) {
-    return
-  }
+export let componentsFooterUnitValue: StickComponent[] = []
 
+export const unmountAllFooterUnitValue = async () => {
+  const results = componentsFooterUnitValue.map(component =>
+    component.unmount(),
+  )
+  return Promise.all(results).then(() => {
+    componentsFooterUnitValue = [] as StickComponent[]
+    return componentsFooterUnitValue
+  })
+}
+
+export const mountAllFooterUnitValues = throttle(async () => {
   const footerUnits = $('et-account-balance .footer-unit')
 
   const portfolio = angularAPI.$rootScope.session.user.portfolio
@@ -91,7 +98,9 @@ export const renderFooterUnitValues = () => {
       componentsFooterUnitValue.push(component)
     }
   })
-}
+}, 1000)
+
+mountAllFooterUnitValues['displayName'] = 'mountAllFooterUnitValues'
 
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
