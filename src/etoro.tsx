@@ -7,7 +7,10 @@ import {
   unmountExecutionDialogControls,
 } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
-import { renderFooterUnitValues } from '@/components/Footer/FooterUnitValues'
+import {
+  renderFooterUnitValues,
+  componentsFooterUnitValue,
+} from '@/components/Footer/renderFooterUnitValues'
 import {
   PortfolioHeaderExtraButtons,
   mountPortfolioHeaderExtraButtons,
@@ -167,14 +170,11 @@ emitter.on(Events.settingChange, renderSidebarDepositButton)
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
  */
+emitter.on(Events.ready, renderFooterUnitValues)
 emitter.on(Events.settingChange, renderFooterUnitValues)
-const constructFooterUnitValuesUnbind = emitter.on(
-  Events.ready,
-  function constructFooterUnitValues() {
-    globalThis.setInterval(renderFooterUnitValues, 5000)
-    constructFooterUnitValuesUnbind()
-  },
-)
+emitter.on(Events.onWatchlistPageHover, renderFooterUnitValues)
+emitter.on(Events.onPortfolioPageHover, renderFooterUnitValues)
+emitter.on(Events.onPortfolioHistoryPageHover, renderFooterUnitValues)
 
 /**
  * 左側欄連結項目與設定
@@ -196,29 +196,6 @@ const fetchExtraCurrencySettingsUnbind = emitter.on(
 
 // 盡可能不拖慢 etoro 程式啟動時間，將 CSS 統一在 ready 後加載
 const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
-  /**
-   * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
-   */
-  GM.addStyle(`
-    .footer-unit[_ngcontent-qlo-c4] {
-      height: 100px;
-    }
-
-    .footer-unit-value-exchange {
-      font-size: 10pt;
-      margin-left: 4px;
-      opacity: 0.65;
-    }
-
-    .footer-unit-value-exchange-main {
-      font-weight: bold;
-    }
-
-    .footer-unit-value-exchange-small {
-      font-size: 8pt;
-    }
-  `)
-
   /**
    * 修正「添加到列表」被其它元素蓋住的問題
    *

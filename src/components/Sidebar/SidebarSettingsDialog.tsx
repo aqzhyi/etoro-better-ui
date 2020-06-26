@@ -1,10 +1,9 @@
-import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { emitter, Events } from '@/emitter'
-import { exchange, getMYR, getNTD } from '@/exchange'
+import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
-import { storage } from '@/storage'
+import { storage, BetterEtoroUIConfig } from '@/storage'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
 import {
   ChoiceGroup,
@@ -17,6 +16,7 @@ import toast from 'cogo-toast'
 import React from 'react'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -134,8 +134,8 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <ChoiceGroup
-            label={i18n.設定幣別(settings.exchange.selected)}
-            defaultSelectedKey={settings.exchange.selected}
+            label={i18n.設定幣別(settings.betterEtoroUIConfig.selectedExchange)}
+            defaultSelectedKey={settings.betterEtoroUIConfig.selectedExchange}
             options={[
               {
                 key: 'NTD',
@@ -147,6 +147,11 @@ export const SidebarSettingsDialog: React.FC = () => {
                 text: 'MYR',
                 iconProps: { iconName: 'AllCurrency' },
               },
+              {
+                key: 'USD',
+                text: 'USD',
+                iconProps: { iconName: 'Hide' },
+              },
             ]}
             onChange={async (event, option) => {
               const loading = toast.loading(i18n.設定變更中(), {
@@ -154,19 +159,33 @@ export const SidebarSettingsDialog: React.FC = () => {
               })
 
               const youSelected = (option?.key ||
-                'NTD') as typeof exchange['selected']
+                'NTD') as BetterEtoroUIConfig['selectedExchange']
+
+              if (youSelected === 'USD') {
+                dispatch(
+                  setBetterEtoroUIConfig({
+                    selectedExchange: youSelected,
+                  }),
+                )
+              }
 
               if (youSelected === 'NTD') {
-                exchange.NTD = await getNTD()
+                dispatch(
+                  setBetterEtoroUIConfig({
+                    NTD: await getNTD(),
+                    selectedExchange: youSelected,
+                  }),
+                )
               }
 
               if (youSelected === 'MYR') {
-                exchange.MYR = await getMYR()
+                dispatch(
+                  setBetterEtoroUIConfig({
+                    MYR: await getMYR(),
+                    selectedExchange: youSelected,
+                  }),
+                )
               }
-
-              dispatch(setExchangeSelected(youSelected))
-
-              storage.saveConfig({ selectedExchange: youSelected })
 
               emitter.emit(Events.settingChange)
 

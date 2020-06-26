@@ -1,30 +1,7 @@
 import { GM } from './GM'
-import { storage } from './storage'
 import { debugAPI } from './debugAPI'
 
-type ExchangeType = {
-  buy: number
-  sell: number
-}
-
-/** 匯率幣別選擇 */
-export const exchange: {
-  selected: 'NTD' | 'MYR'
-  NTD: ExchangeType
-  MYR: ExchangeType
-} = {
-  selected: storage.findConfig().selectedExchange,
-  NTD: {
-    sell: 30,
-    buy: 30,
-  },
-  MYR: {
-    sell: 4.25,
-    buy: 4.25,
-  },
-}
-
-export const getNTD = async (): Promise<ExchangeType> => {
+export const getNTD = async () => {
   const htmlText = await GM.ajax({
     method: 'GET',
     url: 'https://rate.bot.com.tw/xrt?Lang=zh-TW',
@@ -47,7 +24,7 @@ export const getNTD = async (): Promise<ExchangeType> => {
   return { buy, sell }
 }
 
-export const getMYR = async (): Promise<ExchangeType> => {
+export const getMYR = async () => {
   try {
     const MyrFinder = await GM.ajax({
       method: 'GET',

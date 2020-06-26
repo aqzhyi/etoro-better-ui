@@ -1,7 +1,14 @@
-import { exchange } from './exchange'
 import toast from 'cogo-toast'
 
 export type BetterEtoroUIConfig = {
+  MYR: {
+    buy: number
+    sell: number
+  }
+  NTD: {
+    buy: number
+    sell: number
+  }
   useTabKeyBuySell: boolean
   listCompactOn: boolean
   executionMacroEnabled: boolean
@@ -9,38 +16,22 @@ export type BetterEtoroUIConfig = {
   executionLever: number[]
   executionAmountLast: number
   executionLeverLast: number
-  selectedExchange: 'NTD' | 'MYR'
+  selectedExchange: 'NTD' | 'MYR' | 'USD'
   executionUseApplyLast: boolean
   showInvested: boolean
 }
 
-const findLegacyConfig = () => {
-  const rawEtoroBetterUiExecutionMacroEnabled = globalThis.localStorage.getItem(
-    'etoro_better_ui_execution_macro_enabled',
-  ) as 'false' | 'true' | null
-  const rawSelectedExchange = globalThis.localStorage.getItem(
-    'selected_exchange',
-  ) as 'NTD' | 'MYR' | null
-
-  const config = {
-    executionMacroEnabled: JSON.parse(
-      rawEtoroBetterUiExecutionMacroEnabled || 'false',
-    ) as boolean,
-    selectedExchange: rawSelectedExchange || 'NTD',
-  }
-
-  return config
-}
-
 const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  MYR: { buy: 0, sell: 0 },
+  NTD: { buy: 0, sell: 0 },
   useTabKeyBuySell: false,
   listCompactOn: false,
-  executionMacroEnabled: findLegacyConfig().executionMacroEnabled ?? false,
+  executionMacroEnabled: false,
   executionAmount: [50, 100, 200, 300, 500],
   executionLever: [1, 2, 5, 10, 20],
   executionAmountLast: 200,
   executionLeverLast: 1,
-  selectedExchange: findLegacyConfig().selectedExchange ?? 'NTD',
+  selectedExchange: 'USD',
   executionUseApplyLast: false,
   showInvested: false,
 }

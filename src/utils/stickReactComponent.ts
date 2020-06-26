@@ -53,8 +53,10 @@ export const stickReactComponent = (options: {
     // setTimeout to avoid errors which the polyfills-es5.js on etoro
     return new Promise((resolve, reject) => {
       globalThis.setTimeout(() => {
-        targetContainerElement &&
+        if (targetContainerElement) {
           ReactDOM.unmountComponentAtNode(targetContainerElement)
+          targetContainerElement.remove()
+        }
 
         resolve()
       })

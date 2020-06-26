@@ -9,6 +9,7 @@ import { unmountPortfolioHeaderExtraButtons } from '@/components/Portfolio/Portf
 import { unmountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { ExecutionDialogControlsId } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { ExecutionDialogStatusInfoId } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { componentsFooterUnitValue } from '@/components/Footer/renderFooterUnitValues'
 
 export function applyEventsObserver() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
@@ -42,6 +43,12 @@ export function applyEventsObserver() {
       unmountWatchlistUsersControlsList.forEach((unmount, index) => {
         unmount().then(() => {
           unmountWatchlistUsersControlsList.splice(index, 1)
+        })
+      })
+
+      componentsFooterUnitValue.forEach((component, index) => {
+        component.unmount().then(() => {
+          componentsFooterUnitValue.splice(index, 1)
         })
       })
     },

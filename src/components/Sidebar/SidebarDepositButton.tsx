@@ -5,11 +5,14 @@ export const renderSidebarDepositButton = () => {
   const target = $('.w-menu-footer .e-btn-big-2')
   const state = store.getState()
 
-  if (target.length) {
-    target.html(
-      i18n.左下入金按鈕(
-        state.settings.exchange[state.settings.exchange.selected].sell,
-      ),
-    )
+  const selected = state.settings.betterEtoroUIConfig.selectedExchange
+
+  if (target.length && selected !== 'USD') {
+    const sell = state.settings.betterEtoroUIConfig[selected]?.sell
+
+    sell &&
+      target.html(
+        i18n.左下入金按鈕(state.settings.betterEtoroUIConfig[selected].sell),
+      )
   }
 }

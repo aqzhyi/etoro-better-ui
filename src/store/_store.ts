@@ -8,7 +8,6 @@ import {
   AnyAction,
 } from '@reduxjs/toolkit'
 import { produce } from 'immer'
-import { setExchangeSelected } from '@/actions/setExchangeSelected'
 import { setMacroEnabled } from '@/actions/setMacroEnabled'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroLever } from '@/actions/setMacroLever'
@@ -32,17 +31,6 @@ const settings = createReducer<{
   betterEtoroUISettingsDialog: boolean
   betterEtoroUIConfig: BetterEtoroUIConfig
   isMacroEnabled: boolean
-  exchange: {
-    selected: 'NTD' | 'MYR'
-    NTD: {
-      buy: number
-      sell: number
-    }
-    MYR: {
-      buy: number
-      sell: number
-    }
-  }
 }>(
   {
     pingValue: 0,
@@ -50,17 +38,6 @@ const settings = createReducer<{
     betterEtoroUISettingsDialog: false,
     betterEtoroUIConfig: storage.findConfig(),
     isMacroEnabled: storage.findConfig().executionMacroEnabled,
-    exchange: {
-      selected: storage.findConfig().selectedExchange,
-      NTD: {
-        buy: 30,
-        sell: 30,
-      },
-      MYR: {
-        buy: 4.25,
-        sell: 4.25,
-      },
-    },
   },
   builder =>
     builder
@@ -96,20 +73,14 @@ const settings = createReducer<{
       )
       .addCase(fetchExtraCurrency.fulfilled, (state, action) =>
         produce(state, () => {
-          state.exchange.MYR = action.payload.MYR
-          state.exchange.NTD = action.payload.NTD
+          state.betterEtoroUIConfig.MYR = action.payload.MYR
+          state.betterEtoroUIConfig.NTD = action.payload.NTD
           return state
         }),
       )
       .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) =>
         produce(state, () => {
           state.betterEtoroUIConfig = action.payload
-          return state
-        }),
-      )
-      .addCase(setExchangeSelected, (state, action) =>
-        produce(state, () => {
-          state.exchange.selected = action.payload
           return state
         }),
       )

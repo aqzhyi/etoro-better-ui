@@ -3,6 +3,7 @@ import { getNTD, getMYR } from '@/exchange'
 import { emitter, Events } from '@/emitter'
 import { storage } from '@/storage'
 import store from '@/store/_store'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 export const fetchExtraCurrency = createAsyncThunk<{
   MYR: {
@@ -25,6 +26,8 @@ export const fetchExtraCurrency = createAsyncThunk<{
       NTD: ntd,
       MYR: myr,
     }
+
+    thunkAPI.dispatch(setBetterEtoroUIConfig({ MYR: myr, NTD: ntd }))
 
     return exchange
   })
