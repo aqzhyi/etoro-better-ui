@@ -6,6 +6,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { stickReactComponent } from '@/utils/stickReactComponent'
 import Tooltip from 'rc-tooltip'
+import { angularAPI } from '@/angularAPI'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
@@ -32,11 +33,9 @@ export const ExecutionDialogStatusInfo = () => {
     )
 
   /** from etoro html element */
-  const availableValue = $(
-    `[automation-id="account-balance-availible-unit-value"]`,
-  )
-    .text()
-    .replace(/[A-Za-z].*/i, '')
+  const canUseValue =
+    angularAPI.$rootScope.session.user.portfolio.availibleToTrade
+  const availableValueLabel = `$${canUseValue}`
 
   return (
     <React.Fragment>
@@ -85,7 +84,7 @@ export const ExecutionDialogStatusInfo = () => {
               itemDescription: { textAlign: 'center' },
               itemName: { textAlign: 'center' },
             }}
-            label={availableValue}
+            label={availableValueLabel}
           />
         </span>
       </Tooltip>
