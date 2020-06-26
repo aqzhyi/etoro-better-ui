@@ -19,7 +19,7 @@ export const showWelcomeMessage = () => {
         better-etoro-ui
       </a>
     )),
-    { position: 'bottom-left', hideAfter: 3 },
+    { position: 'top-left', hideAfter: 8 },
   )
 
   const bootstrapEndedAt = new Date()

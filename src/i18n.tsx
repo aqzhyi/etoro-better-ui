@@ -30,7 +30,14 @@ const zh = {
     return (
       <React.Fragment>
         <span>🙏 感謝您使用 {zh.腳本標題()} 更多資訊請恰詢：</span>
-        <Link /> {zh.腳本官網()}
+        <Link /> {zh.腳本官網()} 或是{' '}
+        <a
+          style={{ color: 'blue' }}
+          target='_blank'
+          href='https://t.me/etoro_better_ui'
+        >
+          telegram 群組
+        </a>
       </React.Fragment>
     )
   },
@@ -48,8 +55,7 @@ const zh = {
   確保同意下單巨集風險: (Link: React.FC) => {
     return (
       <span>
-        在使用 better-etoro-ui 所提供的下單巨集之前，請您確保您已閱讀 <Link />
-        ，並你也表示同意。
+        本程式非官方提供，請確保您知道使用風險 <Link />
       </span>
     )
   },
@@ -107,7 +113,14 @@ const en: typeof zh = {
         <span>
           🙏 Thanks for install {en.腳本標題()}, for more information in{' '}
         </span>
-        <Link /> {en.腳本官網()}
+        <Link /> {en.腳本官網()} or{' '}
+        <a
+          style={{ color: 'blue' }}
+          target='_blank'
+          href='https://t.me/etoro_better_ui'
+        >
+          telegram group
+        </a>
       </React.Fragment>
     )
   },
@@ -125,8 +138,8 @@ const en: typeof zh = {
   確保同意下單巨集風險(Link: React.FC) {
     return (
       <span>
-        Before use the Macro support by {this.腳本標題()}, Make sure you
-        understand <Link />, and you must agree the possible risk.
+        This extension is not official. Make sure you know you have risk when
+        using this extension. <Link />
       </span>
     )
   },

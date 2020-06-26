@@ -10,7 +10,7 @@ export const RiskSpecification: React.FunctionComponent<{
     {...props.attrs}
     className={props.aClassName}
     style={props.aStyle}
-    href='https://www.notion.so/hilezi/df93abe54fb94d9f90f25679957737ef'
+    href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
     target='_blank'
   >
     {props.children}
