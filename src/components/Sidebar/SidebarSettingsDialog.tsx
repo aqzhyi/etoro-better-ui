@@ -148,8 +148,8 @@ export const SidebarSettingsDialog: React.FC = () => {
                 iconProps: { iconName: 'AllCurrency' },
               },
               {
-                key: 'USD',
-                text: 'USD',
+                key: 'HIDDEN',
+                text: 'HIDDEN',
                 iconProps: { iconName: 'Hide' },
               },
             ]}
@@ -161,7 +161,7 @@ export const SidebarSettingsDialog: React.FC = () => {
               const youSelected = (option?.key ||
                 'NTD') as BetterEtoroUIConfig['selectedExchange']
 
-              if (youSelected === 'USD') {
+              if (youSelected === 'HIDDEN') {
                 dispatch(
                   setBetterEtoroUIConfig({
                     selectedExchange: youSelected,

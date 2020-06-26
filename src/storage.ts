@@ -16,7 +16,7 @@ export type BetterEtoroUIConfig = {
   executionLever: number[]
   executionAmountLast: number
   executionLeverLast: number
-  selectedExchange: 'NTD' | 'MYR' | 'USD'
+  selectedExchange: 'NTD' | 'MYR' | 'HIDDEN'
   executionUseApplyLast: boolean
   showInvested: boolean
 }
@@ -31,7 +31,7 @@ const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   executionLever: [1, 2, 5, 10, 20],
   executionAmountLast: 200,
   executionLeverLast: 1,
-  selectedExchange: 'USD',
+  selectedExchange: 'HIDDEN',
   executionUseApplyLast: false,
   showInvested: false,
 }

@@ -7,7 +7,7 @@ export const renderSidebarDepositButton = () => {
 
   const selected = state.settings.betterEtoroUIConfig.selectedExchange
 
-  if (target.length && selected !== 'USD') {
+  if (target.length && selected !== 'HIDDEN') {
     const sell = state.settings.betterEtoroUIConfig[selected]?.sell
 
     sell &&

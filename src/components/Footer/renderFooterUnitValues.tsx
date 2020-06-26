@@ -17,7 +17,7 @@ const FooterUnitValue: React.FC<{
     MYR: useAppSelector(state => state.settings.betterEtoroUIConfig.MYR),
   }
 
-  if (!selected || selected === 'USD') {
+  if (!selected || selected === 'HIDDEN') {
     return null
   }
 
