@@ -26,6 +26,10 @@ export const stickReactComponent = (options: {
 }) => {
   const containerTag = options.containerTag || 'span'
   const newContainerElement = $(`<${containerTag}>`)
+
+  const checkExists = () =>
+    options.containerId ? $(`#${options.containerId}`).length > 0 : false
+
   const existsContainerElement = options.containerId
     ? $(`#${options.containerId}`)
     : null
@@ -37,11 +41,10 @@ export const stickReactComponent = (options: {
   newContainerElement.attr('id', `${containerId}`)
 
   const mount = () => {
-    if (!existsContainerElement?.length) {
+    if (checkExists() === false) {
       options.containerConstructor(targetContainerElement)
+      ReactDOM.render(options.component, targetContainerElement)
     }
-
-    ReactDOM.render(options.component, targetContainerElement)
   }
 
   mount.displayName = `mount${containerId}`
