@@ -94,8 +94,10 @@ export const mountAllFooterUnitValues = throttle(async () => {
         },
       })
 
+      if (!$(`#FooterUnitValue-${id}`).length) {
+        componentsFooterUnitValue.push(component)
+      }
       component.mount()
-      componentsFooterUnitValue.push(component)
     }
   })
 }, 1000)
