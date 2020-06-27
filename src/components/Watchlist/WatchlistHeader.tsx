@@ -83,7 +83,7 @@ export const WatchlistHeader: React.FC = () => {
   })
 
   return (
-    <Stack horizontal tokens={{ childrenGap: 16 }}>
+    <Stack horizontal tokens={{ childrenGap: 8 }}>
       <Stack.Item>
         <DefaultButton
           text={i18n.清除篩選文字()}
@@ -185,5 +185,9 @@ export const {
 GM.addStyle(`
   #${WatchlistHeaderId} {
     margin-top: 18px;
+  }
+
+  #${WatchlistHeaderId} .ms-Toggle .ms-Label {
+    margin-left: 4px;
   }
 `)
