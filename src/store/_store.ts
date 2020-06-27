@@ -1,28 +1,26 @@
+import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import {
-  configureStore,
-  createAction,
-  createReducer,
-  combineReducers,
-  createAsyncThunk,
-  applyMiddleware,
-  AnyAction,
-} from '@reduxjs/toolkit'
-import { produce } from 'immer'
+  fetchStatusInfoAggregate,
+  StatusInfoAggregate,
+} from '@/actions/fetchStatusInfoAggregate'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { setListCompact } from '@/actions/setListCompact'
 import { setMacroAmount } from '@/actions/setMacroAmount'
 import { setMacroLever } from '@/actions/setMacroLever'
-import { storage, BetterEtoroUIConfig } from '@/storage'
-import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
-import { setListCompact } from '@/actions/setListCompact'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
-import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
-import { createLogger } from 'redux-logger'
-import {
-  StatusInfoAggregate,
-  fetchStatusInfoAggregate,
-} from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
+import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
+import { BetterEtoroUIConfig, storage } from '@/storage'
+import {
+  AnyAction,
+  applyMiddleware,
+  combineReducers,
+  configureStore,
+  createReducer,
+} from '@reduxjs/toolkit'
+import { produce } from 'immer'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { createLogger } from 'redux-logger'
 
 const settings = createReducer<{
   pingValue: number

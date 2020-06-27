@@ -48,6 +48,7 @@ const zh = {
       </React.Fragment>
     )
   },
+  設定重置所有設定: () => '重置所有設定',
   設定幣別: (selectedText: string) => `設定幣別（當前：${selectedText}）`,
   下單巨集設定按鈕: () => '設定',
   下單巨集啟用狀態: () =>
@@ -136,6 +137,7 @@ const en: typeof zh = {
       </React.Fragment>
     )
   },
+  設定重置所有設定: () => 'Reset All of Settings',
   設定幣別: (selectedText: string) => `Currency（Now：${selectedText}）`,
   下單巨集設定按鈕: () => 'Setup',
   下單巨集啟用狀態: () =>

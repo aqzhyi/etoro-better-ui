@@ -1,33 +1,40 @@
+import { resetBetterEtoroUIConfig } from '@/actions/resetBetterEtoroUIConfig'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { setMacroAmount } from '@/actions/setMacroAmount'
+import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
-import { storage, BetterEtoroUIConfig } from '@/storage'
-import { useAppSelector, useAppDispatch } from '@/store/_store'
+import { BetterEtoroUIConfig, storage } from '@/storage'
+import { useAppDispatch, useAppSelector } from '@/store/_store'
 import {
   ChoiceGroup,
+  DefaultButton,
+  Dialog,
+  Label,
   Stack,
   TextField,
-  TextFieldBase,
-  Dialog,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
-import React from 'react'
-import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import React, { useEffect } from 'react'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
 export const SidebarSettingsDialog: React.FC = () => {
-  const macroAmountInputRef = React.createRef<TextFieldBase>()
-  const configs = useAppSelector(state => state.settings.betterEtoroUIConfig)
   const dispatch = useAppDispatch()
+
+  const configs = useAppSelector(state => state.settings.betterEtoroUIConfig)
   const dialogOpen = useAppSelector(
     state => state.settings.betterEtoroUISettingsDialog,
   )
-  const [executionAmount, executionAmountSet] = React.useState(
-    configs.executionAmount,
-  )
+
+  const [macroAmountInput, macroAmountInputSetter] = React.useState<
+    string | undefined
+  >('')
+
+  useEffect(() => {
+    macroAmountInputSetter(configs.executionAmount.join(','))
+  }, [...configs.executionAmount])
 
   return (
     <Dialog
@@ -39,30 +46,21 @@ export const SidebarSettingsDialog: React.FC = () => {
       }}
       hidden={!dialogOpen}
     >
-      <Stack tokens={{ padding: 16, childrenGap: 32 }}>
+      <Stack tokens={{ padding: 8, childrenGap: 16 }}>
         <Stack.Item>
           <TextField
-            componentRef={macroAmountInputRef}
             label={i18n.下單巨集金額設定()}
-            defaultValue={configs.executionAmount.join(',')}
+            value={macroAmountInput}
             onChange={(event, newValue) => {
-              executionAmountSet(getArrayNumbers(newValue))
+              macroAmountInputSetter(newValue)
             }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'enter') {
-                const value = getArrayNumbers(
-                  macroAmountInputRef.current?.value,
-                )
-                dispatch(setMacroAmount(value))
-                executionAmountSet(value)
+                dispatch(setMacroAmount(getArrayNumbers(macroAmountInput)))
               }
             }}
             onBlur={event => {
-              dispatch(
-                setMacroAmount(
-                  getArrayNumbers(macroAmountInputRef.current?.value),
-                ),
-              )
+              dispatch(setMacroAmount(getArrayNumbers(macroAmountInput)))
             }}
           ></TextField>
         </Stack.Item>
@@ -70,17 +68,18 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <ChoiceGroup
             label={i18n.使下單視窗能夠單鍵快速切換買賣()}
-            defaultSelectedKey={configs.useTabKeyBuySell ? 'ON' : 'OFF'}
             options={[
               {
                 key: 'ON',
                 text: 'ON',
                 iconProps: { iconName: 'KeyboardClassic' },
+                checked: configs.useTabKeyBuySell === true,
               },
               {
                 key: 'OFF',
                 text: 'OFF',
                 iconProps: { iconName: 'Cancel' },
+                checked: configs.useTabKeyBuySell === false,
               },
             ]}
             onChange={async (event, option) => {
@@ -94,17 +93,18 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <ChoiceGroup
             label={i18n.下單巨集啟用狀態()}
-            defaultSelectedKey={configs.executionMacroEnabled ? 'ON' : 'OFF'}
             options={[
               {
                 key: 'ON',
                 text: 'ON',
                 iconProps: { iconName: 'ActivateOrders' },
+                checked: configs.executionMacroEnabled === true,
               },
               {
                 key: 'OFF',
                 text: 'OFF',
                 iconProps: { iconName: 'DeactivateOrders' },
+                checked: configs.executionMacroEnabled === false,
               },
             ]}
             onChange={(event, option) => {
@@ -127,68 +127,88 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <ChoiceGroup
-            label={i18n.設定幣別(configs.selectedExchange)}
-            defaultSelectedKey={configs.selectedExchange}
-            options={[
-              {
-                key: 'NTD',
-                text: 'NTD',
-                iconProps: { iconName: 'AllCurrency' },
-              },
-              {
-                key: 'MYR',
-                text: 'MYR',
-                iconProps: { iconName: 'AllCurrency' },
-              },
-              {
-                key: 'HIDDEN',
-                text: 'HIDDEN',
-                iconProps: { iconName: 'Hide' },
-              },
-            ]}
-            onChange={async (event, option) => {
-              const loading = toast.loading(i18n.設定變更中(), {
-                position: 'bottom-left',
-              })
+          <Stack horizontal tokens={{ childrenGap: 16 }}>
+            <Stack.Item grow={4}>
+              <ChoiceGroup
+                label={i18n.設定幣別(configs.selectedExchange)}
+                options={[
+                  {
+                    key: 'NTD',
+                    text: 'NTD',
+                    iconProps: { iconName: 'AllCurrency' },
+                    checked: configs.selectedExchange === 'NTD',
+                  },
+                  {
+                    key: 'MYR',
+                    text: 'MYR',
+                    iconProps: { iconName: 'AllCurrency' },
+                    checked: configs.selectedExchange === 'MYR',
+                  },
+                  {
+                    key: 'HIDDEN',
+                    text: 'HIDDEN',
+                    iconProps: { iconName: 'Hide' },
+                    checked: configs.selectedExchange === 'HIDDEN',
+                  },
+                ]}
+                onChange={async (event, option) => {
+                  const loading = toast.loading(i18n.設定變更中(), {
+                    position: 'bottom-left',
+                  })
 
-              const youSelected = (option?.key ||
-                'NTD') as BetterEtoroUIConfig['selectedExchange']
+                  const youSelected = (option?.key ||
+                    'NTD') as BetterEtoroUIConfig['selectedExchange']
 
-              if (youSelected === 'HIDDEN') {
-                dispatch(
-                  setBetterEtoroUIConfig({
-                    selectedExchange: youSelected,
-                  }),
-                )
-              }
+                  if (youSelected === 'HIDDEN') {
+                    dispatch(
+                      setBetterEtoroUIConfig({
+                        selectedExchange: youSelected,
+                      }),
+                    )
+                  }
 
-              if (youSelected === 'NTD') {
-                dispatch(
-                  setBetterEtoroUIConfig({
-                    NTD: await getNTD(),
-                    selectedExchange: youSelected,
-                  }),
-                )
-              }
+                  if (youSelected === 'NTD') {
+                    dispatch(
+                      setBetterEtoroUIConfig({
+                        NTD: await getNTD(),
+                        selectedExchange: youSelected,
+                      }),
+                    )
+                  }
 
-              if (youSelected === 'MYR') {
-                dispatch(
-                  setBetterEtoroUIConfig({
-                    MYR: await getMYR(),
-                    selectedExchange: youSelected,
-                  }),
-                )
-              }
+                  if (youSelected === 'MYR') {
+                    dispatch(
+                      setBetterEtoroUIConfig({
+                        MYR: await getMYR(),
+                        selectedExchange: youSelected,
+                      }),
+                    )
+                  }
 
-              toast.success(
-                i18n.設定已變更(() => <span>{youSelected}</span>),
-                { position: 'bottom-left' },
-              )
+                  toast.success(
+                    i18n.設定已變更(() => <span>{youSelected}</span>),
+                    { position: 'bottom-left' },
+                  )
 
-              loading.hide?.()
-            }}
-          />
+                  loading.hide?.()
+                }}
+              />
+            </Stack.Item>
+
+            <Stack.Item verticalFill>
+              <Label>{i18n.設定重置所有設定()}</Label>
+              <DefaultButton
+                iconProps={{ iconName: 'SyncStatusSolid' }}
+                onClick={() => {
+                  const yes = confirm(`${i18n.設定重置所有設定()}, YES?`)
+
+                  if (yes) {
+                    dispatch(resetBetterEtoroUIConfig())
+                  }
+                }}
+              ></DefaultButton>
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
       </Stack>
     </Dialog>

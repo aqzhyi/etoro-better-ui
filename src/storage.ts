@@ -21,7 +21,7 @@ export type BetterEtoroUIConfig = {
   showInvested: boolean
 }
 
-const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   MYR: { buy: 0, sell: 0 },
   NTD: { buy: 0, sell: 0 },
   useTabKeyBuySell: false,
