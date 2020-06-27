@@ -8,7 +8,7 @@ const zh = {
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
   使已投資顯示: () => '已投資',
-  左下入金按鈕: (value: number) => `入金（${value}）銀行賣出`,
+  左下入金按鈕: (value: number) => `${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
   使鎖定下單重複一致否定: () => '自動上次?',
   使鎖定下單重複一致之說明: () =>
@@ -94,7 +94,7 @@ const en: typeof zh = {
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
   使已投資顯示: () => 'Invested',
-  左下入金按鈕: (value: number) => `Deposit（${value}）Sold`,
+  左下入金按鈕: (value: number) => `（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
   使鎖定下單重複一致否定: () => 'Same Order?',
   使鎖定下單重複一致之說明: () =>

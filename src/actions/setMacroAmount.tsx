@@ -4,6 +4,7 @@ import { RootState } from '@/store/_store'
 import { storage } from '@/storage'
 import toast from 'cogo-toast'
 import { i18n } from '@/i18n'
+import { emitter, Events } from '@/emitter'
 
 export const setMacroAmount = createAsyncThunk<
   number[],
@@ -29,6 +30,8 @@ export const setMacroAmount = createAsyncThunk<
       i18n.設定已變更(() => <span>{thunkValue.join(',')}</span>),
       { position: 'bottom-left' },
     )
+
+    emitter.emit(Events.settingChange)
 
     return thunkValue
   }

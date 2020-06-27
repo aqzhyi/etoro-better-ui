@@ -1,5 +1,4 @@
 import { setMacroAmount } from '@/actions/setMacroAmount'
-import { emitter, Events } from '@/emitter'
 import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
 import { storage, BetterEtoroUIConfig } from '@/storage'
@@ -117,8 +116,6 @@ export const SidebarSettingsDialog: React.FC = () => {
 
               storage.saveConfig({ executionMacroEnabled: yourEnabled })
 
-              emitter.emit(Events.settingChange)
-
               toast.success(
                 i18n.設定已變更(() => (
                   <span>{JSON.stringify(yourEnabled)}</span>
@@ -183,8 +180,6 @@ export const SidebarSettingsDialog: React.FC = () => {
                   }),
                 )
               }
-
-              emitter.emit(Events.settingChange)
 
               toast.success(
                 i18n.設定已變更(() => <span>{youSelected}</span>),
