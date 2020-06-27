@@ -2,6 +2,7 @@ import type { IRootScopeService, ILocationService } from 'angular'
 
 interface EtoroRootScope extends IRootScopeService {
   session: {
+    locale: 'en-gb' | 'zh-tw' | 'zh-cn'
     accountMode: 'Demo' | 'Real'
     user: {
       portfolio: {
