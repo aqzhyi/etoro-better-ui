@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack -w",
     "build": "NODE_ENV=production webpack",
-    "server": "concurrently 'http-server -c-1 src_dist'",
+    "server": "concurrently 'http-server -p 8087 -c-1 src_dist'",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"
   },
