@@ -35,7 +35,7 @@ export const ExecutionDialogStatusInfo = () => {
   /** from etoro html element */
   const canUseValue =
     angularAPI.$rootScope.session.user.portfolio.availibleToTrade
-  const availableValueLabel = `$${canUseValue}`
+  const availableValueLabel = `$${canUseValue.toFixed(2)}`
 
   return (
     <React.Fragment>
