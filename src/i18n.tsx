@@ -2,6 +2,7 @@ import * as React from 'react'
 import { TooltipHighlightText } from '@/components/TooltipHighlightText'
 
 const zh = {
+  左側欄出金按鈕: (value: number) => `（${value}）銀行買入`,
   清除篩選文字: () => '清除輸入',
   幫助作者: () => '贊助作者',
   當前可用餘額: () => '可用餘額',
@@ -89,6 +90,7 @@ const zh = {
 }
 
 const en: typeof zh = {
+  左側欄出金按鈕: (value: number) => `（${value}）Buy`,
   清除篩選文字: () => 'Remove Text',
   幫助作者: () => 'Donate',
   當前可用餘額: () => 'Available Value',
