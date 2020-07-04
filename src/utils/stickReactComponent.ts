@@ -1,6 +1,21 @@
 import ReactDOM from 'react-dom'
 import { getRandomString } from '@/utils/getRandomString'
 
+type ReactComponentUtils = ReturnType<typeof stickReactComponent>
+
+export const mountedStickyComponents = new Map<
+  string,
+  ReactComponentUtils['unmount']
+>()
+
+export const mountableStickyComponents = new Map<
+  string,
+  ReactComponentUtils['mount']
+>()
+
+/**
+ * Aims to stick React-Components to Angular UIs, automatically
+ */
 export const stickReactComponent = (options: {
   /**
    * required, the component to ReactDOM.render()
@@ -12,8 +27,8 @@ export const stickReactComponent = (options: {
    *  )
    */
   component: JSX.Element
-  /** defaults random literals. e.g. `'umjisp19neq'` */
-  containerId?: string
+  /** e.g. `'umjisp19neq' or 'SomeComponentUniqueId'` */
+  containerId: string
   /** defaults `'span'`, the container element tag that for ReactDOM.render(). */
   containerTag?: string
   /**
@@ -28,12 +43,10 @@ export const stickReactComponent = (options: {
   const containerTag = options.containerTag || 'span'
   const newContainerElement = $(`<${containerTag}>`)
 
-  const checkExists = () =>
+  const checkContainerExists = () =>
     options.containerId ? $(`#${options.containerId}`).length > 0 : false
 
-  const existsContainerElement = options.containerId
-    ? $(`#${options.containerId}`)
-    : null
+  const existsContainerElement = $(`#${options.containerId}`)
 
   const targetContainerElement =
     existsContainerElement?.get(0) || newContainerElement.get(0)
@@ -43,18 +56,6 @@ export const stickReactComponent = (options: {
 
   const checkDisabled = () => options.disabled?.() ?? false
 
-  const mount = () => {
-    if (checkExists() === false && checkDisabled() === false) {
-      options.containerConstructor(targetContainerElement)
-    }
-
-    if (checkDisabled() === false) {
-      ReactDOM.render(options.component, targetContainerElement)
-    }
-  }
-
-  mount.displayName = `mount${containerId}`
-
   const unmount = () => {
     // setTimeout to avoid errors which the polyfills-es5.js on etoro
     return new Promise((resolve, reject) => {
@@ -62,6 +63,7 @@ export const stickReactComponent = (options: {
         if (targetContainerElement) {
           ReactDOM.unmountComponentAtNode(targetContainerElement)
           targetContainerElement.remove()
+          mountedStickyComponents.delete(targetContainerElement.id)
         }
 
         resolve()
@@ -70,6 +72,24 @@ export const stickReactComponent = (options: {
   }
 
   unmount.displayName = `unmount${containerId}`
+
+  const mount = () => {
+    if (checkContainerExists() === false && checkDisabled() === false) {
+      options.containerConstructor(targetContainerElement)
+    }
+
+    if (checkContainerExists() === true && checkDisabled() === false) {
+      ReactDOM.render(options.component, targetContainerElement)
+
+      mountedStickyComponents.set(targetContainerElement.id, unmount)
+    }
+  }
+
+  if (targetContainerElement.id) {
+    mountableStickyComponents.set(targetContainerElement.id, mount)
+  }
+
+  mount.displayName = `mount${containerId}`
 
   return {
     mount,

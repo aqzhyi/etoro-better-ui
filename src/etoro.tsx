@@ -1,44 +1,34 @@
+import 'rc-tooltip/assets/bootstrap_white.css'
 import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
+import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
+import { fetchPingValue } from '@/actions/setPingValue'
+import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
 import {
   mountExecutionDialogControls,
   unmountExecutionDialogControls,
 } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
-import {
-  mountAllFooterUnitValues,
-  componentsFooterUnitValue,
-} from '@/components/Footer/renderFooterUnitValues'
-import {
-  PortfolioHeaderExtraButtons,
-  mountPortfolioHeaderExtraButtons,
-} from '@/components/Portfolio/PortfolioHeaderExtraButtons'
-import {
-  PortfolioHistoryHeaderExtraButtons,
-  mountPortfolioHistoryHeaderExtraButtons,
-} from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
-import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
-import { applyEventsObserver } from '@/components/UniversalControl/applyEventsObserver'
-import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
-import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
-import { mountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
-import { renderWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
-import store from '@/store/_store'
-import { throttle } from 'lodash'
-import * as React from 'react'
-import {
-  SidebarMenuItems,
-  mountSidebarMenuItems,
-} from '@/components/Sidebar/SidebarMenuItems'
-import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
-import { fetchPingValue } from '@/actions/setPingValue'
 import {
   mountExecutionDialogStatusInfo,
   unmountExecutionDialogStatusInfo,
 } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import 'rc-tooltip/assets/bootstrap_white.css'
+import { constructContainersForFooterUnitValues } from '@/components/Footer/constructContainersForFooterUnitValues'
+import { mountPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import { mountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
+import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
+import { mountSidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
+import { applyEventsObserver as applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
+import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
+import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
+import { mountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
+import { constructContainersForWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
+import store from '@/store/_store'
+import { cleanStickReactComponents } from '@/utils/cleanStickReactComponents'
+import { renderStickReactComponents } from '@/utils/renderStickReactComponents'
+import { throttle } from 'lodash'
+import React from 'react'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -66,9 +56,31 @@ $('body').delegate(
  *
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
-emitter.once(Events.ready).then(applyEventsObserver)
+emitter.once(Events.ready).then(applyEventsObservers)
 
-/** 「全部平倉」自動打勾我想平掉所有交易 */
+/**
+ * Make sure Extension UI re-renders ASAP
+ *
+ * angular route changes will remove containers (which is React-Components),
+ * re-renders ASAP in order to provider better UX
+ */
+emitter.on(Events.onMountUIs, renderStickReactComponents)
+
+/**
+ * Make sure React-Components works with UI that may rendered by dynamic data
+ */
+emitter.on(Events.onPing, constructContainersForFooterUnitValues)
+emitter.on(Events.onMountUIs, constructContainersForFooterUnitValues)
+emitter.on(Events.onMountUIs, constructContainersForWatchlistPeople)
+
+/**
+ * To avoid memory leak if angular removes React-Components containers
+ */
+emitter.on(Events.onUnmountUIs, cleanStickReactComponents)
+
+/**
+ * Auto confirms "I want to close all positions"
+ */
 emitter.on(
   Events.onCloseAllPositionsDialogHover,
   function allPositionsCloseAgree() {
@@ -82,12 +94,14 @@ emitter.on(
   },
 )
 
-/** */
+/**
+ * status checking
+ */
 emitter.on(Events.onPing, function checkSystemStatus() {
-  debugAPI.universal('檢查 status.etoro.com 功能狀況')
+  debugAPI.universal('checking https://status.etoro.com')
   store.dispatch(fetchStatusInfoAggregate())
 
-  debugAPI.universal('推斷大致延遲時間')
+  debugAPI.universal('inferring delay')
   store.dispatch(fetchPingValue())
 })
 
@@ -114,7 +128,7 @@ const constructKeyboardEventsUnbind = emitter.on(
 emitter.once(Events.ready).then(applyExecutionRiskLeverFromMemory)
 
 /**
- * 查看更多按鈕
+ * Auto clicks "More Button"
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
   $('.more-info-button').click()
@@ -157,31 +171,14 @@ emitter.on(Events.onDialogNotFount, unmountExecutionDialogControls)
 emitter.once(Events.ready).then(showWelcomeMessage)
 
 /**
- * 關注列表中的投資人提供額外功能按鈕
- */
-emitter.on(Events.onWatchlistPageHover, renderWatchlistPeople)
-
-/**
  * 提供左側欄入金按鈕，匯率換算結果顯示
  */
-emitter.on(Events.onSidebarHover, renderSidebarDepositButton)
 emitter.on(Events.settingChange, renderSidebarDepositButton)
-
-/**
- * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算
- */
-emitter.on(Events.ready, mountAllFooterUnitValues)
-emitter.on(Events.settingChange, mountAllFooterUnitValues)
-emitter.on(Events.onWatchlistPageHover, mountAllFooterUnitValues)
-emitter.on(Events.onPortfolioPageHover, mountAllFooterUnitValues)
-emitter.on(Events.onPortfolioHistoryPageHover, mountAllFooterUnitValues)
-emitter.on(Events.onPing, mountAllFooterUnitValues)
 
 /**
  * 左側欄連結項目與設定
  */
 emitter.on(Events.settingChange, mountSidebarMenuItems)
-emitter.on(Events.onSidebarHover, mountSidebarMenuItems)
 
 /**
  * 取得外部銀行買賣匯率

@@ -74,11 +74,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
   )
 }
 
-export const unmountWatchlistUsersControlsList: ReturnType<
-  typeof stickReactComponent
->['unmount'][] = []
-
-export const renderWatchlistPeople = () => {
+export const constructContainersForWatchlistPeople = () => {
   $('et-user-row').each((index, element) => {
     const userRowElement = $(element)
 
@@ -121,8 +117,6 @@ export const renderWatchlistPeople = () => {
       })
 
       mount()
-
-      unmountWatchlistUsersControlsList.push(unmount)
     }
   })
 }

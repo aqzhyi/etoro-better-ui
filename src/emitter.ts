@@ -14,6 +14,8 @@ export enum Events {
   onDialogNotFount = 'onDialogNotFount',
   onMoreInfoButtonHover = 'onMoreInfoButtonHover',
   onCloseAllPositionsDialogHover = 'onCloseAllPositionsDialogHover',
+  onMountUIs = 'onMountUIs',
+  onUnmountUIs = 'onUnmountUIs',
 }
 
 export const emitter = new Emittery.Typed<
