@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
 import { RiskSpecification } from '@/components/RiskSpecification'
 import { stickReactComponent } from '@/utils/stickReactComponent'
+import packageJSON from '../../../package.json'
+import { GM } from '@/GM'
 
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
@@ -27,7 +29,13 @@ export const SidebarMenuItems = () => {
   return (
     <span className={READY_FLAG}>
       <div {...attrsToAppend} className='i-menu-sep'>
-        {i18n.腳本標題()}
+        <span>{i18n.腳本標題()}</span>
+        <a
+          href='https://github.com/hilezir/etoro-better-ui/releases'
+          target='_blank'
+        >
+          {packageJSON.version}
+        </a>
       </div>
 
       <a
@@ -83,6 +91,7 @@ export const SidebarMenuItems = () => {
 export const {
   mount: mountSidebarMenuItems,
   unmount: unmountSidebarMenuItems,
+  containerId: SidebarMenuItemsId,
 } = stickReactComponent({
   component: (
     <Provider store={store}>
@@ -94,3 +103,9 @@ export const {
     $('.w-menu-main').append(container)
   },
 })
+
+GM.addStyle(`
+  #${SidebarMenuItemsId} a {
+    color: #d1d3e0;
+  }
+`)
