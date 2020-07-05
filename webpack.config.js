@@ -126,30 +126,32 @@ const configration = {
         /** 更新日誌： https://github.com/hilezir/etoro-better-ui/releases */
 
         // ==UserScript==
-        // @name          eToro Better UI
-        // @description   An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-        // @version       ${packageJSON.version}
-        // @author        hilezir
-        // @grant         GM_xmlhttpRequest
-        // @grant         GM_addStyle
-        // @match         https://*.etoro.com/*
-        // @match         https://etoro.com/*
-        // @run-at        document-idle
+        // @name            eToro Better UI
+        // @name:en         eToro Better UI
+        // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
+        // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
+        // @version         ${packageJSON.version}
+        // @author          hilezir
+        // @grant           GM_xmlhttpRequest
+        // @grant           GM_addStyle
+        // @match           https://*.etoro.com/*
+        // @match           https://etoro.com/*
+        // @run-at          document-idle
         // @noframes
-        // @namespace     http://tampermonkey.net/
+        // @namespace       http://tampermonkey.net/
 
         ///////////////////** 開源程式碼庫 */
-        // @connect       cdn.jsdelivr.net
-        // @connect       cdnjs.cloudflare.com
+        // @connect         cdn.jsdelivr.net
+        // @connect         cdnjs.cloudflare.com
 
         ///////////////////** 台灣臺灣銀行 */
-        // @connect       bot.com.tw
+        // @connect         bot.com.tw
 
         ///////////////////** 馬國大眾銀行 */
-        // @connect       www.pbebank.com
+        // @connect         www.pbebank.com
 
         ///////////////////** 本地開發專用 */
-        // !@connect       127.0.0.1
+        // !@connect        127.0.0.1
         // ==/UserScript==
 
         window.GM_xmlhttpRequest({
