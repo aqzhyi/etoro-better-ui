@@ -5,11 +5,18 @@ import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import store, { useAppSelector } from '@/store/_store'
 import { stickReactComponent } from '@/utils/stickReactComponent'
-import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
+import {
+  DefaultButton,
+  Stack,
+  TextField,
+  TextFieldBase,
+  ITextFieldProps,
+} from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
+import { debounce } from 'lodash'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(

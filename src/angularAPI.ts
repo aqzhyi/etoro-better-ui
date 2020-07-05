@@ -48,11 +48,12 @@ export const angularAPI = {
       $('.ui-table-row').hide()
 
       $(
-        '.table-first-name, .table-last-name, .i-portfolio-table-name-symbol',
+        '.table-first-name, .table-last-name, .i-portfolio-table-name-symbol, .ui-table-row',
       ).each((index, element) => {
         const didMatch = element.innerHTML
           .trim()
           .toLowerCase()
+          .replace(/[\s]*/gi, '')
           .includes(filterText.toLowerCase().trim())
 
         if (didMatch) {

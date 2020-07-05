@@ -6,6 +6,7 @@ import { stickReactComponent } from '@/utils/stickReactComponent'
 import { TextField, TextFieldBase } from '@fluentui/react'
 import React from 'react'
 import { Provider } from 'react-redux'
+import { debounce } from 'lodash'
 
 export const PortfolioHeaderExtraButtons = () => {
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
@@ -17,10 +18,10 @@ export const PortfolioHeaderExtraButtons = () => {
         componentRef={searchBoxRef}
         placeholder={i18n.輸入以過濾()}
         iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
-        onChange={(event, newValue) => {
+        onChange={debounce((event, newValue) => {
           filterTextSet(newValue)
           angularAPI.filterPortfolioListByText(newValue)
-        }}
+        }, 250)}
         onMouseEnter={() => {
           // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
           globalThis.setTimeout(() => {
