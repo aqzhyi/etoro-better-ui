@@ -16,9 +16,10 @@ export const ExecutionDialogStatusInfo = () => {
 
   /** status.etoro.com 目前服務狀況 */
   const labelManualTrading =
-    statusInfo['Manual Trading']?.status === 'Operational' ? (
+    statusInfo['Manual trading - Real']?.status === 'Operational' ? (
       '👍'
-    ) : statusInfo['Manual Trading']?.status === 'Degraded Performance' ? (
+    ) : statusInfo['Manual trading - Real']?.status ===
+      'Degraded Performance' ? (
       '😱'
     ) : (
       <Spinner label='testing...' labelPosition='right' />

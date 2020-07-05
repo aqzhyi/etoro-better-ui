@@ -15,7 +15,8 @@ export type StatusInfoAggregate = {
   History: { status: StatusEnum }
   KYC: { status: StatusEnum }
   Login: { status: StatusEnum }
-  'Manual Trading': { status: StatusEnum }
+  'Manual trading - Real': { status: StatusEnum }
+  'Manual trading - Virtual': { status: StatusEnum }
   More: { status: StatusEnum }
   'News Feed': { status: StatusEnum }
   Notifications: { status: StatusEnum }
