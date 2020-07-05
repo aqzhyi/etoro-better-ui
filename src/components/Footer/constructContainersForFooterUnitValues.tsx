@@ -6,6 +6,8 @@ import { stickReactComponent } from '@/utils/stickReactComponent'
 import React from 'react'
 import { Provider } from 'react-redux'
 
+const CONTAINER_CLASS_NAME = 'FooterUnitValue-Container'
+
 export const constructContainersForFooterUnitValues = () => {
   const footerUnits = $('et-account-balance .footer-unit')
 
@@ -38,7 +40,7 @@ export const constructContainersForFooterUnitValues = () => {
         ),
         containerId: `FooterUnitValue-${id}`,
         containerConstructor: container => {
-          $(container).addClass('FooterUnitValue-Container')
+          $(container).addClass(CONTAINER_CLASS_NAME)
           unit.find('.footer-unit-value').append(container)
         },
       })
@@ -56,10 +58,29 @@ GM.addStyle(`
     height: 100px;
   }
 
-  .FooterUnitValue-Container {
-    font-size: 12pt;
+  .${CONTAINER_CLASS_NAME} {
+    display: inline-block;
+    font-size: 12px;
     margin-left: 4px;
     opacity: 0.65;
+  }
+
+  @media (max-width:1200px) {
+    .${CONTAINER_CLASS_NAME} {
+      transform: scale(0.9);
+    }
+  }
+
+  @media (max-width:1000px) {
+    .${CONTAINER_CLASS_NAME} {
+      transform: scale(0.8);
+    }
+  }
+
+  @media (max-width:800px) {
+    .${CONTAINER_CLASS_NAME} {
+      transform: scale(0.7);
+    }
   }
 
   .FooterUnitValue-Main {
@@ -73,5 +94,13 @@ GM.addStyle(`
   .FooterUnitValue-Currency {
     margin-left: 3px;
     font-size: 8pt;
+  }
+
+  /** Make sure footer values never wrap to multi-lines */
+  .footer-unit-value {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 4px;
   }
 `)
