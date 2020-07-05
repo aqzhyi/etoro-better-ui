@@ -1,9 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getNTD, getMYR } from '@/exchange'
-import { emitter, Events } from '@/emitter'
-import { storage } from '@/storage'
-import store from '@/store/_store'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { getMYR, getNTD } from '@/exchange'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchExtraCurrency = createAsyncThunk<{
   MYR: {

@@ -112,13 +112,10 @@ const configration = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: true,
-      checkSyntacticErrors: true,
-      eslint: true,
-      formatter: 'codeframe',
-      ignoreLintWarnings: true,
-      memoryLimit: 4096,
-      reportFiles: ['src/**/*.{ts,tsx}'],
-      silent: false,
+      eslint: {
+        files: ['src/**/*.{ts,tsx}'],
+      },
+      formatter: { type: 'codeframe', options: { highlightCode: true } },
     }),
     new ProgressBarPlugin(),
     // new FriendlyErrorsWebpackPlugin(),

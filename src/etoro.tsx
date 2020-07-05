@@ -29,6 +29,7 @@ import { cleanStickReactComponents } from '@/utils/cleanStickReactComponents'
 import { renderStickReactComponents } from '@/utils/renderStickReactComponents'
 import { throttle } from 'lodash'
 import React from 'react'
+import { enableES5 } from 'immer'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -57,6 +58,9 @@ $('body').delegate(
  * 因此嘗試以低開銷的方式，不斷地（或使用戶感覺不出來）觸發介面渲染是必要的
  */
 emitter.once(Events.ready).then(applyEventsObservers)
+emitter.once(Events.ready).then(function enableImmerES5() {
+  enableES5()
+})
 
 /**
  * Make sure Extension UI re-renders ASAP

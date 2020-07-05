@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "importsNotUsedAsValues": "preserve",
     "allowUmdGlobalAccess": false,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,

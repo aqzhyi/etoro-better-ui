@@ -38,67 +38,37 @@ const settings = createReducer<{
   },
   builder =>
     builder
-      .addCase(fetchPingValue.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.pingValue = action.payload
-          return state
-        }),
-      )
-      .addCase(fetchStatusInfoAggregate.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.statusInfoAggregate = action.payload
-          return state
-        }),
-      )
-      .addCase(fetchStatusInfoAggregate.pending, (state, action) =>
-        produce(state, () => {
-          state.statusInfoAggregate = {}
-          return state
-        }),
-      )
-      .addCase(setTabKeyBuySell.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig.useTabKeyBuySell = action.payload
-          return state
-        }),
-      )
-      .addCase(toggleSettingsDialog, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUISettingsDialog = action.payload
-          return state
-        }),
-      )
-      .addCase(fetchExtraCurrency.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig.MYR = action.payload.MYR
-          state.betterEtoroUIConfig.NTD = action.payload.NTD
-          return state
-        }),
-      )
-      .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig = action.payload
-          return state
-        }),
-      )
-      .addCase(setMacroAmount.fulfilled, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig.executionAmount = [...action.payload]
-          return state
-        }),
-      )
-      .addCase(setMacroLever, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig.executionLever = [...action.payload]
-          return state
-        }),
-      )
-      .addCase(setListCompact, (state, action) =>
-        produce(state, () => {
-          state.betterEtoroUIConfig.listCompactOn = action.payload
-          return state
-        }),
-      ),
+      .addCase(fetchPingValue.fulfilled, (state, action) => {
+        state.pingValue = action.payload
+      })
+      .addCase(fetchStatusInfoAggregate.fulfilled, (state, action) => {
+        state.statusInfoAggregate = action.payload
+      })
+      .addCase(fetchStatusInfoAggregate.pending, (state, action) => {
+        state.statusInfoAggregate = {}
+      })
+      .addCase(setTabKeyBuySell.fulfilled, (state, action) => {
+        state.betterEtoroUIConfig.useTabKeyBuySell = action.payload
+      })
+      .addCase(toggleSettingsDialog, (state, action) => {
+        state.betterEtoroUISettingsDialog = action.payload
+      })
+      .addCase(fetchExtraCurrency.fulfilled, (state, action) => {
+        state.betterEtoroUIConfig.MYR = action.payload.MYR
+        state.betterEtoroUIConfig.NTD = action.payload.NTD
+      })
+      .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) => {
+        state.betterEtoroUIConfig = action.payload
+      })
+      .addCase(setMacroAmount.fulfilled, (state, action) => {
+        state.betterEtoroUIConfig.executionAmount = [...action.payload]
+      })
+      .addCase(setMacroLever, (state, action) => {
+        state.betterEtoroUIConfig.executionLever = [...action.payload]
+      })
+      .addCase(setListCompact, (state, action) => {
+        state.betterEtoroUIConfig.listCompactOn = action.payload
+      }),
 )
 
 const rootReducers = combineReducers({ settings })
