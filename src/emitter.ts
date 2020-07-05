@@ -18,6 +18,8 @@ export enum Events {
   onUnmountUIs = 'onUnmountUIs',
 }
 
+const __NO_NAME__ = '__NO_NAME__'
+
 export const emitter = new Emittery.Typed<
   Record<string, any>,
   keyof typeof Events
@@ -33,10 +35,13 @@ emitter.on = new Proxy(emitter.on.bind(emitter), {
     if (typeof receiver[1] === 'function') {
       receiver[1] = new Proxy(receiver[1], {
         apply(listenserTarget, listenserKey, listenserReceiver) {
-          debugAPI.events.extend('.on')(
-            receiver[0],
-            receiver[1]?.displayName || receiver[1].name || '__NO_NAME__',
-          )
+          const displayName =
+            (receiver[1]?.displayName || receiver[1].name).replace(
+              /^_?/i,
+              '',
+            ) || __NO_NAME__
+
+          debugAPI.events.extend('.on')(receiver[0], displayName)
           return Reflect.apply(listenserTarget, listenserKey, listenserReceiver)
         },
       })
@@ -57,9 +62,14 @@ emitter.once = new Proxy(emitter.once.bind(emitter), {
       apply: (
         listenserTarget,
         listenserKey,
-        listenserReceiver: [(...args) => unknown],
+        listenserReceiver: [((...args) => unknown) & { displayName?: string }],
       ) => {
-        debugAPI.events.extend('.once')(receiver[0], listenserReceiver[0].name)
+        const displayName =
+          (
+            listenserReceiver[0].displayName || listenserReceiver[0].name
+          ).replace(/^_?/i, '') || __NO_NAME__
+
+        debugAPI.events.extend('.once')(receiver[0], displayName)
         return Reflect.apply(listenserTarget, listenserKey, listenserReceiver)
       },
     })
