@@ -37,7 +37,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
   useEffect(() => {
     macroAmountInputSetter(configs.executionAmount.join(','))
-  }, [...configs.executionAmount])
+  }, [configs.executionAmount])
 
   return (
     <Dialog
