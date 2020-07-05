@@ -19,7 +19,7 @@ import { mountPortfolioHeaderExtraButtons } from '@/components/Portfolio/Portfol
 import { mountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { mountSidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
-import { applyEventsObserver as applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
+import { applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
 import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
 import { mountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'

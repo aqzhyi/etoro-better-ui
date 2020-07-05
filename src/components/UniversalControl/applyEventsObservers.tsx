@@ -10,7 +10,7 @@ let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
 >
 
-export function applyEventsObserver() {
+function _applyEventsObservers() {
   $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
 
   initializeIcons()
@@ -120,3 +120,7 @@ export function applyEventsObserver() {
 
   debugAPI.universal('extension events get ready!')
 }
+
+export const applyEventsObservers = throttle(_applyEventsObservers, 30000)
+
+applyEventsObservers['displayName'] = _applyEventsObservers.name
