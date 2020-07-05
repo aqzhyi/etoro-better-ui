@@ -15,6 +15,7 @@ import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
 import Tooltip from 'rc-tooltip'
 import { throttle } from 'lodash'
+import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -197,21 +198,7 @@ export const ExecutionDialogControls = () => {
             }
           >
             <span style={{ display: 'inline-block' }}>
-              <Toggle
-                checked={executionUseApplyLast}
-                label={
-                  executionUseApplyLast
-                    ? i18n.使鎖定下單重複一致()
-                    : i18n.使鎖定下單重複一致否定()
-                }
-                onChange={(event, checked) => {
-                  dispatch(
-                    setBetterEtoroUIConfig({
-                      executionUseApplyLast: checked,
-                    }),
-                  )
-                }}
-              ></Toggle>
+              <ExecutionDialogApplyLastOrderSwitch />
             </span>
           </Tooltip>
         </Stack.Item>

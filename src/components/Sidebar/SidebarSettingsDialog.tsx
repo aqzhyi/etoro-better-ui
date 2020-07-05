@@ -17,6 +17,9 @@ import {
 } from '@fluentui/react'
 import toast from 'cogo-toast'
 import React, { useEffect } from 'react'
+import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
+import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
+import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -66,69 +69,101 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <ChoiceGroup
-            label={i18n.使下單視窗能夠單鍵快速切換買賣()}
-            options={[
-              {
-                key: 'ON',
-                text: 'ON',
-                iconProps: { iconName: 'KeyboardClassic' },
-                checked: configs.useTabKeyBuySell === true,
-              },
-              {
-                key: 'OFF',
-                text: 'OFF',
-                iconProps: { iconName: 'Cancel' },
-                checked: configs.useTabKeyBuySell === false,
-              },
-            ]}
-            onChange={async (event, option) => {
-              await dispatch(
-                setTabKeyBuySell(option?.key === 'ON' ? true : false),
-              )
-            }}
-          ></ChoiceGroup>
+          <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <Label>{i18n.使鎖定下單重複一致之說明()}</Label>
+              <ExecutionDialogApplyLastOrderSwitch />
+            </Stack.Item>
+            <Stack.Item styles={{ root: { flex: 4 } }}> </Stack.Item>
+          </Stack>
         </Stack.Item>
 
         <Stack.Item>
-          <ChoiceGroup
-            label={i18n.下單巨集啟用狀態()}
-            options={[
-              {
-                key: 'ON',
-                text: 'ON',
-                iconProps: { iconName: 'ActivateOrders' },
-                checked: configs.executionMacroEnabled === true,
-              },
-              {
-                key: 'OFF',
-                text: 'OFF',
-                iconProps: { iconName: 'DeactivateOrders' },
-                checked: configs.executionMacroEnabled === false,
-              },
-            ]}
-            onChange={(event, option) => {
-              const yourEnabled = option?.key === 'ON' ? true : false
+          <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <ChoiceGroup
+                label={i18n.使下單視窗能夠單鍵快速切換買賣()}
+                options={[
+                  {
+                    key: 'ON',
+                    text: 'ON',
+                    iconProps: { iconName: 'KeyboardClassic' },
+                    checked: configs.useTabKeyBuySell === true,
+                  },
+                  {
+                    key: 'OFF',
+                    text: 'OFF',
+                    iconProps: { iconName: 'Cancel' },
+                    checked: configs.useTabKeyBuySell === false,
+                  },
+                ]}
+                onChange={async (event, option) => {
+                  await dispatch(
+                    setTabKeyBuySell(option?.key === 'ON' ? true : false),
+                  )
+                }}
+              ></ChoiceGroup>
+            </Stack.Item>
 
-              dispatch(
-                setBetterEtoroUIConfig({ executionMacroEnabled: yourEnabled }),
-              )
-
-              storage.saveConfig({ executionMacroEnabled: yourEnabled })
-
-              toast.success(
-                i18n.設定已變更(() => (
-                  <span>{JSON.stringify(yourEnabled)}</span>
-                )),
-                { position: 'bottom-left' },
-              )
-            }}
-          ></ChoiceGroup>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <React.Fragment>
+                <Label>{i18n.使緊湊之說明()}</Label>
+                <WatchlistCompactSwitch />
+              </React.Fragment>
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
 
         <Stack.Item>
-          <Stack horizontal tokens={{ childrenGap: 16 }}>
-            <Stack.Item grow={4}>
+          <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <ChoiceGroup
+                label={i18n.下單巨集啟用狀態()}
+                options={[
+                  {
+                    key: 'ON',
+                    text: 'ON',
+                    iconProps: { iconName: 'ActivateOrders' },
+                    checked: configs.executionMacroEnabled === true,
+                  },
+                  {
+                    key: 'OFF',
+                    text: 'OFF',
+                    iconProps: { iconName: 'DeactivateOrders' },
+                    checked: configs.executionMacroEnabled === false,
+                  },
+                ]}
+                onChange={(event, option) => {
+                  const yourEnabled = option?.key === 'ON' ? true : false
+
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      executionMacroEnabled: yourEnabled,
+                    }),
+                  )
+
+                  storage.saveConfig({ executionMacroEnabled: yourEnabled })
+
+                  toast.success(
+                    i18n.設定已變更(() => (
+                      <span>{JSON.stringify(yourEnabled)}</span>
+                    )),
+                    { position: 'bottom-left' },
+                  )
+                }}
+              ></ChoiceGroup>
+            </Stack.Item>
+
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <Label>{i18n.使已投資顯示之說明()}</Label>
+              <WatchlistInvestedSwitch />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+
+        <Stack.Item>
+          <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
               <ChoiceGroup
                 label={i18n.設定幣別(configs.selectedExchange)}
                 options={[
@@ -195,7 +230,7 @@ export const SidebarSettingsDialog: React.FC = () => {
               />
             </Stack.Item>
 
-            <Stack.Item verticalFill>
+            <Stack.Item verticalFill styles={{ root: { flex: 4 } }}>
               <Label>{i18n.設定重置所有設定()}</Label>
               <DefaultButton
                 iconProps={{ iconName: 'SyncStatusSolid' }}
