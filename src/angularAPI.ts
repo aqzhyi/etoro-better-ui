@@ -42,4 +42,56 @@ export const angularAPI = {
     this._$rootScope = $rootScope
     return $rootScope
   },
+  /** Expected effecting with list People, Instruments that you watching */
+  /** Expected effecting with list People, Instruments, history and Portfolio */
+  filterListByText: (filterText = '') => {
+    if (filterText) {
+      $(
+        'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+      ).hide()
+
+      $(
+        '[automation-id=trade-item-name], [automation-id="trade-item-full-name"]',
+      ).each((index, element) => {
+        const didMatch = element.innerText
+          .trim()
+          .toUpperCase()
+          .includes(filterText.trim().toUpperCase())
+
+        if (didMatch) {
+          $(element)
+            .closest(
+              'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+            )
+            .show()
+        }
+      })
+    } else {
+      $(
+        'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
+      ).show()
+    }
+  },
+  /** Expected effecting with list People and Instruments that you invested */
+  toggleListInvested: (onOff: boolean) => {
+    if (onOff) {
+      $('et-instrument-row, et-user-row').hide()
+      $('.instrument-list-pie-link')
+        .closest('et-instrument-row, et-user-row')
+        .show()
+    } else {
+      $('et-instrument-row, et-user-row').show()
+    }
+  },
+  /** Expected effecting with list People and Instruments that you watching */
+  toggleListCompact: (onOff: boolean) => {
+    $(
+      `
+      [automation-id="watchlist-item-list-instrument-chart"],
+      [automation-id="watchlist-item-list-instrument-sentiment"],
+      et-fifty-two-weeks,
+      [automation-id="watchlist-item-list-user-wrapp-investors"]
+      `,
+    ).toggle(!onOff)
+  },
 }

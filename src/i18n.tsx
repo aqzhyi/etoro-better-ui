@@ -9,12 +9,18 @@ const zh = {
   使下單視窗能夠單鍵快速切換買賣: () =>
     '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
   使已投資顯示: () => '已投資',
+  使已投資顯示之說明: () => (
+    <span>
+      只顯示<TooltipHighlightText>已投資</TooltipHighlightText>的標的或投資者
+    </span>
+  ),
   左下入金按鈕: (value: number) => `（${value}）銀行賣出`,
   使鎖定下單重複一致: () => '自動上次',
   使鎖定下單重複一致否定: () => '自動上次?',
   使鎖定下單重複一致之說明: () =>
     '始終以你上一次點擊巨集為基準，同步每次下單金額與槓桿',
   使緊湊: () => '緊湊',
+  使緊湊之說明: () => '不顯示關注列表中的無用介面（當前以開發者視角主觀認定）',
   輸入以過濾提示窗說明: () => (
     <span>
       使用 <TooltipHighlightText>Enter</TooltipHighlightText>{' '}
@@ -97,12 +103,19 @@ const en: typeof zh = {
   使下單視窗能夠單鍵快速切換買賣: () =>
     'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
   使已投資顯示: () => 'Invested',
+  使已投資顯示之說明: () => (
+    <span>
+      Display <TooltipHighlightText>invested</TooltipHighlightText> only.
+      (people and instruments)
+    </span>
+  ),
   左下入金按鈕: (value: number) => `（${value}）Sold`,
   使鎖定下單重複一致: () => 'Same Order',
   使鎖定下單重複一致否定: () => 'Same Order?',
   使鎖定下單重複一致之說明: () =>
     'Always use the last Amount and Lever, which you previously selected value.',
   使緊湊: () => 'compact',
+  使緊湊之說明: () => 'Do NOT display unnecessary UIs (proposed by author)',
   輸入以過濾提示窗說明: () => (
     <span>
       Use the <TooltipHighlightText>Enter</TooltipHighlightText> key to open the

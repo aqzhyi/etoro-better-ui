@@ -14,57 +14,14 @@ import {
   TextFieldBase,
   DefaultButton,
   DirectionalHint,
+  TooltipHost,
 } from '@fluentui/react'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { stickReactComponent } from '@/utils/stickReactComponent'
 import Tooltip from 'rc-tooltip'
-
-const showMeBy = (filterText = '') => {
-  if (filterText) {
-    $('et-user-row, et-user-card, et-instrument-row, et-instrument-card').hide()
-
-    $(
-      '[automation-id=trade-item-name], [automation-id="trade-item-full-name"]',
-    ).each((index, element) => {
-      const didMatch = element.innerText
-        .trim()
-        .toUpperCase()
-        .includes(filterText.trim().toUpperCase())
-
-      if (didMatch) {
-        $(element)
-          .closest(
-            'et-user-row, et-user-card, et-instrument-row, et-instrument-card',
-          )
-          .show()
-      }
-    })
-  } else {
-    $('et-user-row, et-user-card, et-instrument-row, et-instrument-card').show()
-  }
-}
-
-const toggleListInvested = (onOff: boolean) => {
-  if (onOff) {
-    $('et-instrument-row, et-user-row').hide()
-    $('.instrument-list-pie-link')
-      .closest('et-instrument-row, et-user-row')
-      .show()
-  } else {
-    $('et-instrument-row, et-user-row').show()
-  }
-}
-
-const toggleListCompact = (onOff: boolean) => {
-  $(
-    `
-    [automation-id="watchlist-item-list-instrument-chart"],
-    [automation-id="watchlist-item-list-instrument-sentiment"],
-    et-fifty-two-weeks,
-    [automation-id="watchlist-item-list-user-wrapp-investors"]
-    `,
-  ).toggle(!onOff)
-}
+import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
+import { angularAPI } from '@/angularAPI'
+import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(
@@ -73,13 +30,12 @@ export const WatchlistHeader: React.FC = () => {
   const shouldShowInvested = useAppSelector(
     state => state.settings.betterEtoroUIConfig.showInvested,
   )
-  const dispatch = useAppDispatch()
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
   const searchBoxRef = React.createRef<TextFieldBase>()
 
   useMount(() => {
-    toggleListCompact(listCompactOn)
-    toggleListInvested(shouldShowInvested)
+    angularAPI.toggleListCompact(listCompactOn)
+    angularAPI.toggleListInvested(shouldShowInvested)
   })
 
   return (
@@ -89,8 +45,8 @@ export const WatchlistHeader: React.FC = () => {
           text={i18n.清除篩選文字()}
           onClick={() => {
             filterTextSet('')
-            showMeBy('')
-            toggleListInvested(shouldShowInvested)
+            angularAPI.filterListByText('')
+            angularAPI.toggleListInvested(shouldShowInvested)
           }}
           allowDisabledFocus
         />
@@ -105,10 +61,10 @@ export const WatchlistHeader: React.FC = () => {
             iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
             onChange={(event, newValue) => {
               filterTextSet(newValue)
-              showMeBy(newValue)
+              angularAPI.filterListByText(newValue)
 
               if (!newValue) {
-                toggleListInvested(shouldShowInvested)
+                angularAPI.toggleListInvested(shouldShowInvested)
               }
             }}
             onMouseEnter={() => {
@@ -120,8 +76,8 @@ export const WatchlistHeader: React.FC = () => {
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'escape') {
                 filterTextSet('')
-                showMeBy('')
-                toggleListInvested(shouldShowInvested)
+                angularAPI.filterListByText('')
+                angularAPI.toggleListInvested(shouldShowInvested)
               }
 
               if (event.key.toLowerCase() === 'enter') {
@@ -137,30 +93,19 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Toggle
-          label={i18n.使緊湊()}
-          inlineLabel
-          checked={listCompactOn}
-          onClick={() => {
-            storage.saveConfig({ listCompactOn: !listCompactOn })
-            toggleListCompact(!listCompactOn)
-            dispatch(setListCompact(!listCompactOn))
-          }}
-        />
+        <Tooltip placement='bottom' overlay={i18n.使緊湊之說明()}>
+          <div>
+            <WatchlistCompactSwitch />
+          </div>
+        </Tooltip>
       </Stack.Item>
 
       <Stack.Item>
-        <Toggle
-          label={i18n.使已投資顯示()}
-          inlineLabel
-          checked={shouldShowInvested}
-          onClick={() => {
-            toggleListInvested(!shouldShowInvested)
-            dispatch(
-              setBetterEtoroUIConfig({ showInvested: !shouldShowInvested }),
-            )
-          }}
-        />
+        <Tooltip placement='bottom' overlay={i18n.使已投資顯示之說明()}>
+          <div>
+            <WatchlistInvestedSwitch />
+          </div>
+        </Tooltip>
       </Stack.Item>
     </Stack>
   )
