@@ -42,9 +42,29 @@ export const angularAPI = {
     this._$rootScope = $rootScope
     return $rootScope
   },
+  /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
+  filterPortfolioListByText: (filterText = '') => {
+    if (filterText) {
+      $('.ui-table-row').hide()
+
+      $(
+        '.table-first-name, .table-last-name, .i-portfolio-table-name-symbol',
+      ).each((index, element) => {
+        const didMatch = element.innerHTML
+          .trim()
+          .toLowerCase()
+          .includes(filterText.toLowerCase().trim())
+
+        if (didMatch) {
+          $(element).closest('.ui-table-row').show()
+        }
+      })
+    } else {
+      $('.ui-table-row').show()
+    }
+  },
   /** Expected effecting with list People, Instruments that you watching */
-  /** Expected effecting with list People, Instruments, history and Portfolio */
-  filterListByText: (filterText = '') => {
+  filterWatchlistByText: (filterText = '') => {
     if (filterText) {
       $(
         'et-user-row, et-user-card, et-instrument-row, et-instrument-card',

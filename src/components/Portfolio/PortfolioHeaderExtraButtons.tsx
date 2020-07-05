@@ -1,33 +1,11 @@
-import React from 'react'
-import ReactDom from 'react-dom'
-import store from '@/store/_store'
-import { Provider } from 'react-redux'
-import { SearchBox, TextField, TextFieldBase } from '@fluentui/react'
-import { i18n } from '@/i18n'
-import { debugAPI } from '@/debugAPI'
+import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
+import { i18n } from '@/i18n'
+import store from '@/store/_store'
 import { stickReactComponent } from '@/utils/stickReactComponent'
-
-const showMeBy = (filterText = '') => {
-  if (filterText) {
-    $('.ui-table-row').hide()
-
-    $(
-      '.table-first-name, .table-last-name, .i-portfolio-table-name-symbol',
-    ).each((index, element) => {
-      const didMatch = element.innerHTML
-        .trim()
-        .toLowerCase()
-        .includes(filterText.toLowerCase().trim())
-
-      if (didMatch) {
-        $(element).closest('.ui-table-row').show()
-      }
-    })
-  } else {
-    $('.ui-table-row').show()
-  }
-}
+import { TextField, TextFieldBase } from '@fluentui/react'
+import React from 'react'
+import { Provider } from 'react-redux'
 
 export const PortfolioHeaderExtraButtons = () => {
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
@@ -41,7 +19,7 @@ export const PortfolioHeaderExtraButtons = () => {
         iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
         onChange={(event, newValue) => {
           filterTextSet(newValue)
-          showMeBy(newValue)
+          angularAPI.filterPortfolioListByText(newValue)
         }}
         onMouseEnter={() => {
           // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'

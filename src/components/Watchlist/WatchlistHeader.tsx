@@ -1,27 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import store, { useAppSelector, useAppDispatch } from '@/store/_store'
-import { i18n } from '@/i18n'
-import { GM } from '@/GM'
-import { storage } from '@/storage'
-import { setListCompact } from '@/actions/setListCompact'
-import { useMount } from 'react-use'
-import {
-  Toggle,
-  TextField,
-  Stack,
-  TextFieldBase,
-  DefaultButton,
-  DirectionalHint,
-  TooltipHost,
-} from '@fluentui/react'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { stickReactComponent } from '@/utils/stickReactComponent'
-import Tooltip from 'rc-tooltip'
-import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
 import { angularAPI } from '@/angularAPI'
+import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
+import { GM } from '@/GM'
+import { i18n } from '@/i18n'
+import store, { useAppSelector } from '@/store/_store'
+import { stickReactComponent } from '@/utils/stickReactComponent'
+import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
+import Tooltip from 'rc-tooltip'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { useMount } from 'react-use'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(
@@ -45,7 +33,7 @@ export const WatchlistHeader: React.FC = () => {
           text={i18n.清除篩選文字()}
           onClick={() => {
             filterTextSet('')
-            angularAPI.filterListByText('')
+            angularAPI.filterWatchlistByText('')
             angularAPI.toggleListInvested(shouldShowInvested)
           }}
           allowDisabledFocus
@@ -61,7 +49,7 @@ export const WatchlistHeader: React.FC = () => {
             iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
             onChange={(event, newValue) => {
               filterTextSet(newValue)
-              angularAPI.filterListByText(newValue)
+              angularAPI.filterWatchlistByText(newValue)
 
               if (!newValue) {
                 angularAPI.toggleListInvested(shouldShowInvested)
@@ -76,7 +64,7 @@ export const WatchlistHeader: React.FC = () => {
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'escape') {
                 filterTextSet('')
-                angularAPI.filterListByText('')
+                angularAPI.filterWatchlistByText('')
                 angularAPI.toggleListInvested(shouldShowInvested)
               }
 
