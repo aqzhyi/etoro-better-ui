@@ -30,6 +30,14 @@ import { renderStickReactComponents } from '@/utils/renderStickReactComponents'
 import { throttle } from 'lodash'
 import React from 'react'
 import { enableES5 } from 'immer'
+import {
+  mountExecutionDialogTakeProfitControls,
+  unmountExecutionDialogTakeProfitControls,
+} from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
+import {
+  unmountExecutionDialogStopLossControls,
+  mountExecutionDialogStopLossControls,
+} from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -170,6 +178,14 @@ emitter.on(Events.onDialogHover, mountExecutionDialogControls)
 emitter.on(Events.onDialogNotFount, unmountExecutionDialogControls)
 
 /**
+ * Take Profit, and Stop Loss
+ */
+emitter.on(Events.onDialogHover, mountExecutionDialogTakeProfitControls)
+emitter.on(Events.onDialogNotFount, unmountExecutionDialogTakeProfitControls)
+emitter.on(Events.onDialogHover, mountExecutionDialogStopLossControls)
+emitter.on(Events.onDialogNotFount, unmountExecutionDialogStopLossControls)
+
+/**
  * 歡迎訊息
  */
 emitter.once(Events.ready).then(showWelcomeMessage)
@@ -259,10 +275,13 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
-  /** dialog z-index:10000, therefore must set tooltip to 10001 */
+  /**
+   * Execution-Dialog z-index:10000, fluentUI.Dialog z-index:1000000
+   * therefore must set tooltip to 1000001
+   */
   GM.addStyle(`
     .rc-tooltip {
-      z-index: 10001
+      z-index: 1000001
     }
   `)
 

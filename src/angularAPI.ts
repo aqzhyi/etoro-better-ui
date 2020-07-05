@@ -1,4 +1,6 @@
 import type { IRootScopeService, ILocationService } from 'angular'
+import store from '@/store/_store'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 interface EtoroRootScope extends IRootScopeService {
   session: {
@@ -32,6 +34,35 @@ interface EtoroRootScope extends IRootScopeService {
   }
 }
 
+interface ExecutionDialogScope extends IRootScopeService {
+  model: {
+    stopLoss: {
+      /** Take how much amount of Loss dollar */
+      amount: number
+      defaultPercent: number
+      dollar: number
+      dollarView: number
+      inDollarMode: boolean
+      isLimitLessReachable: boolean
+      isNoStopLossSet: boolean
+      percentAmount: number
+    }
+    takeProfit: {
+      /** Take how much amount of Profit dollar */
+      dollar: number
+      dollarView: number
+      isNoTakeProfitSet: boolean
+      inDollarMode: boolean
+      amount: number
+      percentAmount: number
+    }
+    amount: {
+      /** Your trade dollar value on execution dialog */
+      amount: number
+    }
+  }
+}
+
 export const angularAPI = {
   _$rootScope: null as EtoroRootScope | null,
   get $rootScope() {
@@ -41,6 +72,73 @@ export const angularAPI = {
     const $rootScope = ($('body').scope() as unknown) as EtoroRootScope
     this._$rootScope = $rootScope
     return $rootScope
+  },
+  get executionDialogScope() {
+    return ($('.execution-head').scope() as unknown) as
+      | ExecutionDialogScope
+      | undefined
+  },
+  setDialogStopLoss: (profitPercent: number) => {
+    const amount = angularAPI.executionDialogScope?.model.amount.amount ?? 0
+    const value = (amount * profitPercent) / 100
+
+    store.dispatch(
+      setBetterEtoroUIConfig({ stopLossLastPercent: profitPercent }),
+    )
+
+    // switch to the tabtitle
+    $('tabtitle').eq(0).find('a').click()
+
+    // use dollar mode
+    angularAPI.executionDialogScope?.$applyAsync(() => {
+      if (angularAPI.executionDialogScope) {
+        angularAPI.executionDialogScope.model.stopLoss.inDollarMode = true
+      }
+    })
+
+    // fill values into input
+    globalThis.setTimeout(() => {
+      $(`
+        [data-etoro-automation-id="execution-stop-loss-amount-input"]
+        ,[data-etoro-automation-id="edit-position-stop-loss-amount-input-section"]
+      `)
+        .find('input')
+        .val(value)
+        .change()
+        .blur()
+    }, 300)
+  },
+  setDialogTakeProfit: (profitPercent: number) => {
+    const amount = angularAPI.executionDialogScope?.model.amount.amount ?? 0
+    const value = (amount * profitPercent) / 100
+
+    store.dispatch(
+      setBetterEtoroUIConfig({ takeProfitLastPercent: profitPercent }),
+    )
+
+    // switch to the tabtitle
+    $('tabtitle').eq(2).find('a').click()
+
+    // use dollar mode
+    angularAPI.executionDialogScope?.$applyAsync(() => {
+      if (angularAPI.executionDialogScope) {
+        angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
+      }
+    })
+
+    // fill values into input
+    globalThis.setTimeout(() => {
+      $(
+        `
+          [data-etoro-automation-id="execution-take-profit-amount-input"]
+          ,[data-etoro-automation-id="edit-position-take-profit-amount-input-section"]
+        `,
+      )
+        .find('input')
+        .val(value)
+        .change()
+        .blur()
+    }, 300)
   },
   /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
   filterPortfolioListByText: (filterText = '') => {

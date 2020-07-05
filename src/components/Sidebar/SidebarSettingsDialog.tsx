@@ -14,12 +14,15 @@ import {
   Label,
   Stack,
   TextField,
+  Toggle,
+  DialogBase,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
-import React, { useEffect } from 'react'
+import React, { useEffect, createRef } from 'react'
 import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
+import Tooltip from 'rc-tooltip'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -74,7 +77,28 @@ export const SidebarSettingsDialog: React.FC = () => {
               <Label>{i18n.使鎖定下單重複一致之說明()}</Label>
               <ExecutionDialogApplyLastOrderSwitch />
             </Stack.Item>
-            <Stack.Item styles={{ root: { flex: 4 } }}> </Stack.Item>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <Tooltip
+                placement='top'
+                overlay={i18n.下單框套用上次止盈趴數之說明(
+                  configs.takeProfitLastPercent,
+                )}
+              >
+                <Toggle
+                  label={i18n.下單框套用上次止損趴數之說明(
+                    configs.stopLossLastPercent,
+                  )}
+                  checked={configs.stopLossAndTakeProfitUseLastPercent}
+                  onChange={(event, checked) => {
+                    dispatch(
+                      setBetterEtoroUIConfig({
+                        stopLossAndTakeProfitUseLastPercent: checked,
+                      }),
+                    )
+                  }}
+                ></Toggle>
+              </Tooltip>
+            </Stack.Item>
           </Stack>
         </Stack.Item>
 

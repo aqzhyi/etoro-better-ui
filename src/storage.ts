@@ -1,6 +1,9 @@
 import toast from 'cogo-toast'
 
 export type BetterEtoroUIConfig = {
+  stopLossAndTakeProfitUseLastPercent: boolean
+  stopLossLastPercent: number
+  takeProfitLastPercent: number
   MYR: {
     buy: number
     sell: number
@@ -22,6 +25,9 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  stopLossAndTakeProfitUseLastPercent: false,
+  stopLossLastPercent: 50,
+  takeProfitLastPercent: 5,
   MYR: { buy: 0, sell: 0 },
   NTD: { buy: 0, sell: 0 },
   useTabKeyBuySell: false,
