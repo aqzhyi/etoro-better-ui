@@ -49,11 +49,13 @@ interface ExecutionDialogScope extends IRootScopeService {
     }
     takeProfit: {
       /** Take how much amount of Profit dollar */
+      amount: number
+      defaultPercent: number
       dollar: number
       dollarView: number
-      isNoTakeProfitSet: boolean
       inDollarMode: boolean
-      amount: number
+      isLimitLessReachable
+      isNoTakeProfitSet: boolean
       percentAmount: number
     }
     amount: {
@@ -78,67 +80,21 @@ export const angularAPI = {
       | ExecutionDialogScope
       | undefined
   },
-  setDialogStopLoss: (profitPercent: number) => {
-    const amount = angularAPI.executionDialogScope?.model.amount.amount ?? 0
-    const value = (amount * profitPercent) / 100
-
-    store.dispatch(
-      setBetterEtoroUIConfig({ stopLossLastPercent: profitPercent }),
-    )
-
-    // switch to the tabtitle
-    $('tabtitle').eq(0).find('a').click()
-
-    // use dollar mode
-    angularAPI.executionDialogScope?.$applyAsync(() => {
+  setDialogStopLoss: (lossPercent: number) => {
+    angularAPI.executionDialogScope?.$apply(() => {
       if (angularAPI.executionDialogScope) {
         angularAPI.executionDialogScope.model.stopLoss.inDollarMode = true
+        angularAPI.executionDialogScope.model.stopLoss.defaultPercent = lossPercent
       }
     })
-
-    // fill values into input
-    globalThis.setTimeout(() => {
-      $(`
-        [data-etoro-automation-id="execution-stop-loss-amount-input"]
-        ,[data-etoro-automation-id="edit-position-stop-loss-amount-input-section"]
-      `)
-        .find('input')
-        .val(value)
-        .change()
-        .blur()
-    }, 300)
   },
   setDialogTakeProfit: (profitPercent: number) => {
-    const amount = angularAPI.executionDialogScope?.model.amount.amount ?? 0
-    const value = (amount * profitPercent) / 100
-
-    store.dispatch(
-      setBetterEtoroUIConfig({ takeProfitLastPercent: profitPercent }),
-    )
-
-    // switch to the tabtitle
-    $('tabtitle').eq(2).find('a').click()
-
-    // use dollar mode
-    angularAPI.executionDialogScope?.$applyAsync(() => {
+    angularAPI.executionDialogScope?.$apply(() => {
       if (angularAPI.executionDialogScope) {
         angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
+        angularAPI.executionDialogScope.model.takeProfit.defaultPercent = profitPercent
       }
     })
-
-    // fill values into input
-    globalThis.setTimeout(() => {
-      $(
-        `
-          [data-etoro-automation-id="execution-take-profit-amount-input"]
-          ,[data-etoro-automation-id="edit-position-take-profit-amount-input-section"]
-        `,
-      )
-        .find('input')
-        .val(value)
-        .change()
-        .blur()
-    }, 300)
   },
   /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
   filterPortfolioListByText: (filterText = '') => {

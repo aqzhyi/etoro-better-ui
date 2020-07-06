@@ -26,6 +26,7 @@ const ExecutionDialogStopLossControls = () => {
     state => state.settings.betterEtoroUIConfig.stopLossLastPercent,
   )
 
+  // recording your last percent on input which number you key in
   useEffect(() => {
     $('body').delegate(
       '[data-etoro-automation-id="execution-stop-loss-amount-input"] input',
@@ -46,9 +47,7 @@ const ExecutionDialogStopLossControls = () => {
   }, [])
 
   useMount(() => {
-    globalThis.setTimeout(() => {
-      angularAPI.setDialogStopLoss(lastPercent)
-    }, 1250)
+    angularAPI.setDialogStopLoss(lastPercent)
   })
 
   return (

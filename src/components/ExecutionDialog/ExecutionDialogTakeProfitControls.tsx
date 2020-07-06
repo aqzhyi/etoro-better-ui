@@ -26,6 +26,7 @@ export const ExecutionDialogTakeProfitControls = () => {
     state => state.settings.betterEtoroUIConfig.takeProfitLastPercent,
   )
 
+  // recording your last percent on input which number you key in
   useEffect(() => {
     $('body').delegate(
       '[data-etoro-automation-id="execution-take-profit-amount-input"] input',
@@ -46,9 +47,7 @@ export const ExecutionDialogTakeProfitControls = () => {
   }, [])
 
   useMount(() => {
-    globalThis.setTimeout(() => {
-      angularAPI.setDialogTakeProfit(lastPercent)
-    }, 500)
+    angularAPI.setDialogTakeProfit(lastPercent)
   })
 
   return (
