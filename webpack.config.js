@@ -69,12 +69,6 @@ const configration = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        exclude: [/node_modules/],
-        loader: 'eslint-loader',
-        test: /\.tsx?$/,
-      },
-      {
         test: /\.css/,
         use: [
           {
@@ -111,14 +105,14 @@ const configration = {
       systemvars: true,
     }),
     new ForkTsCheckerWebpackPlugin({
-      async: true,
+      async: false,
       eslint: {
         files: ['src/**/*.{ts,tsx}'],
       },
       formatter: { type: 'codeframe', options: { highlightCode: true } },
     }),
     new ProgressBarPlugin(),
-    // new FriendlyErrorsWebpackPlugin(),
+    new FriendlyErrorsWebpackPlugin(),
     new BannerPlugin({
       test: /etoro/,
       raw: false,
