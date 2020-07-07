@@ -20,6 +20,7 @@ import {
 } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
+import { registeredComponents } from '@/utils/registerReactComponent'
 
 const settings = createReducer<{
   pingValue: number
@@ -94,6 +95,14 @@ const store = configureStore({
     ),
   ],
 })
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+unsafeWindow['__BETTER_ETORO_UI__'] = {
+  registeredComponents,
+  store,
+}
 
 export type RootState = ReturnType<typeof rootReducers>
 export type AppDispatch = typeof store.dispatch
