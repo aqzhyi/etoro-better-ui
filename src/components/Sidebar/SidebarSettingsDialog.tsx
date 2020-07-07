@@ -1,7 +1,6 @@
 import { resetBetterEtoroUIConfig } from '@/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { setMacroAmount } from '@/actions/setMacroAmount'
-import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
+import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
@@ -15,7 +14,6 @@ import {
   Stack,
   TextField,
   Toggle,
-  DialogBase,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
 import React, { useEffect, createRef } from 'react'
@@ -62,11 +60,17 @@ export const SidebarSettingsDialog: React.FC = () => {
             }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'enter') {
-                dispatch(setMacroAmount(getArrayNumbers(macroAmountInput)))
+                dispatch(
+                  openPromptForSetMacroAmount(
+                    getArrayNumbers(macroAmountInput),
+                  ),
+                )
               }
             }}
             onBlur={event => {
-              dispatch(setMacroAmount(getArrayNumbers(macroAmountInput)))
+              dispatch(
+                openPromptForSetMacroAmount(getArrayNumbers(macroAmountInput)),
+              )
             }}
           ></TextField>
         </Stack.Item>
@@ -122,8 +126,11 @@ export const SidebarSettingsDialog: React.FC = () => {
                   },
                 ]}
                 onChange={async (event, option) => {
-                  await dispatch(
-                    setTabKeyBuySell(option?.key === 'ON' ? true : false),
+                  const onOff = option?.key === 'ON' ? true : false
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      useTabKeyBuySell: onOff,
+                    }),
                   )
                 }}
               ></ChoiceGroup>
@@ -165,8 +172,6 @@ export const SidebarSettingsDialog: React.FC = () => {
                       executionMacroEnabled: yourEnabled,
                     }),
                   )
-
-                  storage.saveConfig({ executionMacroEnabled: yourEnabled })
 
                   toast.success(
                     i18n.設定已變更(() => (

@@ -1,6 +1,6 @@
 import { storage } from '../../storage'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { setMacroAmount } from '@/actions/setMacroAmount'
+import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { ProviderBy } from '@/components/ProviderBy'
 import { RiskSpecification } from '@/components/RiskSpecification'
 import { GM } from '@/GM'
@@ -156,7 +156,7 @@ export const ExecutionDialogControls = () => {
             <Stack.Item>
               <PrimaryButton
                 onClick={() => {
-                  dispatch(setMacroAmount())
+                  dispatch(openPromptForSetMacroAmount())
                 }}
               >
                 {i18n.下單巨集設定按鈕()}

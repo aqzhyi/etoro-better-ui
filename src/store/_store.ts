@@ -1,16 +1,15 @@
-import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import {
   fetchStatusInfoAggregate,
   StatusInfoAggregate,
 } from '@/actions/fetchStatusInfoAggregate'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { setListCompact } from '@/actions/setListCompact'
-import { setMacroAmount } from '@/actions/setMacroAmount'
-import { setMacroLever } from '@/actions/setMacroLever'
 import { fetchPingValue } from '@/actions/setPingValue'
-import { setTabKeyBuySell } from '@/actions/setTabKeyBuySell'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import { BetterEtoroUIConfig, storage } from '@/storage'
+import {
+  BetterEtoroUIConfig,
+  storage,
+  betterEtoroUIConfigsMiddleware,
+} from '@/storage'
 import {
   AnyAction,
   applyMiddleware,
@@ -47,27 +46,14 @@ const settings = createReducer<{
       .addCase(fetchStatusInfoAggregate.pending, (state, action) => {
         state.statusInfoAggregate = {}
       })
-      .addCase(setTabKeyBuySell.fulfilled, (state, action) => {
-        state.betterEtoroUIConfig.useTabKeyBuySell = action.payload
-      })
       .addCase(toggleSettingsDialog, (state, action) => {
         state.betterEtoroUISettingsDialog = action.payload
       })
-      .addCase(fetchExtraCurrency.fulfilled, (state, action) => {
-        state.betterEtoroUIConfig.MYR = action.payload.MYR
-        state.betterEtoroUIConfig.NTD = action.payload.NTD
-      })
-      .addCase(setBetterEtoroUIConfig.fulfilled, (state, action) => {
-        state.betterEtoroUIConfig = action.payload
-      })
-      .addCase(setMacroAmount.fulfilled, (state, action) => {
-        state.betterEtoroUIConfig.executionAmount = [...action.payload]
-      })
-      .addCase(setMacroLever, (state, action) => {
-        state.betterEtoroUIConfig.executionLever = [...action.payload]
-      })
-      .addCase(setListCompact, (state, action) => {
-        state.betterEtoroUIConfig.listCompactOn = action.payload
+      .addCase(setBetterEtoroUIConfig, (state, action) => {
+        state.betterEtoroUIConfig = {
+          ...state.betterEtoroUIConfig,
+          ...action.payload,
+        }
       }),
 )
 
@@ -77,6 +63,7 @@ const store = configureStore({
   reducer: rootReducers,
   enhancers: [
     applyMiddleware(
+      betterEtoroUIConfigsMiddleware,
       createLogger({
         collapsed: true,
         timestamp: false,

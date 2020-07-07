@@ -1,13 +1,6 @@
-import { BetterEtoroUIConfig, storage } from '@/storage'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { emitter, Events } from '@/emitter'
+import { BetterEtoroUIConfig } from '@/storage'
+import { createAction } from '@reduxjs/toolkit'
 
-export const setBetterEtoroUIConfig = createAsyncThunk<
-  BetterEtoroUIConfig,
+export const setBetterEtoroUIConfig = createAction<
   Partial<BetterEtoroUIConfig>
->('setBetterEtoroUIConfig', async function (props, thunkAPI) {
-  storage.saveConfig(props)
-  const configs = storage.findConfig()
-  emitter.emit(Events.settingChange)
-  return configs
-})
+>('setBetterEtoroUIConfig')

@@ -1,13 +1,13 @@
 import React from 'react'
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '@/store/_store'
-import { storage } from '@/storage'
 import toast from 'cogo-toast'
 import { i18n } from '@/i18n'
 import { emitter, Events } from '@/emitter'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
-export const setMacroAmount = createAsyncThunk<
-  number[],
+export const openPromptForSetMacroAmount = createAsyncThunk<
+  void,
   number[] | undefined,
   {
     rejectValue: string
@@ -24,16 +24,16 @@ export const setMacroAmount = createAsyncThunk<
   if (newValue) {
     const thunkValue = newValue.split(',').map(Number)
 
-    storage.saveConfig({ executionAmount: thunkValue })
+    thunkAPI.dispatch(
+      setBetterEtoroUIConfig({
+        executionAmount: thunkValue,
+      }),
+    )
 
     toast.success(
       i18n.設定已變更(() => <span>{thunkValue.join(',')}</span>),
       { position: 'bottom-left' },
     )
-
-    emitter.emit(Events.settingChange)
-
-    return thunkValue
   }
 
   toast.info(

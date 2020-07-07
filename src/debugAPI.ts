@@ -3,6 +3,7 @@ import debug from 'debug'
 const log = debug('etoro-better-ui')
 
 export const debugAPI = {
+  enhancer: log.extend('redux').extend('enhancer'),
   angular: log.extend('angular'),
   universal: log.extend('universal'),
   dialog: log.extend('dialog'),

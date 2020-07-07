@@ -178,16 +178,10 @@ emitter.once(Events.ready).then(showWelcomeMessage)
 emitter.on(Events.settingChange, renderSidebarDepositButton)
 
 /**
- * 左側欄連結項目與設定
- */
-emitter.on(Events.settingChange, registeredSidebarMenuItems.mount)
-
-/**
  * 取得外部銀行買賣匯率
  */
-emitter.once(Events.ready).then(function fetchExtraCurrencySettings() {
+emitter.once(Events.ready).then(function _fetchExtraCurrency() {
   store.dispatch(fetchExtraCurrency())
-  emitter.emit(Events.settingChange)
 })
 
 // 盡可能不拖慢 etoro 程式啟動時間，將 CSS 統一在 ready 後加載

@@ -2,9 +2,8 @@ import React from 'react'
 import { Toggle } from '@fluentui/react'
 import { i18n } from '@/i18n'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { storage } from '@/storage'
-import { setListCompact } from '@/actions/setListCompact'
 import { angularAPI } from '@/angularAPI'
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 export const WatchlistCompactSwitch = () => {
   const dispatch = useAppDispatch()
@@ -19,9 +18,12 @@ export const WatchlistCompactSwitch = () => {
       inlineLabel
       checked={listCompactOn}
       onClick={() => {
-        storage.saveConfig({ listCompactOn: !listCompactOn })
         angularAPI.toggleListCompact(!listCompactOn)
-        dispatch(setListCompact(!listCompactOn))
+        dispatch(
+          setBetterEtoroUIConfig({
+            listCompactOn: !listCompactOn,
+          }),
+        )
       }}
     />
   )
