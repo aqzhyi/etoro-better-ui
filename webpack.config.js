@@ -110,6 +110,12 @@ const configration = {
         files: ['src/**/*.{ts,tsx}'],
       },
       formatter: { type: 'codeframe', options: { highlightCode: true } },
+      issue: {
+        // Do NOT show warnings in console, but expected it's shown on VSCode
+        exclude: issues => {
+          return issues.severity === 'warning'
+        },
+      },
     }),
     new ProgressBarPlugin(),
     new FriendlyErrorsWebpackPlugin(),
