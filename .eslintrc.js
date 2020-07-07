@@ -50,6 +50,8 @@ module.exports = {
     ],
     // 由於介入他人介面，因此太多 any type，使它 warn 讓開發速度能夠快點
     '@typescript-eslint/no-unsafe-member-access': ['warn'],
+    // 部份需要 as any，但還沒時間改好
+    '@typescript-eslint/no-unsafe-assignment': ['warn'],
   },
   overrides: [
     {
