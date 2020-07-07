@@ -1,10 +1,11 @@
 import { angularAPI } from '@/angularAPI'
-import { ExecutionDialogControlsId } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { ExecutionDialogStatusInfoId } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
+import { registeredExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
+import store from '@/store/_store'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
@@ -72,8 +73,8 @@ function _applyEventsObservers() {
     'mouseover',
     throttle(event => {
       const dialogComponentsNotReady = [
-        $(`#${ExecutionDialogControlsId}`).length > 0,
-        $(`#${ExecutionDialogStatusInfoId}`).length > 0,
+        $(`#${registeredExecutionDialogControls.container.id}`).length > 0,
+        $(`#${registeredExecutionDialogStatusInfo.container.id}`).length > 0,
       ].some(isReady => !isReady)
 
       const isDialogOpen =

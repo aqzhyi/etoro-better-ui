@@ -2,11 +2,9 @@ import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
 import { i18n } from '@/i18n'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import store, { useAppSelector, useAppDispatch } from '@/store/_store'
+import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { RiskSpecification } from '@/components/RiskSpecification'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
 
@@ -88,16 +86,8 @@ export const SidebarMenuItems = () => {
   )
 }
 
-export const {
-  mount: mountSidebarMenuItems,
-  unmount: unmountSidebarMenuItems,
-  containerId: SidebarMenuItemsId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <SidebarMenuItems />
-    </Provider>
-  ),
+export const registeredSidebarMenuItems = registerReactComponent({
+  component: <SidebarMenuItems />,
   containerId: 'SidebarMenuItems',
   containerConstructor: container => {
     $('.w-menu-main').append(container)
@@ -105,7 +95,7 @@ export const {
 })
 
 GM.addStyle(`
-  #${SidebarMenuItemsId} a {
+  #${registeredSidebarMenuItems.container.id} a {
     color: #d1d3e0;
   }
 `)

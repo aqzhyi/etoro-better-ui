@@ -18,7 +18,6 @@ import {
   configureStore,
   createReducer,
 } from '@reduxjs/toolkit'
-import { produce } from 'immer'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 

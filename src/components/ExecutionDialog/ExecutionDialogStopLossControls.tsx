@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { stickReactComponent } from '@/utils/stickReactComponent'
-import store, { useAppDispatch, useAppSelector } from '@/store/_store'
-import { Provider } from 'react-redux'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { GM } from '@/GM'
 import Tooltip from 'rc-tooltip'
 import { i18n } from '@/i18n'
@@ -68,28 +67,22 @@ const ExecutionDialogStopLossControls = () => {
   )
 }
 
-export const {
-  mount: mountExecutionDialogStopLossControls,
-  unmount: unmountExecutionDialogStopLossControls,
-  containerId: ExecutionDialogStopLossControlsId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <ExecutionDialogStopLossControls />
-    </Provider>
-  ),
-  containerId: ExecutionDialogStopLossControls.name,
-  containerConstructor: containerElement => {
-    $('tabtitle').eq(0).append(containerElement)
+export const registeredExecutionDialogStopLossControls = registerReactComponent(
+  {
+    component: <ExecutionDialogStopLossControls />,
+    containerId: ExecutionDialogStopLossControls.name,
+    containerConstructor: containerElement => {
+      $('tabtitle').eq(0).append(containerElement)
+    },
   },
-})
+)
 
 GM.addStyle(`
   tabtitle:nth-of-type(1) {
     position: relative;
   }
 
-  #${ExecutionDialogStopLossControlsId} {
+  #${registeredExecutionDialogStopLossControls.container.id} {
     position: absolute;
     width: auto;
     display: flex;

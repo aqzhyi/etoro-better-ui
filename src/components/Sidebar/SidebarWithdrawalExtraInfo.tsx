@@ -1,7 +1,6 @@
 import React from 'react'
-import { stickReactComponent } from '@/utils/stickReactComponent'
-import store, { useAppSelector } from '@/store/_store'
-import { Provider } from 'react-redux'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import { useAppSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 
@@ -21,12 +20,8 @@ const SidebarWithdrawalExtraInfo = () => {
   return <span>{i18n.左側欄出金按鈕(exchanges[selected].buy)}</span>
 }
 
-const { containerId } = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <SidebarWithdrawalExtraInfo />
-    </Provider>
-  ),
+const { container } = registerReactComponent({
+  component: <SidebarWithdrawalExtraInfo />,
   containerId: 'SidebarWithdrawalExtraInfo',
   containerConstructor: containerElement => {
     $('[automation-id="menu-layout-withdrawal-icon"]')
@@ -36,7 +31,7 @@ const { containerId } = stickReactComponent({
 })
 
 GM.addStyle(`
-  #${containerId} {
+  #${container.id} {
     font-size: 10px;
     1px 1px 1px #303030
   }

@@ -1,54 +1,45 @@
-import { angularAPI } from '@/angularAPI'
 import { FooterUnitValue } from '@/components/Footer/FooterUnitValue'
 import { GM } from '@/GM'
-import store from '@/store/_store'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import React from 'react'
-import { Provider } from 'react-redux'
 
 const CONTAINER_CLASS_NAME = 'FooterUnitValue-Container'
 
-export const constructContainersForFooterUnitValues = () => {
-  const footerUnits = $('et-account-balance .footer-unit')
+registerReactComponent({
+  component: <FooterUnitValue type='availibleToTrade' />,
+  containerId: `FooterUnitValue-可用餘額`,
+  containerConstructor: container => {
+    $(container).addClass(CONTAINER_CLASS_NAME)
+    $('.footer-unit.balance .footer-unit-value').append(container)
+  },
+})
 
-  const portfolio = angularAPI.$rootScope.session.user.portfolio
+registerReactComponent({
+  component: <FooterUnitValue type='totalInvestedAmount' />,
+  containerId: `FooterUnitValue-總配額`,
+  containerConstructor: container => {
+    $(container).addClass(CONTAINER_CLASS_NAME)
+    $('.footer-unit.amount .footer-unit-value').append(container)
+  },
+})
 
-  footerUnits.each((index, footerUnit) => {
-    const unit = $(footerUnit)
+registerReactComponent({
+  component: <FooterUnitValue type='totalProfit' />,
+  containerId: `FooterUnitValue-利潤`,
+  containerConstructor: container => {
+    $(container).addClass(CONTAINER_CLASS_NAME)
+    $('.footer-unit.profit .footer-unit-value').append(container)
+  },
+})
 
-    const id =
-      unit.find('.footer-unit-label').html()?.replace(/\s/gi, '') || null
-
-    if (!id) return
-
-    const USD = unit.hasClass('balance')
-      ? portfolio.availibleToTrade
-      : unit.hasClass('amount')
-      ? portfolio.totalInvestedAmount
-      : unit.hasClass('profit')
-      ? portfolio.totalProfit
-      : unit.hasClass('total')
-      ? portfolio.equity
-      : null
-
-    if (USD) {
-      const component = stickReactComponent({
-        component: (
-          <Provider store={store}>
-            <FooterUnitValue USD={USD} />
-          </Provider>
-        ),
-        containerId: `FooterUnitValue-${id}`,
-        containerConstructor: container => {
-          $(container).addClass(CONTAINER_CLASS_NAME)
-          unit.find('.footer-unit-value').append(container)
-        },
-      })
-
-      component.mount()
-    }
-  })
-}
+registerReactComponent({
+  component: <FooterUnitValue type='equity' />,
+  containerId: `FooterUnitValue-淨值`,
+  containerConstructor: container => {
+    $(container).addClass(CONTAINER_CLASS_NAME)
+    $('.footer-unit.total .footer-unit-value').append(container)
+  },
+})
 
 /**
  * 提供 etoro 頁面底部的「可用、配額、利潤、價值」匯率換算

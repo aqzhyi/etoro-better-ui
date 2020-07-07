@@ -1,12 +1,10 @@
 import { debugAPI } from '@/debugAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
-import store from '@/store/_store'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { useAsyncFn } from 'react-use'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import { getRandomString } from '@/utils/getRandomString'
 import { DefaultButton, Stack } from '@fluentui/react'
 
@@ -72,53 +70,6 @@ export const WatchlistUsersControls: React.FunctionComponent<{
       )}
     </Stack>
   )
-}
-
-export const constructContainersForWatchlistPeople = () => {
-  $('et-user-row').each((index, element) => {
-    const userRowElement = $(element)
-
-    if (userRowElement.length) {
-      const eachId =
-        userRowElement
-          .find('.card-avatar-wrap')
-          .attr('href')
-          ?.replace(/\//gi, '') || getRandomString()
-
-      const username = userRowElement
-        .find('[automation-id="trade-item-name"]')
-        .html()
-
-      /**
-       * tests https://regexr.com/52ft5
-       *
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
-       * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/6441059/21.jpg
-       */
-      const cid =
-        /avatars\/[\d]+[xX][\d]+\/(?<cid>[\d]+)\/?/.exec(
-          userRowElement
-            ?.find('[automation-id="trade-item-avatar"]')
-            .attr('src') || '',
-        )?.groups?.cid || '__UNKNOWN-CID__'
-
-      const { mount, unmount } = stickReactComponent({
-        component: (
-          <Provider store={store}>
-            <WatchlistUsersControls cid={cid} username={username} />
-          </Provider>
-        ),
-        containerId: `WatchlistUsersControls-${eachId}`,
-        containerConstructor: containerElement => {
-          $(containerElement).addClass(WatchlistUsersControls.name)
-          userRowElement.prepend(containerElement)
-        },
-      })
-
-      mount()
-    }
-  })
 }
 
 GM.addStyle(`

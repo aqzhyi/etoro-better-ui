@@ -3,20 +3,12 @@ import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactS
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
-import store, { useAppSelector } from '@/store/_store'
-import { stickReactComponent } from '@/utils/stickReactComponent'
-import {
-  DefaultButton,
-  Stack,
-  TextField,
-  TextFieldBase,
-  ITextFieldProps,
-} from '@fluentui/react'
+import { useAppSelector } from '@/store/_store'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
-import { debounce } from 'lodash'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(
@@ -106,16 +98,8 @@ export const WatchlistHeader: React.FC = () => {
   )
 }
 
-export const {
-  mount: mountWatchlistHeader,
-  unmount: unmountWatchlistHeader,
-  containerId: WatchlistHeaderId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <WatchlistHeader></WatchlistHeader>
-    </Provider>
-  ),
+export const registeredWatchlistHeader = registerReactComponent({
+  component: <WatchlistHeader></WatchlistHeader>,
   containerId: 'WatchlistHeader',
   containerConstructor: containerElement => {
     $('.watchlist-header .watch-list-buttons').prepend(containerElement)
@@ -123,11 +107,11 @@ export const {
 })
 
 GM.addStyle(`
-  #${WatchlistHeaderId} {
+  #${registeredWatchlistHeader.container.id} {
     margin-top: 18px;
   }
 
-  #${WatchlistHeaderId} .ms-Toggle .ms-Label {
+  #${registeredWatchlistHeader.container.id} .ms-Toggle .ms-Label {
     margin-left: 4px;
   }
 `)

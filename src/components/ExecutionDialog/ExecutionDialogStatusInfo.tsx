@@ -1,10 +1,9 @@
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
-import store, { useAppSelector } from '@/store/_store'
+import { useAppSelector } from '@/store/_store'
 import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React from 'react'
-import { Provider } from 'react-redux'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import Tooltip from 'rc-tooltip'
 import { angularAPI } from '@/angularAPI'
 
@@ -93,33 +92,25 @@ export const ExecutionDialogStatusInfo = () => {
   )
 }
 
-export const {
-  mount: mountExecutionDialogStatusInfo,
-  unmount: unmountExecutionDialogStatusInfo,
-  containerId: ExecutionDialogStatusInfoId,
-} = stickReactComponent({
+export const registeredExecutionDialogStatusInfo = registerReactComponent({
   containerId: 'ExecutionDialogStatusInfo',
-  component: (
-    <Provider store={store}>
-      <ExecutionDialogStatusInfo />
-    </Provider>
-  ),
+  component: <ExecutionDialogStatusInfo />,
   containerConstructor: containerElement => {
     $(containerElement).insertBefore('.execution-head')
   },
 })
 
 GM.addStyle(`
-  #${ExecutionDialogStatusInfoId} {
+  #${registeredExecutionDialogStatusInfo.container.id} {
     display: flex;
     align-items: flex-start;
   }
 
-  #${ExecutionDialogStatusInfoId} .bp3-popover-target {
+  #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
     border-right: 1px solid #cccccc;
   }
 
-  #${ExecutionDialogStatusInfoId} .indicator-callout-box {
+  #${registeredExecutionDialogStatusInfo.container.id} .indicator-callout-box {
     display: inline-block;
     width: 120px;
     background-color: rgb(235, 235, 235);

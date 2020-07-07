@@ -1,29 +1,32 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { getRandomString } from '@/utils/getRandomString'
+import store from '@/store/_store'
+import { Provider } from 'react-redux'
 
-type ReactComponentUtils = ReturnType<typeof stickReactComponent>
-
-export const mountedStickyComponents = new Map<
+export const registeredComponents = new Map<
   string,
-  ReactComponentUtils['unmount']
->()
-
-export const mountableStickyComponents = new Map<
-  string,
-  ReactComponentUtils['mount']
+  {
+    mount: () => void
+    unmount: () => Promise<unknown>
+    container: HTMLElement
+  }
 >()
 
 /**
  * Aims to stick React-Components to Angular UIs, automatically
  */
-export const stickReactComponent = (options: {
+export const registerReactComponent = <
+  Component extends React.FC<Parameters<Component>[0]>
+>(options: {
   /**
    * required, the component to ReactDOM.render()
+   *
+   * Do NOT pass <Provider store={store} />, this function will do it.
+   *
    * @example
    *  component: (
-   *    <Provider store={store}>
-   *      <ExecutionDialogStatusInfo />
-   *    </Provider>
+   *    <ExecutionDialogStatusInfo />
    *  )
    */
   component: JSX.Element
@@ -33,11 +36,19 @@ export const stickReactComponent = (options: {
   containerTag?: string
   /**
    * @example
+   *  // ReactDOM.render(component, document.querySelector(`#{containerElement.id}`))
+   *
    *  containerConstructor((containerElement) => {
    *    jQuery(containerElement).addClass('colorful').insertAfter('body')
    *  })
    */
-  containerConstructor: (containerElement: Element) => void
+  containerConstructor: (
+    /** The container is React Root, which is ReactDOM.render were to render */
+    containerElement: Element,
+    props: {
+      componentProps: Parameters<Component>[0]
+    },
+  ) => void
   disabled?: () => boolean
 }) => {
   const containerTag = options.containerTag || 'span'
@@ -52,6 +63,13 @@ export const stickReactComponent = (options: {
     existsContainerElement?.get(0) || newContainerElement.get(0)
 
   const containerId = options.containerId || getRandomString()
+
+  const registerComponent = registeredComponents.get(containerId)
+
+  if (registerComponent) {
+    return registerComponent
+  }
+
   newContainerElement.attr('id', `${containerId}`)
 
   const checkDisabled = () => options.disabled?.() ?? false
@@ -62,8 +80,6 @@ export const stickReactComponent = (options: {
       globalThis.setTimeout(() => {
         if (targetContainerElement) {
           ReactDOM.unmountComponentAtNode(targetContainerElement)
-          targetContainerElement.remove()
-          mountedStickyComponents.delete(targetContainerElement.id)
         }
 
         resolve()
@@ -75,25 +91,28 @@ export const stickReactComponent = (options: {
 
   const mount = () => {
     if (checkContainerExists() === false && checkDisabled() === false) {
-      options.containerConstructor(targetContainerElement)
+      options.containerConstructor(targetContainerElement, {
+        componentProps: options.component.props,
+      })
     }
 
     if (checkContainerExists() === true && checkDisabled() === false) {
-      ReactDOM.render(options.component, targetContainerElement)
-
-      mountedStickyComponents.set(targetContainerElement.id, unmount)
+      ReactDOM.render(
+        <Provider store={store}>{options.component}</Provider>,
+        targetContainerElement,
+      )
     }
-  }
-
-  if (targetContainerElement.id) {
-    mountableStickyComponents.set(targetContainerElement.id, mount)
   }
 
   mount.displayName = `mount${containerId}`
 
-  return {
+  registeredComponents.set(containerId, {
     mount,
     unmount,
-    containerId,
-  }
+    container: targetContainerElement,
+  })
+
+  return registeredComponents.get(containerId) as NonNullable<
+    ReturnType<typeof registeredComponents['get']>
+  >
 }

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAppSelector } from '@/store/_store'
 import { toCurrency } from '@/toCurrency'
+import { angularAPI } from '@/angularAPI'
+import { useInterval, useMount } from 'react-use'
 
 export const FooterUnitValue: React.FC<{
-  USD: number
+  type: keyof typeof angularAPI.$rootScope.session.user.portfolio
 }> = props => {
   const selected = useAppSelector(
     state => state.settings.betterEtoroUIConfig.selectedExchange,
@@ -17,7 +19,17 @@ export const FooterUnitValue: React.FC<{
     return null
   }
 
-  const localValues = toCurrency(exchanges[selected].buy * props.USD)
+  const [USD, USDSetter] = useState(0)
+
+  useMount(() => {
+    USDSetter(angularAPI.$rootScope.session.user.portfolio[props.type])
+  })
+
+  useInterval(() => {
+    USDSetter(angularAPI.$rootScope.session.user.portfolio[props.type])
+  }, 2500)
+
+  const localValues = toCurrency(exchanges[selected].buy * USD)
 
   return (
     <React.Fragment>

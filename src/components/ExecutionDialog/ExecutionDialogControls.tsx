@@ -5,13 +5,12 @@ import { ProviderBy } from '@/components/ProviderBy'
 import { RiskSpecification } from '@/components/RiskSpecification'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
-import store, { useAppDispatch, useAppSelector } from '@/store/_store'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { useAppDispatch, useAppSelector } from '@/store/_store'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Toggle, Stack, PrimaryButton } from '@fluentui/react'
 import toast from 'cogo-toast'
 import pWaitFor from 'p-wait-for'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
 import Tooltip from 'rc-tooltip'
 import { throttle } from 'lodash'
@@ -207,16 +206,8 @@ export const ExecutionDialogControls = () => {
   )
 }
 
-export const {
-  mount: mountExecutionDialogControls,
-  unmount: unmountExecutionDialogControls,
-  containerId: ExecutionDialogControlsId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <ExecutionDialogControls />
-    </Provider>
-  ),
+export const registeredExecutionDialogControls = registerReactComponent({
+  component: <ExecutionDialogControls />,
   containerId: 'ExecutionDialogControls',
   containerConstructor: containerElement => {
     $('.uidialog .execution-main').prepend(containerElement)
@@ -231,7 +222,7 @@ GM.addStyle(`
       justify-content: center;
     }
 
-    #${ExecutionDialogControlsId} {
+    #${registeredExecutionDialogControls.container.id} {
       margin: 0 auto;
       margin-bottom: 16px;
       text-align: center;
@@ -242,7 +233,7 @@ GM.addStyle(`
   }
 
   @media (max-width:740px) {
-    #${ExecutionDialogControlsId} {
+    #${registeredExecutionDialogControls.container.id} {
       display: none;
     }
   }

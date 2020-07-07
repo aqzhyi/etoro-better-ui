@@ -1,11 +1,9 @@
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
-import store from '@/store/_store'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import { TextField, TextFieldBase } from '@fluentui/react'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { debounce } from 'lodash'
 
 export const PortfolioHeaderExtraButtons = () => {
@@ -33,16 +31,8 @@ export const PortfolioHeaderExtraButtons = () => {
   )
 }
 
-export const {
-  mount: mountPortfolioHeaderExtraButtons,
-  unmount: unmountPortfolioHeaderExtraButtons,
-  containerId: PortfolioHeaderExtraButtonsId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <PortfolioHeaderExtraButtons />
-    </Provider>
-  ),
+export const registeredPortfolioHeaderExtraButtons = registerReactComponent({
+  component: <PortfolioHeaderExtraButtons />,
   containerId: 'PortfolioHeaderExtraButtons',
   containerConstructor: container => {
     $(container).appendTo($('.p-portfolio-header .inner-header'))
@@ -50,7 +40,7 @@ export const {
 })
 
 GM.addStyle(`
-  #${PortfolioHeaderExtraButtonsId} {
+  #${registeredPortfolioHeaderExtraButtons.container.id} {
     display: inline-block;
     margin-left: 16px;
     margin-top: 12px;

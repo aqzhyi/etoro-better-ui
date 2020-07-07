@@ -6,38 +6,23 @@ import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
 import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
-import {
-  mountExecutionDialogControls,
-  unmountExecutionDialogControls,
-} from '@/components/ExecutionDialog/ExecutionDialogControls'
-import {
-  mountExecutionDialogStatusInfo,
-  unmountExecutionDialogStatusInfo,
-} from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import { constructContainersForFooterUnitValues } from '@/components/Footer/constructContainersForFooterUnitValues'
-import { mountPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
-import { mountPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
-import { mountSidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
 import { applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
 import { UniversalControlKeyObserver } from '@/components/UniversalControl/UniversalControlKeyObserver'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
-import { mountWatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
-import { constructContainersForWatchlistPeople } from '@/components/Watchlist/WatchlistPeople'
 import store from '@/store/_store'
 import { cleanStickReactComponents } from '@/utils/cleanStickReactComponents'
 import { renderStickReactComponents } from '@/utils/renderStickReactComponents'
 import { throttle } from 'lodash'
 import React from 'react'
 import { enableES5 } from 'immer'
-import {
-  mountExecutionDialogTakeProfitControls,
-  unmountExecutionDialogTakeProfitControls,
-} from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
-import {
-  unmountExecutionDialogStopLossControls,
-  mountExecutionDialogStopLossControls,
-} from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
+import { registeredSidebarMenuItems } from '@/components/Sidebar/SidebarMenuItems'
+import { registeredExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { registeredPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
+import { registeredPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
+import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
+import { registeredExecutionDialogTakeProfitControls } from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
+import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -79,13 +64,6 @@ emitter.once(Events.ready).then(function enableImmerES5() {
 emitter.on(Events.onMountUIs, renderStickReactComponents)
 
 /**
- * Make sure React-Components works with UI that may rendered by dynamic data
- */
-emitter.on(Events.onPing, constructContainersForFooterUnitValues)
-emitter.on(Events.onMountUIs, constructContainersForFooterUnitValues)
-emitter.on(Events.onMountUIs, constructContainersForWatchlistPeople)
-
-/**
  * To avoid memory leak if angular removes React-Components containers
  */
 emitter.on(Events.onUnmountUIs, cleanStickReactComponents)
@@ -118,10 +96,30 @@ emitter.on(Events.onPing, function checkSystemStatus() {
 })
 
 /**
- * 下單視窗的各種關鍵資訊提示 e.g. 延遲、可用餘額 etc.
+ * Execution-Dialog components
  */
-emitter.on(Events.onDialogHover, mountExecutionDialogStatusInfo)
-emitter.on(Events.onDialogNotFount, unmountExecutionDialogStatusInfo)
+emitter.on(Events.onDialogHover, registeredExecutionDialogStatusInfo.mount)
+emitter.on(Events.onDialogNotFount, registeredExecutionDialogStatusInfo.unmount)
+
+emitter.on(Events.onDialogHover, registeredExecutionDialogControls.mount)
+emitter.on(Events.onDialogNotFount, registeredExecutionDialogControls.unmount)
+
+emitter.on(
+  Events.onDialogHover,
+  registeredExecutionDialogTakeProfitControls.mount,
+)
+emitter.on(
+  Events.onDialogNotFount,
+  registeredExecutionDialogTakeProfitControls.unmount,
+)
+emitter.on(
+  Events.onDialogHover,
+  registeredExecutionDialogStopLossControls.mount,
+)
+emitter.on(
+  Events.onDialogNotFount,
+  registeredExecutionDialogStopLossControls.unmount,
+)
 
 /**
  * 掌握全網站的 keyboard 按下事件
@@ -158,32 +156,16 @@ emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
  */
 emitter.on(
   Events.onPortfolioHistoryPageHover,
-  mountPortfolioHistoryHeaderExtraButtons,
+  registeredPortfolioHistoryHeaderExtraButtons.mount,
 )
-
-/**
- * 我的關注列表
- */
-emitter.on(Events.onWatchlistPageHover, mountWatchlistHeader)
 
 /**
  * 我的投資組合
  */
-emitter.on(Events.onPortfolioPageHover, mountPortfolioHeaderExtraButtons)
-
-/**
- * 下單框框增強介面
- */
-emitter.on(Events.onDialogHover, mountExecutionDialogControls)
-emitter.on(Events.onDialogNotFount, unmountExecutionDialogControls)
-
-/**
- * Take Profit, and Stop Loss
- */
-emitter.on(Events.onDialogHover, mountExecutionDialogTakeProfitControls)
-emitter.on(Events.onDialogNotFount, unmountExecutionDialogTakeProfitControls)
-emitter.on(Events.onDialogHover, mountExecutionDialogStopLossControls)
-emitter.on(Events.onDialogNotFount, unmountExecutionDialogStopLossControls)
+emitter.on(
+  Events.onPortfolioPageHover,
+  registeredPortfolioHeaderExtraButtons.mount,
+)
 
 /**
  * 歡迎訊息
@@ -198,19 +180,15 @@ emitter.on(Events.settingChange, renderSidebarDepositButton)
 /**
  * 左側欄連結項目與設定
  */
-emitter.on(Events.settingChange, mountSidebarMenuItems)
+emitter.on(Events.settingChange, registeredSidebarMenuItems.mount)
 
 /**
  * 取得外部銀行買賣匯率
  */
-const fetchExtraCurrencySettingsUnbind = emitter.on(
-  Events.ready,
-  async function fetchExtraCurrencySettings() {
-    await store.dispatch(fetchExtraCurrency())
-    emitter.emit(Events.settingChange)
-    fetchExtraCurrencySettingsUnbind()
-  },
-)
+emitter.once(Events.ready).then(function fetchExtraCurrencySettings() {
+  store.dispatch(fetchExtraCurrency())
+  emitter.emit(Events.settingChange)
+})
 
 // 盡可能不拖慢 etoro 程式啟動時間，將 CSS 統一在 ready 後加載
 const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {

@@ -1,11 +1,9 @@
 import React from 'react'
-import store from '@/store/_store'
-import { Provider } from 'react-redux'
 import { Stack, TextField, TextFieldBase } from '@fluentui/react'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import { debounce } from 'lodash'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import { angularAPI } from '@/angularAPI'
 
 export const PortfolioHistoryHeaderExtraButtons = () => {
@@ -33,26 +31,20 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
   )
 }
 
-export const {
-  mount: mountPortfolioHistoryHeaderExtraButtons,
-  unmount: unmountPortfolioHistoryHeaderExtraButtons,
-  containerId: PortfolioHistoryHeaderExtraButtonsId,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <PortfolioHistoryHeaderExtraButtons />
-    </Provider>
-  ),
-  containerId: 'PortfolioHistoryHeaderExtraButtons',
-  containerConstructor: container => {
-    $(container).insertBefore(
-      $('.p-portfolio.history .inner-header .inner-header-buttons'),
-    )
+export const registeredPortfolioHistoryHeaderExtraButtons = registerReactComponent(
+  {
+    component: <PortfolioHistoryHeaderExtraButtons />,
+    containerId: 'PortfolioHistoryHeaderExtraButtons',
+    containerConstructor: container => {
+      $(container).insertBefore(
+        $('.p-portfolio.history .inner-header .inner-header-buttons'),
+      )
+    },
   },
-})
+)
 
 GM.addStyle(`
-  #${PortfolioHistoryHeaderExtraButtonsId} {
+  #${registeredPortfolioHistoryHeaderExtraButtons.container.id} {
     display: inline-block;
     margin-left: 16px;
   }

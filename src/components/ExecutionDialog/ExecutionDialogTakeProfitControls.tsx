@@ -1,7 +1,7 @@
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
 import store, { useAppSelector, useAppDispatch } from '@/store/_store'
-import { stickReactComponent } from '@/utils/stickReactComponent'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Icon } from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import React, { useEffect } from 'react'
@@ -68,28 +68,22 @@ export const ExecutionDialogTakeProfitControls = () => {
   )
 }
 
-export const {
-  mount: mountExecutionDialogTakeProfitControls,
-  unmount: unmountExecutionDialogTakeProfitControls,
-  containerId: mountExecutionDialogTakeProfitControlsID,
-} = stickReactComponent({
-  component: (
-    <Provider store={store}>
-      <ExecutionDialogTakeProfitControls />
-    </Provider>
-  ),
-  containerId: ExecutionDialogTakeProfitControls.name,
-  containerConstructor: containerElement => {
-    $('tabtitle').eq(2).append(containerElement)
+export const registeredExecutionDialogTakeProfitControls = registerReactComponent(
+  {
+    component: <ExecutionDialogTakeProfitControls />,
+    containerId: ExecutionDialogTakeProfitControls.name,
+    containerConstructor: containerElement => {
+      $('tabtitle').eq(2).append(containerElement)
+    },
   },
-})
+)
 
 GM.addStyle(`
   tabtitle:nth-of-type(3) {
     position: relative;
   }
 
-  #${mountExecutionDialogTakeProfitControlsID} {
+  #${registeredExecutionDialogTakeProfitControls.container.id} {
     position: absolute;
     width: auto;
     display: flex;

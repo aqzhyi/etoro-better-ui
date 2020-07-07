@@ -1,7 +1,7 @@
-import { mountedStickyComponents } from '@/utils/stickReactComponent'
+import { registeredComponents } from '@/utils/registerReactComponent'
 
 export const cleanStickReactComponents = () => {
-  for (const [, unmount] of mountedStickyComponents) {
-    unmount()
+  for (const [id, utils] of registeredComponents) {
+    utils.unmount()
   }
 }
