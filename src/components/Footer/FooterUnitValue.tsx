@@ -15,10 +15,6 @@ export const FooterUnitValue: React.FC<{
     MYR: useAppSelector(state => state.settings.betterEtoroUIConfig.MYR),
   }
 
-  if (!selected || selected === 'HIDDEN') {
-    return null
-  }
-
   const [USD, USDSetter] = useState(0)
 
   useMount(() => {
@@ -28,6 +24,10 @@ export const FooterUnitValue: React.FC<{
   useInterval(() => {
     USDSetter(angularAPI.$rootScope.session.user.portfolio[props.type])
   }, 2500)
+
+  if (!selected || selected === 'HIDDEN') {
+    return null
+  }
 
   const localValues = toCurrency(exchanges[selected].buy * USD)
 
