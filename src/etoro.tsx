@@ -122,17 +122,6 @@ emitter.on(
 )
 
 /**
- * 掌握全網站的 keyboard 按下事件
- */
-const constructKeyboardEventsUnbind = emitter.on(
-  Events.ready,
-  function constructKeyboardEvents() {
-    UniversalControlKeyObserver.construct()
-    constructKeyboardEventsUnbind()
-  },
-)
-
-/**
  * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
  */
 emitter.once(Events.ready).then(applyExecutionRiskLeverFromMemory)
@@ -186,43 +175,43 @@ emitter.once(Events.ready).then(function _fetchExtraCurrency() {
 
 // 盡可能不拖慢 etoro 程式啟動時間，將 CSS 統一在 ready 後加載
 const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
-  /**
-   * 修正「添加到列表」被其它元素蓋住的問題
-   *
-   * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
-   */
-  GM.addStyle(`
+    /**
+     * 修正「添加到列表」被其它元素蓋住的問題
+     *
+     * e.g. https://www.etoro.com/people/olivierdanvel/portfolio
+     */
+    GM.addStyle(`
     body .inner-header {
       z-index: 1
     }
   `)
 
-  /**
-   * 使「買入與賣出按鈕」更加立體明確
-   *
-   * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
-   */
-  GM.addStyle(`
+    /**
+     * 使「買入與賣出按鈕」更加立體明確
+     *
+     * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
+     */
+    GM.addStyle(`
     .execution-head .execution-head-button.active:after {
       content: "✅";
     }
   `)
 
-  /**
-   * 確保 toast 不會被蓋住
-   *
-   * @fluentui/react Dialog 的 z-index: 1000000，為避免被蓋掉，則 +1
-   */
-  GM.addStyle(`
+    /**
+     * 確保 toast 不會被蓋住
+     *
+     * @fluentui/react Dialog 的 z-index: 1000000，為避免被蓋掉，則 +1
+     */
+    GM.addStyle(`
     #ct-container {
       z-index: 1000001
     }
   `)
 
-  /**
-   * 為關注列表頁面增加一點 style 質感
-   */
-  GM.addStyle(`
+    /**
+     * 為關注列表頁面增加一點 style 質感
+     */
+    GM.addStyle(`
     et-instrument-trading-row:hover,
     et-user-row:hover {
       box-shadow: 1px 1px 5px #42424294;
@@ -230,8 +219,8 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
-  /** 使顯眼賣出或買入文字 */
-  GM.addStyle(`
+    /** 使顯眼賣出或買入文字 */
+    GM.addStyle(`
     [data-etoro-automation-id="open-trades-table-body-cell-action-sell"] {
       color: #ff7171;
     }
@@ -247,15 +236,13 @@ const constructCssUnbind = emitter.on(Events.ready, function constructCSS() {
     }
   `)
 
-  /**
-   * Execution-Dialog z-index:10000, fluentUI.Dialog z-index:1000000
-   * therefore must set tooltip to 1000001
-   */
-  GM.addStyle(`
+    /**
+     * Execution-Dialog z-index:10000, fluentUI.Dialog z-index:1000000
+     * therefore must set tooltip to 1000001
+     */
+    GM.addStyle(`
     .rc-tooltip {
       z-index: 1000001
     }
   `)
-
-  constructCssUnbind()
-})
+  })

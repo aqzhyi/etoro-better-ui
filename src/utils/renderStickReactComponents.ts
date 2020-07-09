@@ -13,6 +13,7 @@ import '@/components/Sidebar/SidebarWithdrawalExtraInfo'
 import '@/components/Watchlist/WatchlistHeader'
 import '@/components/Watchlist/WatchlistUsersControls'
 import '@/components/Watchlist/WatchlistFindAndRegister'
+import '@/components/UniversalControl/UniversalControlKeyObserver'
 import { registeredComponents } from '@/utils/registerReactComponent'
 
 export const renderStickReactComponents = () => {

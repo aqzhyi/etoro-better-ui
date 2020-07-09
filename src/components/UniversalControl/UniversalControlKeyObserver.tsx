@@ -1,13 +1,10 @@
-import store, { useAppSelector } from '@/store/_store'
-import { throttle } from 'lodash'
+import { useAppSelector } from '@/store/_store'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import { useKey } from 'react-use'
 import { debugAPI } from '@/debugAPI'
+import { registerReactComponent } from '@/utils/registerReactComponent'
 
 const ELEMENT_ID = 'universal-control-key-observer'
-const ELEMENT_ID_ROOT = 'universal-control-key-observer-root'
 
 export const UniversalControlKeyObserver = () => {
   const tabBuySellEnabled = useAppSelector(
@@ -49,24 +46,10 @@ export const UniversalControlKeyObserver = () => {
   return <span id={ELEMENT_ID}></span>
 }
 
-UniversalControlKeyObserver.hasReady = () => !!$(`#${ELEMENT_ID}`).length
-
-UniversalControlKeyObserver.construct = () => {
-  if (UniversalControlKeyObserver.hasReady()) {
-    return
-  }
-
-  if (!$(`#${ELEMENT_ID_ROOT}`).length) {
-    $(`[automation-id="left-menu-deposit-button"]`).append(
-      $(`<span id=${ELEMENT_ID_ROOT}></span>`),
-    )
-  }
-
-  $(`#${ELEMENT_ID_ROOT}`).length &&
-    ReactDOM.render(
-      <Provider store={store}>
-        <UniversalControlKeyObserver></UniversalControlKeyObserver>
-      </Provider>,
-      $(`#${ELEMENT_ID_ROOT}`).html('').get(0),
-    )
-}
+registerReactComponent({
+  component: <UniversalControlKeyObserver />,
+  containerId: UniversalControlKeyObserver.name,
+  containerConstructor: containerElement => {
+    $(`[automation-id="left-menu-deposit-button"]`).append(containerElement)
+  },
+})
