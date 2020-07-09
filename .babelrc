@@ -7,7 +7,17 @@
         "libraryName": "react-use",
         "libraryDirectory": "lib",
         "camel2DashComponentName": false
-      }
+      },
+      "react-use"
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "libreact",
+        "libraryDirectory": "lib",
+        "camel2DashComponentName": false
+      },
+      "libreact"
     ],
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-nullish-coalescing-operator",

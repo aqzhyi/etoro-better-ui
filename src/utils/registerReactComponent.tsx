@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { getRandomString } from '@/utils/getRandomString'
 import store from '@/store/_store'
 import { Provider } from 'react-redux'
+import { IconAsErrorBoundary } from '@/components/ErrorBoundary/IconAsErrorBoundary'
 
 export const registeredComponents = new Map<
   string,
@@ -98,7 +99,9 @@ export const registerReactComponent = <
 
     if (checkContainerExists() === true && checkDisabled() === false) {
       ReactDOM.render(
-        <Provider store={store}>{options.component}</Provider>,
+        <Provider store={store}>
+          <IconAsErrorBoundary>{options.component}</IconAsErrorBoundary>
+        </Provider>,
         targetContainerElement,
       )
     }
