@@ -3,6 +3,7 @@ import { Toggle } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const ExecutionDialogApplyLastOrderSwitch = () => {
   const dispatch = useAppDispatch()
@@ -19,6 +20,10 @@ export const ExecutionDialogApplyLastOrderSwitch = () => {
           : i18n.使鎖定下單重複一致否定()
       }
       onChange={(event, checked) => {
+        gaAPI.sendEvent(
+          GaTargetEventId.setting_sameOrderEnabledSet,
+          `checked=${String(checked)}`,
+        )
         dispatch(
           setBetterEtoroUIConfig({
             executionUseApplyLast: checked,

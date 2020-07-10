@@ -15,6 +15,7 @@ import { useMount } from 'react-use'
 import Tooltip from 'rc-tooltip'
 import { throttle } from 'lodash'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
@@ -131,6 +132,7 @@ export const ExecutionDialogControls = () => {
                 <Stack.Item key={index}>
                   <PrimaryButton
                     onClick={() => {
+                      gaAPI.sendEvent(GaTargetEventId.dialog_amountButtonsClick)
                       toAmount(value)
                       dispatch(
                         setBetterEtoroUIConfig({ executionAmountLast: value }),
@@ -150,6 +152,7 @@ export const ExecutionDialogControls = () => {
             <Stack.Item>
               <PrimaryButton
                 onClick={() => {
+                  gaAPI.sendEvent(GaTargetEventId.dialog_buttonsArrangeClick)
                   dispatch(openPromptForSetMacroAmount())
                 }}
               >
@@ -167,6 +170,7 @@ export const ExecutionDialogControls = () => {
                 <Stack.Item key={index}>
                   <PrimaryButton
                     onClick={() => {
+                      gaAPI.sendEvent(GaTargetEventId.dialog_leverButtonsClick)
                       toLever(value)
                       dispatch(
                         setBetterEtoroUIConfig({ executionLeverLast: value }),

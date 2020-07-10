@@ -3,6 +3,7 @@ import React from 'react'
 import { useKey } from 'react-use'
 import { debugAPI } from '@/debugAPI'
 import { registerReactComponent } from '@/utils/registerReactComponent'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 const ELEMENT_ID = 'universal-control-key-observer'
 
@@ -25,6 +26,7 @@ export const UniversalControlKeyObserver = () => {
         event.key,
       )
 
+      gaAPI.sendEvent(GaTargetEventId.keyboard_switchBuySell)
       targetElement.find('.execution-head-button:not(.active)').click()
       targetElement.find('.execution-head-button.active').focus()
     },
@@ -40,6 +42,7 @@ export const UniversalControlKeyObserver = () => {
 
     debugAPI.keyboard.extend('下單視窗')(event.key)
 
+    gaAPI.sendEvent(GaTargetEventId.keyboard_closeDialog)
     $('[automation-id="close-dialog-btn"]').click()
   })
 

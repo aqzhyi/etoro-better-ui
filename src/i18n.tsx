@@ -2,6 +2,8 @@ import * as React from 'react'
 import { TooltipHighlightText } from '@/components/TooltipHighlightText'
 
 const zh = {
+  設定允許使用谷歌分析: () =>
+    `允許 etoro-better-ui 能夠使用並分析，介面的操作情況 (這個功能不會收集您的隱私資料)`,
   錯誤程式渲染時發生錯誤: (error: Error) => <span>錯誤：{error.message}</span>,
   下單框套用上次止損趴數之說明: (lastPercent: number) =>
     `每次下單視窗開啟時，套用上一次的止損趴數（上一次 ${lastPercent}%）`,
@@ -101,6 +103,8 @@ const zh = {
 }
 
 const en: typeof zh = {
+  設定允許使用谷歌分析: () =>
+    `Allow etoro-better-ui can use and analyze data of user-interface (it's doesn't collect your privacy data)`,
   錯誤程式渲染時發生錯誤: (error: Error) => <span>ERROR: {error.message}</span>,
   下單框套用上次止損趴數之說明: (lastPercent: number) =>
     `When Execution-Dialog on render, it's applying the last percent of Stop-Loss (will apply ${lastPercent}%)`,

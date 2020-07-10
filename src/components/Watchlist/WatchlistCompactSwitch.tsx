@@ -4,6 +4,7 @@ import { i18n } from '@/i18n'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { angularAPI } from '@/angularAPI'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const WatchlistCompactSwitch = () => {
   const dispatch = useAppDispatch()
@@ -16,10 +17,16 @@ export const WatchlistCompactSwitch = () => {
       inlineLabel
       checked={listCompactOn}
       onClick={() => {
-        angularAPI.toggleListCompact(!listCompactOn)
+        const enabled = !listCompactOn
+
+        angularAPI.toggleListCompact(enabled)
+        gaAPI.sendEvent(
+          GaTargetEventId.setting_compactEnabledSet,
+          `onOff=${String(enabled)}`,
+        )
         dispatch(
           setBetterEtoroUIConfig({
-            listCompactOn: !listCompactOn,
+            listCompactOn: enabled,
           }),
         )
       }}

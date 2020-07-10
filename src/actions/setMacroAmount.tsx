@@ -5,6 +5,7 @@ import toast from 'cogo-toast'
 import { i18n } from '@/i18n'
 import { emitter, Events } from '@/emitter'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const openPromptForSetMacroAmount = createAsyncThunk<
   void,
@@ -23,6 +24,11 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
 
   if (newValue) {
     const thunkValue = newValue.split(',').map(Number)
+
+    gaAPI.sendEvent(
+      GaTargetEventId.setting_amountButtonsSet,
+      `values=${thunkValue.join(',')}`,
+    )
 
     thunkAPI.dispatch(
       setBetterEtoroUIConfig({

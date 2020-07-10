@@ -5,6 +5,7 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  googleAnalyticsEnabled: boolean
   stopLossAndTakeProfitUseLastPercent: boolean
   stopLossLastPercent: number
   takeProfitLastPercent: number
@@ -29,6 +30,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  googleAnalyticsEnabled: true,
   stopLossAndTakeProfitUseLastPercent: false,
   stopLossLastPercent: 50,
   takeProfitLastPercent: 5,

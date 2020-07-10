@@ -4,6 +4,7 @@ import { i18n } from '@/i18n'
 import { angularAPI } from '@/angularAPI'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const WatchlistInvestedSwitch = () => {
   const dispatch = useAppDispatch()
@@ -17,8 +18,16 @@ export const WatchlistInvestedSwitch = () => {
       inlineLabel
       checked={shouldShowInvested}
       onClick={() => {
+        const enabled = !shouldShowInvested
+
         angularAPI.toggleListInvested(!shouldShowInvested)
-        dispatch(setBetterEtoroUIConfig({ showInvested: !shouldShowInvested }))
+
+        gaAPI.sendEvent(
+          GaTargetEventId.setting_investedEnabledSet,
+          `onOff=${String(enabled)}`,
+        )
+
+        dispatch(setBetterEtoroUIConfig({ showInvested: enabled }))
       }}
     />
   )

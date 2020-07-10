@@ -21,6 +21,8 @@ import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactS
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 import Tooltip from 'rc-tooltip'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { stringify } from 'query-string'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -51,6 +53,19 @@ export const SidebarSettingsDialog: React.FC = () => {
       hidden={!dialogOpen}
     >
       <Stack tokens={{ padding: 8, childrenGap: 16 }}>
+        <Stack.Item>
+          <Toggle
+            label={i18n.設定允許使用谷歌分析()}
+            checked={configs.googleAnalyticsEnabled}
+            onChange={(event, checked) => {
+              dispatch(
+                setBetterEtoroUIConfig({
+                  googleAnalyticsEnabled: checked,
+                }),
+              )
+            }}
+          ></Toggle>
+        </Stack.Item>
         <Stack.Item>
           <TextField
             label={i18n.下單巨集金額設定()}
@@ -94,6 +109,10 @@ export const SidebarSettingsDialog: React.FC = () => {
                   )}
                   checked={configs.stopLossAndTakeProfitUseLastPercent}
                   onChange={(event, checked) => {
+                    gaAPI.sendEvent(
+                      GaTargetEventId.setting_TakeProfitAndStopLoseEnabledSet,
+                      `enabled=${String(checked)}`,
+                    )
                     dispatch(
                       setBetterEtoroUIConfig({
                         stopLossAndTakeProfitUseLastPercent: checked,
@@ -127,6 +146,10 @@ export const SidebarSettingsDialog: React.FC = () => {
                 ]}
                 onChange={async (event, option) => {
                   const onOff = option?.key === 'ON' ? true : false
+                  gaAPI.sendEvent(
+                    GaTargetEventId.setting_tabToBuySellEnabledSet,
+                    `onOff=${String(onOff)}`,
+                  )
                   dispatch(
                     setBetterEtoroUIConfig({
                       useTabKeyBuySell: onOff,
@@ -166,6 +189,11 @@ export const SidebarSettingsDialog: React.FC = () => {
                 ]}
                 onChange={(event, option) => {
                   const yourEnabled = option?.key === 'ON' ? true : false
+
+                  gaAPI.sendEvent(
+                    GaTargetEventId.setting_dialogMacroEnabledSet,
+                    `onOff=${String(yourEnabled)}`,
+                  )
 
                   dispatch(
                     setBetterEtoroUIConfig({
@@ -223,6 +251,11 @@ export const SidebarSettingsDialog: React.FC = () => {
                   const youSelected = (option?.key ||
                     'NTD') as BetterEtoroUIConfig['selectedExchange']
 
+                  gaAPI.sendEvent(
+                    GaTargetEventId.setting_currencyUseSet,
+                    `value=${youSelected}`,
+                  )
+
                   if (youSelected === 'HIDDEN') {
                     dispatch(
                       setBetterEtoroUIConfig({
@@ -267,6 +300,8 @@ export const SidebarSettingsDialog: React.FC = () => {
                   const yes = confirm(`${i18n.設定重置所有設定()}, YES?`)
 
                   if (yes) {
+                    gaAPI.sendEvent(GaTargetEventId.setting_resetAllClick)
+
                     dispatch(resetBetterEtoroUIConfig())
                   }
                 }}
