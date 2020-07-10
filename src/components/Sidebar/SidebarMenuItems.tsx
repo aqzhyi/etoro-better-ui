@@ -11,7 +11,7 @@ import { GM } from '@/GM'
 const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
 
 export const SidebarMenuItems = () => {
-  const settings = useAppSelector(state => state.settings)
+  const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
 
   /**
@@ -40,7 +40,7 @@ export const SidebarMenuItems = () => {
         {...attrsToAppend}
         className='i-menu-link pointer'
         onClick={() => {
-          dispatch(toggleSettingsDialog(!settings.betterEtoroUISettingsDialog))
+          dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
         }}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>

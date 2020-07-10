@@ -9,7 +9,7 @@ export const applyExecutionRiskLeverFromMemory = () => {
 
     const state = store.getState()
 
-    if (state.settings.betterEtoroUIConfig.executionUseApplyLast) {
+    if (state.settings.executionUseApplyLast) {
       store.dispatch(
         setBetterEtoroUIConfig({
           executionLeverLast: Number(leverText),

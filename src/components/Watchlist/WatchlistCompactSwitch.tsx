@@ -7,9 +7,7 @@ import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 export const WatchlistCompactSwitch = () => {
   const dispatch = useAppDispatch()
-  const listCompactOn = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.listCompactOn,
-  )
+  const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
 
   return (
     <Toggle

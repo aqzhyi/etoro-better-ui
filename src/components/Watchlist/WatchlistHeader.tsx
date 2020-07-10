@@ -11,11 +11,9 @@ import React from 'react'
 import { useMount } from 'react-use'
 
 export const WatchlistHeader: React.FC = () => {
-  const listCompactOn = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.listCompactOn,
-  )
+  const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
   const shouldShowInvested = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.showInvested,
+    state => state.settings.showInvested,
   )
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
   const searchBoxRef = React.createRef<TextFieldBase>()

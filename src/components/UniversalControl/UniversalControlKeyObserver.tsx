@@ -8,7 +8,7 @@ const ELEMENT_ID = 'universal-control-key-observer'
 
 export const UniversalControlKeyObserver = () => {
   const tabBuySellEnabled = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.useTabKeyBuySell,
+    state => state.settings.useTabKeyBuySell,
   )
 
   /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */

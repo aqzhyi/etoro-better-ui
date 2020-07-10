@@ -27,9 +27,9 @@ const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 export const SidebarSettingsDialog: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const configs = useAppSelector(state => state.settings.betterEtoroUIConfig)
+  const configs = useAppSelector(state => state.settings)
   const dialogOpen = useAppSelector(
-    state => state.settings.betterEtoroUISettingsDialog,
+    state => state.display.betterEtoroUISettingsDialog,
   )
 
   const [macroAmountInput, macroAmountInputSetter] = React.useState<

@@ -8,10 +8,10 @@ import Tooltip from 'rc-tooltip'
 import { angularAPI } from '@/angularAPI'
 
 export const ExecutionDialogStatusInfo = () => {
-  const statusInfo = useAppSelector(state => state.settings.statusInfoAggregate)
+  const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
 
   /** 推測延遲 */
-  const statusPingValue = useAppSelector(state => state.settings.pingValue)
+  const statusPingValue = useAppSelector(state => state.status.pingValue)
 
   /** status.etoro.com 目前服務狀況 */
   const labelManualTrading =

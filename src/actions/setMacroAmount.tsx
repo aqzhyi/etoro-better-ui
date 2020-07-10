@@ -18,7 +18,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
   const newValue = (props?.join(',') ||
     prompt(
       i18n.下單巨集金額設定(),
-      state.settings.betterEtoroUIConfig.executionAmount.join(','),
+      state.settings.executionAmount.join(','),
     )) as string
 
   if (newValue) {
@@ -38,9 +38,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
 
   toast.info(
     i18n.設定未變更(() => (
-      <span>
-        {state.settings.betterEtoroUIConfig.executionAmount.join(',')}
-      </span>
+      <span>{state.settings.executionAmount.join(',')}</span>
     )),
     { position: 'bottom-left' },
   )

@@ -7,7 +7,7 @@ import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 export const ExecutionDialogApplyLastOrderSwitch = () => {
   const dispatch = useAppDispatch()
   const executionUseApplyLast = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.executionUseApplyLast,
+    state => state.settings.executionUseApplyLast,
   )
 
   return (

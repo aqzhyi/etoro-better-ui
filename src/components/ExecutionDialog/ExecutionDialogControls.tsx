@@ -74,29 +74,23 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls = () => {
   const dispatch = useAppDispatch()
 
-  const enabled = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.executionMacroEnabled,
-  )
+  const enabled = useAppSelector(state => state.settings.executionMacroEnabled)
 
   if (!enabled) {
     return null
   }
 
-  const amounts = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.executionAmount,
-  )
-  const levers = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.executionLever,
-  )
+  const amounts = useAppSelector(state => state.settings.executionAmount)
+  const levers = useAppSelector(state => state.settings.executionLever)
 
   const executionUseApplyLast = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.executionUseApplyLast,
+    state => state.settings.executionUseApplyLast,
   )
 
   const lastApplied = useAppSelector(state => {
     return {
-      amount: state.settings.betterEtoroUIConfig.executionAmountLast,
-      lever: state.settings.betterEtoroUIConfig.executionLeverLast,
+      amount: state.settings.executionAmountLast,
+      lever: state.settings.executionLeverLast,
     }
   })
 

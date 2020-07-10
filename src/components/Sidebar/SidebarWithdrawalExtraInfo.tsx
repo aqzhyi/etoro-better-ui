@@ -5,12 +5,10 @@ import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 
 const SidebarWithdrawalExtraInfo = () => {
-  const selected = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.selectedExchange,
-  )
+  const selected = useAppSelector(state => state.settings.selectedExchange)
   const exchanges = {
-    NTD: useAppSelector(state => state.settings.betterEtoroUIConfig.NTD),
-    MYR: useAppSelector(state => state.settings.betterEtoroUIConfig.MYR),
+    NTD: useAppSelector(state => state.settings.NTD),
+    MYR: useAppSelector(state => state.settings.MYR),
   }
 
   if (!selected || selected === 'HIDDEN') {

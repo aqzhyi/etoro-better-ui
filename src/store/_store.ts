@@ -21,19 +21,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import { registeredComponents } from '@/utils/registerReactComponent'
 
-const settings = createReducer<{
+const status = createReducer<{
   pingValue: number
-  statusInfoAggregate: Partial<StatusInfoAggregate>
-  betterEtoroUISettingsDialog: boolean
-  betterEtoroUIConfig: BetterEtoroUIConfig
-  isMacroEnabled: boolean
+  statusCheckAggregate: Partial<StatusInfoAggregate>
 }>(
   {
     pingValue: 0,
-    statusInfoAggregate: {},
-    betterEtoroUISettingsDialog: false,
-    betterEtoroUIConfig: storage.findConfig(),
-    isMacroEnabled: storage.findConfig().executionMacroEnabled,
+    statusCheckAggregate: {},
   },
   builder =>
     builder
@@ -41,23 +35,31 @@ const settings = createReducer<{
         state.pingValue = action.payload
       })
       .addCase(fetchStatusInfoAggregate.fulfilled, (state, action) => {
-        state.statusInfoAggregate = action.payload
-      })
-      .addCase(fetchStatusInfoAggregate.pending, (state, action) => {
-        state.statusInfoAggregate = {}
-      })
-      .addCase(toggleSettingsDialog, (state, action) => {
-        state.betterEtoroUISettingsDialog = action.payload
-      })
-      .addCase(setBetterEtoroUIConfig, (state, action) => {
-        state.betterEtoroUIConfig = {
-          ...state.betterEtoroUIConfig,
-          ...action.payload,
-        }
+        state.statusCheckAggregate = action.payload
       }),
 )
 
-const rootReducers = combineReducers({ settings })
+const display = createReducer<{
+  betterEtoroUISettingsDialog: boolean
+}>({ betterEtoroUISettingsDialog: false }, builder =>
+  builder.addCase(toggleSettingsDialog, (state, action) => {
+    state.betterEtoroUISettingsDialog = action.payload
+  }),
+)
+
+const settings = createReducer<BetterEtoroUIConfig>(
+  { ...storage.findConfig() },
+  builder =>
+    builder.addCase(setBetterEtoroUIConfig, (state, action) => {
+      return { ...state, ...action.payload }
+    }),
+)
+
+const rootReducers = combineReducers({
+  display,
+  settings,
+  status,
+})
 
 const store = configureStore({
   reducer: rootReducers,

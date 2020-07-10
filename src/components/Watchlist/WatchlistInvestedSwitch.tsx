@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from '@/store/_store'
 export const WatchlistInvestedSwitch = () => {
   const dispatch = useAppDispatch()
   const shouldShowInvested = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.showInvested,
+    state => state.settings.showInvested,
   )
 
   return (

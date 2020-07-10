@@ -13,8 +13,7 @@ import { useMount } from 'react-use'
 const ExecutionDialogStopLossControls = () => {
   const dispatch = useAppDispatch()
   const enabled = useAppSelector(
-    state =>
-      state.settings.betterEtoroUIConfig.stopLossAndTakeProfitUseLastPercent,
+    state => state.settings.stopLossAndTakeProfitUseLastPercent,
   )
 
   if (!enabled) {
@@ -22,7 +21,7 @@ const ExecutionDialogStopLossControls = () => {
   }
 
   const lastPercent = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.stopLossLastPercent,
+    state => state.settings.stopLossLastPercent,
   )
 
   // recording your last percent on input which number you key in

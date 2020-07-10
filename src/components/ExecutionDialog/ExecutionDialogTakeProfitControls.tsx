@@ -14,8 +14,7 @@ import { debounce } from 'lodash'
 export const ExecutionDialogTakeProfitControls = () => {
   const dispatch = useAppDispatch()
   const enabled = useAppSelector(
-    state =>
-      state.settings.betterEtoroUIConfig.stopLossAndTakeProfitUseLastPercent,
+    state => state.settings.stopLossAndTakeProfitUseLastPercent,
   )
 
   if (!enabled) {
@@ -23,7 +22,7 @@ export const ExecutionDialogTakeProfitControls = () => {
   }
 
   const lastPercent = useAppSelector(
-    state => state.settings.betterEtoroUIConfig.takeProfitLastPercent,
+    state => state.settings.takeProfitLastPercent,
   )
 
   // recording your last percent on input which number you key in
