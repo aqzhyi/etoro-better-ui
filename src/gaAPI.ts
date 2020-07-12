@@ -6,6 +6,11 @@ import store from '@/store/_store'
  * e.g. {category}_{event}
  */
 export enum GaTargetEventId {
+  sidebar_extensionMenuItemClick,
+  watchlists_balanceLinkClick,
+  watchlists_portfolioLinkClick,
+  watchlists_filterByText,
+  watchlists_filterByTextClearClick,
   dialog_amountButtonsClick,
   dialog_buttonsArrangeClick,
   dialog_leverButtonsClick,
@@ -41,8 +46,8 @@ export const gaAPI = {
     const category = eventInfo[0]
     const action = eventInfo[1]
 
-    debugAPI.ga(
-      `category=${category}, action=${action}, label=${label || '__NONE__'}` +
+    debugAPI.ga.extend(category)(
+      `action=${action}, label=${label || '__NONE__'}` +
         `${enabled ? '' : ', function disabled, not send'}`,
     )
 

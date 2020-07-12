@@ -8,7 +8,8 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
-import { useMount } from 'react-use'
+import { useMount, useDebounce } from 'react-use'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
@@ -23,6 +24,16 @@ export const WatchlistHeader: React.FC = () => {
     angularAPI.toggleListInvested(shouldShowInvested)
   })
 
+  useDebounce(
+    () => {
+      if (filterText) {
+        gaAPI.sendEvent(GaTargetEventId.watchlists_filterByText)
+      }
+    },
+    1000,
+    [filterText],
+  )
+
   return (
     <Stack horizontal tokens={{ childrenGap: 8 }}>
       <Stack.Item>
@@ -32,6 +43,7 @@ export const WatchlistHeader: React.FC = () => {
             filterTextSet('')
             angularAPI.filterWatchlistByText('')
             angularAPI.toggleListInvested(shouldShowInvested)
+            gaAPI.sendEvent(GaTargetEventId.watchlists_filterByTextClearClick)
           }}
           allowDisabledFocus
         />

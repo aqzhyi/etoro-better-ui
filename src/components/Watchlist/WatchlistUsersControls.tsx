@@ -7,6 +7,7 @@ import { useAsyncFn } from 'react-use'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { getRandomString } from '@/utils/getRandomString'
 import { DefaultButton, Stack } from '@fluentui/react'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string
@@ -56,6 +57,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
         }}
         onClick={() => {
           equityQuery()
+          gaAPI.sendEvent(GaTargetEventId.watchlists_balanceLinkClick)
         }}
       >
         {equityState.value ? `${equityState.value}%` : i18n.餘額()}
@@ -63,7 +65,12 @@ export const WatchlistUsersControls: React.FunctionComponent<{
 
       {props.username && (
         <DefaultButton style={minimalStyle}>
-          <a href={`/people/${props.username.toLowerCase()}/portfolio`}>
+          <a
+            href={`/people/${props.username.toLowerCase()}/portfolio`}
+            onClick={() => {
+              gaAPI.sendEvent(GaTargetEventId.watchlists_portfolioLinkClick)
+            }}
+          >
             {i18n.投資組合()}
           </a>
         </DefaultButton>

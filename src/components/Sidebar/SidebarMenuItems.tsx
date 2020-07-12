@@ -7,6 +7,11 @@ import { RiskSpecification } from '@/components/RiskSpecification'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
+
+const sendEvent = (label: string) => {
+  gaAPI.sendEvent(GaTargetEventId.sidebar_extensionMenuItemClick, label)
+}
 
 export const SidebarMenuItems = () => {
   const display = useAppSelector(state => state.display)
@@ -39,6 +44,7 @@ export const SidebarMenuItems = () => {
         className='i-menu-link pointer'
         onClick={() => {
           dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
+          sendEvent('button_settings_dialog')
         }}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
@@ -50,6 +56,7 @@ export const SidebarMenuItems = () => {
         className='i-menu-link pointer'
         target='_blank'
         href='https://www.notion.so/hilezi/Donate-Me-ab484fc786bf44f8b19a017fdbe4a698'
+        onClick={sendEvent.bind(sendEvent, 'link_donate')}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite funds'></span>
         {i18n.幫助作者()}
@@ -60,6 +67,7 @@ export const SidebarMenuItems = () => {
         className='i-menu-link pointer'
         target='_blank'
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
+        onClick={sendEvent.bind(sendEvent, 'link_website')}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite news'></span>
         {i18n.腳本官網()}
@@ -70,6 +78,7 @@ export const SidebarMenuItems = () => {
         className='i-menu-link pointer'
         target='_blank'
         href='https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2'
+        onClick={sendEvent.bind(sendEvent, 'link_contact')}
       >
         <span {...attrsToAppend} className='i-menu-icon sprite help'></span>
         {i18n.聯絡作者()}
