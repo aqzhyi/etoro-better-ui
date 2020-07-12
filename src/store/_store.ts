@@ -61,7 +61,7 @@ const rootReducers = combineReducers({
   status,
 })
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducers,
   enhancers: [
     applyMiddleware(
@@ -85,9 +85,6 @@ const store = configureStore({
   ],
 })
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 unsafeWindow['__BETTER_ETORO_UI__'] = {
   registeredComponents,
   store,
