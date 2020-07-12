@@ -20,6 +20,18 @@ via telegram group https://t.me/etoro_better_ui
 
 via telegram personal https://t.me/whatisclown
 
+## Development
+
+`npm run dev`
+
+## Deploy & Release
+
+1. change version string in package.json
+2. `npm run build`
+3. `git release v1.0.0`
+4. [release](https://github.com/hilezir/etoro-better-ui/releases) on github
+5. release on [greasyfork.org](https://greasyfork.org/zh-TW/scripts/400518/)
+
 ## Donation
 
 > I'd appreciate any donation you could give me.
