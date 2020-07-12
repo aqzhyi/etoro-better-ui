@@ -54,19 +54,6 @@ export const SidebarSettingsDialog: React.FC = () => {
     >
       <Stack tokens={{ padding: 8, childrenGap: 16 }}>
         <Stack.Item>
-          <Toggle
-            label={i18n.設定允許使用谷歌分析()}
-            checked={configs.googleAnalyticsEnabled}
-            onChange={(event, checked) => {
-              dispatch(
-                setBetterEtoroUIConfig({
-                  googleAnalyticsEnabled: checked,
-                }),
-              )
-            }}
-          ></Toggle>
-        </Stack.Item>
-        <Stack.Item>
           <TextField
             label={i18n.下單巨集金額設定()}
             value={macroAmountInput}
@@ -308,6 +295,20 @@ export const SidebarSettingsDialog: React.FC = () => {
               ></DefaultButton>
             </Stack.Item>
           </Stack>
+        </Stack.Item>
+
+        <Stack.Item>
+          <Toggle
+            label={i18n.設定允許使用谷歌分析()}
+            checked={configs.googleAnalyticsEnabled}
+            onChange={(event, checked) => {
+              dispatch(
+                setBetterEtoroUIConfig({
+                  googleAnalyticsEnabled: checked,
+                }),
+              )
+            }}
+          ></Toggle>
         </Stack.Item>
       </Stack>
     </Dialog>

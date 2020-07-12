@@ -25,6 +25,8 @@ export enum GaTargetEventId {
 const GA_TRACKER_NAME = 'etoroBetterUi'
 const GA_UA_ID = 'UA-60395189-2'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export const gaAPI = {
   initialize() {
     debugAPI.ga('initializing...')
@@ -32,11 +34,7 @@ export const gaAPI = {
     ga('create', GA_UA_ID, 'auto', GA_TRACKER_NAME)
   },
   sendEvent(targetEventId: GaTargetEventId, label?: string, value?: number) {
-    const state = store.getState()
-
-    if (!state.settings.googleAnalyticsEnabled) {
-      return
-    }
+    const enabled = store.getState().settings.googleAnalyticsEnabled
 
     const eventInfo = GaTargetEventId[targetEventId].split('_')
 
@@ -44,8 +42,13 @@ export const gaAPI = {
     const action = eventInfo[1]
 
     debugAPI.ga(
-      `category=${category}, action=${action}, label=${label || '__NONE__'}`,
+      `category=${category}, action=${action}, label=${label || '__NONE__'}` +
+        `${enabled ? '' : ', function disabled, not send'}`,
     )
+
+    if (!enabled || !isProd) {
+      return
+    }
 
     ga(`${GA_TRACKER_NAME}.send`, 'event', category, action, label, value)
   },
