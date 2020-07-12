@@ -85,7 +85,7 @@ export const store = configureStore({
   ],
 })
 
-unsafeWindow['__BETTER_ETORO_UI__'] = {
+unsafeWindow.__BETTER_ETORO_UI__ = {
   registeredComponents,
   store,
 }
