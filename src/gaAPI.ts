@@ -1,9 +1,5 @@
-import ReactGA from 'react-ga'
 import { debugAPI } from '@/debugAPI'
 import store from '@/store/_store'
-
-// https://analytics.google.com/analytics/web/#/report-home/a60395189w239423479p223675747
-ReactGA.initialize('UA-60395189-2', { redactEmail: false })
 
 /**
  * naming rule
@@ -26,8 +22,16 @@ export enum GaTargetEventId {
   setting_TakeProfitAndStopLoseEnabledSet,
 }
 
+const GA_TRACKER_NAME = 'etoroBetterUi'
+const GA_UA_ID = 'UA-60395189-2'
+
 export const gaAPI = {
-  sendEvent(targetEventId: GaTargetEventId, label?: string) {
+  initialize() {
+    debugAPI.ga('initializing...')
+
+    ga('create', GA_UA_ID, 'auto', GA_TRACKER_NAME)
+  },
+  sendEvent(targetEventId: GaTargetEventId, label?: string, value?: number) {
     const state = store.getState()
 
     if (!state.settings.googleAnalyticsEnabled) {
@@ -43,10 +47,6 @@ export const gaAPI = {
       `category=${category}, action=${action}, label=${label || '__NONE__'}`,
     )
 
-    ReactGA.event({
-      category,
-      action,
-      label,
-    })
+    ga(`${GA_TRACKER_NAME}.send`, 'event', category, action, label, value)
   },
 }

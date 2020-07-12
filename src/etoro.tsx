@@ -21,6 +21,7 @@ import { registeredPortfolioHeaderExtraButtons } from '@/components/Portfolio/Po
 import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { registeredExecutionDialogTakeProfitControls } from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
 import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
+import { gaAPI } from '@/gaAPI'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -51,6 +52,13 @@ $('body').delegate(
 emitter.once(Events.ready).then(applyEventsObservers)
 emitter.once(Events.ready).then(function enableImmerES5() {
   enableES5()
+})
+
+/**
+ * Google Analytics
+ */
+emitter.once(Events.ready).then(function initializeGa() {
+  gaAPI.initialize()
 })
 
 /**
