@@ -8,8 +8,6 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
 
-const READY_FLAG = 'etoro-better-ui-sidebar-is-ready'
-
 export const SidebarMenuItems = () => {
   const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
@@ -25,7 +23,7 @@ export const SidebarMenuItems = () => {
   const attrsToAppend = { [dynamicStyleClassName]: '' }
 
   return (
-    <span className={READY_FLAG}>
+    <span>
       <div {...attrsToAppend} className='i-menu-sep'>
         <span>{i18n.腳本標題()}</span>
         <a
