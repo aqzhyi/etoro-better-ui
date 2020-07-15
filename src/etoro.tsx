@@ -21,7 +21,8 @@ import { registeredPortfolioHeaderExtraButtons } from '@/components/Portfolio/Po
 import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { registeredExecutionDialogTakeProfitControls } from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
 import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
-import { gaAPI } from '@/gaAPI'
+import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import packageJSON from '../package.json'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -41,6 +42,13 @@ $('body').delegate(
     emitter.emit(Events.ready)
   }, 1000),
 )
+
+emitter.once(Events.ready).then(function sendVersionToAnalytics() {
+  gaAPI.sendEvent(
+    GaTargetEventId.universal_bootstrapWithVersion,
+    `version=${packageJSON.version}`,
+  )
+})
 
 /**
  * 以事件驅動分別在各頁面中，渲染「本腳本」的各個部件到 etoro 頁面上

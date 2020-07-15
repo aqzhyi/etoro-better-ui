@@ -6,6 +6,7 @@ import store from '@/store/_store'
  * e.g. {category}_{event}
  */
 export enum GaTargetEventId {
+  universal_bootstrapWithVersion,
   sidebar_extensionMenuItemClick,
   watchlists_balanceLinkClick,
   watchlists_portfolioLinkClick,
