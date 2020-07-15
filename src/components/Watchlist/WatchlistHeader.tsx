@@ -72,12 +72,18 @@ export const WatchlistHeader: React.FC = () => {
             }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'escape') {
+                gaAPI.sendEvent(
+                  GaTargetEventId.watchlists_filterByTextEscapeKeyClick,
+                )
                 filterTextSet('')
                 angularAPI.filterWatchlistByText('')
                 angularAPI.toggleListInvested(shouldShowInvested)
               }
 
               if (event.key.toLowerCase() === 'enter') {
+                gaAPI.sendEvent(
+                  GaTargetEventId.watchlists_filterByTextEnterKeyClick,
+                )
                 $('[automation-id="buy-sell-button-container-buy"]:visible')
                   .eq(0)
                   .click()

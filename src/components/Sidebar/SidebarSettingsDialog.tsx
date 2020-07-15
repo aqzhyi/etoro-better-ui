@@ -97,7 +97,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   checked={configs.stopLossAndTakeProfitUseLastPercent}
                   onChange={(event, checked) => {
                     gaAPI.sendEvent(
-                      GaTargetEventId.setting_TakeProfitAndStopLoseEnabledSet,
+                      GaTargetEventId.setting_takeProfitAndStopLoseEnabledSet,
                       `enabled=${String(checked)}`,
                     )
                     dispatch(

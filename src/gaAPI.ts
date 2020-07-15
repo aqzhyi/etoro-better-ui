@@ -11,6 +11,8 @@ export enum GaTargetEventId {
   watchlists_portfolioLinkClick,
   watchlists_filterByText,
   watchlists_filterByTextClearClick,
+  watchlists_filterByTextEnterKeyClick,
+  watchlists_filterByTextEscapeKeyClick,
   dialog_amountButtonsClick,
   dialog_buttonsArrangeClick,
   dialog_leverButtonsClick,
@@ -24,7 +26,7 @@ export enum GaTargetEventId {
   setting_resetAllClick,
   setting_sameOrderEnabledSet,
   setting_tabToBuySellEnabledSet,
-  setting_TakeProfitAndStopLoseEnabledSet,
+  setting_takeProfitAndStopLoseEnabledSet,
 }
 
 const GA_TRACKER_NAME = 'etoroBetterUi'

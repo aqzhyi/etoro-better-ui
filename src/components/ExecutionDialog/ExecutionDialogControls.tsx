@@ -132,7 +132,10 @@ export const ExecutionDialogControls = () => {
                 <Stack.Item key={index}>
                   <PrimaryButton
                     onClick={() => {
-                      gaAPI.sendEvent(GaTargetEventId.dialog_amountButtonsClick)
+                      gaAPI.sendEvent(
+                        GaTargetEventId.dialog_amountButtonsClick,
+                        `amount=${value}`,
+                      )
                       toAmount(value)
                       dispatch(
                         setBetterEtoroUIConfig({ executionAmountLast: value }),
@@ -170,7 +173,10 @@ export const ExecutionDialogControls = () => {
                 <Stack.Item key={index}>
                   <PrimaryButton
                     onClick={() => {
-                      gaAPI.sendEvent(GaTargetEventId.dialog_leverButtonsClick)
+                      gaAPI.sendEvent(
+                        GaTargetEventId.dialog_leverButtonsClick,
+                        `lever=${value}`,
+                      )
                       toLever(value)
                       dispatch(
                         setBetterEtoroUIConfig({ executionLeverLast: value }),
