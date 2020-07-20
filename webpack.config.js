@@ -98,7 +98,7 @@ const configration = {
     ],
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({ analyzerPort: 8897 }),
     new CleanWebpackPlugin(),
     new Dotenv({
       defaults: false,
