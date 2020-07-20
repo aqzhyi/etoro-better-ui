@@ -1,6 +1,6 @@
 {
   "name": "etoro-better-ui",
-  "version": "0.25.3",
+  "version": "0.26.1-20200721",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,7 @@
     "prettier": "^2.0.5",
     "progress-bar-webpack-plugin": "^2.1.0",
     "scss-loader": "0.0.1",
-    "standard-version": "^8.0.0",
+    "standard-version": "^8.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.6",
@@ -70,7 +70,7 @@
     "immer": "^7.0.5",
     "jest": "^26.1.0",
     "libreact": "^2.13.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "p-wait-for": "^3.1.0",
     "query-string": "^6.13.1",
     "rc-tooltip": "^4.2.1",
