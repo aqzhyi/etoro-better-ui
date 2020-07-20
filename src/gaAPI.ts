@@ -1,5 +1,6 @@
 import { debugAPI } from '@/debugAPI'
 import store from '@/store/_store'
+import { angularAPI } from '@/angularAPI'
 
 /**
  * naming rule
@@ -43,10 +44,13 @@ export const gaAPI = {
   },
   sendEvent(targetEventId: GaTargetEventId, label?: string, value?: number) {
     const enabled = store.getState().settings.googleAnalyticsEnabled
+    const isDemo =
+      angularAPI.$rootScope.session.accountMode.toLowerCase() ===
+      'Demo'.toLowerCase()
 
     const eventInfo = GaTargetEventId[targetEventId].split('_')
 
-    const category = eventInfo[0]
+    const category = isDemo ? `demo.${eventInfo[0]}` : eventInfo[0]
     const action = eventInfo[1]
 
     debugAPI.ga.extend(category)(
