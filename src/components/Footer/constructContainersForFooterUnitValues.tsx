@@ -51,9 +51,11 @@ GM.addStyle(`
 
   .${CONTAINER_CLASS_NAME} {
     display: inline-block;
-    font-size: 12px;
+    font-size: 12pt;
     margin-left: 4px;
     opacity: 0.65;
+    border-left: 1px solid #b9b9b9;
+    padding-left: 4px;
   }
 
   @media (max-width:1200px) {
