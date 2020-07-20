@@ -115,9 +115,19 @@ function _applyEventsObservers() {
    *
    * useful in continuously status checking... etc.
    */
-  globalThis.setInterval(() => {
+  let onPingIntervalId: ReturnType<typeof globalThis.setInterval>
+  const onPingLastIntervalMS = store.getState().settings.intervalCheckingStatus
+  store.subscribe(() => {
+    const intervalMS = store.getState().settings.intervalCheckingStatus * 1000
+
+    if (intervalMS !== onPingLastIntervalMS) {
+      globalThis.clearInterval(onPingIntervalId)
+    }
+
+    onPingIntervalId = globalThis.setInterval(() => {
     emitter.emit(Events.onPing)
-  }, 5000)
+    }, intervalMS)
+  })
 
   debugAPI.universal('extension events get ready!')
 }

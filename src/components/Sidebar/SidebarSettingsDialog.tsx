@@ -14,6 +14,7 @@ import {
   Stack,
   TextField,
   Toggle,
+  Slider,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
 import React, { useEffect, createRef } from 'react'
@@ -78,6 +79,31 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
+          <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
+            <Stack.Item styles={{ root: { flex: 4 } }}>
+              <Slider
+                label={i18n.設定秒間隔讀取延遲及系統狀態()}
+                min={5}
+                max={60}
+                step={1}
+                defaultValue={configs.intervalCheckingStatus}
+                showValue
+                snapToStep
+                onChanged={(event, value) => {
+                  gaAPI.sendEvent(
+                    GaTargetEventId.setting_intervalCheckingStatus,
+                    `interval=${value}`,
+                  )
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      intervalCheckingStatus: value,
+                    }),
+                  )
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <Label>{i18n.使鎖定下單重複一致之說明()}</Label>

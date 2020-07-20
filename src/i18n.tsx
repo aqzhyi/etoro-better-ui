@@ -2,6 +2,8 @@ import * as React from 'react'
 import { TooltipHighlightText } from '@/components/TooltipHighlightText'
 
 const zh = {
+  設定秒間隔讀取延遲及系統狀態: () =>
+    `在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能`,
   設定允許使用谷歌分析: () =>
     `允許 etoro-better-ui 能夠使用並分析，介面的操作情況 (這個功能不會收集您的隱私資料)`,
   錯誤程式渲染時發生錯誤: (error: Error) => <span>錯誤：{error.message}</span>,
@@ -103,6 +105,8 @@ const zh = {
 }
 
 const en: typeof zh = {
+  設定秒間隔讀取延遲及系統狀態: () =>
+    `The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.`,
   設定允許使用谷歌分析: () =>
     `Allow etoro-better-ui can use and analyze data of user-interface (it's doesn't collect your privacy data)`,
   錯誤程式渲染時發生錯誤: (error: Error) => <span>ERROR: {error.message}</span>,

@@ -20,6 +20,7 @@ export enum GaTargetEventId {
   dialog_leverButtonsClick,
   keyboard_closeDialog,
   keyboard_switchBuySell,
+  setting_intervalCheckingStatus,
   setting_amountButtonsSet,
   setting_compactEnabledSet,
   setting_currencyUseSet,

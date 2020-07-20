@@ -5,6 +5,13 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  /**
+   * The second's interval expected used to checking delay ms and the
+   * Manual trading working status which fetch from etoro status site.
+   *
+   * Used in Events.onPing
+   */
+  intervalCheckingStatus: number
   googleAnalyticsEnabled: boolean
   stopLossAndTakeProfitUseLastPercent: boolean
   stopLossLastPercent: number
@@ -30,6 +37,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  intervalCheckingStatus: 15,
   googleAnalyticsEnabled: true,
   stopLossAndTakeProfitUseLastPercent: false,
   stopLossLastPercent: 50,
