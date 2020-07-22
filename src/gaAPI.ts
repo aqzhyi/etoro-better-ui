@@ -51,15 +51,15 @@ export const gaAPI = {
 
     const eventInfo = GaTargetEventId[targetEventId].split('_')
 
-    const category = isDemo ? `demo.${eventInfo[0]}` : eventInfo[0]
+    const category = eventInfo[0]
     const action = eventInfo[1]
 
     debugAPI.ga.extend(category)(
       `action=${action}, label=${label || '__NONE__'}` +
-        `${enabled ? '' : ', function disabled, not send'}`,
+        `${enabled && !isDemo ? '' : ', function disabled/demo, not send'}`,
     )
 
-    if (!enabled || !isProd) {
+    if (!enabled || !isProd || isDemo) {
       return
     }
 
