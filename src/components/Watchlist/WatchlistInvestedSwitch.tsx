@@ -4,7 +4,7 @@ import { i18n } from '@/i18n'
 import { angularAPI } from '@/angularAPI'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 
 export const WatchlistInvestedSwitch = () => {
   const dispatch = useAppDispatch()
@@ -23,7 +23,7 @@ export const WatchlistInvestedSwitch = () => {
         angularAPI.toggleListInvested(!shouldShowInvested)
 
         gaAPI.sendEvent(
-          GaTargetEventId.setting_investedEnabledSet,
+          GaEventId.setting_investedEnabledSet,
           `onOff=${String(enabled)}`,
         )
 

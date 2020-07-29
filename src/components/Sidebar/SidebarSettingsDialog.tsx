@@ -22,7 +22,7 @@ import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactS
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 import Tooltip from 'rc-tooltip'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 import { stringify } from 'query-string'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
@@ -91,7 +91,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                 snapToStep
                 onChanged={(event, value) => {
                   gaAPI.sendEvent(
-                    GaTargetEventId.setting_intervalCheckingStatus,
+                    GaEventId.setting_intervalCheckingStatus,
                     `interval=${value}`,
                   )
                   dispatch(
@@ -123,7 +123,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   checked={configs.stopLossAndTakeProfitUseLastPercent}
                   onChange={(event, checked) => {
                     gaAPI.sendEvent(
-                      GaTargetEventId.setting_takeProfitAndStopLoseEnabledSet,
+                      GaEventId.setting_takeProfitAndStopLoseEnabledSet,
                       `enabled=${String(checked)}`,
                     )
                     dispatch(
@@ -160,7 +160,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                 onChange={async (event, option) => {
                   const onOff = option?.key === 'ON' ? true : false
                   gaAPI.sendEvent(
-                    GaTargetEventId.setting_tabToBuySellEnabledSet,
+                    GaEventId.setting_tabToBuySellEnabledSet,
                     `onOff=${String(onOff)}`,
                   )
                   dispatch(
@@ -204,7 +204,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   const yourEnabled = option?.key === 'ON' ? true : false
 
                   gaAPI.sendEvent(
-                    GaTargetEventId.setting_dialogMacroEnabledSet,
+                    GaEventId.setting_dialogMacroEnabledSet,
                     `onOff=${String(yourEnabled)}`,
                   )
 
@@ -265,7 +265,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                     'NTD') as BetterEtoroUIConfig['selectedExchange']
 
                   gaAPI.sendEvent(
-                    GaTargetEventId.setting_currencyUseSet,
+                    GaEventId.setting_currencyUseSet,
                     `value=${youSelected}`,
                   )
 
@@ -313,7 +313,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   const yes = confirm(`${i18n.設定重置所有設定()}, YES?`)
 
                   if (yes) {
-                    gaAPI.sendEvent(GaTargetEventId.setting_resetAllClick)
+                    gaAPI.sendEvent(GaEventId.setting_resetAllClick)
 
                     dispatch(resetBetterEtoroUIConfig())
                   }

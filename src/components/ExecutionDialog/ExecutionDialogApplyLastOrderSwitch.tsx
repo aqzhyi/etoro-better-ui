@@ -3,7 +3,7 @@ import { Toggle } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 
 export const ExecutionDialogApplyLastOrderSwitch = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +21,7 @@ export const ExecutionDialogApplyLastOrderSwitch = () => {
       }
       onChange={(event, checked) => {
         gaAPI.sendEvent(
-          GaTargetEventId.setting_sameOrderEnabledSet,
+          GaEventId.setting_sameOrderEnabledSet,
           `checked=${String(checked)}`,
         )
         dispatch(

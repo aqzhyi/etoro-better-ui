@@ -21,7 +21,7 @@ import { registeredPortfolioHeaderExtraButtons } from '@/components/Portfolio/Po
 import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
 import { registeredExecutionDialogTakeProfitControls } from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
 import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 import packageJSON from '../package.json'
 
 type $ = JQueryStatic
@@ -45,7 +45,7 @@ $('body').delegate(
 
 emitter.once(Events.ready).then(function sendVersionToAnalytics() {
   gaAPI.sendEvent(
-    GaTargetEventId.universal_bootstrapWithVersion,
+    GaEventId.universal_bootstrapWithVersion,
     `version=${packageJSON.version}`,
   )
 })

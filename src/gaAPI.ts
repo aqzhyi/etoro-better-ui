@@ -6,7 +6,7 @@ import { angularAPI } from '@/angularAPI'
  * naming rule
  * e.g. {category}_{event}
  */
-export enum GaTargetEventId {
+export enum GaEventId {
   universal_bootstrapWithVersion,
   sidebar_extensionMenuItemClick,
   watchlists_balanceLinkClick,
@@ -43,13 +43,13 @@ export const gaAPI = {
 
     ga('create', GA_UA_ID, 'auto', GA_TRACKER_NAME)
   },
-  sendEvent(targetEventId: GaTargetEventId, label?: string, value?: number) {
+  sendEvent(targetEventId: GaEventId, label?: string, value?: number) {
     const enabled = store.getState().settings.googleAnalyticsEnabled
     const isDemo =
       angularAPI.$rootScope.session.accountMode.toLowerCase() ===
       'Demo'.toLowerCase()
 
-    const eventInfo = GaTargetEventId[targetEventId].split('_')
+    const eventInfo = GaEventId[targetEventId].split('_')
 
     const category = eventInfo[0]
     const action = eventInfo[1]

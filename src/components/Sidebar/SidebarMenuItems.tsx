@@ -7,10 +7,10 @@ import { RiskSpecification } from '@/components/RiskSpecification'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 
 const sendEvent = (label: string) => {
-  gaAPI.sendEvent(GaTargetEventId.sidebar_extensionMenuItemClick, label)
+  gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
 }
 
 export const SidebarMenuItems = () => {

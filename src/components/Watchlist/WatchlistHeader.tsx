@@ -9,7 +9,7 @@ import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useMount, useDebounce } from 'react-use'
-import { gaAPI, GaTargetEventId } from '@/gaAPI'
+import { gaAPI, GaEventId } from '@/gaAPI'
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
@@ -27,7 +27,7 @@ export const WatchlistHeader: React.FC = () => {
   useDebounce(
     () => {
       if (filterText) {
-        gaAPI.sendEvent(GaTargetEventId.watchlists_filterByText)
+        gaAPI.sendEvent(GaEventId.watchlists_filterByText)
       }
     },
     1000,
@@ -43,7 +43,7 @@ export const WatchlistHeader: React.FC = () => {
             filterTextSet('')
             angularAPI.filterWatchlistByText('')
             angularAPI.toggleListInvested(shouldShowInvested)
-            gaAPI.sendEvent(GaTargetEventId.watchlists_filterByTextClearClick)
+            gaAPI.sendEvent(GaEventId.watchlists_filterByTextClearClick)
           }}
           allowDisabledFocus
         />
@@ -72,18 +72,14 @@ export const WatchlistHeader: React.FC = () => {
             }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'escape') {
-                gaAPI.sendEvent(
-                  GaTargetEventId.watchlists_filterByTextEscapeKeyClick,
-                )
+                gaAPI.sendEvent(GaEventId.watchlists_filterByTextEscapeKeyClick)
                 filterTextSet('')
                 angularAPI.filterWatchlistByText('')
                 angularAPI.toggleListInvested(shouldShowInvested)
               }
 
               if (event.key.toLowerCase() === 'enter') {
-                gaAPI.sendEvent(
-                  GaTargetEventId.watchlists_filterByTextEnterKeyClick,
-                )
+                gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
                 $('[automation-id="buy-sell-button-container-buy"]:visible')
                   .eq(0)
                   .click()
