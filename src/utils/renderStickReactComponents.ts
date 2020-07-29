@@ -14,6 +14,7 @@ import '@/components/Watchlist/WatchlistHeader'
 import '@/components/Watchlist/WatchlistUsersControls'
 import '@/components/Watchlist/WatchlistFindAndRegister'
 import '@/components/UniversalControl/UniversalControlKeyObserver'
+import '@/components/Sidebar/SidebarOrderLink'
 import { registeredComponents } from '@/utils/registerReactComponent'
 
 export const renderStickReactComponents = () => {

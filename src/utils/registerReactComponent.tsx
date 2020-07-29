@@ -15,7 +15,25 @@ export const registeredComponents = new Map<
 >()
 
 /**
- * Aims to stick React-Components to Angular UIs, automatically
+  Aims to stick React-Components to Angular UIs, automatically
+
+  ❗️IMPORTANT: after you call this function, also you should import it on file at @utils/renderStickReactComponents
+
+  ```ts
+    // @/components/MyComponent.tsx
+    registerReactComponent({
+      component: <MyComponent />,
+      containerId: MyComponent.name,
+      containerConstructor: componentContainer => {
+        $('.i-menu-link[href^="/feed"]').prepend(componentContainer)
+      },
+    })
+  ```
+
+  ```ts
+    // @/utils/renderStickReactComponents.ts
+    import '@/components/MyComponent'
+  ```
  */
 export const registerReactComponent = <
   Component extends React.FC<Parameters<Component>[0]>

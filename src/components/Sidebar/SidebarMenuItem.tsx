@@ -22,8 +22,8 @@ export const SidebarMenuItem: React.FC<{
   return (
     <a
       {...{ [sidebarDynamicNgContent]: '' }}
-      className='i-menu-link pointer'
       {...props.aProps}
+      className={`i-menu-link pointer ${props.aProps?.className || ''}`}
     >
       <span
         {...{ [sidebarDynamicNgContent]: '' }}

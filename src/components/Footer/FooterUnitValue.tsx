@@ -5,7 +5,7 @@ import { angularAPI } from '@/angularAPI'
 import { useInterval, useMount } from 'react-use'
 
 export const FooterUnitValue: React.FC<{
-  type: keyof typeof angularAPI.$rootScope.session.user.portfolio
+  type: 'availibleToTrade' | 'equity' | 'totalProfit' | 'totalInvestedAmount'
 }> = props => {
   const selected = useAppSelector(state => state.settings.selectedExchange)
   const exchanges = {

@@ -11,6 +11,7 @@ const zh = {
     `每次下單視窗開啟時，套用上一次的止損趴數（上一次 ${lastPercent}%）`,
   下單框套用上次止盈趴數之說明: (lastPercent: number) =>
     `每次下單視窗開啟時，套用上一次的止盈趴數（上一次 ${lastPercent}%）`,
+  左側欄我的掛單: () => `我的掛單`,
   左側欄出金按鈕: (value: number) => `（${value}）銀行買入`,
   清除篩選文字: () => '清除輸入',
   幫助作者: () => '贊助作者',
@@ -114,6 +115,7 @@ const en: typeof zh = {
     `When Execution-Dialog on render, it's applying the last percent of Stop-Loss (will apply ${lastPercent}%)`,
   下單框套用上次止盈趴數之說明: (lastPercent: number) =>
     `When Execution-Dialog on render, it's applying the last percent of Take-Profit (will apply ${lastPercent}%)`,
+  左側欄我的掛單: () => `Pending Orders`,
   左側欄出金按鈕: (value: number) => `（${value}）Buy`,
   清除篩選文字: () => 'Remove Text',
   幫助作者: () => 'Donate',

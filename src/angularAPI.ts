@@ -2,6 +2,25 @@ import type { IRootScopeService, ILocationService } from 'angular'
 import store from '@/store/_store'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
+interface Instrument {
+  DisplayName: string
+  fullName: string
+  shortName: string
+  ExchangeID: number
+  InstrumentID: number
+  Name: string
+  Leverage1MaintenanceMargin: number
+  /** Avatars URLs */
+  Avatars: {
+    '35x35': string
+    '50x50': string
+    '80x80': string
+    '90x90': string
+    '150x150': string
+    default: string
+  }
+}
+
 interface EtoroRootScope extends IRootScopeService {
   session: {
     locale: 'en-gb' | 'zh-tw' | 'zh-cn'
@@ -16,6 +35,30 @@ interface EtoroRootScope extends IRootScopeService {
         totalProfit: number
         /** 總配額 */
         totalInvestedAmount: number
+        groups: any[]
+        /** 掛單倉位 */
+        orders: {
+          Instrument: Instrument
+          CurrentRate: number
+          Leverage: number
+        }[]
+        /** 手動開倉倉位 */
+        manualPositions: {
+          OpenDateTime: Date
+          OpenRate: number
+          Profit: number
+          Instrument: Instrument
+          /** 淨值 */
+          Equity: number
+          /** 當前價格 */
+          CurrentRate: number
+          /** 投資 */
+          Amount: number
+          /** 初始投資金額 */
+          InitialAmountInDollars: number
+          /** 初始投資單位 */
+          InitialUnits: number
+        }[]
       }
     }
   }
