@@ -3,11 +3,11 @@ import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialo
 import { i18n } from '@/i18n'
 import React from 'react'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { RiskSpecification } from '@/components/RiskSpecification'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -39,54 +39,51 @@ export const SidebarMenuItems = () => {
         </a>
       </div>
 
-      <a
-        {...attrsToAppend}
-        className='i-menu-link pointer'
-        onClick={() => {
-          dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
-          sendEvent('button_settings_dialog')
+      <SidebarMenuItem
+        iconName='settings'
+        aProps={{
+          onClick: () => {
+            dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
+            sendEvent('button_settings_dialog')
+          },
         }}
       >
-        <span {...attrsToAppend} className='i-menu-icon sprite settings'></span>
         {i18n.設定()}
-      </a>
+      </SidebarMenuItem>
 
-      <a
-        {...attrsToAppend}
-        className='i-menu-link pointer'
-        target='_blank'
-        href='https://www.notion.so/hilezi/Donate-Me-ab484fc786bf44f8b19a017fdbe4a698'
-        onClick={sendEvent.bind(sendEvent, 'link_donate')}
+      <SidebarMenuItem
+        iconName='funds'
+        aProps={{
+          target: '_blank',
+          href:
+            'https://www.notion.so/hilezi/Donate-Me-ab484fc786bf44f8b19a017fdbe4a698',
+          onClick: sendEvent.bind(sendEvent, 'link_donate'),
+        }}
       >
-        <span {...attrsToAppend} className='i-menu-icon sprite funds'></span>
         {i18n.幫助作者()}
-      </a>
+      </SidebarMenuItem>
 
-      <a
-        {...attrsToAppend}
-        className='i-menu-link pointer'
-        target='_blank'
-        href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
-        onClick={sendEvent.bind(sendEvent, 'link_website')}
+      <SidebarMenuItem
+        iconName='news'
+        aProps={{
+          target: '_blank',
+          href: 'https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3',
+          onClick: sendEvent.bind(sendEvent, 'link_website'),
+        }}
       >
-        <span {...attrsToAppend} className='i-menu-icon sprite news'></span>
         {i18n.腳本官網()}
-      </a>
+      </SidebarMenuItem>
 
-      <a
-        {...attrsToAppend}
-        className='i-menu-link pointer'
-        target='_blank'
-        href='https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2'
-        onClick={sendEvent.bind(sendEvent, 'link_contact')}
+      <SidebarMenuItem
+        iconName='help'
+        aProps={{
+          target: '_blank',
+          href: 'https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2',
+          onClick: sendEvent.bind(sendEvent, 'link_contact'),
+        }}
       >
-        <span {...attrsToAppend} className='i-menu-icon sprite help'></span>
         {i18n.聯絡作者()}
-      </a>
-
-      <RiskSpecification aClassName={'i-menu-link'} attrs={attrsToAppend}>
-        <span {...attrsToAppend} className={'i-menu-icon sprite help'}></span>
-      </RiskSpecification>
+      </SidebarMenuItem>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>
     </span>

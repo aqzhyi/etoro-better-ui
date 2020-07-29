@@ -2,7 +2,6 @@ import { storage } from '../../storage'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { ProviderBy } from '@/components/ProviderBy'
-import { RiskSpecification } from '@/components/RiskSpecification'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
@@ -57,7 +56,12 @@ const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
     <span>
       {i18n.確保同意下單巨集風險(() => (
-        <RiskSpecification aStyle={{ color: 'blue' }} />
+        <a
+          target='_blank'
+          href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
+        >
+          🔗 🔎 🌐
+        </a>
       ))}
     </span>,
     {
