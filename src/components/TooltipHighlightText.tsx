@@ -7,7 +7,7 @@ export const TooltipHighlightText: React.FC = props => {
 
 GM.addStyle(`
   .${TooltipHighlightText.name} {
-    color: #5757d5;
+    color: #58b0c8;
     font-weight: bold;
   }
 `)
