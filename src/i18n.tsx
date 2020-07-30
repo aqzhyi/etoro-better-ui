@@ -13,7 +13,9 @@ const zh = {
   下單框套用上次止盈趴數之說明: (lastPercent: number) =>
     `每次下單視窗開啟時，套用上一次的止盈趴數（上一次 ${lastPercent}%）`,
   左側欄我的掛單: () => `我的掛單`,
-  左側欄出金按鈕: (value: number) => `（${value}）銀行買入`,
+  左側欄出金按鈕: (value: React.ReactNode) => (
+    <React.Fragment>（{value}）銀行買入</React.Fragment>
+  ),
   清除篩選文字: () => '清除輸入',
   幫助作者: () => '贊助作者',
   當前可用餘額: () => '可用餘額',
@@ -118,7 +120,9 @@ const en: typeof zh = {
   下單框套用上次止盈趴數之說明: (lastPercent: number) =>
     `When Execution-Dialog on render, it's applying the last percent of Take-Profit (will apply ${lastPercent}%)`,
   左側欄我的掛單: () => `Pending Orders`,
-  左側欄出金按鈕: (value: number) => `（${value}）Buy`,
+  左側欄出金按鈕: (value: React.ReactNode) => (
+    <React.Fragment>（{value}）Buy</React.Fragment>
+  ),
   清除篩選文字: () => 'Remove Text',
   幫助作者: () => 'Donate',
   當前可用餘額: () => 'Available Value',

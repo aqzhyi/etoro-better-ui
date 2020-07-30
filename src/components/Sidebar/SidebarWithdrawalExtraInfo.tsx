@@ -3,6 +3,7 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { useAppSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { GM } from '@/GM'
+import { ProfitText } from '@/components/ProfitText'
 
 const SidebarWithdrawalExtraInfo = () => {
   const selected = useAppSelector(state => state.settings.selectedExchange)
@@ -15,7 +16,7 @@ const SidebarWithdrawalExtraInfo = () => {
     return null
   }
 
-  return <span>{i18n.左側欄出金按鈕(exchanges[selected].buy)}</span>
+  return i18n.左側欄出金按鈕(<ProfitText profit={exchanges[selected].buy} />)
 }
 
 const { container } = registerReactComponent({
