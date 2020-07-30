@@ -2,10 +2,17 @@ import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import { useAppSelector } from '@/store/_store'
 import { ProgressIndicator, Spinner } from '@fluentui/react'
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import Tooltip from 'rc-tooltip'
 import { angularAPI } from '@/angularAPI'
+import { TooltipHighlightText } from '@/components/TooltipHighlightText'
+import { ProfitText } from '@/components/ProfitText'
+import { useInterval } from 'react-use'
+
+type Position = NonNullable<
+  typeof angularAPI.$rootScope.session.user.portfolio.manualPositions
+>[number]
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
@@ -32,6 +39,26 @@ export const ExecutionDialogStatusInfo = () => {
       <Spinner label='inferring...' labelPosition='right' />
     )
 
+  const [positions, positionsSetter] = useState<Position[]>([])
+
+  useInterval(() => {
+    const items = angularAPI.$rootScope.session.user.portfolio.manualPositions?.filter(
+      position =>
+        position.Instrument.DisplayName ===
+        angularAPI.executionDialogScope?.controller.instrument.DisplayName,
+    )
+
+    positionsSetter(() => [...(items || [])])
+  }, 1000)
+
+  const totalProfit = useMemo(() => {
+    let totalProfit = 0
+    positions?.forEach(data => {
+      totalProfit = totalProfit + data.Profit
+    })
+    return totalProfit
+  }, [positions])
+
   /** from etoro html element */
   const canUseValue =
     angularAPI.$rootScope.session.user.portfolio.availibleToTrade
@@ -39,6 +66,28 @@ export const ExecutionDialogStatusInfo = () => {
 
   return (
     <React.Fragment>
+      <Tooltip
+        placement='top'
+        overlay={() => <span>{i18n.下單框倉位合計利潤()}</span>}
+      >
+        <span className='indicator-callout-box'>
+          <ProgressIndicator
+            styles={{
+              itemDescription: { textAlign: 'center' },
+              itemName: { textAlign: 'center' },
+            }}
+            label={
+              <span>
+                <ProfitText profit={totalProfit} /> @{' '}
+                <TooltipHighlightText>
+                  {positions?.length || 0}
+                </TooltipHighlightText>
+              </span>
+            }
+          />
+        </span>
+      </Tooltip>
+
       <Tooltip
         placement='top'
         overlay={() => (

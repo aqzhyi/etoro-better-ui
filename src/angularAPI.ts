@@ -43,7 +43,7 @@ interface EtoroRootScope extends IRootScopeService {
           Leverage: number
         }[]
         /** 手動開倉倉位 */
-        manualPositions: {
+        manualPositions?: {
           OpenDateTime: Date
           OpenRate: number
           Profit: number
@@ -78,6 +78,9 @@ interface EtoroRootScope extends IRootScopeService {
 }
 
 interface ExecutionDialogScope extends IRootScopeService {
+  controller: {
+    instrument: Instrument
+  }
   model: {
     stopLoss: {
       /** Take how much amount of Loss dollar */
