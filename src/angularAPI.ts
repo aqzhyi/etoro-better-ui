@@ -2,7 +2,10 @@ import type { IRootScopeService, ILocationService } from 'angular'
 import store from '@/store/_store'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
-interface Instrument {
+/**
+ * The Stocks, ETFs, and or something else objectives, and their type definitions
+ */
+export interface Instrument {
   DisplayName: string
   fullName: string
   shortName: string
@@ -21,6 +24,18 @@ interface Instrument {
   }
 }
 
+/**
+ * The Pending Orders of Stocks, ETFs, and or something else objectives, and their type definitions
+ */
+export interface PendingOrder {
+  Amount: number
+  Instrument: Instrument
+  CurrentRate: number
+  Leverage: number
+  /** e.g. `'order-234700888'` */
+  UniqueId: string
+}
+
 interface EtoroRootScope extends IRootScopeService {
   session: {
     locale: 'en-gb' | 'zh-tw' | 'zh-cn'
@@ -37,11 +52,7 @@ interface EtoroRootScope extends IRootScopeService {
         totalInvestedAmount: number
         groups: any[]
         /** 掛單倉位 */
-        orders: {
-          Instrument: Instrument
-          CurrentRate: number
-          Leverage: number
-        }[]
+        orders: PendingOrder[]
         /** 手動開倉倉位 */
         manualPositions?: {
           OpenDateTime: Date

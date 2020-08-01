@@ -9,6 +9,7 @@ import { angularAPI } from '@/angularAPI'
 export enum GaEventId {
   universal_bootstrapWithVersion,
   sidebar_extensionMenuItemClick,
+  sidebar_pendingOrdersLinkClick,
   watchlists_balanceLinkClick,
   watchlists_portfolioLinkClick,
   watchlists_filterByText,
