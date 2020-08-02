@@ -91,7 +91,10 @@ const zh = {
   universal_compact_brief: () =>
     '不顯示關注列表中的無用介面（當前以開發者視角主觀認定）',
   universal_compact_text: () => '緊湊',
-  universal_doAvoid_text: () => '動作沒有執行，可能介面不存在，或發生錯誤',
+  universal_doAvoid_text: (actionName: string) =>
+    `🔴 ${
+      actionName ? `「${actionName}」` : ''
+    }動作沒有執行，可能介面不存在，或發生錯誤`,
   universal_doChanged_text: (PostComponent: React.FC) => {
     return (
       <span>
@@ -217,8 +220,10 @@ const en: typeof zh = {
   universal_compact_brief: () =>
     'Do NOT display unnecessary UIs (proposed by author)',
   universal_compact_text: () => 'compact',
-  universal_doAvoid_text: () =>
-    'No Action Execution, Target not found or maybe somethings broken.',
+  universal_doAvoid_text: (actionName: string) =>
+    `🔴 ${
+      actionName ? `「${actionName}」` : ''
+    }No Action Execution, Target not found, or maybe something broken.`,
   universal_doChanged_text: (PostComponent: React.FC) => {
     return (
       <span>

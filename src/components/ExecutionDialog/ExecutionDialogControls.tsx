@@ -17,15 +17,24 @@ import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialo
 import { gaAPI, GaEventId } from '@/gaAPI'
 
 const toAmount = (value: number) => {
-  $('[data-etoro-automation-id="execution-button-switch-to-amount"]').click()
+  $('[data-etoro-automation-id="execution-button-switch-to-amount"]').trigger(
+    'click',
+  )
 
   const inputEl = $(
     '[data-etoro-automation-id="execution-amount-input-section"]',
   ).find('input')
 
-  inputEl.val(`${value}`)
-  inputEl.change()
-  inputEl.blur()
+  if (inputEl.length) {
+    inputEl.val(`${value}`)
+    inputEl.trigger('change')
+    inputEl.trigger('blur')
+  } else {
+    toast.warn(
+      <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
+      { hideAfter: 8 },
+    )
+  }
 }
 
 const toLever = (value: number) => {
@@ -44,11 +53,16 @@ const toLever = (value: number) => {
 
   if (isTarget) {
     // tab 先按下後，等到 ng-if 使元素出現，在 select 按下
-    targetTabEl.click()
+    targetTabEl.trigger('click')
 
-    $(`.risk-itemlevel:contains(" x${value} ")`).click()
+    globalThis.setTimeout(() => {
+      $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
+    }, 50)
   } else {
-    toast.info(<div>{i18n.universal_doAvoid_text()}</div>)
+    toast.warn(
+      <div>{i18n.universal_doAvoid_text(i18n.universal_lever_text())}</div>,
+      { hideAfter: 8 },
+    )
   }
 }
 
