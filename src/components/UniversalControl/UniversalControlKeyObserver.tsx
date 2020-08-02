@@ -17,7 +17,11 @@ export const UniversalControlKeyObserver = () => {
     'Tab',
     event => {
       const targetElement = $('.execution-head-buttons')
+      const isInputEditing =
+        $('input').filter((index, element) => $(element).is(':focus')).length >
+        0
 
+      if (isInputEditing) return
       if (!targetElement.length) return
       if (!tabBuySellEnabled) return
 
