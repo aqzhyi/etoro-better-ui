@@ -33,8 +33,12 @@ const zh = {
     '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次點擊巨集按鈕為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
   dialog_fixedNextOrderValueNot_text: () => '金額槓桿鎖定?',
-  dialog_keyboardTabToBuySell_brief: () =>
-    '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
+  dialog_keyboardTabToBuySell_brief: () => (
+    <React.Fragment>
+      在下單視窗使用 <TooltipHighlightText>TAB 鍵</TooltipHighlightText>{' '}
+      來切換「賣出」或「買入」
+    </React.Fragment>
+  ),
   exchange_usedSetup_brief: (selectedText: string) =>
     `設定幣別（當前：${selectedText}）`,
   filterText_clearText_text: () => '清除輸入',
@@ -152,11 +156,15 @@ const en: typeof zh = {
   dialog_enabled_brief: () =>
     `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
   dialog_fixedNextOrderValue_brief: () =>
-    `Always use the last Amount and Lever, which previously you click value of buttons.`,
-  dialog_fixedNextOrderValue_text: () => 'Same Order',
-  dialog_fixedNextOrderValueNot_text: () => 'Same Order?',
-  dialog_keyboardTabToBuySell_brief: () =>
-    'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
+    `Always use the last Amount and Lever, which previously value you click on buttons.`,
+  dialog_fixedNextOrderValue_text: () => 'Amount/Lever Fixed',
+  dialog_fixedNextOrderValueNot_text: () => 'Amount/Lever Fixed?',
+  dialog_keyboardTabToBuySell_brief: () => (
+    <React.Fragment>
+      Use Keyboard the <TooltipHighlightText>TAB key</TooltipHighlightText> to
+      switch BUY or SELL, effect on Execution Dialog open.
+    </React.Fragment>
+  ),
   exchange_usedSetup_brief: (selectedText: string) =>
     `Currency（Now：${selectedText}）`,
   filterText_clearText_text: () => 'Remove Text',
