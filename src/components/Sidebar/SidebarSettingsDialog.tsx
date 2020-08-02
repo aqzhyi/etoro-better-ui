@@ -141,8 +141,8 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
+              <Label>{i18n.dialog_keyboardTabToBuySell_brief()}</Label>
               <ChoiceGroup
-                label={i18n.dialog_keyboardTabToBuySell_brief()}
                 options={[
                   {
                     key: 'ON',
