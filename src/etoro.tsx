@@ -33,12 +33,12 @@ debugAPI.universal('套件正在努力加載...', process.env.NODE_ENV)
  * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
  * 因為才能夠開始將「本腳本」部件透過 jQuery 掛載上去
  */
-$('body').delegate(
-  '.main-app-view',
+$('body').on(
   'mouseover.bootstrap',
+  '.main-app-view',
   throttle(() => {
     debugAPI.universal('套件加載完成')
-    $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
+    $('body').off('mouseover.bootstrap')
     emitter.emit(Events.ready)
   }, 1000),
 )

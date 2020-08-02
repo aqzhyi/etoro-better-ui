@@ -12,7 +12,7 @@ let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
 >
 
 function _applyEventsObservers() {
-  $('body').undelegate('.main-app-view', 'mouseover.bootstrap')
+  $('body').off('mouseover.bootstrap')
 
   initializeIcons()
 
@@ -55,9 +55,9 @@ function _applyEventsObservers() {
    *
    * balance with performance (via throttle)
    */
-  $('body').delegate(
-    '.main-app-view',
+  $('body').on(
     'mouseover',
+    '.main-app-view',
     throttle(event => {
       emitter.emit(Events.onMountUIs)
     }, 3000),
@@ -68,9 +68,9 @@ function _applyEventsObservers() {
    *
    * balance with performance (via throttle)
    */
-  $('body').delegate(
-    '.execution-main',
+  $('body').on(
     'mouseover',
+    '.execution-main',
     throttle(event => {
       const dialogComponentsNotReady = [
         $(`#${registeredExecutionDialogControls.container.id}`).length > 0,
@@ -91,9 +91,9 @@ function _applyEventsObservers() {
    *
    * balance with performance (via throttle)
    */
-  $('body').delegate(
-    `[data-etoro-automation-id="close-all-positions-window"]`,
+  $('body').on(
     'mouseover',
+    `[data-etoro-automation-id="close-all-positions-window"]`,
     throttle(() => {
       emitter.emit(Events.onCloseAllPositionsDialogHover)
     }, 1000),
@@ -102,9 +102,9 @@ function _applyEventsObservers() {
   /**
    * "More Button"(s) on hover
    */
-  $('body').delegate(
-    '.more-info-button',
+  $('body').on(
     'mouseover',
+    '.more-info-button',
     throttle(() => {
       emitter.emit(Events.onMoreInfoButtonHover)
     }, 50),
@@ -125,7 +125,7 @@ function _applyEventsObservers() {
     }
 
     onPingIntervalId = globalThis.setInterval(() => {
-    emitter.emit(Events.onPing)
+      emitter.emit(Events.onPing)
     }, intervalMS)
   })
 
