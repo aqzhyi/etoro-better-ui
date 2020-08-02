@@ -36,6 +36,28 @@ export interface PendingOrder {
   UniqueId: string
 }
 
+/**
+ * All of Positions which you had the ordered of Stocks, ETFs, and or something else objectives, and their type definitions
+ */
+export interface Position {
+  Amount: number
+  /** 倉位淨值 */
+  Equity: number
+  /** 初始投資金額 */
+  InitialAmountInDollars: number
+  /** 初始投資單位 */
+  InitialUnits: number
+  IsBuy: boolean
+  PositionID: number
+  OpenRate: number
+  Profit: number
+  Leverage: number
+  Instrument: Instrument
+  /** 當前價格 */
+  CurrentRate: number
+  OpenDateTime: Date
+}
+
 interface EtoroRootScope extends IRootScopeService {
   session: {
     locale: 'en-gb' | 'zh-tw' | 'zh-cn'
@@ -50,26 +72,30 @@ interface EtoroRootScope extends IRootScopeService {
         totalProfit: number
         /** 總配額 */
         totalInvestedAmount: number
-        groups: any[]
+        /** 所有開倉位（按 Instrument 分組） */
+        groups?: {
+          /** 標的名稱 */
+          GroupName: string
+          Amount: number
+          /** 標的圖示 */
+          Avatar: string
+          AverageOpenRate: number
+          /** 當前淨值 */
+          Equity: number
+          FirstOpenDate: Date
+          InstrumentID: number
+          Instrument: Instrument
+          /** e.g. `-8.578` 代表全部倉位損益 -0.86% */
+          TotalGain: number
+          /** e.g. `-10.458636130000016` 代表全部倉位損益 -10.45$USD */
+          TotalProfit: number
+          /** 當前倉位 */
+          Positions: Position[]
+        }[]
         /** 掛單倉位 */
         orders: PendingOrder[]
         /** 手動開倉倉位 */
-        manualPositions?: {
-          OpenDateTime: Date
-          OpenRate: number
-          Profit: number
-          Instrument: Instrument
-          /** 淨值 */
-          Equity: number
-          /** 當前價格 */
-          CurrentRate: number
-          /** 投資 */
-          Amount: number
-          /** 初始投資金額 */
-          InitialAmountInDollars: number
-          /** 初始投資單位 */
-          InitialUnits: number
-        }[]
+        manualPositions: Position[]
       }
     }
   }
