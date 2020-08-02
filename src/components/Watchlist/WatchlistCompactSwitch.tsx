@@ -13,7 +13,7 @@ export const WatchlistCompactSwitch = () => {
   return (
     <Toggle
       className={WatchlistCompactSwitch.name}
-      label={i18n.使緊湊()}
+      label={i18n.universal_compact_text()}
       inlineLabel
       checked={listCompactOn}
       onClick={() => {

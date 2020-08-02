@@ -18,7 +18,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
 
   const newValue = (props?.join(',') ||
     prompt(
-      i18n.下單巨集金額設定(),
+      i18n.dialog_buttonsSetup_brief(),
       state.settings.executionAmount.join(','),
     )) as string
 
@@ -37,13 +37,13 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
     )
 
     toast.success(
-      i18n.設定已變更(() => <span>{thunkValue.join(',')}</span>),
+      i18n.universal_doChanged_text(() => <span>{thunkValue.join(',')}</span>),
       { position: 'bottom-left' },
     )
   }
 
   toast.info(
-    i18n.設定未變更(() => (
+    i18n.universal_doNothing_text(() => (
       <span>{state.settings.executionAmount.join(',')}</span>
     )),
     { position: 'bottom-left' },

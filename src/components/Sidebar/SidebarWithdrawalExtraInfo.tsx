@@ -16,7 +16,9 @@ const SidebarWithdrawalExtraInfo = () => {
     return null
   }
 
-  return i18n.左側欄出金按鈕(<ProfitText profit={exchanges[selected].buy} />)
+  return i18n.link_withdrawExtra_text(
+    <ProfitText profit={exchanges[selected].buy} />,
+  )
 }
 
 const { container } = registerReactComponent({

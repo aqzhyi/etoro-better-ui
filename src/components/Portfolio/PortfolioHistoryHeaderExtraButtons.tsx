@@ -14,7 +14,7 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
     <Stack horizontal horizontalAlign='center'>
       <TextField
         componentRef={searchBoxRef}
-        placeholder={i18n.輸入以過濾()}
+        placeholder={i18n.filterText_input_help()}
         iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
         onChange={debounce((event, newValue) => {
           filterTextSet(newValue)

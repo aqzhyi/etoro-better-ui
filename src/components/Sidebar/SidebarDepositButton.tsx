@@ -15,7 +15,7 @@ export const renderSidebarDepositButton = () => {
 
     const extraInfoElement = $(`<span>`)
       .addClass(extraElementClassName)
-      .html(i18n.左下入金按鈕(currency.sell))
+      .html(i18n.link_deposit_text(currency.sell))
 
     if (!target.find(`.${extraElementClassName}`).length) {
       target.append(extraInfoElement)

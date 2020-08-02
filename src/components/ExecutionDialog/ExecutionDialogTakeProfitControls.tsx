@@ -52,7 +52,9 @@ export const ExecutionDialogTakeProfitControls = () => {
   return (
     <Tooltip
       placement='top'
-      overlay={<span>{i18n.下單框套用上次止盈趴數之說明(lastPercent)}</span>}
+      overlay={
+        <span>{i18n.profits_fixedTakeValueOnOrder_brief(lastPercent)}</span>
+      }
     >
       <Icon
         iconName='DatabaseSync'

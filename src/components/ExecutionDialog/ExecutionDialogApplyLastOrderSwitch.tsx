@@ -16,8 +16,8 @@ export const ExecutionDialogApplyLastOrderSwitch = () => {
       checked={executionUseApplyLast}
       label={
         executionUseApplyLast
-          ? i18n.使鎖定下單重複一致()
-          : i18n.使鎖定下單重複一致否定()
+          ? i18n.dialog_fixedNextOrderValue_text()
+          : i18n.dialog_fixedNextOrderValueNot_text()
       }
       onChange={(event, checked) => {
         gaAPI.sendEvent(

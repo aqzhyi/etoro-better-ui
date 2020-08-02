@@ -59,6 +59,10 @@ export const ExecutionDialogStatusInfo = () => {
     return totalProfit
   }, [positions])
 
+  const positionName = useMemo(() => {
+    return positions?.[0].Instrument.Name || '🔴 Not Found'
+  }, [positions])
+
   /** from etoro html element */
   const canUseValue =
     angularAPI.$rootScope.session.user.portfolio.availibleToTrade
@@ -68,7 +72,9 @@ export const ExecutionDialogStatusInfo = () => {
     <React.Fragment>
       <Tooltip
         placement='top'
-        overlay={() => <span>{i18n.下單框倉位合計利潤()}</span>}
+        overlay={() => (
+          <span>{i18n.profits_selectedObjective_brief(positionName)}</span>
+        )}
       >
         <span className='indicator-callout-box'>
           <ProgressIndicator
@@ -114,7 +120,7 @@ export const ExecutionDialogStatusInfo = () => {
         </span>
       </Tooltip>
 
-      <Tooltip placement='top' overlay={i18n.大概延遲()}>
+      <Tooltip placement='top' overlay={i18n.status_inferringDelay_text()}>
         <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{
@@ -126,7 +132,10 @@ export const ExecutionDialogStatusInfo = () => {
         </span>
       </Tooltip>
 
-      <Tooltip placement='top' overlay={i18n.當前可用餘額()}>
+      <Tooltip
+        placement='top'
+        overlay={<span>{i18n.profits_availableValues_text()}</span>}
+      >
         <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{

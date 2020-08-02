@@ -4,7 +4,7 @@ import { GM } from '@/GM'
 
 export const ProviderBy = () => (
   <span className='HelperContent'>
-    {i18n.功能提供者述敘(() => (
+    {i18n.universal_extensionSupportName_text(() => (
       <a
         href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3'
         target='_blank'

@@ -34,7 +34,7 @@ export const SidebarPendingOrdersLink: React.FC = props => {
         },
       }}
     >
-      {i18n.左側欄我的掛單()}（
+      {i18n.link_pendingOrders_text()}（
       <TooltipHighlightText>{pendingOrders.value.length}</TooltipHighlightText>
       ）
     </SidebarMenuItem>

@@ -15,7 +15,7 @@ export const IconAsErrorBoundary: React.FC = props => {
         >
           <Tooltip
             placement='top'
-            overlay={i18n.錯誤程式渲染時發生錯誤(error)}
+            overlay={i18n.universal_errorOnRender_text(error)}
             overlayInnerStyle={{ width: 250 }}
           >
             <Icon iconName='WarningSolid'></Icon>

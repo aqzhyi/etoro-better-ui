@@ -8,7 +8,7 @@ const bootstrapStartAt = new Date()
 
 export const showWelcomeMessage = () => {
   const { hide } = cogoToast.success(
-    i18n.感謝使用提示語(() => (
+    i18n.universal_welcomeMessage_text(() => (
       <a
         style={{
           color: 'blue',

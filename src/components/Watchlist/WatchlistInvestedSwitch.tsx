@@ -14,7 +14,7 @@ export const WatchlistInvestedSwitch = () => {
 
   return (
     <Toggle
-      label={i18n.使已投資顯示()}
+      label={i18n.profits_invested_text()}
       inlineLabel
       checked={shouldShowInvested}
       onClick={() => {

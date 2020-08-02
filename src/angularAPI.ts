@@ -146,6 +146,8 @@ interface ExecutionDialogScope extends IRootScopeService {
       amount: number
     }
   }
+  /** 開倉下單 */
+  openOrder(): unknown
 }
 
 export const angularAPI = {

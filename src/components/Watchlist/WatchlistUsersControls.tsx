@@ -60,7 +60,9 @@ export const WatchlistUsersControls: React.FunctionComponent<{
           gaAPI.sendEvent(GaEventId.watchlists_balanceLinkClick)
         }}
       >
-        {equityState.value ? `${equityState.value}%` : i18n.餘額()}
+        {equityState.value
+          ? `${equityState.value}%`
+          : i18n.link_checkBalance_text()}
       </DefaultButton>
 
       {props.username && (
@@ -71,7 +73,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
               gaAPI.sendEvent(GaEventId.watchlists_portfolioLinkClick)
             }}
           >
-            {i18n.投資組合()}
+            {i18n.link_portfolio_text()}
           </a>
         </DefaultButton>
       )}

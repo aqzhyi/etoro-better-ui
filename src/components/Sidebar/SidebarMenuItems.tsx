@@ -30,7 +30,7 @@ export const SidebarMenuItems = () => {
   return (
     <span>
       <div {...attrsToAppend} className='i-menu-sep'>
-        <span>{i18n.腳本標題()}</span>
+        <span>{i18n.universal_extensionName_text()}</span>
         <a
           href='https://github.com/hilezir/etoro-better-ui/releases'
           target='_blank'
@@ -48,7 +48,7 @@ export const SidebarMenuItems = () => {
           },
         }}
       >
-        {i18n.設定()}
+        {i18n.universal_setup_text()}
       </SidebarMenuItem>
 
       <SidebarMenuItem
@@ -60,7 +60,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_donate'),
         }}
       >
-        {i18n.幫助作者()}
+        {i18n.link_donation_text()}
       </SidebarMenuItem>
 
       <SidebarMenuItem
@@ -71,7 +71,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_website'),
         }}
       >
-        {i18n.腳本官網()}
+        {i18n.link_extensionWebsite_text()}
       </SidebarMenuItem>
 
       <SidebarMenuItem
@@ -82,7 +82,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_contact'),
         }}
       >
-        {i18n.聯絡作者()}
+        {i18n.link_extensionAuthor_text()}
       </SidebarMenuItem>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>

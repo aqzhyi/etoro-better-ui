@@ -38,7 +38,7 @@ export const WatchlistHeader: React.FC = () => {
     <Stack horizontal tokens={{ childrenGap: 8 }}>
       <Stack.Item>
         <DefaultButton
-          text={i18n.清除篩選文字()}
+          text={i18n.filterText_clearText_text()}
           onClick={() => {
             filterTextSet('')
             angularAPI.filterWatchlistByText('')
@@ -50,11 +50,11 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.輸入以過濾提示窗說明()}>
+        <Tooltip placement='bottom' overlay={i18n.filterText_input_brief()}>
           <TextField
             value={filterText}
             componentRef={searchBoxRef}
-            placeholder={i18n.輸入以過濾()}
+            placeholder={i18n.filterText_input_help()}
             iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
             onChange={(event, newValue) => {
               filterTextSet(newValue)
@@ -92,7 +92,7 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.使緊湊之說明()}>
+        <Tooltip placement='bottom' overlay={i18n.universal_compact_brief()}>
           <div>
             <WatchlistCompactSwitch />
           </div>
@@ -100,7 +100,7 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.使已投資顯示之說明()}>
+        <Tooltip placement='bottom' overlay={i18n.profits_invested_brief()}>
           <div>
             <WatchlistInvestedSwitch />
           </div>

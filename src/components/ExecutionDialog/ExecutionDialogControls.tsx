@@ -48,14 +48,14 @@ const toLever = (value: number) => {
 
     $(`.risk-itemlevel:contains(" x${value} ")`).click()
   } else {
-    toast.info(<div>{i18n.動作沒有執行()}</div>)
+    toast.info(<div>{i18n.universal_doAvoid_text()}</div>)
   }
 }
 
 const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
     <span>
-      {i18n.確保同意下單巨集風險(() => (
+      {i18n.link_riskKnown_text(() => (
         <a
           target='_blank'
           href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
@@ -128,7 +128,9 @@ export const ExecutionDialogControls = () => {
 
       <Stack horizontal={false} tokens={{ childrenGap: 16 }}>
         <Stack.Item>
-          <h2 style={{ textAlign: 'center' }}>{i18n.金額()}</h2>
+          <h2 style={{ textAlign: 'center' }}>
+            {i18n.universal_amount_text()}
+          </h2>
 
           <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
             {amounts.map((value, index) => {
@@ -163,14 +165,14 @@ export const ExecutionDialogControls = () => {
                   dispatch(openPromptForSetMacroAmount())
                 }}
               >
-                {i18n.下單巨集設定按鈕()}
+                {i18n.dialog_buttonsSetup_text()}
               </PrimaryButton>
             </Stack.Item>
           </Stack>
         </Stack.Item>
 
         <Stack.Item>
-          <h2 style={{ textAlign: 'center' }}>{i18n.槓桿()}</h2>
+          <h2 style={{ textAlign: 'center' }}>{i18n.universal_lever_text()}</h2>
           <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
             {levers.map((value, index) => {
               return (
@@ -200,7 +202,7 @@ export const ExecutionDialogControls = () => {
             placement='left'
             overlay={
               <span style={{ display: 'inline-block', width: 200 }}>
-                {i18n.使鎖定下單重複一致之說明()}
+                {i18n.dialog_fixedNextOrderValue_brief()}
               </span>
             }
           >

@@ -51,7 +51,7 @@ const ExecutionDialogStopLossControls = () => {
   return (
     <Tooltip
       placement='top'
-      overlay={i18n.下單框套用上次止損趴數之說明(lastPercent)}
+      overlay={i18n.profits_fixedStopLossValueOnOrder_brief(lastPercent)}
     >
       <Icon
         iconName='DatabaseSync'

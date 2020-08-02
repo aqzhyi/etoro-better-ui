@@ -45,7 +45,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
   return (
     <Dialog
-      title={i18n.腳本標題()}
+      title={i18n.universal_extensionName_text()}
       dialogContentProps={{ showCloseButton: true }}
       minWidth={642}
       onDismiss={() => {
@@ -56,7 +56,7 @@ export const SidebarSettingsDialog: React.FC = () => {
       <Stack tokens={{ padding: 8, childrenGap: 16 }}>
         <Stack.Item>
           <TextField
-            label={i18n.下單巨集金額設定()}
+            label={i18n.dialog_buttonsSetup_brief()}
             value={macroAmountInput}
             onChange={(event, newValue) => {
               macroAmountInputSetter(newValue)
@@ -82,7 +82,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <Slider
-                label={i18n.設定秒間隔讀取延遲及系統狀態()}
+                label={i18n.universal_intervalCheckingStatus_brief()}
                 min={5}
                 max={60}
                 step={1}
@@ -106,18 +106,18 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
-              <Label>{i18n.使鎖定下單重複一致之說明()}</Label>
+              <Label>{i18n.dialog_fixedNextOrderValue_brief()}</Label>
               <ExecutionDialogApplyLastOrderSwitch />
             </Stack.Item>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <Tooltip
                 placement='top'
-                overlay={i18n.下單框套用上次止盈趴數之說明(
+                overlay={i18n.profits_fixedTakeValueOnOrder_brief(
                   configs.takeProfitLastPercent,
                 )}
               >
                 <Toggle
-                  label={i18n.下單框套用上次止損趴數之說明(
+                  label={i18n.profits_fixedStopLossValueOnOrder_brief(
                     configs.stopLossLastPercent,
                   )}
                   checked={configs.stopLossAndTakeProfitUseLastPercent}
@@ -142,7 +142,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <ChoiceGroup
-                label={i18n.使下單視窗能夠單鍵快速切換買賣()}
+                label={i18n.dialog_keyboardTabToBuySell_brief()}
                 options={[
                   {
                     key: 'ON',
@@ -174,7 +174,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <React.Fragment>
-                <Label>{i18n.使緊湊之說明()}</Label>
+                <Label>{i18n.universal_compact_brief()}</Label>
                 <WatchlistCompactSwitch />
               </React.Fragment>
             </Stack.Item>
@@ -185,7 +185,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <ChoiceGroup
-                label={i18n.下單巨集啟用狀態()}
+                label={i18n.dialog_enabled_brief()}
                 options={[
                   {
                     key: 'ON',
@@ -215,7 +215,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   )
 
                   toast.success(
-                    i18n.設定已變更(() => (
+                    i18n.universal_doChanged_text(() => (
                       <span>{JSON.stringify(yourEnabled)}</span>
                     )),
                     { position: 'bottom-left' },
@@ -225,7 +225,7 @@ export const SidebarSettingsDialog: React.FC = () => {
             </Stack.Item>
 
             <Stack.Item styles={{ root: { flex: 4 } }}>
-              <Label>{i18n.使已投資顯示之說明()}</Label>
+              <Label>{i18n.profits_invested_brief()}</Label>
               <WatchlistInvestedSwitch />
             </Stack.Item>
           </Stack>
@@ -235,7 +235,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
               <ChoiceGroup
-                label={i18n.設定幣別(configs.selectedExchange)}
+                label={i18n.exchange_usedSetup_brief(configs.selectedExchange)}
                 options={[
                   {
                     key: 'NTD',
@@ -257,9 +257,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                   },
                 ]}
                 onChange={async (event, option) => {
-                  const loading = toast.loading(i18n.設定變更中(), {
-                    position: 'bottom-left',
-                  })
+                  const loading = toast.loading(
+                    i18n.universal_doChanging_text(),
+                    {
+                      position: 'bottom-left',
+                    },
+                  )
 
                   const youSelected = (option?.key ||
                     'NTD') as BetterEtoroUIConfig['selectedExchange']
@@ -296,7 +299,9 @@ export const SidebarSettingsDialog: React.FC = () => {
                   }
 
                   toast.success(
-                    i18n.設定已變更(() => <span>{youSelected}</span>),
+                    i18n.universal_doChanged_text(() => (
+                      <span>{youSelected}</span>
+                    )),
                     { position: 'bottom-left' },
                   )
 
@@ -306,11 +311,11 @@ export const SidebarSettingsDialog: React.FC = () => {
             </Stack.Item>
 
             <Stack.Item verticalFill styles={{ root: { flex: 4 } }}>
-              <Label>{i18n.設定重置所有設定()}</Label>
+              <Label>{i18n.setting_resetAll_text()}</Label>
               <DefaultButton
                 iconProps={{ iconName: 'SyncStatusSolid' }}
                 onClick={() => {
-                  const yes = confirm(`${i18n.設定重置所有設定()}, YES?`)
+                  const yes = confirm(`${i18n.setting_resetAll_text()}, YES?`)
 
                   if (yes) {
                     gaAPI.sendEvent(GaEventId.setting_resetAllClick)
@@ -325,7 +330,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <Toggle
-            label={i18n.設定允許使用谷歌分析()}
+            label={i18n.universal_googleAnalyticsEnabled_brief()}
             checked={configs.googleAnalyticsEnabled}
             onChange={(event, checked) => {
               dispatch(
