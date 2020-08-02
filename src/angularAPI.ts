@@ -156,12 +156,13 @@ export const angularAPI = {
     if (this._$rootScope) {
       return this._$rootScope
     }
-    const $rootScope = ($('body').scope() as unknown) as EtoroRootScope
+    const $rootScope = (($('body').scope?.() as unknown) ||
+      null) as EtoroRootScope | null
     this._$rootScope = $rootScope
     return $rootScope
   },
   get executionDialogScope() {
-    return ($('.execution-head').scope() as unknown) as
+    return ($('.execution-head').scope?.() as unknown) as
       | ExecutionDialogScope
       | undefined
   },

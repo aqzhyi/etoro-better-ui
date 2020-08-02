@@ -16,11 +16,11 @@ export const FooterUnitValue: React.FC<{
   const [USD, USDSetter] = useState(0)
 
   useMount(() => {
-    USDSetter(angularAPI.$rootScope.session.user.portfolio[props.type])
+    USDSetter(angularAPI.$rootScope?.session.user.portfolio[props.type] || 0)
   })
 
   useInterval(() => {
-    USDSetter(angularAPI.$rootScope.session.user.portfolio[props.type])
+    USDSetter(angularAPI.$rootScope?.session.user.portfolio[props.type] || 0)
   }, 2500)
 
   if (!selected || selected === 'HIDDEN') {

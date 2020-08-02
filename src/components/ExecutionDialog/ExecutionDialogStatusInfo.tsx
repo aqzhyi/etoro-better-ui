@@ -5,14 +5,10 @@ import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React, { useMemo, useState } from 'react'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import Tooltip from 'rc-tooltip'
-import { angularAPI } from '@/angularAPI'
+import { angularAPI, Position } from '@/angularAPI'
 import { TooltipHighlightText } from '@/components/TooltipHighlightText'
 import { ProfitText } from '@/components/ProfitText'
 import { useInterval } from 'react-use'
-
-type Position = NonNullable<
-  typeof angularAPI.$rootScope.session.user.portfolio.manualPositions
->[number]
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
@@ -42,7 +38,7 @@ export const ExecutionDialogStatusInfo = () => {
   const [positions, positionsSetter] = useState<Position[]>([])
 
   useInterval(() => {
-    const items = angularAPI.$rootScope.session.user.portfolio.manualPositions?.filter(
+    const items = angularAPI.$rootScope?.session.user.portfolio.manualPositions?.filter(
       position =>
         position.Instrument.DisplayName ===
         angularAPI.executionDialogScope?.controller.instrument.DisplayName,
@@ -65,7 +61,7 @@ export const ExecutionDialogStatusInfo = () => {
 
   /** from etoro html element */
   const canUseValue =
-    angularAPI.$rootScope.session.user.portfolio.availibleToTrade
+    angularAPI.$rootScope?.session.user.portfolio.availibleToTrade || 0
   const availableValueLabel = `$${canUseValue.toFixed(2)}`
 
   return (

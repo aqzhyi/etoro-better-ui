@@ -19,9 +19,9 @@ function _applyEventsObservers() {
   /**
    * On Execution-Dialog closed
    */
-  angularAPI.$rootScope.$watch(
+  angularAPI.$rootScope?.$watch(
     () => {
-      return angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen
+      return angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
     },
     (newValue, oldValue) => {
       if (newValue !== oldValue && newValue === false) {
@@ -34,7 +34,7 @@ function _applyEventsObservers() {
   /**
    * Angular.on $routeChangeSuccess
    */
-  angularAPI.$rootScope.$on('$routeChangeSuccess', angularEvent => {
+  angularAPI.$rootScope?.$on('$routeChangeSuccess', angularEvent => {
     debugAPI.angular.extend('$routeChangeSuccess')(globalThis.location.pathname)
 
     emitter.emit(Events.onUnmountUIs)
@@ -78,7 +78,7 @@ function _applyEventsObservers() {
       ].some(isReady => !isReady)
 
       const isDialogOpen =
-        angularAPI.$rootScope.layoutCtrl.uiDialog.isDialogOpen
+        angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
 
       if (isDialogOpen && dialogComponentsNotReady) {
         emitter.emit(Events.onDialogHover)

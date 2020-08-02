@@ -277,4 +277,4 @@ const en: typeof zh = {
 }
 
 export const i18n =
-  (angularAPI.$rootScope.session.locale?.includes('zh') && zh) || en
+  (angularAPI.$rootScope?.session.locale?.includes('zh') && zh) || en

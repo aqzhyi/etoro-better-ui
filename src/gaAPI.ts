@@ -47,7 +47,7 @@ export const gaAPI = {
   sendEvent(targetEventId: GaEventId, label?: string, value?: number) {
     const enabled = store.getState().settings.googleAnalyticsEnabled
     const isDemo =
-      angularAPI.$rootScope.session.accountMode.toLowerCase() ===
+      angularAPI.$rootScope?.session.accountMode.toLowerCase() ===
       'Demo'.toLowerCase()
 
     const eventInfo = GaEventId[targetEventId].split('_')
