@@ -25,12 +25,11 @@ import { angularAPI } from '@/angularAPI'
  */
 const zh = {
   dialog_buttonsSetup_brief: () =>
-    '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
+    '下單輔助按鈕之金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
   dialog_buttonsSetup_text: () => '設定',
-  dialog_enabled_brief: () =>
-    `下單巨集輔助功能，此功能同時提供記憶你的上一次交易金額與槓桿`,
+  dialog_enabled_brief: () => `啟用快速下單輔助按鈕集成；你能夠自訂這些按鈕`,
   dialog_fixedNextOrderValue_brief: () =>
-    '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次點擊巨集按鈕為記錄點',
+    '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次的下單輔助按鈕點擊，作為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
   dialog_fixedNextOrderValueNot_text: () => '金額槓桿鎖定?',
   dialog_keyboardTabToBuySell_brief: () => (
@@ -157,9 +156,9 @@ const en: typeof zh = {
     'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000. Use Enter key to save.',
   dialog_buttonsSetup_text: () => 'Setup',
   dialog_enabled_brief: () =>
-    `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
+    `Enable Execution-Dialog Trading Buttons, and it also can be customized.`,
   dialog_fixedNextOrderValue_brief: () =>
-    `Always use the last Amount and Lever, which previously value you click on buttons.`,
+    `Always use the last Amount and Lever, which previously value you click on Execution-Dialog Trading buttons.`,
   dialog_fixedNextOrderValue_text: () => 'Amount/Lever Fixed',
   dialog_fixedNextOrderValueNot_text: () => 'Amount/Lever Fixed?',
   dialog_keyboardTabToBuySell_brief: () => (
