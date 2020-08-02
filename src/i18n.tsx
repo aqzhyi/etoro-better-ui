@@ -24,19 +24,26 @@ import { angularAPI } from '@/angularAPI'
   ```
  */
 const zh = {
-  dialog_buttonsSetup_brief: () => '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
+  dialog_buttonsSetup_brief: () =>
+    '下單巨集金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
   dialog_buttonsSetup_text: () => '設定',
-  dialog_enabled_brief: () => `下單巨集輔助功能，此功能同時提供記憶你的上一次交易金額與槓桿`,
-  dialog_fixedNextOrderValue_brief: () => '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次點擊巨集按鈕為記錄點',
+  dialog_enabled_brief: () =>
+    `下單巨集輔助功能，此功能同時提供記憶你的上一次交易金額與槓桿`,
+  dialog_fixedNextOrderValue_brief: () =>
+    '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次點擊巨集按鈕為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
   dialog_fixedNextOrderValueNot_text: () => '金額槓桿鎖定?',
-  dialog_keyboardTabToBuySell_brief: () => '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
-  exchange_usedSetup_brief: (selectedText: string) => `設定幣別（當前：${selectedText}）`,
+  dialog_keyboardTabToBuySell_brief: () =>
+    '在下單視窗使用 Tab 鍵來切換「賣出」或「買入」',
+  exchange_usedSetup_brief: (selectedText: string) =>
+    `設定幣別（當前：${selectedText}）`,
   filterText_clearText_text: () => '清除輸入',
   filterText_input_brief: () => (
     <span>
       {' '}
-      使用 <TooltipHighlightText>Enter</TooltipHighlightText> 可以開啟第一個標的之下單框。使用 <TooltipHighlightText>Escape</TooltipHighlightText> 可以清除輸入框。{' '}
+      使用 <TooltipHighlightText>Enter</TooltipHighlightText>{' '}
+      可以開啟第一個標的之下單框。使用{' '}
+      <TooltipHighlightText>Escape</TooltipHighlightText> 可以清除輸入框。{' '}
     </span>
   ),
   filterText_input_help: () => '過濾...',
@@ -55,22 +62,30 @@ const zh = {
       </span>
     )
   },
-  link_withdrawExtra_text: (value: React.ReactNode) => <React.Fragment>（{value}）銀行買入</React.Fragment>,
+  link_withdrawExtra_text: (value: React.ReactNode) => (
+    <React.Fragment>（{value}）銀行買入</React.Fragment>
+  ),
   profits_availableValues_text: () => '可用餘額',
-  profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) => `每次下單視窗開啟時，套用上一次的止損趴數（上一次 ${lastPercent}%）`,
-  profits_fixedTakeValueOnOrder_brief: (lastPercent: number) => `每次下單視窗開啟時，套用上一次的止盈趴數（上一次 ${lastPercent}%）`,
+  profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) =>
+    `每次下單視窗開啟時，套用上一次的止損趴數（上一次 ${lastPercent}%）`,
+  profits_fixedTakeValueOnOrder_brief: (lastPercent: number) =>
+    `每次下單視窗開啟時，套用上一次的止盈趴數（上一次 ${lastPercent}%）`,
   profits_invested_brief: () => (
     <span>
       {' '}
-      只顯示<TooltipHighlightText>已投資</TooltipHighlightText>的標的或投資者{' '}
+      只顯示<TooltipHighlightText>
+        已投資
+      </TooltipHighlightText>的標的或投資者{' '}
     </span>
   ),
   profits_invested_text: () => '已投資',
-  profits_selectedObjective_brief: (selected: string) => `${selected} 之開倉位當前利潤`,
+  profits_selectedObjective_brief: (selected?: string) =>
+    selected ? `${selected} @ 開倉位當前利潤` : '沒有選擇標的',
   setting_resetAll_text: () => '重置所有設定',
   status_inferringDelay_text: () => `大概延遲`,
   universal_amount_text: () => '金額',
-  universal_compact_brief: () => '不顯示關注列表中的無用介面（當前以開發者視角主觀認定）',
+  universal_compact_brief: () =>
+    '不顯示關注列表中的無用介面（當前以開發者視角主觀認定）',
   universal_compact_text: () => '緊湊',
   universal_doAvoid_text: () => '動作沒有執行，可能介面不存在，或發生錯誤',
   universal_doChanged_text: (PostComponent: React.FC) => {
@@ -90,7 +105,9 @@ const zh = {
       </span>
     )
   },
-  universal_errorOnRender_text: (error: Error) => <span>錯誤：{error.message}</span>,
+  universal_errorOnRender_text: (error: Error) => (
+    <span>錯誤：{error.message}</span>
+  ),
   universal_extensionName_text: () => 'eToro better UI',
   universal_extensionSupportName_text: (Link: React.FC) => {
     return (
@@ -100,16 +117,26 @@ const zh = {
       </span>
     )
   },
-  universal_googleAnalyticsEnabled_brief: () => `允許 etoro-better-ui 能夠使用並分析，介面的操作情況 (這個功能不會收集您的隱私資料)`,
-  universal_intervalCheckingStatus_brief: () => `在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能`,
+  universal_googleAnalyticsEnabled_brief: () =>
+    `允許 etoro-better-ui 能夠使用並分析，介面的操作情況 (這個功能不會收集您的隱私資料)`,
+  universal_intervalCheckingStatus_brief: () =>
+    `在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能`,
   universal_lever_text: () => '槓桿',
   universal_setup_text: () => '設定',
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
         {' '}
-        <span> 🙏 感謝您使用 {zh.universal_extensionName_text()} 更多資訊請恰詢： </span> <Link /> {zh.link_extensionWebsite_text()} 或是{' '}
-        <a style={{ color: 'blue' }} target='_blank' href='https://t.me/etoro_better_ui'>
+        <span>
+          {' '}
+          🙏 感謝您使用 {zh.universal_extensionName_text()} 更多資訊請恰詢：{' '}
+        </span>{' '}
+        <Link /> {zh.link_extensionWebsite_text()} 或是{' '}
+        <a
+          style={{ color: 'blue' }}
+          target='_blank'
+          href='https://t.me/etoro_better_ui'
+        >
           {' '}
           telegram 群組{' '}
         </a>{' '}
@@ -119,19 +146,26 @@ const zh = {
 }
 
 const en: typeof zh = {
-  dialog_buttonsSetup_brief: () => 'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000. Use Enter key to save.',
+  dialog_buttonsSetup_brief: () =>
+    'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000. Use Enter key to save.',
   dialog_buttonsSetup_text: () => 'Setup',
-  dialog_enabled_brief: () => `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
-  dialog_fixedNextOrderValue_brief: () => `Always use the last Amount and Lever, which previously you click value of buttons.`,
+  dialog_enabled_brief: () =>
+    `Enable Execution Trade Macro, and it also memorizes your previously selected value of investment and lever value.`,
+  dialog_fixedNextOrderValue_brief: () =>
+    `Always use the last Amount and Lever, which previously you click value of buttons.`,
   dialog_fixedNextOrderValue_text: () => 'Same Order',
   dialog_fixedNextOrderValueNot_text: () => 'Same Order?',
-  dialog_keyboardTabToBuySell_brief: () => 'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
-  exchange_usedSetup_brief: (selectedText: string) => `Currency（Now：${selectedText}）`,
+  dialog_keyboardTabToBuySell_brief: () =>
+    'Use the Tab key to switch BUY or SELL, effect on Execution Dialog open.',
+  exchange_usedSetup_brief: (selectedText: string) =>
+    `Currency（Now：${selectedText}）`,
   filterText_clearText_text: () => 'Remove Text',
   filterText_input_brief: () => (
     <span>
       {' '}
-      Use the <TooltipHighlightText>Enter</TooltipHighlightText> key to open the first Execution Dialog. Use the <TooltipHighlightText>Escape</TooltipHighlightText> to clear the input .{' '}
+      Use the <TooltipHighlightText>Enter</TooltipHighlightText> key to open the
+      first Execution Dialog. Use the{' '}
+      <TooltipHighlightText>Escape</TooltipHighlightText> to clear the input .{' '}
     </span>
   ),
   filterText_input_help: () => 'Filter...',
@@ -146,28 +180,37 @@ const en: typeof zh = {
     return (
       <span>
         {' '}
-        This extension is not official. Make sure you know you have risk when using this extension. <Link />{' '}
+        This extension is not official. Make sure you know you have risk when
+        using this extension. <Link />{' '}
       </span>
     )
   },
-  link_withdrawExtra_text: (value: React.ReactNode) => <React.Fragment>（{value}）Buy</React.Fragment>,
+  link_withdrawExtra_text: (value: React.ReactNode) => (
+    <React.Fragment>（{value}）Buy</React.Fragment>
+  ),
   profits_availableValues_text: () => 'Available Value',
-  profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) => `When Execution-Dialog on render, it's applying the last percent of Stop-Loss (will apply ${lastPercent}%)`,
-  profits_fixedTakeValueOnOrder_brief: (lastPercent: number) => `When Execution-Dialog on render, it's applying the last percent of Take-Profit (will apply ${lastPercent}%)`,
+  profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) =>
+    `When Execution-Dialog on render, it's applying the last percent of Stop-Loss (will apply ${lastPercent}%)`,
+  profits_fixedTakeValueOnOrder_brief: (lastPercent: number) =>
+    `When Execution-Dialog on render, it's applying the last percent of Take-Profit (will apply ${lastPercent}%)`,
   profits_invested_brief: () => (
     <span>
       {' '}
-      Display <TooltipHighlightText>invested</TooltipHighlightText> only. (people and instruments){' '}
+      Display <TooltipHighlightText>invested</TooltipHighlightText> only.
+      (people and instruments){' '}
     </span>
   ),
   profits_invested_text: () => 'Invested',
-  profits_selectedObjective_brief: () => `Profits @ Positions on Current Dialog`,
+  profits_selectedObjective_brief: (selected?: string) =>
+    selected ? `Profits @ Positions on ${selected}` : 'Not selected',
   setting_resetAll_text: () => 'Reset All of Settings',
   status_inferringDelay_text: () => `Infer Delay`,
   universal_amount_text: () => 'Amount',
-  universal_compact_brief: () => 'Do NOT display unnecessary UIs (proposed by author)',
+  universal_compact_brief: () =>
+    'Do NOT display unnecessary UIs (proposed by author)',
   universal_compact_text: () => 'compact',
-  universal_doAvoid_text: () => 'No Action Execution, Target not found or maybe somethings broken.',
+  universal_doAvoid_text: () =>
+    'No Action Execution, Target not found or maybe somethings broken.',
   universal_doChanged_text: (PostComponent: React.FC) => {
     return (
       <span>
@@ -185,7 +228,9 @@ const en: typeof zh = {
       </span>
     )
   },
-  universal_errorOnRender_text: (error: Error) => <span>ERROR: {error.message}</span>,
+  universal_errorOnRender_text: (error: Error) => (
+    <span>ERROR: {error.message}</span>
+  ),
   universal_extensionName_text: () => 'eToro better UI',
   universal_extensionSupportName_text: (Link: React.FC) => {
     return (
@@ -195,16 +240,26 @@ const en: typeof zh = {
       </span>
     )
   },
-  universal_googleAnalyticsEnabled_brief: () => `Allow etoro-better-ui can use and analyze data of user-interface (it's doesn't collect your privacy data)`,
-  universal_intervalCheckingStatus_brief: () => `The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.`,
+  universal_googleAnalyticsEnabled_brief: () =>
+    `Allow etoro-better-ui can use and analyze data of user-interface (it's doesn't collect your privacy data)`,
+  universal_intervalCheckingStatus_brief: () =>
+    `The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.`,
   universal_lever_text: () => 'Lever',
   universal_setup_text: () => 'Better UI Settings',
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
         {' '}
-        <span>🙏 Thanks for install {en.universal_extensionName_text()}, for more information in </span> <Link /> {en.link_extensionWebsite_text()} or{' '}
-        <a style={{ color: 'blue' }} target='_blank' href='https://t.me/etoro_better_ui'>
+        <span>
+          🙏 Thanks for install {en.universal_extensionName_text()}, for more
+          information in{' '}
+        </span>{' '}
+        <Link /> {en.link_extensionWebsite_text()} or{' '}
+        <a
+          style={{ color: 'blue' }}
+          target='_blank'
+          href='https://t.me/etoro_better_ui'
+        >
           {' '}
           telegram group{' '}
         </a>{' '}
@@ -213,4 +268,5 @@ const en: typeof zh = {
   },
 }
 
-export const i18n = (angularAPI.$rootScope.session.locale?.includes('zh') && zh) || en
+export const i18n =
+  (angularAPI.$rootScope.session.locale?.includes('zh') && zh) || en

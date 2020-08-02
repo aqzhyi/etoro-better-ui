@@ -59,8 +59,8 @@ export const ExecutionDialogStatusInfo = () => {
     return totalProfit
   }, [positions])
 
-  const positionName = useMemo(() => {
-    return positions?.[0].Instrument.Name || '🔴 Not Found'
+  const instrumentName = useMemo(() => {
+    return angularAPI.executionDialogScope?.controller.instrument.Name
   }, [positions])
 
   /** from etoro html element */
@@ -73,7 +73,7 @@ export const ExecutionDialogStatusInfo = () => {
       <Tooltip
         placement='top'
         overlay={() => (
-          <span>{i18n.profits_selectedObjective_brief(positionName)}</span>
+          <span>{i18n.profits_selectedObjective_brief(instrumentName)}</span>
         )}
       >
         <span className='indicator-callout-box'>
