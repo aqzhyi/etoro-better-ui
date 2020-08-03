@@ -41,7 +41,7 @@ export const ExecutionDialogStatusInfo = () => {
     const items = angularAPI.$rootScope?.session.user.portfolio.manualPositions?.filter(
       position =>
         position.Instrument.DisplayName ===
-        angularAPI.executionDialogScope?.controller.instrument.DisplayName,
+        angularAPI.executionDialogScope?.controller.instrument?.DisplayName,
     )
 
     positionsSetter(() => [...(items || [])])
@@ -56,7 +56,7 @@ export const ExecutionDialogStatusInfo = () => {
   }, [positions])
 
   const instrumentName = useMemo(() => {
-    return angularAPI.executionDialogScope?.controller.instrument.Name
+    return angularAPI.executionDialogScope?.controller.instrument?.Name
   }, [positions])
 
   /** from etoro html element */

@@ -116,7 +116,7 @@ interface EtoroRootScope extends IRootScopeService {
 
 interface ExecutionDialogScope extends IRootScopeService {
   controller: {
-    instrument: Instrument
+    instrument?: Instrument
   }
   model: {
     stopLoss: {
