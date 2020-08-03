@@ -53,16 +53,16 @@ export const UniversalControlKeyObserver = () => {
   useKey(
     'Escape',
     event => {
-    const targetElement = $('[automation-id="close-dialog-btn"]')
+      const targetElement = $('[automation-id="close-dialog-btn"]')
 
       if (isInputUsesFocusing()) return
-    if (!targetElement.length) return
-    if (!tabBuySellEnabled) return
+      if (!targetElement.length) return
+      if (!tabBuySellEnabled) return
 
-    debugAPI.keyboard.extend('ESC')(event.key)
+      debugAPI.keyboard.extend('ESC')(event.key)
 
-    gaAPI.sendEvent(GaEventId.keyboard_closeDialog)
-    targetElement.trigger('click')
+      gaAPI.sendEvent(GaEventId.keyboard_closeDialog)
+      targetElement.trigger('click')
     },
     {},
     [tabBuySellEnabled],
@@ -85,6 +85,27 @@ export const UniversalControlKeyObserver = () => {
       targetElement.trigger('focus')
     },
     { event: 'keyup' },
+    [tabBuySellEnabled],
+  )
+
+  /** The hotkey "SPACE" able to trigger "Open Trade" button with a click */
+  useKey(
+    ' ',
+    event => {
+      const targetElement = $(`.execution-button`)
+
+      if (isInputUsesFocusing()) return
+      if (!targetElement.length) return
+      if (!tabBuySellEnabled) return
+      if (!angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
+
+      debugAPI.keyboard.extend('OpenTrade')(event.key)
+
+      gaAPI.sendEvent(GaEventId.keyboard_openTradeClick)
+      targetElement.trigger('click')
+      event.preventDefault()
+    },
+    {},
     [tabBuySellEnabled],
   )
 
@@ -129,5 +150,15 @@ GM.addStyle(`
     font-size: 14px;
     color: #ffffff;
     z-index: 1;
+  }
+
+  .${KEYBOARD_ENABLED_CLASSNAME} .execution-button:hover:before {
+    content: '( Space )';
+    transform: translate(0px, -20px);
+    position: fixed;
+    display: inline-block;
+    text-shadow: 1px 1px 1px black;
+    font-size: 12px;
+    color: #ffffff;
   }
 `)
