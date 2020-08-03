@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { TooltipHighlightText } from '@/components/TooltipHighlightText'
+import { HighlightText } from '@/components/TooltipHighlightText'
 import { angularAPI } from '@/angularAPI'
+import Tooltip from 'rc-tooltip'
+import { PrimaryButton } from '@fluentui/react'
+import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 
 /**
   Naming Style
@@ -32,22 +35,13 @@ const zh = {
     '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次的下單輔助按鈕點擊，作為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
   dialog_fixedNextOrderValueNot_text: () => '金額槓桿鎖定?',
-  dialog_useKeyboardHotkeys_brief: () => (
-    <React.Fragment>
-      熱鍵 <TooltipHighlightText>TAB 鍵</TooltipHighlightText>{' '}
-      可以來切換「賣出」或「買入」。熱鍵{' '}
-      <TooltipHighlightText>ESC 鍵</TooltipHighlightText> 可以關閉視窗
-    </React.Fragment>
-  ),
   exchange_usedSetup_brief: (selectedText: string) =>
     `設定幣別（當前：${selectedText}）`,
   filterText_clearText_text: () => '清除輸入',
   filterText_input_brief: () => (
     <span>
-      {' '}
-      使用 <TooltipHighlightText>Enter</TooltipHighlightText>{' '}
-      可以開啟第一個標的之下單框。使用{' '}
-      <TooltipHighlightText>Escape</TooltipHighlightText> 可以清除輸入框。{' '}
+      使用 <HighlightText>Enter</HighlightText> 可以開啟第一個標的之下單框。使用{' '}
+      <HighlightText>Escape</HighlightText> 可以清除輸入框。{' '}
     </span>
   ),
   filterText_input_help: () => '過濾...',
@@ -77,9 +71,7 @@ const zh = {
   profits_invested_brief: () => (
     <span>
       {' '}
-      只顯示<TooltipHighlightText>
-        已投資
-      </TooltipHighlightText>的標的或投資者{' '}
+      只顯示<HighlightText>已投資</HighlightText>的標的或投資者{' '}
     </span>
   ),
   profits_invested_text: () => '已投資',
@@ -130,6 +122,49 @@ const zh = {
     `在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能`,
   universal_lever_text: () => '槓桿',
   universal_setup_text: () => '設定',
+  universal_useKeyboardHotkeys_brief: () => (
+    <React.Fragment>
+      <Tooltip placement='left' overlay={'在下單視窗開啟時，有效'}>
+        <div>
+          熱鍵 <HighlightText>TAB 鍵</HighlightText> 切換「賣出」或「買入」。
+        </div>
+      </Tooltip>
+
+      <Tooltip placement='left' overlay={'在下單視窗開啟時，有效'}>
+        <div>
+          熱鍵 <HighlightText>空白鍵</HighlightText> 觸發下單開倉。
+        </div>
+      </Tooltip>
+
+      <Tooltip placement='left' overlay={'在彈出視窗開啟時，有效'}>
+        <div>
+          熱鍵 <HighlightText>ESC 鍵</HighlightText> 可以關閉視窗。
+        </div>
+      </Tooltip>
+
+      <Tooltip placement='left' overlay={'在關注列表有效'}>
+        <div>
+          熱鍵 <HighlightText>F 鍵</HighlightText> 可以進行篩選清單。
+        </div>
+      </Tooltip>
+    </React.Fragment>
+  ),
+  universal_useKeyboardHotkeys_help: (openSettings: () => void) => {
+    return (
+      <React.Fragment>
+        <span>
+          您尚未開啟「熱鍵」系統，現在前往開啟？{' '}
+          <PrimaryButton
+            onClick={() => {
+              openSettings()
+            }}
+          >
+            前往
+          </PrimaryButton>{' '}
+        </span>
+      </React.Fragment>
+    )
+  },
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
@@ -162,22 +197,14 @@ const en: typeof zh = {
     `Always use the last Amount and Lever, which previously value you click on Execution-Dialog Trading buttons.`,
   dialog_fixedNextOrderValue_text: () => 'Amount/Lever Fixed',
   dialog_fixedNextOrderValueNot_text: () => 'Amount/Lever Fixed?',
-  dialog_useKeyboardHotkeys_brief: () => (
-    <React.Fragment>
-      The Hotkey <TooltipHighlightText>TAB</TooltipHighlightText> to switch BUY
-      or SELL, effect on Execution Dialog open. The Hotkey{' '}
-      <TooltipHighlightText>ESC</TooltipHighlightText> to close Dialogs.
-    </React.Fragment>
-  ),
   exchange_usedSetup_brief: (selectedText: string) =>
     `Currency（Now：${selectedText}）`,
   filterText_clearText_text: () => 'Remove Text',
   filterText_input_brief: () => (
     <span>
-      {' '}
-      Use the <TooltipHighlightText>Enter</TooltipHighlightText> key to open the
-      first Execution Dialog. Use the{' '}
-      <TooltipHighlightText>Escape</TooltipHighlightText> to clear the input .{' '}
+      Use the <HighlightText>Enter</HighlightText> key to open the first
+      Execution Dialog. Use the <HighlightText>Escape</HighlightText> to clear
+      the input .{' '}
     </span>
   ),
   filterText_input_help: () => 'Filter...',
@@ -208,8 +235,8 @@ const en: typeof zh = {
   profits_invested_brief: () => (
     <span>
       {' '}
-      Display <TooltipHighlightText>invested</TooltipHighlightText> only.
-      (people and instruments){' '}
+      Display <HighlightText>invested</HighlightText> only. (people and
+      instruments){' '}
     </span>
   ),
   profits_invested_text: () => 'Invested',
@@ -260,6 +287,58 @@ const en: typeof zh = {
     `The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.`,
   universal_lever_text: () => 'Lever',
   universal_setup_text: () => 'Better UI Settings',
+  universal_useKeyboardHotkeys_brief: () => (
+    <React.Fragment>
+      <Tooltip
+        placement='left'
+        overlay={'Will listen to Execution Dialog is open'}
+      >
+        <div>
+          The Hotkey <HighlightText>TAB</HighlightText> to switch BUY or SELL.
+        </div>
+      </Tooltip>
+
+      <Tooltip
+        placement='left'
+        overlay={'Will listen to Execution Dialog is open'}
+      >
+        <div>
+          The Hotkey <HighlightText>Space</HighlightText> to trigger "Open
+          Trade" immediately。
+        </div>
+      </Tooltip>
+
+      <Tooltip placement='left' overlay={'Will listen to Dialogs are open'}>
+        <div>
+          The Hotkey <HighlightText>ESC</HighlightText> to close Dialogs.
+        </div>
+      </Tooltip>
+
+      <Tooltip placement='left' overlay={'Will listen to Page Watch List'}>
+        <div>
+          The Hotkey <HighlightText>F</HighlightText> to get focus on filter
+          input。
+        </div>
+      </Tooltip>
+    </React.Fragment>
+  ),
+  universal_useKeyboardHotkeys_help: (openSettings: () => void) => {
+    return (
+      <React.Fragment>
+        <span>
+          You have not enabled the hotkey listeners, do you want to get it to
+          enable?
+          <PrimaryButton
+            onClick={() => {
+              openSettings()
+            }}
+          >
+            Open Settings
+          </PrimaryButton>{' '}
+        </span>
+      </React.Fragment>
+    )
+  },
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>

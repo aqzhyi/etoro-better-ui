@@ -141,7 +141,7 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
-              <Label>{i18n.dialog_useKeyboardHotkeys_brief()}</Label>
+              <Label>{i18n.universal_useKeyboardHotkeys_brief()}</Label>
               <ChoiceGroup
                 options={[
                   {

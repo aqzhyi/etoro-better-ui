@@ -1,6 +1,6 @@
 import { angularAPI } from '@/angularAPI'
 import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
-import { TooltipHighlightText } from '@/components/TooltipHighlightText'
+import { HighlightText } from '@/components/TooltipHighlightText'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { useAppPendingOrder } from '@/hooks/useAppPendingOrder'
 import { i18n } from '@/i18n'
@@ -35,8 +35,7 @@ export const SidebarPendingOrdersLink: React.FC = props => {
       }}
     >
       {i18n.link_pendingOrders_text()}（
-      <TooltipHighlightText>{pendingOrders.value.length}</TooltipHighlightText>
-      ）
+      <HighlightText>{pendingOrders.value.length}</HighlightText>）
     </SidebarMenuItem>
   )
 }

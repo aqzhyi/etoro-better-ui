@@ -6,7 +6,7 @@ import React, { useMemo, useState } from 'react'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import Tooltip from 'rc-tooltip'
 import { angularAPI, Position } from '@/angularAPI'
-import { TooltipHighlightText } from '@/components/TooltipHighlightText'
+import { HighlightText } from '@/components/TooltipHighlightText'
 import { ProfitText } from '@/components/ProfitText'
 import { useInterval } from 'react-use'
 
@@ -81,9 +81,7 @@ export const ExecutionDialogStatusInfo = () => {
             label={
               <span>
                 <ProfitText profit={totalProfit} /> @{' '}
-                <TooltipHighlightText>
-                  {positions?.length || 0}
-                </TooltipHighlightText>
+                <HighlightText>{positions?.length || 0}</HighlightText>
               </span>
             }
           />
