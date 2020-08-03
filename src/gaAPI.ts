@@ -20,6 +20,7 @@ export enum GaEventId {
   dialog_buttonsArrangeClick,
   dialog_leverButtonsClick,
   keyboard_closeDialog,
+  keyboard_filterTextFocus,
   keyboard_switchBuySell,
   setting_intervalCheckingStatus,
   setting_amountButtonsSet,

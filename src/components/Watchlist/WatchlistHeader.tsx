@@ -112,7 +112,7 @@ export const WatchlistHeader: React.FC = () => {
 
 export const registeredWatchlistHeader = registerReactComponent({
   component: <WatchlistHeader></WatchlistHeader>,
-  containerId: 'WatchlistHeader',
+  containerId: WatchlistHeader.name,
   containerConstructor: containerElement => {
     $('.watchlist-header .watch-list-buttons').prepend(containerElement)
   },

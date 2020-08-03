@@ -1,10 +1,12 @@
-import { useAppSelector } from '@/store/_store'
-import React, { useEffect, useMemo } from 'react'
-import { useKey } from 'react-use'
+import { angularAPI } from '@/angularAPI'
+import { WatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
 import { debugAPI } from '@/debugAPI'
-import { registerReactComponent } from '@/utils/registerReactComponent'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
+import { useAppSelector } from '@/store/_store'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import React, { useEffect } from 'react'
+import { useKey } from 'react-use'
 
 const KEYBOARD_ENABLED_CLASSNAME = 'etoro-better-ui__keyboard-enabled'
 
@@ -13,11 +15,11 @@ export const UniversalControlKeyObserver = () => {
     state => state.settings.useTabKeyBuySell,
   )
 
-  const isInputEditing = useMemo(() => {
+  const isInputUsesFocusing = () => {
     return (
       $('input').filter((index, element) => $(element).is(':focus')).length > 0
     )
-  }, [])
+  }
 
   useEffect(() => {
     if (tabBuySellEnabled) {
@@ -33,7 +35,7 @@ export const UniversalControlKeyObserver = () => {
     event => {
       const targetElement = $('.execution-head-buttons')
 
-      if (isInputEditing) return
+      if (isInputUsesFocusing()) return
       if (!targetElement.length) return
       if (!tabBuySellEnabled) return
 
@@ -53,7 +55,7 @@ export const UniversalControlKeyObserver = () => {
     event => {
     const targetElement = $('[automation-id="close-dialog-btn"]')
 
-    if (isInputEditing) return
+      if (isInputUsesFocusing()) return
     if (!targetElement.length) return
     if (!tabBuySellEnabled) return
 
@@ -63,6 +65,26 @@ export const UniversalControlKeyObserver = () => {
     targetElement.trigger('click')
     },
     {},
+    [tabBuySellEnabled],
+  )
+
+  /** The hotkey "F" able to get focus on the input of filter */
+  useKey(
+    'F',
+    event => {
+      const targetElement = $(`#${WatchlistHeader.name} input`)
+
+      if (isInputUsesFocusing()) return
+      if (!targetElement.length) return
+      if (!tabBuySellEnabled) return
+      if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
+
+      debugAPI.keyboard.extend('FilterText')(event.key)
+
+      gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
+      targetElement.trigger('focus')
+    },
+    { event: 'keyup' },
     [tabBuySellEnabled],
   )
 
@@ -96,5 +118,16 @@ GM.addStyle(`
     text-shadow: 1px 1px 1px black;
     font-size: 12px;
     color: #ffffff;
+  }
+
+  .${KEYBOARD_ENABLED_CLASSNAME} #${WatchlistHeader.name} .ms-TextField:hover:before {
+    content: '( F )';
+    transform: translate(110px, 3px);
+    position: fixed;
+    display: inline-block;
+    text-shadow: 1px 1px 1px black;
+    font-size: 14px;
+    color: #ffffff;
+    z-index: 1;
   }
 `)
