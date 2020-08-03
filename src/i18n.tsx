@@ -32,10 +32,11 @@ const zh = {
     '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次的下單輔助按鈕點擊，作為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
   dialog_fixedNextOrderValueNot_text: () => '金額槓桿鎖定?',
-  dialog_keyboardTabToBuySell_brief: () => (
+  dialog_useKeyboardHotkeys_brief: () => (
     <React.Fragment>
-      在下單視窗使用 <TooltipHighlightText>TAB 鍵</TooltipHighlightText>{' '}
-      來切換「賣出」或「買入」
+      熱鍵 <TooltipHighlightText>TAB 鍵</TooltipHighlightText>{' '}
+      可以來切換「賣出」或「買入」。熱鍵{' '}
+      <TooltipHighlightText>ESC 鍵</TooltipHighlightText> 可以關閉視窗
     </React.Fragment>
   ),
   exchange_usedSetup_brief: (selectedText: string) =>
@@ -161,10 +162,11 @@ const en: typeof zh = {
     `Always use the last Amount and Lever, which previously value you click on Execution-Dialog Trading buttons.`,
   dialog_fixedNextOrderValue_text: () => 'Amount/Lever Fixed',
   dialog_fixedNextOrderValueNot_text: () => 'Amount/Lever Fixed?',
-  dialog_keyboardTabToBuySell_brief: () => (
+  dialog_useKeyboardHotkeys_brief: () => (
     <React.Fragment>
-      Use Keyboard the <TooltipHighlightText>TAB key</TooltipHighlightText> to
-      switch BUY or SELL, effect on Execution Dialog open.
+      The Hotkey <TooltipHighlightText>TAB</TooltipHighlightText> to switch BUY
+      or SELL, effect on Execution Dialog open. The Hotkey{' '}
+      <TooltipHighlightText>ESC</TooltipHighlightText> to close Dialogs.
     </React.Fragment>
   ),
   exchange_usedSetup_brief: (selectedText: string) =>
