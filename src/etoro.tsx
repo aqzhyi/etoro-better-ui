@@ -93,7 +93,7 @@ emitter.on(
     )
 
     if (button.hasClass('ng-empty')) {
-      button.click()
+      button.trigger('click')
     }
   },
 )
@@ -144,11 +144,11 @@ emitter.once(Events.ready).then(applyExecutionRiskLeverFromMemory)
  * Auto clicks "More Button"
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
-  $('.more-info-button').click()
+  $('.more-info-button').trigger('click')
   ;[500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000].forEach(
     value => {
       globalThis.setTimeout(() => {
-        $('.more-info-button').click()
+        $('.more-info-button').trigger('click')
       }, value)
     },
   )

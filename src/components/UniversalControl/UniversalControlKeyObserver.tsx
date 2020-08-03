@@ -31,8 +31,8 @@ export const UniversalControlKeyObserver = () => {
       )
 
       gaAPI.sendEvent(GaEventId.keyboard_switchBuySell)
-      targetElement.find('.execution-head-button:not(.active)').click()
-      targetElement.find('.execution-head-button.active').focus()
+      targetElement.find('.execution-head-button:not(.active)').trigger('click')
+      targetElement.find('.execution-head-button.active').trigger('focus')
     },
     {},
     [tabBuySellEnabled],
