@@ -24,6 +24,7 @@ import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialo
 import Tooltip from 'rc-tooltip'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { stringify } from 'query-string'
+import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -141,35 +142,7 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <Stack horizontal disableShrink tokens={{ childrenGap: 16 }}>
             <Stack.Item styles={{ root: { flex: 4 } }}>
-              <Label>{i18n.universal_useKeyboardHotkeys_brief()}</Label>
-              <ChoiceGroup
-                options={[
-                  {
-                    key: 'ON',
-                    text: 'ON',
-                    iconProps: { iconName: 'KeyboardClassic' },
-                    checked: configs.useTabKeyBuySell === true,
-                  },
-                  {
-                    key: 'OFF',
-                    text: 'OFF',
-                    iconProps: { iconName: 'Cancel' },
-                    checked: configs.useTabKeyBuySell === false,
-                  },
-                ]}
-                onChange={async (event, option) => {
-                  const onOff = option?.key === 'ON' ? true : false
-                  gaAPI.sendEvent(
-                    GaEventId.setting_tabToBuySellEnabledSet,
-                    `onOff=${String(onOff)}`,
-                  )
-                  dispatch(
-                    setBetterEtoroUIConfig({
-                      useTabKeyBuySell: onOff,
-                    }),
-                  )
-                }}
-              ></ChoiceGroup>
+              <UniversalHotkeySettings />
             </Stack.Item>
 
             <Stack.Item styles={{ root: { flex: 4 } }}>

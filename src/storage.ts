@@ -5,6 +5,16 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  useHotkeys: {
+    /** The hotkey to trigger Open Trade */
+    dialogOpenTrade?: ' ' | null
+    /** The hotkey to trigger Buy and Sell switch */
+    dialogBuySellSwitch?: 'Tab' | null
+    /** The hotkey to trigger Dialog to close */
+    dialogClose?: 'Esc' | null
+    /** The hotkey to trigger focus on filter input that on the watchlist */
+    watchlistFilter?: 'F' | null
+  }
   /**
    * The second's interval expected used to checking delay ms and the
    * Manual trading working status which fetch from etoro status site.
@@ -24,6 +34,7 @@ export type BetterEtoroUIConfig = {
     buy: number
     sell: number
   }
+  /** @deprecated */
   useTabKeyBuySell: boolean
   listCompactOn: boolean
   executionMacroEnabled: boolean
@@ -37,6 +48,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  useHotkeys: {},
   intervalCheckingStatus: 15,
   googleAnalyticsEnabled: true,
   stopLossAndTakeProfitUseLastPercent: false,

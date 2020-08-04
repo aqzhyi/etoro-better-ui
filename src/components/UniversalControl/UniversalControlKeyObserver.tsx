@@ -16,9 +16,7 @@ const KEYBOARD_DISABLED_CLASSNAME = 'etoro-better-ui__keyboard-disabled'
 
 export const UniversalControlKeyObserver = () => {
   const dispatch = useAppDispatch()
-  const tabBuySellEnabled = useAppSelector(
-    state => state.settings.useTabKeyBuySell,
-  )
+  const hotkeySettings = useAppSelector(state => state.settings.useHotkeys)
 
   const isInputUsesFocusing = () => {
     return (
@@ -27,21 +25,19 @@ export const UniversalControlKeyObserver = () => {
   }
 
   const notifyFunctionShouldEnable = useCallback(() => {
-    if (!tabBuySellEnabled) {
-      cogoToast.info(
-        i18n.universal_useKeyboardHotkeys_help(() => {
-          dispatch(toggleSettingsDialog(true))
-        }),
-        {
-          position: 'top-left',
-          hideAfter: 5,
-        },
-      )
-    }
-  }, [tabBuySellEnabled])
+    cogoToast.info(
+      i18n.universal_useKeyboardHotkeys_help(() => {
+        dispatch(toggleSettingsDialog(true))
+      }),
+      {
+        position: 'top-left',
+        hideAfter: 5,
+      },
+    )
+  }, [hotkeySettings])
 
   useEffect(() => {
-    if (tabBuySellEnabled) {
+    if (Object.values(hotkeySettings).some(data => !!data)) {
       $('body')
         .addClass(KEYBOARD_ENABLED_CLASSNAME)
         .removeClass(KEYBOARD_DISABLED_CLASSNAME)
@@ -50,7 +46,7 @@ export const UniversalControlKeyObserver = () => {
         .removeClass(KEYBOARD_ENABLED_CLASSNAME)
         .addClass(KEYBOARD_DISABLED_CLASSNAME)
     }
-  }, [tabBuySellEnabled])
+  }, [hotkeySettings])
 
   /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
   useKey(
@@ -60,7 +56,7 @@ export const UniversalControlKeyObserver = () => {
 
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
-      if (!tabBuySellEnabled) {
+      if (!hotkeySettings.dialogBuySellSwitch) {
         notifyFunctionShouldEnable()
         return
       }
@@ -72,7 +68,7 @@ export const UniversalControlKeyObserver = () => {
       targetElement.find('.execution-head-button.active').trigger('focus')
     },
     {},
-    [tabBuySellEnabled],
+    [hotkeySettings],
   )
 
   /** 使 ESC 能夠關閉任意 Dialog */
@@ -83,7 +79,7 @@ export const UniversalControlKeyObserver = () => {
 
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
-      if (!tabBuySellEnabled) {
+      if (!hotkeySettings.dialogClose) {
         notifyFunctionShouldEnable()
         return
       }
@@ -94,7 +90,7 @@ export const UniversalControlKeyObserver = () => {
       targetElement.trigger('click')
     },
     {},
-    [tabBuySellEnabled],
+    [hotkeySettings],
   )
 
   /** The hotkey "F" able to get focus on the input of filter */
@@ -105,7 +101,7 @@ export const UniversalControlKeyObserver = () => {
 
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
-      if (!tabBuySellEnabled) {
+      if (!hotkeySettings.watchlistFilter) {
         notifyFunctionShouldEnable()
         return
       }
@@ -117,7 +113,7 @@ export const UniversalControlKeyObserver = () => {
       targetElement.trigger('focus')
     },
     { event: 'keyup' },
-    [tabBuySellEnabled],
+    [hotkeySettings],
   )
 
   /** The hotkey "SPACE" able to trigger "Open Trade" button with a click */
@@ -129,7 +125,7 @@ export const UniversalControlKeyObserver = () => {
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
       if (!angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
-      if (!tabBuySellEnabled) {
+      if (!hotkeySettings.dialogOpenTrade) {
         notifyFunctionShouldEnable()
         return
       }
@@ -141,7 +137,7 @@ export const UniversalControlKeyObserver = () => {
       event.preventDefault()
     },
     {},
-    [tabBuySellEnabled],
+    [hotkeySettings],
   )
 
   return <span></span>
