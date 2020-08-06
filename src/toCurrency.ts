@@ -12,6 +12,9 @@ export const toCurrency = (number: number) => {
 
   if (parts[1]) {
     parts[1] = parts[1].slice(0, 2)
+    parts[1] = parts[1].length === 1 ? parts[1] + '0' : parts[1]
+  } else {
+    parts[1] = '00'
   }
 
   return parts as [string, string]
