@@ -49,10 +49,10 @@ const sellComponent = registerReactComponent({
 })
 
 emitter.on(Events.onDialogHover, buyComponent.mount)
-emitter.on(Events.onDialogNotFount, buyComponent.unmount)
+emitter.on(Events.onDialogNotFound, buyComponent.unmount)
 
 emitter.on(Events.onDialogHover, sellComponent.mount)
-emitter.on(Events.onDialogNotFount, sellComponent.unmount)
+emitter.on(Events.onDialogNotFound, sellComponent.unmount)
 
 GM.addStyle(`
   .${ExecutionDialogBuySellPrice.name} {

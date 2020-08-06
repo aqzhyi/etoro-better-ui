@@ -113,17 +113,17 @@ emitter.on(Events.onPing, function checkSystemStatus() {
  * Execution-Dialog components
  */
 emitter.on(Events.onDialogHover, registeredExecutionDialogStatusInfo.mount)
-emitter.on(Events.onDialogNotFount, registeredExecutionDialogStatusInfo.unmount)
+emitter.on(Events.onDialogNotFound, registeredExecutionDialogStatusInfo.unmount)
 
 emitter.on(Events.onDialogHover, registeredExecutionDialogControls.mount)
-emitter.on(Events.onDialogNotFount, registeredExecutionDialogControls.unmount)
+emitter.on(Events.onDialogNotFound, registeredExecutionDialogControls.unmount)
 
 emitter.on(
   Events.onDialogHover,
   registeredExecutionDialogTakeProfitControls.mount,
 )
 emitter.on(
-  Events.onDialogNotFount,
+  Events.onDialogNotFound,
   registeredExecutionDialogTakeProfitControls.unmount,
 )
 emitter.on(
@@ -131,7 +131,7 @@ emitter.on(
   registeredExecutionDialogStopLossControls.mount,
 )
 emitter.on(
-  Events.onDialogNotFount,
+  Events.onDialogNotFound,
   registeredExecutionDialogStopLossControls.unmount,
 )
 

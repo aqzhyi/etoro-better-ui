@@ -11,7 +11,7 @@ export enum Events {
   onPortfolioHistoryPageHover = 'onPortfolioHistoryPageHover',
   onSidebarHover = 'onSidebarHover',
   onDialogHover = 'onDialogHover',
-  onDialogNotFount = 'onDialogNotFount',
+  onDialogNotFound = 'onDialogNotFound',
   onMoreInfoButtonHover = 'onMoreInfoButtonHover',
   onCloseAllPositionsDialogHover = 'onCloseAllPositionsDialogHover',
   onMountUIs = 'onMountUIs',

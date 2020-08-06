@@ -26,7 +26,7 @@ function _applyEventsObservers() {
     (newValue, oldValue) => {
       if (newValue !== oldValue && newValue === false) {
         debugAPI.angular.extend('isDialogOpen')(newValue)
-        emitter.emit(Events.onDialogNotFount)
+        emitter.emit(Events.onDialogNotFound)
       }
     },
   )
