@@ -145,13 +145,11 @@ emitter.once(Events.ready).then(applyRiskAndAmountSaveToMemory)
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
   $('.more-info-button').trigger('click')
-  ;[500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000].forEach(
-    value => {
-      globalThis.setTimeout(() => {
-        $('.more-info-button').trigger('click')
-      }, value)
-    },
-  )
+  ;[500, 1000, 1500, 2000, 2500].forEach(value => {
+    globalThis.setTimeout(() => {
+      $('.more-info-button').trigger('click')
+    }, value)
+  })
 })
 
 /**
