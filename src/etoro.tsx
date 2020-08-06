@@ -220,6 +220,11 @@ emitter.once(Events.ready).then(function constructCSS() {
     #ct-container {
       z-index: 1000001
     }
+
+    #ct-container .ct-toast {
+      box-shadow: 1px 1px 6px 1px black;
+      transform: scale(0.9);
+    }
   `)
 
   /**
