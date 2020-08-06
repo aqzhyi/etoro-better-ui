@@ -64,6 +64,19 @@ export const SidebarMenuItems = () => {
       </SidebarMenuItem>
 
       <SidebarMenuItem
+        iconName='people-ref'
+        aProps={{
+          target: '_blank',
+          href: 'https://t.me/etoro_better_ui',
+          onClick: () => {
+            sendEvent('link_telegram_chatroom')
+          },
+        }}
+      >
+        Telegram
+      </SidebarMenuItem>
+
+      <SidebarMenuItem
         iconName='news'
         aProps={{
           target: '_blank',
@@ -72,17 +85,6 @@ export const SidebarMenuItems = () => {
         }}
       >
         {i18n.link_extensionWebsite_text()}
-      </SidebarMenuItem>
-
-      <SidebarMenuItem
-        iconName='help'
-        aProps={{
-          target: '_blank',
-          href: 'https://www.notion.so/hilezi/50a7f39ce9a84325a22b98acf67cffb2',
-          onClick: sendEvent.bind(sendEvent, 'link_contact'),
-        }}
-      >
-        {i18n.link_extensionAuthor_text()}
       </SidebarMenuItem>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>

@@ -48,7 +48,6 @@ const zh = {
   link_checkBalance_text: () => '餘額',
   link_deposit_text: (value: number) => `（${value}）銀行賣出`,
   link_donation_text: () => '贊助作者',
-  link_extensionAuthor_text: () => '聯絡作者',
   link_extensionWebsite_text: () => '腳本官網',
   link_pendingOrders_text: () => `我的掛單`,
   link_portfolio_text: () => '投資組合',
@@ -168,20 +167,10 @@ const zh = {
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
-        {' '}
         <span>
-          {' '}
-          🙏 感謝您使用 {zh.universal_extensionName_text()} 更多資訊請恰詢：{' '}
-        </span>{' '}
-        <Link /> {zh.link_extensionWebsite_text()} 或是{' '}
-        <a
-          style={{ color: 'blue' }}
-          target='_blank'
-          href='https://t.me/etoro_better_ui'
-        >
-          {' '}
-          telegram 群組{' '}
-        </a>{' '}
+          <HighlightText>強烈建議您</HighlightText>
+          ：在非交易日，或非交易時間，執行安裝，或更新新版本；並在虛擬交易中，嘗試之後，再應用於真實交易之上
+        </span>
       </React.Fragment>
     )
   },
@@ -211,7 +200,6 @@ const en: typeof zh = {
   link_checkBalance_text: () => 'Balance',
   link_deposit_text: (value: number) => `（${value}）Sold`,
   link_donation_text: () => 'Donate',
-  link_extensionAuthor_text: () => 'Contact Me',
   link_extensionWebsite_text: () => 'Website',
   link_pendingOrders_text: () => `Pending Orders`,
   link_portfolio_text: () => 'portfolio',
@@ -342,20 +330,9 @@ const en: typeof zh = {
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
-        {' '}
-        <span>
-          🙏 Thanks for install {en.universal_extensionName_text()}, for more
-          information in{' '}
-        </span>{' '}
-        <Link /> {en.link_extensionWebsite_text()} or{' '}
-        <a
-          style={{ color: 'blue' }}
-          target='_blank'
-          href='https://t.me/etoro_better_ui'
-        >
-          {' '}
-          telegram group{' '}
-        </a>{' '}
+        <HighlightText>Strong Recommended</HighlightText>: Install or update
+        with a new version on holiday and have tried it on virtual mode before
+        real trading.
       </React.Fragment>
     )
   },
