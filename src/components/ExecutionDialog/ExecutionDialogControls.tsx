@@ -9,12 +9,13 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Toggle, Stack, PrimaryButton } from '@fluentui/react'
 import toast from 'cogo-toast'
 import pWaitFor from 'p-wait-for'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMount } from 'react-use'
 import Tooltip from 'rc-tooltip'
 import { throttle } from 'lodash'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { angularAPI } from '@/angularAPI'
 
 const toAmount = (value: number) => {
   $('[data-etoro-automation-id="execution-button-switch-to-amount"]').trigger(

@@ -5,7 +5,7 @@ import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
-import { applyExecutionRiskLeverFromMemory } from '@/components/ExecutionDialog/applyExecutionRiskLeverFromMemory'
+import { applyRiskAndAmountSaveToMemory } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
@@ -138,7 +138,7 @@ emitter.on(
 /**
  * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
  */
-emitter.once(Events.ready).then(applyExecutionRiskLeverFromMemory)
+emitter.once(Events.ready).then(applyRiskAndAmountSaveToMemory)
 
 /**
  * Auto clicks "More Button"

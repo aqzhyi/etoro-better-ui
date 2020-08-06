@@ -166,6 +166,16 @@ export const angularAPI = {
       | ExecutionDialogScope
       | undefined
   },
+  selectors: {
+    dialogAmountInputSection:
+      '[data-etoro-automation-id="execution-amount-input-section"]',
+    dialogAmountInput:
+      '[data-etoro-automation-id="execution-amount-input-section"] input',
+    dialogAmountSteppers: `
+       [data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-minus
+      ,[data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-plus
+    `,
+  } as const,
   setDialogStopLoss: (lossPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {
       if (angularAPI.executionDialogScope) {
