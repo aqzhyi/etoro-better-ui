@@ -2,7 +2,7 @@ import store from '@/store/_store'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 
 export const applyExecutionRiskLeverFromMemory = () => {
-  $('body').on('.risk-itemlevel', 'click', (index, element) => {
+  $('body').on('click', '.risk-itemlevel', (index, element) => {
     const leverText = (index.target as HTMLAnchorElement).innerText
       .trim()
       .replace(/x/i, '')
