@@ -20,7 +20,7 @@ export const showWelcomeMessage = () => {
       </a>
     )),
     {
-      position: 'top-left',
+      position: 'bottom-left',
       hideAfter: 8,
       onClick: () => {
         hide?.()

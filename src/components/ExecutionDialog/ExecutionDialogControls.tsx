@@ -31,9 +31,15 @@ const toAmount = (value: number) => {
     inputEl.trigger('change')
     inputEl.trigger('blur')
   } else {
-    toast.warn(
+    const { hide } = toast.warn(
       <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
-      { hideAfter: 8 },
+      {
+        position: 'bottom-left',
+        hideAfter: 8,
+        onClick: () => {
+          hide?.()
+        },
+      },
     )
   }
 }
@@ -60,9 +66,15 @@ const toLever = (value: number) => {
       $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
     }, 50)
   } else {
-    toast.warn(
+    const { hide } = toast.warn(
       <div>{i18n.universal_doAvoid_text(i18n.universal_lever_text())}</div>,
-      { hideAfter: 8 },
+      {
+        position: 'bottom-left',
+        hideAfter: 8,
+        onClick: () => {
+          hide?.()
+        },
+      },
     )
   }
 }
@@ -75,12 +87,13 @@ const showRiskAgreement = throttle(() => {
           target='_blank'
           href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
         >
-          🔗 🔎 🌐
+          🔎 🔗 🌐
         </a>
       ))}
     </span>,
     {
-      position: 'top-left',
+      position: 'bottom-left',
+      hideAfter: 8,
       onClick: () => {
         hide?.()
       },
