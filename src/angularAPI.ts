@@ -175,6 +175,15 @@ export const angularAPI = {
        [data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-minus
       ,[data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-plus
     `,
+    /** e.g. `'X5'` */
+    dialogLeverLevelDisplayText:
+      '[data-etoro-automation-id="execution-leverage-tab-title-value"]',
+    /** The button on the dialog that trigger switch to the amount */
+    dialogSwitchToAmountButton:
+      '[data-etoro-automation-id="execution-button-switch-to-amount"]',
+    /** The button on the dialog that trigger switch to the unit */
+    dialogSwitchToUnitButton:
+      '[data-etoro-automation-id="execution-button-switch-to-units"]',
   } as const,
   setDialogStopLoss: (lossPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {

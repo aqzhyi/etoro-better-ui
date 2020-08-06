@@ -18,66 +18,78 @@ import { gaAPI, GaEventId } from '@/gaAPI'
 import { angularAPI } from '@/angularAPI'
 
 const toAmount = (value: number) => {
-  $('[data-etoro-automation-id="execution-button-switch-to-amount"]').trigger(
-    'click',
+  pWaitFor(
+    () => {
+      return (
+        $(angularAPI.selectors.dialogSwitchToAmountButton).length > 0 ||
+        $(angularAPI.selectors.dialogSwitchToUnitButton).length > 0
+      )
+    },
+    { timeout: 10000 },
   )
+    .then(() => {
+      $(angularAPI.selectors.dialogSwitchToAmountButton).trigger('click')
 
-  const inputEl = $(
-    '[data-etoro-automation-id="execution-amount-input-section"]',
-  ).find('input')
-
-  if (inputEl.length) {
-    inputEl.trigger('focus')
-    inputEl.val(`${value}`)
-    inputEl.trigger('change')
-    inputEl.trigger('blur')
-  } else {
-    const { hide } = toast.warn(
-      <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
-      {
-        position: 'bottom-left',
-        hideAfter: 8,
-        onClick: () => {
-          hide?.()
+      return pWaitFor(
+        () => {
+          return $(angularAPI.selectors.dialogAmountInput).length > 0
         },
-      },
-    )
-  }
+        { timeout: 10000 },
+      )
+    })
+    .then(() => {
+      const inputEl = $(angularAPI.selectors.dialogAmountInput)
+
+      inputEl
+        .trigger('focus')
+        .val(`${value}`)
+        .delay(50)
+        .trigger('change')
+        .delay(50)
+        .trigger('blur')
+    })
+    .catch(() => {
+      const { hide } = toast.warn(
+        <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
+        {
+          position: 'bottom-left',
+          hideAfter: 8,
+          onClick: () => {
+            hide?.()
+          },
+        },
+      )
+    })
 }
 
 const toLever = (value: number) => {
-  const targetTabEl = $(
-    '[ng-click="$ctrl.tabsCtrl.selectTab($ctrl, $event)"]',
-  ).eq(1)
+  pWaitFor(
+    () => $(angularAPI.selectors.dialogLeverLevelDisplayText).length > 0,
+    { timeout: 10000 },
+  )
+    .then(() => {
+      $(angularAPI.selectors.dialogLeverLevelDisplayText).trigger('click')
 
-  const isTarget =
-    // 英文
-    targetTabEl.text().toLowerCase().includes('leverage') ||
-    // 馬來文
-    targetTabEl.text().includes('leveraj') ||
-    // 中文
-    targetTabEl.text().includes('槓桿') ||
-    targetTabEl.text().includes('槓杆')
-
-  if (isTarget) {
-    // tab 先按下後，等到 ng-if 使元素出現，在 select 按下
-    targetTabEl.trigger('click')
-
-    globalThis.setTimeout(() => {
+      return pWaitFor(
+        () => $(`.risk-itemlevel:contains(" x${value} ")`).length > 0,
+        { timeout: 10000 },
+      )
+    })
+    .then(() => {
       $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
-    }, 50)
-  } else {
-    const { hide } = toast.warn(
-      <div>{i18n.universal_doAvoid_text(i18n.universal_lever_text())}</div>,
-      {
-        position: 'bottom-left',
-        hideAfter: 8,
-        onClick: () => {
-          hide?.()
+    })
+    .catch(() => {
+      const { hide } = toast.warn(
+        <div>{i18n.universal_doAvoid_text(i18n.universal_lever_text())}</div>,
+        {
+          position: 'bottom-left',
+          hideAfter: 8,
+          onClick: () => {
+            hide?.()
+          },
         },
-      },
-    )
-  }
+      )
+    })
 }
 
 const showRiskAgreement = throttle(() => {
@@ -180,9 +192,6 @@ export const ExecutionDialogControls = () => {
                         `amount=${value}`,
                       )
                       toAmount(value)
-                      dispatch(
-                        setBetterEtoroUIConfig({ executionAmountLast: value }),
-                      )
                     }}
                   >
                     $<span>{value}</span>
@@ -221,9 +230,6 @@ export const ExecutionDialogControls = () => {
                         `lever=${value}`,
                       )
                       toLever(value)
-                      dispatch(
-                        setBetterEtoroUIConfig({ executionLeverLast: value }),
-                      )
                     }}
                   >
                     x<span>{value}</span>

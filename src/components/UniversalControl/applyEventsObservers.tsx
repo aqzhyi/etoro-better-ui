@@ -70,7 +70,7 @@ function _applyEventsObservers() {
    */
   $('body').on(
     'mouseover',
-    '.execution-main',
+    '.uidialog-content',
     throttle(event => {
       const dialogComponentsNotReady = [
         $(`#${registeredExecutionDialogControls.container.id}`).length > 0,

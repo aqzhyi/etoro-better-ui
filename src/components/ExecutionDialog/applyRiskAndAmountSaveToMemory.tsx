@@ -5,7 +5,7 @@ import { angularAPI } from '@/angularAPI'
 const saveToStorage = () => {
   globalThis.setTimeout(() => {
     const input = $(angularAPI.selectors.dialogAmountInput)
-    const amount = Number(input.val()?.toString().replace(/\$/gi, '').trim())
+    const amount = Number(input.val()?.toString().replace(/[$,]/gi, '').trim())
 
     const state = store.getState()
 
