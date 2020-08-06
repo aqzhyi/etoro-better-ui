@@ -26,6 +26,7 @@ const toAmount = (value: number) => {
   ).find('input')
 
   if (inputEl.length) {
+    inputEl.trigger('focus')
     inputEl.val(`${value}`)
     inputEl.trigger('change')
     inputEl.trigger('blur')
@@ -121,8 +122,17 @@ export const ExecutionDialogControls = () => {
     if (executionUseApplyLast) {
       pWaitFor(() => {
         return (
-          $('[ng-click="$ctrl.tabsCtrl.selectTab($ctrl, $event)"]').length >
-            0 &&
+          $('[ng-click="$ctrl.tabsCtrl.selectTab($ctrl, $event)"]').length > 0
+        )
+      }).then(() => {
+        // 在很極端地情況下，連續開開關關 dialog 時，有機會無法正確執行，以 setTimeout 解決
+        globalThis.setTimeout(() => {
+          toLever(lastApplied.lever)
+        }, 100)
+      })
+
+      pWaitFor(() => {
+        return (
           $('[data-etoro-automation-id="execution-amount-input-section"] input')
             .length > 0
         )
@@ -130,7 +140,6 @@ export const ExecutionDialogControls = () => {
         // 在很極端地情況下，連續開開關關 dialog 時，有機會無法正確執行，以 setTimeout 解決
         globalThis.setTimeout(() => {
           toAmount(lastApplied.amount)
-          toLever(lastApplied.lever)
         }, 100)
       })
     }
