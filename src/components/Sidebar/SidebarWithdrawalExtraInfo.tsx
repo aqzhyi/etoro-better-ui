@@ -33,7 +33,7 @@ const { container } = registerReactComponent({
 
 GM.addStyle(`
   #${container.id} {
-    font-size: 10px;
-    1px 1px 1px #303030
+    font-size: 14px;
+    text-shadow: 1px 1px 1px #303030;
   }
 `)

@@ -213,7 +213,7 @@ const en: typeof zh = {
     )
   },
   link_withdrawExtra_text: (value: React.ReactNode) => (
-    <React.Fragment>（{value}）Buy</React.Fragment>
+    <React.Fragment>{value}</React.Fragment>
   ),
   profits_availableValues_text: () => 'Available Value',
   profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) =>
