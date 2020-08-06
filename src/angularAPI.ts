@@ -22,6 +22,12 @@ export interface Instrument {
     '150x150': string
     default: string
   }
+  rate: {
+    /** Sell Price */
+    lastPrice: number
+    /** Buy Price */
+    lastAskPrice: number
+  }
 }
 
 /**
@@ -145,6 +151,7 @@ interface ExecutionDialogScope extends IRootScopeService {
       /** Your trade dollar value on execution dialog */
       amount: number
     }
+    instrument?: Instrument
   }
   /** 開倉下單 */
   openOrder(): unknown
@@ -184,6 +191,10 @@ export const angularAPI = {
     /** The button on the dialog that trigger switch to the unit */
     dialogSwitchToUnitButton:
       '[data-etoro-automation-id="execution-button-switch-to-units"]',
+    /** The button on the dialog header that trigger switch to the Buy mode */
+    dialogBuyButton: '[data-etoro-automation-id="execution-buy-button"]',
+    /** The button on the dialog header that trigger switch to the Sell mode */
+    dialogSellButton: '[data-etoro-automation-id="execution-sell-button"]',
   } as const,
   setDialogStopLoss: (lossPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {

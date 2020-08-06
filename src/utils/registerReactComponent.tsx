@@ -51,6 +51,7 @@ export const registerReactComponent = <
   component: JSX.Element
   /** e.g. `'umjisp19neq' or 'SomeComponentUniqueId'` */
   containerId: string
+  containerClassName?: string
   /** defaults `'span'`, the container element tag that for ReactDOM.render(). */
   containerTag?: string
   /**
@@ -90,6 +91,8 @@ export const registerReactComponent = <
   }
 
   newContainerElement.attr('id', `${containerId}`)
+  options.containerClassName &&
+    newContainerElement.addClass(options.containerClassName)
 
   const checkDisabled = () => options.disabled?.() ?? false
 
