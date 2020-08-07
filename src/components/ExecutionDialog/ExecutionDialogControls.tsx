@@ -16,6 +16,7 @@ import { throttle } from 'lodash'
 import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { angularAPI } from '@/angularAPI'
+import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
 
 const toAmount = (value: number) => {
   pWaitFor(
@@ -48,8 +49,23 @@ const toAmount = (value: number) => {
         .delay(50)
         .trigger('blur')
     })
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        globalThis.setTimeout(() => {
+          const currentVal = $(
+            angularAPI.selectors.dialogAmountInput,
+          ).val() as string
+
+          if (currencyTextToNumber(currentVal) !== value) {
+            reject()
+          }
+
+          resolve()
+        }, 500)
+      })
+    })
     .catch(() => {
-      const { hide } = toast.warn(
+      const { hide } = toast.error(
         <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
         {
           position: 'bottom-left',
@@ -146,28 +162,10 @@ export const ExecutionDialogControls = () => {
 
   useMount(() => {
     if (executionUseApplyLast) {
-      pWaitFor(() => {
-        return (
-          $('[ng-click="$ctrl.tabsCtrl.selectTab($ctrl, $event)"]').length > 0
-        )
-      }).then(() => {
-        // 在很極端地情況下，連續開開關關 dialog 時，有機會無法正確執行，以 setTimeout 解決
-        globalThis.setTimeout(() => {
-          toLever(lastApplied.lever)
-        }, 100)
-      })
-
-      pWaitFor(() => {
-        return (
-          $('[data-etoro-automation-id="execution-amount-input-section"] input')
-            .length > 0
-        )
-      }).then(() => {
-        // 在很極端地情況下，連續開開關關 dialog 時，有機會無法正確執行，以 setTimeout 解決
-        globalThis.setTimeout(() => {
-          toAmount(lastApplied.amount)
-        }, 100)
-      })
+      globalThis.setTimeout(() => {
+        toLever(lastApplied.lever)
+        toAmount(lastApplied.amount)
+      }, 150)
     }
   })
 

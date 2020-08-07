@@ -1,11 +1,12 @@
 import store from '@/store/_store'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '@/angularAPI'
+import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
 
 const saveToStorage = () => {
   globalThis.setTimeout(() => {
     const input = $(angularAPI.selectors.dialogAmountInput)
-    const amount = Number(input.val()?.toString().replace(/[$,]/gi, '').trim())
+    const amount = currencyTextToNumber(input.val() as string)
 
     const state = store.getState()
 
@@ -39,6 +40,4 @@ export const applyRiskAndAmountSaveToMemory = () => {
     angularAPI.selectors.dialogAmountSteppers,
     saveToStorage,
   )
-
-  $('body').on('blur', angularAPI.selectors.dialogAmountInput, saveToStorage)
 }
