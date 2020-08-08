@@ -204,6 +204,9 @@ emitter.once(Events.ready).then(function constructCSS() {
    * 大多數使用者在看到買入與賣出時，時常分不清「目前勾選」項目，導致經常發生明明要買入，卻不小心賣空的狀況。
    */
   GM.addStyle(`
+    .execution-head .execution-head-button { opacity: 0.4; }
+    .execution-head .execution-head-button.active { opacity: 1; }
+
     .execution-head .execution-head-button.active:after {
       content: "✅";
     }
