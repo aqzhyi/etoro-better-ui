@@ -7,6 +7,7 @@
     "dev": "webpack -w",
     "build": "NODE_ENV=production webpack",
     "server": "concurrently 'http-server -p 8087 -c-1 src_dist'",
+    "test": "jest",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"
   },
@@ -16,6 +17,7 @@
     "@babel/core": "^7.11.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-transform-typescript": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@types/angular": "^1.7.2",
     "@types/debug": "^4.1.5",
