@@ -5,7 +5,10 @@ import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
-import { applyRiskAndAmountSaveToMemory } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
+import {
+  nativeEtoroAmountSaveToStorage,
+  nativeEtoroLeverSaveToStorage,
+} from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
@@ -135,10 +138,9 @@ emitter.on(
   registeredExecutionDialogStopLossControls.unmount,
 )
 
-/**
- * 這使用戶不需要按巨集，直接按內建槓桿時，也會記憶
- */
-emitter.once(Events.ready).then(applyRiskAndAmountSaveToMemory)
+// Make execution dialog of native etoro functions able to and save values to localStorage
+emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
+emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
 
 /**
  * Auto clicks "More Button"

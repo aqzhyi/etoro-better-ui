@@ -3,41 +3,47 @@ import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '@/angularAPI'
 import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
 
-const saveToStorage = () => {
-  globalThis.setTimeout(() => {
-    const input = $(angularAPI.selectors.dialogAmountInput)
-    const amount = currencyTextToNumber(input.val() as string)
-
-    const state = store.getState()
-
+export const dialogSaveAmountToStorage = (amount?: number) => {
+  if (typeof amount === 'number') {
     store.dispatch(
       setBetterEtoroUIConfig({
-        executionAmountLast: Number.isNaN(amount) ? 200 : amount,
+        executionAmountLast: amount,
       }),
     )
-  }, 100)
+  }
 }
 
-export const applyRiskAndAmountSaveToMemory = () => {
+export const dialogSaveLeverToStorage = (lever?: number) => {
+  if (Number.isInteger(lever)) {
+    store.dispatch(
+      setBetterEtoroUIConfig({
+        executionLeverLast: lever,
+      }),
+    )
+  }
+}
+
+export const nativeEtoroAmountSaveToStorage = () => {
+  let intervalId: ReturnType<typeof globalThis['setTimeout']>
+
+  $('body').on('click', angularAPI.selectors.dialogAmountSteppers, () => {
+    globalThis.clearTimeout(intervalId)
+
+    intervalId = globalThis.setTimeout(() => {
+      const input = $(angularAPI.selectors.dialogAmountInput)
+      const amount = currencyTextToNumber(input.val() as string)
+
+      dialogSaveAmountToStorage(amount)
+    }, 100)
+  })
+}
+
+export const nativeEtoroLeverSaveToStorage = () => {
   $('body').on('click', '.risk-itemlevel', (index, element) => {
     const leverText = (index.target as HTMLAnchorElement).innerText
       .trim()
       .replace(/x/i, '')
 
-    const state = store.getState()
-
-    if (state.settings.executionUseApplyLast) {
-      store.dispatch(
-        setBetterEtoroUIConfig({
-          executionLeverLast: Number(leverText),
-        }),
-      )
-    }
+    dialogSaveLeverToStorage(Number(leverText))
   })
-
-  $('body').on(
-    'click',
-    angularAPI.selectors.dialogAmountSteppers,
-    saveToStorage,
-  )
 }

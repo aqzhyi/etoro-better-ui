@@ -1,111 +1,49 @@
-import { storage } from '../../storage'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
+import { angularAPI } from '@/angularAPI'
+import {
+  dialogSaveAmountToStorage,
+  dialogSaveLeverToStorage,
+} from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
+import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
 import { ProviderBy } from '@/components/ProviderBy'
+import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
-import { registerReactComponent } from '@/utils/registerReactComponent'
-import { Toggle, Stack, PrimaryButton } from '@fluentui/react'
-import toast from 'cogo-toast'
-import pWaitFor from 'p-wait-for'
-import React, { useEffect } from 'react'
-import { useMount } from 'react-use'
-import Tooltip from 'rc-tooltip'
-import { throttle } from 'lodash'
-import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { angularAPI } from '@/angularAPI'
 import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import { PrimaryButton, Stack } from '@fluentui/react'
+import toast from 'cogo-toast'
+import { throttle } from 'lodash'
+import Tooltip from 'rc-tooltip'
+import React, { useEffect } from 'react'
+import { useTimeoutFn } from 'react-use'
+import { storage } from '@/storage'
 
 const toAmount = (value: number) => {
-  pWaitFor(
-    () => {
-      return (
-        $(angularAPI.selectors.dialogSwitchToAmountButton).length > 0 ||
-        $(angularAPI.selectors.dialogSwitchToUnitButton).length > 0
-      )
-    },
-    { timeout: 10000 },
-  )
-    .then(() => {
-      $(angularAPI.selectors.dialogSwitchToAmountButton).trigger('click')
+  const inputEl = $(angularAPI.selectors.dialogAmountInput)
 
-      return pWaitFor(
-        () => {
-          return $(angularAPI.selectors.dialogAmountInput).length > 0
-        },
-        { timeout: 10000 },
-      )
-    })
-    .then(() => {
-      const inputEl = $(angularAPI.selectors.dialogAmountInput)
+  inputEl
+    .trigger('focus')
+    .val(`${value}`)
+    .delay(50)
+    .trigger('change')
+    .delay(50)
+    .trigger('blur')
 
-      inputEl
-        .trigger('focus')
-        .val(`${value}`)
-        .delay(50)
-        .trigger('change')
-        .delay(50)
-        .trigger('blur')
-    })
-    .then(() => {
-      return new Promise((resolve, reject) => {
-        globalThis.setTimeout(() => {
-          const currentVal = $(
-            angularAPI.selectors.dialogAmountInput,
-          ).val() as string
-
-          if (currencyTextToNumber(currentVal) !== value) {
-            reject()
-          }
-
-          resolve()
-        }, 500)
-      })
-    })
-    .catch(() => {
-      const { hide } = toast.error(
-        <div>{i18n.universal_doAvoid_text(i18n.universal_amount_text())}</div>,
-        {
-          position: 'bottom-left',
-          hideAfter: 8,
-          onClick: () => {
-            hide?.()
-          },
-        },
-      )
-    })
+  dialogSaveAmountToStorage(value)
 }
 
 const toLever = (value: number) => {
-  pWaitFor(
-    () => $(angularAPI.selectors.dialogLeverLevelDisplayText).length > 0,
-    { timeout: 10000 },
-  )
-    .then(() => {
-      $(angularAPI.selectors.dialogLeverLevelDisplayText).trigger('click')
+  const tabEl = $(
+    angularAPI.selectors.dialogLeverLevelDisplayText,
+  ).parentsUntil('a')
 
-      return pWaitFor(
-        () => $(`.risk-itemlevel:contains(" x${value} ")`).length > 0,
-        { timeout: 10000 },
-      )
-    })
-    .then(() => {
-      $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
-    })
-    .catch(() => {
-      const { hide } = toast.warn(
-        <div>{i18n.universal_doAvoid_text(i18n.universal_lever_text())}</div>,
-        {
-          position: 'bottom-left',
-          hideAfter: 8,
-          onClick: () => {
-            hide?.()
-          },
-        },
-      )
-    })
+  tabEl.trigger('click')
+
+  $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
+
+  dialogSaveLeverToStorage(value)
 }
 
 const showRiskAgreement = throttle(() => {
@@ -156,14 +94,56 @@ export const ExecutionDialogControls = () => {
     showRiskAgreement()
   }, [])
 
-  useMount(() => {
-    if (executionUseApplyLast) {
-      globalThis.setTimeout(() => {
-        toLever(lastApplied.lever)
-        toAmount(lastApplied.amount)
-      }, 150)
+  const [amountIsReady, amountCancel, amountReset] = useTimeoutFn(() => {
+    if (!executionUseApplyLast) {
+      return amountCancel()
     }
-  })
+
+    if (amountIsReady()) {
+      toAmount(lastApplied.amount)
+    }
+
+    const currentAmount = currencyTextToNumber(
+      $(angularAPI.selectors.dialogAmountInput).val()?.toString(),
+    )
+
+    if (currentAmount === lastApplied.amount) {
+      amountCancel()
+    } else {
+      amountReset()
+    }
+  }, 50)
+
+  useTimeoutFn(() => {
+    amountCancel()
+  }, 1000)
+
+  const [leverIsReady, leverCancel, leverReset] = useTimeoutFn(() => {
+    if (!executionUseApplyLast) {
+      return leverCancel()
+    }
+
+    if (leverIsReady()) {
+      toLever(lastApplied.lever)
+    }
+
+    const currentLever = currencyTextToNumber(
+      $(angularAPI.selectors.dialogLeverLevelDisplayText)
+        .get(0)
+        .innerText.trim()
+        .replace(/x/i, ''),
+    )
+
+    if (currentLever === lastApplied.lever) {
+      leverCancel()
+    } else {
+      leverReset()
+    }
+  }, 50)
+
+  useTimeoutFn(() => {
+    leverCancel()
+  }, 1000)
 
   if (!enabled) {
     return null

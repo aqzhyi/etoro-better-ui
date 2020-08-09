@@ -72,13 +72,18 @@ function _applyEventsObservers() {
     'mouseover',
     '.uidialog-content',
     throttle(event => {
+      const isDialogOpen =
+        angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
+
+      if (!isDialogOpen) {
+        emitter.emit(Events.onDialogNotFound)
+        return
+      }
+
       const dialogComponentsNotReady = [
         $(`#${registeredExecutionDialogControls.container.id}`).length > 0,
         $(`#${registeredExecutionDialogStatusInfo.container.id}`).length > 0,
       ].some(isReady => !isReady)
-
-      const isDialogOpen =
-        angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
 
       if (isDialogOpen && dialogComponentsNotReady) {
         emitter.emit(Events.onDialogHover)
