@@ -16,19 +16,15 @@ const ExecutionDialogStopLossControls = () => {
     state => state.settings.stopLossAndTakeProfitUseLastPercent,
   )
 
-  if (!enabled) {
-    return null
-  }
-
   const lastPercent = useAppSelector(
     state => state.settings.stopLossLastPercent,
   )
 
   // recording your last percent on input which number you key in
   useEffect(() => {
-    $('body').delegate(
-      '[data-etoro-automation-id="execution-stop-loss-amount-input"] input',
+    $('body').on(
       `blur.${ExecutionDialogStopLossControls.name}`,
+      '[data-etoro-automation-id="execution-stop-loss-amount-input"] input',
       debounce(event => {
         dispatch(
           setBetterEtoroUIConfig({
@@ -40,13 +36,17 @@ const ExecutionDialogStopLossControls = () => {
     )
 
     return () => {
-      $('body').undelegate(`blur.${ExecutionDialogStopLossControls.name}`)
+      $('body').off(`blur.${ExecutionDialogStopLossControls.name}`)
     }
-  }, [])
+  }, [dispatch])
 
   useMount(() => {
     angularAPI.setDialogStopLoss(lastPercent)
   })
+
+  if (!enabled) {
+    return null
+  }
 
   return (
     <Tooltip

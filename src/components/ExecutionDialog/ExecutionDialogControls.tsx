@@ -138,10 +138,6 @@ export const ExecutionDialogControls = () => {
 
   const enabled = useAppSelector(state => state.settings.executionMacroEnabled)
 
-  if (!enabled) {
-    return null
-  }
-
   const amounts = useAppSelector(state => state.settings.executionAmount)
   const levers = useAppSelector(state => state.settings.executionLever)
 
@@ -156,7 +152,7 @@ export const ExecutionDialogControls = () => {
     }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     showRiskAgreement()
   }, [])
 
@@ -168,6 +164,10 @@ export const ExecutionDialogControls = () => {
       }, 150)
     }
   })
+
+  if (!enabled) {
+    return null
+  }
 
   return (
     <React.Fragment>

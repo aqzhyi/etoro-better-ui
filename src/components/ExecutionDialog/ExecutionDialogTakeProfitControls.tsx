@@ -1,15 +1,14 @@
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
-import store, { useAppSelector, useAppDispatch } from '@/store/_store'
+import { i18n } from '@/i18n'
+import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Icon } from '@fluentui/react'
+import { debounce } from 'lodash'
 import Tooltip from 'rc-tooltip'
 import React, { useEffect } from 'react'
-import { Provider } from 'react-redux'
 import { useMount } from 'react-use'
-import { i18n } from '@/i18n'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { debounce } from 'lodash'
 
 export const ExecutionDialogTakeProfitControls = () => {
   const dispatch = useAppDispatch()
@@ -17,19 +16,15 @@ export const ExecutionDialogTakeProfitControls = () => {
     state => state.settings.stopLossAndTakeProfitUseLastPercent,
   )
 
-  if (!enabled) {
-    return null
-  }
-
   const lastPercent = useAppSelector(
     state => state.settings.takeProfitLastPercent,
   )
 
   // recording your last percent on input which number you key in
   useEffect(() => {
-    $('body').delegate(
-      '[data-etoro-automation-id="execution-take-profit-amount-input"] input',
+    $('body').on(
       `blur.${ExecutionDialogTakeProfitControls.name}`,
+      '[data-etoro-automation-id="execution-take-profit-amount-input"] input',
       debounce(event => {
         dispatch(
           setBetterEtoroUIConfig({
@@ -41,13 +36,17 @@ export const ExecutionDialogTakeProfitControls = () => {
     )
 
     return () => {
-      $('body').undelegate(`blur.${ExecutionDialogTakeProfitControls.name}`)
+      $('body').off(`blur.${ExecutionDialogTakeProfitControls.name}`)
     }
-  }, [])
+  }, [dispatch])
 
   useMount(() => {
     angularAPI.setDialogTakeProfit(lastPercent)
   })
+
+  if (!enabled) {
+    return null
+  }
 
   return (
     <Tooltip
