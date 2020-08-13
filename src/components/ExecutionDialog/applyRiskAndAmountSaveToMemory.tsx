@@ -4,6 +4,12 @@ import { angularAPI } from '@/angularAPI'
 import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
 
 export const dialogSaveAmountToStorage = (amount?: number) => {
+  const state = store.getState()
+
+  if (amount === state.settings.executionAmountLast) {
+    return
+  }
+
   if (typeof amount === 'number') {
     store.dispatch(
       setBetterEtoroUIConfig({
@@ -14,6 +20,12 @@ export const dialogSaveAmountToStorage = (amount?: number) => {
 }
 
 export const dialogSaveLeverToStorage = (lever?: number) => {
+  const state = store.getState()
+
+  if (lever === state.settings.executionLeverLast) {
+    return
+  }
+
   if (Number.isInteger(lever)) {
     store.dispatch(
       setBetterEtoroUIConfig({
@@ -23,27 +35,27 @@ export const dialogSaveLeverToStorage = (lever?: number) => {
   }
 }
 
-export const nativeEtoroAmountSaveToStorage = () => {
-  let intervalId: ReturnType<typeof globalThis['setTimeout']>
+// export const nativeEtoroAmountSaveToStorage = () => {
+//   let intervalId: ReturnType<typeof globalThis['setTimeout']>
 
-  $('body').on('click', angularAPI.selectors.dialogAmountSteppers, () => {
-    globalThis.clearTimeout(intervalId)
+//   $('body').on('click', angularAPI.selectors.dialogAmountSteppers, () => {
+//     globalThis.clearTimeout(intervalId)
 
-    intervalId = globalThis.setTimeout(() => {
-      const input = $(angularAPI.selectors.dialogAmountInput)
-      const amount = currencyTextToNumber(input.val() as string)
+//     intervalId = globalThis.setTimeout(() => {
+//       const input = $(angularAPI.selectors.dialogAmountInput)
+//       const amount = currencyTextToNumber(input.val() as string)
 
-      dialogSaveAmountToStorage(amount)
-    }, 100)
-  })
-}
+//       dialogSaveAmountToStorage(amount)
+//     }, 100)
+//   })
+// }
 
-export const nativeEtoroLeverSaveToStorage = () => {
-  $('body').on('click', '.risk-itemlevel', (index, element) => {
-    const leverText = (index.target as HTMLAnchorElement).innerText
-      .trim()
-      .replace(/x/i, '')
+// export const nativeEtoroLeverSaveToStorage = () => {
+//   $('body').on('click', '.risk-itemlevel', (index, element) => {
+//     const leverText = (index.target as HTMLAnchorElement).innerText
+//       .trim()
+//       .replace(/x/i, '')
 
-    dialogSaveLeverToStorage(Number(leverText))
-  })
-}
+//     dialogSaveLeverToStorage(Number(leverText))
+//   })
+// }

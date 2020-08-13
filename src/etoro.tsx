@@ -5,10 +5,6 @@ import { GM } from './GM'
 import { fetchExtraCurrency } from '@/actions/fetchExtraCurrency'
 import { fetchStatusInfoAggregate } from '@/actions/fetchStatusInfoAggregate'
 import { fetchPingValue } from '@/actions/setPingValue'
-import {
-  nativeEtoroAmountSaveToStorage,
-  nativeEtoroLeverSaveToStorage,
-} from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import { renderSidebarDepositButton } from '@/components/Sidebar/SidebarDepositButton'
 import { applyEventsObservers } from '@/components/UniversalControl/applyEventsObservers'
 import { showWelcomeMessage } from '@/components/UniversalControl/UniversalWelcomeMessage'
@@ -139,8 +135,8 @@ emitter.on(
 )
 
 // Make execution dialog of native etoro functions able to and save values to localStorage
-emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
-emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
+// emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
+// emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
 
 /**
  * Auto clicks "More Button"

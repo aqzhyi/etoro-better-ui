@@ -11,8 +11,18 @@ export interface Instrument {
   shortName: string
   ExchangeID: number
   InstrumentID: number
-  Name: string
+  /**
+    Available levers which user can to select
+
+    Some instruments leverage can't be select, such as VTI, TLT, QQQ. expect it will return as `[1]`
+  */
+  Leverages: number[]
   Leverage1MaintenanceMargin: number
+  /**
+    The native etoro has min position amount on each different instruments
+   */
+  MinPositionAmount: number
+  Name: string
   /** Avatars URLs */
   Avatars: {
     '35x35': string
@@ -22,12 +32,7 @@ export interface Instrument {
     '150x150': string
     default: string
   }
-  rate: {
-    /** Sell Price */
-    lastPrice: number
-    /** Buy Price */
-    lastAskPrice: number
-  }
+  rate: InstrumentRate
 }
 
 /**
@@ -150,6 +155,14 @@ interface ExecutionDialogScope extends IRootScopeService {
     amount: {
       /** Your trade dollar value on execution dialog */
       amount: number
+    }
+    leverages: {
+      /** Index of selected lever which in list */
+      leverageIndex: number
+      /** The levers that can be selected */
+      leverageList: number[]
+      /** Your lever level. e.g. `5` which means with x5 lever */
+      selectedLeverage: number
     }
     instrument?: Instrument
   }

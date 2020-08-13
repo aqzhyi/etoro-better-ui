@@ -17,33 +17,131 @@ import toast from 'cogo-toast'
 import { throttle } from 'lodash'
 import Tooltip from 'rc-tooltip'
 import React, { useEffect } from 'react'
-import { useTimeoutFn } from 'react-use'
+import { useInterval, useTimeoutFn } from 'react-use'
 import { storage } from '@/storage'
 
-const toAmount = (value: number) => {
-  const inputEl = $(angularAPI.selectors.dialogAmountInput)
+const useAmountView = () => {
+  const amountExpectFixedAt = useAppSelector(
+    state => state.settings.executionAmountLast,
+  )
 
-  inputEl
-    .trigger('focus')
-    .val(`${value}`)
-    .delay(50)
-    .trigger('change')
-    .delay(50)
-    .trigger('blur')
+  /**
+    Is the amount of value it has possibles which can be fixed by function?
+  */
+  const isAmountCanFixes = () => {
+    if (!angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) {
+      return false
+    }
 
-  dialogSaveAmountToStorage(value)
+    return true
+  }
+
+  const isAmountFixed = () => getAmountViewValue() === amountExpectFixedAt
+
+  const getAmountViewValue = () => {
+    return Number(
+      $(angularAPI.selectors.dialogAmountInput)
+        .val()
+        ?.toString()
+        ?.replace(/[$,]/gi, '')
+        .trim(),
+    )
+  }
+
+  const setAmountViewValue = (value: number) => {
+    const etoroMinAmountValue =
+      angularAPI.executionDialogScope?.model.instrument?.MinPositionAmount ??
+      value
+
+    $(angularAPI.selectors.dialogAmountInput)
+      .val(`${value < etoroMinAmountValue ? etoroMinAmountValue : value}`)
+      .delay(50)
+      .trigger('change')
+      .delay(50)
+      .trigger('blur')
+  }
+
+  return {
+    getValue: getAmountViewValue,
+    setVulue: setAmountViewValue,
+    isFixed: isAmountFixed,
+    isCanFixes: isAmountCanFixes,
+  }
 }
 
-const toLever = (value: number) => {
-  const tabEl = $(
-    angularAPI.selectors.dialogLeverLevelDisplayText,
-  ).parentsUntil('a')
+const useLeverView = () => {
+  const leverExpectFixedAt = useAppSelector(
+    state => state.settings.executionLeverLast,
+  )
 
-  tabEl.trigger('click')
+  const getLeverViewValue = () => {
+    const value = Number(
+      $(angularAPI.selectors.dialogLeverLevelDisplayText).html().trim()[1],
+    )
 
-  $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
+    if (Number.isInteger(value)) {
+      return value
+    }
 
-  dialogSaveLeverToStorage(value)
+    return null
+  }
+
+  const setLeverViewValue = (value: number) => {
+    const tabEl = $(
+      angularAPI.selectors.dialogLeverLevelDisplayText,
+    ).parentsUntil('a')
+
+    tabEl.trigger('click')
+
+    $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
+  }
+
+  const isLeverFixed = () => {
+    const availableValues =
+      angularAPI.executionDialogScope?.model.instrument?.Leverages
+
+    const currentValue = getLeverViewValue()
+
+    if (!currentValue) {
+      return false
+    }
+
+    if (currentValue === leverExpectFixedAt) {
+      return true
+    }
+
+    if (!availableValues?.includes(currentValue) && currentValue === 1) {
+      return true
+    }
+
+    return false
+  }
+
+  const isLeverCanFixes = () => {
+    if (!angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) {
+      return false
+    }
+
+    const availableValues =
+      angularAPI.executionDialogScope?.model.instrument?.Leverages
+
+    if (!availableValues) {
+      return false
+    }
+
+    const tabEl = $(
+      angularAPI.selectors.dialogLeverLevelDisplayText,
+    ).parentsUntil('a')
+
+    return !!tabEl.length
+  }
+
+  return {
+    getValue: getLeverViewValue,
+    setValue: setLeverViewValue,
+    isFixed: isLeverFixed,
+    isCanFixes: isLeverCanFixes,
+  }
 }
 
 const showRiskAgreement = throttle(() => {
@@ -74,6 +172,9 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls = () => {
   const dispatch = useAppDispatch()
 
+  const amountView = useAmountView()
+  const leverView = useLeverView()
+
   const enabled = useAppSelector(state => state.settings.executionMacroEnabled)
 
   const amounts = useAppSelector(state => state.settings.executionAmount)
@@ -90,60 +191,27 @@ export const ExecutionDialogControls = () => {
     }
   })
 
+  useInterval(
+    () => {
+      if (amountView.isCanFixes()) {
+        amountView.setVulue(lastApplied.amount)
+      }
+    },
+    executionUseApplyLast ? 200 : null,
+  )
+
+  useInterval(
+    () => {
+      if (leverView.isCanFixes()) {
+        leverView.setValue(lastApplied.lever)
+      }
+    },
+    executionUseApplyLast ? 200 : null,
+  )
+
   useEffect(() => {
     showRiskAgreement()
   }, [])
-
-  const [amountIsReady, amountCancel, amountReset] = useTimeoutFn(() => {
-    if (!executionUseApplyLast) {
-      return amountCancel()
-    }
-
-    if (amountIsReady()) {
-      toAmount(lastApplied.amount)
-    }
-
-    const currentAmount = currencyTextToNumber(
-      $(angularAPI.selectors.dialogAmountInput).val()?.toString(),
-    )
-
-    if (currentAmount === lastApplied.amount) {
-      amountCancel()
-    } else {
-      amountReset()
-    }
-  }, 50)
-
-  useTimeoutFn(() => {
-    amountCancel()
-  }, 1000)
-
-  const [leverIsReady, leverCancel, leverReset] = useTimeoutFn(() => {
-    if (!executionUseApplyLast) {
-      return leverCancel()
-    }
-
-    if (leverIsReady()) {
-      toLever(lastApplied.lever)
-    }
-
-    const currentLever = currencyTextToNumber(
-      $(angularAPI.selectors.dialogLeverLevelDisplayText)
-        .get(0)
-        .innerText.trim()
-        .replace(/x/i, ''),
-    )
-
-    if (currentLever === lastApplied.lever) {
-      leverCancel()
-    } else {
-      leverReset()
-    }
-  }, 50)
-
-  useTimeoutFn(() => {
-    leverCancel()
-  }, 1000)
 
   if (!enabled) {
     return null
@@ -169,7 +237,8 @@ export const ExecutionDialogControls = () => {
                         GaEventId.dialog_amountButtonsClick,
                         `amount=${value}`,
                       )
-                      toAmount(value)
+                      amountView.setVulue(value)
+                      dialogSaveAmountToStorage(value)
                     }}
                   >
                     $<span>{value}</span>
@@ -207,7 +276,8 @@ export const ExecutionDialogControls = () => {
                         GaEventId.dialog_leverButtonsClick,
                         `lever=${value}`,
                       )
-                      toLever(value)
+                      leverView.setValue(value)
+                      dialogSaveLeverToStorage(value)
                     }}
                   >
                     x<span>{value}</span>
