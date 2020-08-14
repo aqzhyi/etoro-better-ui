@@ -2,7 +2,10 @@ const path = require('path')
 const { jestPreset } = require('ts-jest')
 
 module.exports = {
-  testEnvironment: 'node',
+  // The root of your source code, typically /src
+  // `<rootDir>` is a token Jest substitutes
+  roots: ['<rootDir>/src'],
+  testEnvironment: 'jsdom',
   transform: {
     /** 👇 { '^.+\\.tsx?$': 'ts-jest' } */
     ...jestPreset.transform,
@@ -14,8 +17,13 @@ module.exports = {
     '@\\/(.*)': path.resolve(__dirname, 'src/$1'),
   },
   transformIgnorePatterns: ['/node_modules/'],
-  testMatch: [
-    '<rootDir>/**/__tests__/**/*.[tj]s?(x)',
-    '<rootDir>/**/*.{spec,test}.[tj]s?(x)',
+  // Runs special logic, such as cleaning up components
+  // when using React Testing Library and adds special
+  // extended assertions to Jest
+  setupFilesAfterEnv: [
+    // '@testing-library/react/cleanup-after-each',
+    // '@testing-library/jest-dom',
+    // '@testing-library/jest-dom/extend-expect',
   ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 }
