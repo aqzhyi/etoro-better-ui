@@ -17,6 +17,7 @@ module.exports = {
     '@\\/(.*)': path.resolve(__dirname, 'src/$1'),
   },
   transformIgnorePatterns: ['/node_modules/'],
+  setupFiles: ['./jest.setup.js'],
   // Runs special logic, such as cleaning up components
   // when using React Testing Library and adds special
   // extended assertions to Jest
