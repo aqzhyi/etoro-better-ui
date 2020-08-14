@@ -1,6 +1,6 @@
 import { GM } from '@/GM'
 import { toCurrency } from '@/toCurrency'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 export const ProfitText: React.FC<{
   /**
@@ -9,12 +9,8 @@ export const ProfitText: React.FC<{
     @example
     777.771257325
 
-    // $777.77
-
     @example
     -777.771257325
-
-    // -$777.77
   */
   profit: number
   /**
@@ -49,7 +45,17 @@ export const ProfitText: React.FC<{
   noDollarSign?: boolean
 }> = props => {
   const isNegative = props.profit < 0
-  const values = toCurrency(Number(props.profit.toFixed(2)))
+
+  const values = useMemo(() => {
+    const value = Math.abs(props.profit)
+
+    const floatingLength = value.toString().split('.')[1]?.length
+    const defaultsToFixedLength = floatingLength > 2 ? 4 : 2
+
+    return toCurrency(Number(value), {
+      toFixedLength: defaultsToFixedLength,
+    })
+  }, [props])
 
   const dollarPrefix = props.noDollarSign
     ? isNegative

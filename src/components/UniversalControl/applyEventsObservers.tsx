@@ -6,6 +6,7 @@ import { emitter, Events } from '@/emitter'
 import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
 import store from '@/store/_store'
+import { exectionDialogPrices } from '@/components/ExecutionDialog/ExecutionDialogPrices'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
@@ -83,6 +84,7 @@ function _applyEventsObservers() {
       const dialogComponentsNotReady = [
         $(`#${registeredExecutionDialogControls.container.id}`).length > 0,
         $(`#${registeredExecutionDialogStatusInfo.container.id}`).length > 0,
+        $(`#${exectionDialogPrices.container.id}`).length > 0,
       ].some(isReady => !isReady)
 
       if (isDialogOpen && dialogComponentsNotReady) {

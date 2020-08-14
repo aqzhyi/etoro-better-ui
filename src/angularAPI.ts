@@ -1,11 +1,42 @@
 import type { IRootScopeService, ILocationService } from 'angular'
-import store from '@/store/_store'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+
+export interface InstrumentRate {
+  /** 看起來是槓桿買入價 e.g. BTC, ETH */
+  Ask: number
+  /** 看起來是x1買入價 e.g. BTC, ETH */
+  AskDiscounted: number
+  /** 看起來是槓桿賣出價 e.g. BTC, ETH */
+  Bid: number
+  /** 看起來是x1賣出價 e.g. BTC, ETH */
+  BidDiscounted: number
+  /** 上次買入價 */
+  LastAsk: number
+  /** 上次賣出價 */
+  LastBid: number
+  /** 上次報價 */
+  LastExecution: number
+  /** 看起來是蠟蠋賣出價 e.g. BTC, ETH */
+  lastPrice: number
+  /** 看起來是蠟蠋買入價 e.g. BTC, ETH */
+  lastAskPrice: number
+  /** 差價合約報價 */
+  UnitMargin: number
+  /** 差價合約槓桿買入價 */
+  UnitMarginAsk: number
+  /** 差價合約買入折扣價 */
+  UnitMarginAskDiscounted: number
+  /** 差價合約槓桿賣入價 */
+  UnitMarginBid: number
+  /** 差價合約賣出折扣價 */
+  UnitMarginBidDiscounted: number
+}
 
 /**
  * The Stocks, ETFs, and or something else objectives, and their type definitions
  */
 export interface Instrument {
+  /** e.g `'instrument-100000'` */
+  uniqueId: string
   DisplayName: string
   fullName: string
   shortName: string
@@ -125,7 +156,7 @@ interface EtoroRootScope extends IRootScopeService {
   }
 }
 
-interface ExecutionDialogScope extends IRootScopeService {
+export interface ExecutionDialogScope extends IRootScopeService {
   controller: {
     instrument?: Instrument
   }
@@ -208,6 +239,8 @@ export const angularAPI = {
     dialogBuyButton: '[data-etoro-automation-id="execution-buy-button"]',
     /** The button on the dialog header that trigger switch to the Sell mode */
     dialogSellButton: '[data-etoro-automation-id="execution-sell-button"]',
+    /** The inner content of dialog that the border whose user can see */
+    dialogInnerContent: '#open-position-view',
   } as const,
   setDialogStopLoss: (lossPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {
