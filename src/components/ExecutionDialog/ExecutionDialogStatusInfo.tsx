@@ -155,7 +155,6 @@ export const registeredExecutionDialogStatusInfo = registerReactComponent({
 GM.addStyle(`
   #${registeredExecutionDialogStatusInfo.container.id} {
     display: flex;
-    align-items: flex-start;
   }
 
   #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
