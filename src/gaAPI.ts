@@ -33,6 +33,7 @@ export enum GaEventId {
   setting_sameOrderEnabledSet,
   setting_tabToBuySellEnabledSet,
   setting_takeProfitAndStopLoseEnabledSet,
+  setting_inviteExcitingDegree,
 }
 
 const GA_TRACKER_NAME = 'etoroBetterUi'
