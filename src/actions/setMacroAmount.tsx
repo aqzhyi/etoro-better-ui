@@ -18,7 +18,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
 
   const newValue = (props?.join(',') ||
     prompt(
-      i18n.dialog_buttonsSetup_brief(),
+      i18n.dialog_buttonsSetup_help(),
       state.settings.executionAmount.join(','),
     )) as string
 

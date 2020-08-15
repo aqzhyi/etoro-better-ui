@@ -1,5 +1,5 @@
 import React from 'react'
-import { Toggle } from '@fluentui/react'
+import { Label, Toggle } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { i18n } from '@/i18n'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
@@ -12,24 +12,26 @@ export const ExecutionDialogApplyLastOrderSwitch = () => {
   )
 
   return (
-    <Toggle
-      checked={executionUseApplyLast}
-      label={
-        executionUseApplyLast
+    <React.Fragment>
+      <Label>
+        {executionUseApplyLast
           ? i18n.dialog_fixedNextOrderValue_text()
-          : i18n.dialog_fixedNextOrderValueNot_text()
-      }
-      onChange={(event, checked) => {
-        gaAPI.sendEvent(
-          GaEventId.setting_sameOrderEnabledSet,
-          `checked=${String(checked)}`,
-        )
-        dispatch(
-          setBetterEtoroUIConfig({
-            executionUseApplyLast: checked,
-          }),
-        )
-      }}
-    ></Toggle>
+          : i18n.dialog_fixedNextOrderValueNot_text()}
+      </Label>
+      <Toggle
+        checked={executionUseApplyLast}
+        onChange={(event, checked) => {
+          gaAPI.sendEvent(
+            GaEventId.setting_sameOrderEnabledSet,
+            `checked=${String(checked)}`,
+          )
+          dispatch(
+            setBetterEtoroUIConfig({
+              executionUseApplyLast: checked,
+            }),
+          )
+        }}
+      ></Toggle>
+    </React.Fragment>
   )
 }

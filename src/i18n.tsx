@@ -27,10 +27,19 @@ import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
   ```
  */
 const zh = {
-  dialog_buttonsSetup_brief: () =>
-    '下單輔助按鈕之金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000',
+  dialog_buttonsSetup_brief: () => (
+    <React.Fragment>
+      下單輔助按鈕之金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000。
+    </React.Fragment>
+  ),
+  dialog_buttonsSetup_help: () =>
+    '金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000。',
   dialog_buttonsSetup_text: () => '設定',
-  dialog_enabled_brief: () => `啟用快速下單輔助按鈕集成；你能夠自訂這些按鈕`,
+  dialog_enabled_brief: () => (
+    <React.Fragment>
+      啟用快速下單輔助按鈕集成；你能夠自訂這些按鈕
+    </React.Fragment>
+  ),
   dialog_fixedNextOrderValue_brief: () =>
     '鎖定你每一次下單金額數字與槓桿倍率，此功能以你上一次的下單輔助按鈕點擊，作為記錄點',
   dialog_fixedNextOrderValue_text: () => '金額槓桿鎖定',
@@ -177,11 +186,23 @@ const zh = {
 }
 
 const en: typeof zh = {
-  dialog_buttonsSetup_brief: () =>
-    'Trade value of the investment by one click, each number has to split by comma. e.g. 100,200,300,500,1000. Use Enter key to save.',
+  dialog_buttonsSetup_brief: () => (
+    <React.Fragment>
+      Fill value of <HighlightText>Trade Order</HighlightText> on the investment
+      by one click on <HighlightText>Trading Buttons</HighlightText>, and each
+      number has to split by comma. e.g. 100,200,300,500,1000. Use the Enter key
+      to save.
+    </React.Fragment>
+  ),
+  dialog_buttonsSetup_help: () =>
+    'Values Setup, each number has to split by comma. e.g. 100,200,300,500,1000. Use the Enter key',
   dialog_buttonsSetup_text: () => 'Setup',
-  dialog_enabled_brief: () =>
-    `Enable Execution-Dialog Trading Buttons, and it also can be customized.`,
+  dialog_enabled_brief: () => (
+    <React.Fragment>
+      Enable Execution-Dialog <HighlightText>Trading Buttons</HighlightText>,
+      and it also can be customized.
+    </React.Fragment>
+  ),
   dialog_fixedNextOrderValue_brief: () =>
     `Always use the last Amount and Lever, which previously value you click on Execution-Dialog Trading buttons.`,
   dialog_fixedNextOrderValue_text: () => 'Amount/Lever Fixed',
