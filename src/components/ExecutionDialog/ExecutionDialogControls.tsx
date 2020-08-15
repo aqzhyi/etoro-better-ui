@@ -133,6 +133,12 @@ const useLeverView = () => {
       return false
     }
 
+    const currentValue = getLeverViewValue()
+
+    if (currentValue === leverExpectFixedAt) {
+      return false
+    }
+
     const tabEl = $(
       angularAPI.selectors.dialogLeverLevelDisplayText,
     ).parentsUntil('a')
