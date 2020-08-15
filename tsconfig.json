@@ -30,5 +30,6 @@
     }
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
-  "include": ["src", "./*.js", "./.*.js"]
+  "include": ["src", "./*.js", "./.*.js"],
+  "files": ["./tempermonkey.js"]
 }

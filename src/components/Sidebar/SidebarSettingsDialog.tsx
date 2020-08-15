@@ -278,6 +278,33 @@ export const SidebarSettingsDialog: React.FC = () => {
           ></Toggle>
         </Stack.Item>
       </Stack>
+
+      <Stack
+        tokens={{ padding: 8, childrenGap: 16 }}
+        styles={{ root: { outline: '1px solid #dddddd', marginTop: 16 } }}
+      >
+        <Label>俱樂部</Label>
+
+        <Stack.Item>
+          <Slider
+            label={
+              '掌聲高聲歡呼之精采程度（請注意健康風險，掌聲過於激烈恐將導致耳朵承受不可逆的傷害）'
+            }
+            value={configs.inviteExcitingDegree ?? 0}
+            valueFormat={value => (value < 15 ? '停用' : String(value))}
+            step={1}
+            min={14}
+            max={100}
+            onChanged={(event, value) => {
+              dispatch(
+                setBetterEtoroUIConfig({
+                  inviteExcitingDegree: value < 15 ? null : value,
+                }),
+              )
+            }}
+          ></Slider>
+        </Stack.Item>
+      </Stack>
     </Dialog>
   )
 }

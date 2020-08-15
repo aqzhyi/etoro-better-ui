@@ -3,11 +3,11 @@ import { debugAPI } from './debugAPI'
 const log = debugAPI.log.extend('GM')
 
 /** Adds the given style to the document and returns the injected style element. */
-interface GM_addStyle {
+export interface GM_addStyle {
   (css: string): void
 }
 
-interface GM_xmlhttpRequest {
+export interface GM_xmlhttpRequest {
   SuccessEvent: {
     status: number
     statusText: string

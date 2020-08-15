@@ -6,7 +6,7 @@ import { emitter, Events } from '@/emitter'
 import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
 import store from '@/store/_store'
-import { exectionDialogPrices } from '@/components/ExecutionDialog/ExecutionDialogPrices'
+import { exectionDialogPrices } from '@/invite/ExecutionDialogPrices'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']

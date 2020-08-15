@@ -5,6 +5,8 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  /** 掌聲高聲歡呼之精采程度 */
+  inviteExcitingDegree: number | null
   useHotkeys: {
     /** The hotkey to trigger Open Trade */
     dialogOpenTrade?: ' ' | null
@@ -48,6 +50,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  inviteExcitingDegree: null,
   useHotkeys: {},
   intervalCheckingStatus: 15,
   googleAnalyticsEnabled: true,
