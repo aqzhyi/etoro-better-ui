@@ -87,7 +87,8 @@ function getBundleUrl(
 
   const url = builds[targetVersion].hash.startsWith('http')
     ? builds[targetVersion].hash
-    : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/src_dist/etoro.bundle.js`
+    : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/src_dist/etoro.bundle.js` +
+      `${targetVersion === 'nightly' ? `?time=${new Date().getTime()}` : ''}`
 
   return url
 }

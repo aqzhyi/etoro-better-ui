@@ -35,6 +35,7 @@ const srcRootFilesAlias = globby
   }, {})
 
 // @ts-check
+/** @type{import('webpack').Configuration}*/
 const configration = {
   externals: [],
   stats: {
@@ -99,7 +100,7 @@ const configration = {
   },
   plugins: [
     new BundleAnalyzerPlugin({ analyzerPort: 8897 }),
-    // new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
     new Dotenv({
       defaults: false,
       systemvars: true,
