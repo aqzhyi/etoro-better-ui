@@ -129,11 +129,11 @@ function _applyEventsObservers() {
 
     if (intervalMS !== onPingLastIntervalMS) {
       globalThis.clearInterval(onPingIntervalId)
-    }
 
-    onPingIntervalId = globalThis.setInterval(() => {
-      emitter.emit(Events.onPing)
-    }, intervalMS)
+      onPingIntervalId = globalThis.setInterval(() => {
+        emitter.emit(Events.onPing)
+      }, intervalMS)
+    }
   })
 
   debugAPI.universal('extension events get ready!')
