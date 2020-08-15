@@ -22,6 +22,10 @@ import { registeredExecutionDialogTakeProfitControls } from '@/components/Execut
 import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import packageJSON from '../package.json'
+import {
+  nativeEtoroAmountSaveToStorage,
+  nativeEtoroLeverSaveToStorage,
+} from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -135,8 +139,8 @@ emitter.on(
 )
 
 // Make execution dialog of native etoro functions able to and save values to localStorage
-// emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
-// emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
+emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
+emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
 
 /**
  * Auto clicks "More Button"

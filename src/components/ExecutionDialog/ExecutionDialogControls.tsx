@@ -33,6 +33,10 @@ const useAmountView = () => {
       return false
     }
 
+    if (amountExpectFixedAt === getAmountViewValue()) {
+      return false
+    }
+
     return true
   }
 
