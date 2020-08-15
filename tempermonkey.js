@@ -40,8 +40,8 @@ console.info('better-ui: loading...')
 
 try {
   // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-  // target version available value are: 'latest' | 'master' | '0.26' | '0.25' | '0.24' | '0.23', etc
-  const url = getBundleUrl('master')
+  // target version available value are: 'latest' | 'nightly' | '0.26' | '0.25' | '0.24' | '0.23', etc
+  const url = getBundleUrl('nightly')
   // ------------------------------------------------------------------------------------------------
 
   window['GM_xmlhttpRequest']({
@@ -62,7 +62,7 @@ try {
 
 function getBundleUrl(
   /**
-    @type{ | 'latest' | 'master' | 'dev' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
+    @type{ | 'latest' | 'nightly' | 'dev' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
     */
   targetVersion,
 ) {
@@ -73,7 +73,7 @@ function getBundleUrl(
   */
   const builds = {
     dev: { hash: 'http://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
-    master: { hash: 'master', filename: 'etoro' },
+    nightly: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.27.0-20200730', filename: 'etoro' },
     '0.26': { hash: 'v0.26.1-20200721', filename: 'etoro' },
     '0.25': { hash: 'v0.25.3', filename: 'etoro' },
