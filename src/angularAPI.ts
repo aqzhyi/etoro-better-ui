@@ -324,7 +324,7 @@ export const angularAPI = {
   toggleListCompact: (onOff: boolean) => {
     $(
       `
-      [automation-id="watchlist-item-list-instrument-chart"],
+      [automation-id="watchlist-item-list-instrument-wrapp-rate-change"],
       [automation-id="watchlist-item-list-instrument-sentiment"],
       et-fifty-two-weeks,
       [automation-id="watchlist-item-list-user-wrapp-investors"]
