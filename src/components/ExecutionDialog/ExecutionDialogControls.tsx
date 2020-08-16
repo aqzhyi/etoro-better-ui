@@ -4,7 +4,7 @@ import {
   dialogSaveAmountToStorage,
   dialogSaveLeverToStorage,
 } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
-import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
+import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
 import { ProviderBy } from '@/components/ProviderBy'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
@@ -299,18 +299,7 @@ export const ExecutionDialogControls = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <Tooltip
-            placement='left'
-            overlay={
-              <span style={{ display: 'inline-block', width: 200 }}>
-                {i18n.dialog_fixedNextOrderValue_brief()}
-              </span>
-            }
-          >
-            <span style={{ display: 'inline-block' }}>
-              <ExecutionDialogApplyLastOrderSwitch />
-            </span>
-          </Tooltip>
+          <ExecutionDialogFixedAmountLever />
         </Stack.Item>
       </Stack>
     </React.Fragment>

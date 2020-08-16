@@ -20,7 +20,7 @@ import toast from 'cogo-toast'
 import React, { useEffect, createRef } from 'react'
 import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
-import { ExecutionDialogApplyLastOrderSwitch } from '@/components/ExecutionDialog/ExecutionDialogApplyLastOrderSwitch'
+import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
 import Tooltip from 'rc-tooltip'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { stringify } from 'query-string'
@@ -128,7 +128,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <Label>{i18n.dialog_fixedNextOrderValue_brief()}</Label>
-          <ExecutionDialogApplyLastOrderSwitch />
+          <ExecutionDialogFixedAmountLever />
         </Stack.Item>
 
         <Stack.Item>
