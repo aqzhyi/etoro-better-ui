@@ -20,11 +20,6 @@ export const ExecutionDialogFixedAmountLever = () => {
         overlay={
           <span style={{ display: 'inline-block', width: 200 }}>
             {i18n.dialog_fixedNextOrderValue_brief()}
-            <HelpIcon
-              notionHref={
-                'https://www.notion.so/hilezi/Fixes-value-of-leverage-and-amount-on-Trade-Execution-Dialog-window-5654a6c6140e4196b44effc525ef79e0'
-              }
-            ></HelpIcon>
           </span>
         }
       >
@@ -33,6 +28,12 @@ export const ExecutionDialogFixedAmountLever = () => {
             {executionUseApplyLast
               ? i18n.dialog_fixedNextOrderValue_text()
               : i18n.dialog_fixedNextOrderValueNot_text()}
+
+            <HelpIcon
+              notionHref={
+                'https://www.notion.so/hilezi/Fixes-value-of-leverage-and-amount-on-Trade-Execution-Dialog-window-5654a6c6140e4196b44effc525ef79e0'
+              }
+            ></HelpIcon>
           </Label>
           <Toggle
             checked={executionUseApplyLast}
