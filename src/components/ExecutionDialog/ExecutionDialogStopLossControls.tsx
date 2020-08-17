@@ -9,6 +9,7 @@ import { debounce } from 'lodash'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '@/angularAPI'
 import { useMount } from 'react-use'
+import { storage } from '@/storage'
 
 const ExecutionDialogStopLossControls = () => {
   const dispatch = useAppDispatch()
@@ -29,7 +30,7 @@ const ExecutionDialogStopLossControls = () => {
         dispatch(
           setBetterEtoroUIConfig({
             stopLossLastPercent:
-              angularAPI.executionDialogScope?.model.stopLoss.percentAmount,
+              angularAPI.executionDialogScope?.model?.stopLoss.percentAmount,
           }),
         )
       }, 500),
@@ -72,6 +73,10 @@ export const registeredExecutionDialogStopLossControls = registerReactComponent(
     containerId: ExecutionDialogStopLossControls.name,
     containerConstructor: containerElement => {
       $('tabtitle').eq(0).append(containerElement)
+    },
+    disabled: () => {
+      if (!storage.findConfig().executionMacroEnabledInProchart) return true
+      return false
     },
   },
 )

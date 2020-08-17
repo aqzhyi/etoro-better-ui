@@ -157,10 +157,16 @@ interface EtoroRootScope extends IRootScopeService {
 }
 
 export interface ExecutionDialogScope extends IRootScopeService {
-  controller: {
+  /**
+    in case such as https://www.etoro.com/app/procharts, didn't has the property `controller`
+   */
+  controller?: {
     instrument?: Instrument
   }
-  model: {
+  /**
+    in case such as https://www.etoro.com/app/procharts, didn't has the property `model`
+   */
+  model?: {
     stopLoss: {
       /** Take how much amount of Loss dollar */
       amount: number
@@ -226,6 +232,8 @@ export const angularAPI = {
        [data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-minus
       ,[data-etoro-automation-id="execution-amount-input-section"] .stepper .stepper-plus
     `,
+    /** The display price value, the value displaying according to BUY and SELL mode */
+    dialogPriceDisplayValue: '.execution-main-head-price-value',
     /** e.g. `'X5'` */
     dialogLeverLevelDisplayText:
       '[data-etoro-automation-id="execution-leverage-tab-title-value"]',
@@ -244,7 +252,7 @@ export const angularAPI = {
   } as const,
   setDialogStopLoss: (lossPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {
-      if (angularAPI.executionDialogScope) {
+      if (angularAPI.executionDialogScope?.model) {
         angularAPI.executionDialogScope.model.stopLoss.inDollarMode = true
         angularAPI.executionDialogScope.model.stopLoss.defaultPercent = lossPercent
       }
@@ -252,7 +260,7 @@ export const angularAPI = {
   },
   setDialogTakeProfit: (profitPercent: number) => {
     angularAPI.executionDialogScope?.$apply(() => {
-      if (angularAPI.executionDialogScope) {
+      if (angularAPI.executionDialogScope?.model) {
         angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
         angularAPI.executionDialogScope.model.takeProfit.defaultPercent = profitPercent
       }

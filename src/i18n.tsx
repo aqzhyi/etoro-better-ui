@@ -35,6 +35,9 @@ const zh = {
   dialog_buttonsSetup_help: () =>
     '金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000。',
   dialog_buttonsSetup_text: () => '設定',
+  dialog_enabledInProchart_brief: () => (
+    <React.Fragment>在 Prochart 中停用所有下單輔助介面。</React.Fragment>
+  ),
   dialog_enabled_brief: () => (
     <React.Fragment>
       啟用快速下單輔助按鈕集成；你能夠自訂這些按鈕
@@ -197,6 +200,12 @@ const en: typeof zh = {
   dialog_buttonsSetup_help: () =>
     'Values Setup, each number has to split by comma. e.g. 100,200,300,500,1000. Use the Enter key',
   dialog_buttonsSetup_text: () => 'Setup',
+  dialog_enabledInProchart_brief: () => (
+    <React.Fragment>
+      Disabled all of Trade Execution-Dialog functions, when the page is
+      Prochart
+    </React.Fragment>
+  ),
   dialog_enabled_brief: () => (
     <React.Fragment>
       Enable Execution-Dialog <HighlightText>Trading Buttons</HighlightText>,

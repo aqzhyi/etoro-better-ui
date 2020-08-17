@@ -27,6 +27,7 @@ export enum GaEventId {
   setting_amountButtonsSet,
   setting_compactEnabledSet,
   setting_currencyUseSet,
+  setting_dialogEnabledOnProchartSet,
   setting_dialogMacroEnabledSet,
   setting_investedEnabledSet,
   setting_resetAllClick,

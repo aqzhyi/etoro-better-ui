@@ -19,6 +19,7 @@ import Tooltip from 'rc-tooltip'
 import React, { useEffect } from 'react'
 import { useInterval, useTimeoutFn } from 'react-use'
 import { storage } from '@/storage'
+import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 
 const useAmountView = () => {
   const amountExpectFixedAt = useAppSelector(
@@ -54,7 +55,7 @@ const useAmountView = () => {
 
   const setAmountViewValue = (value: number) => {
     const etoroMinAmountValue =
-      angularAPI.executionDialogScope?.model.instrument?.MinPositionAmount ??
+      angularAPI.executionDialogScope?.model?.instrument?.MinPositionAmount ??
       value
 
     $(angularAPI.selectors.dialogAmountInput)
@@ -102,7 +103,7 @@ const useLeverView = () => {
 
   const isLeverFixed = () => {
     const availableValues =
-      angularAPI.executionDialogScope?.model.instrument?.Leverages
+      angularAPI.executionDialogScope?.model?.instrument?.Leverages
 
     const currentValue = getLeverViewValue()
 
@@ -127,7 +128,7 @@ const useLeverView = () => {
     }
 
     const availableValues =
-      angularAPI.executionDialogScope?.model.instrument?.Leverages
+      angularAPI.executionDialogScope?.model?.instrument?.Leverages
 
     if (!availableValues) {
       return false
@@ -312,17 +313,23 @@ export const registeredExecutionDialogControls = registerReactComponent({
   containerConstructor: containerElement => {
     $('.uidialog .execution-main').prepend(containerElement)
   },
-  disabled: () => !storage.findConfig().executionMacroEnabled,
+  disabled: () => {
+    if (!storage.findConfig().executionMacroEnabled) return true
+    if (isDisabledInProchart()) return true
+    if ($(angularAPI.selectors.dialogPriceDisplayValue).length < 1) return true
+
+    return false
+  },
 })
 
 GM.addStyle(`
   @media (min-width:741px) {
-    .execution-main {
+    [id^=uidialog] .execution-main {
       display: flex;
       justify-content: center;
     }
 
-    #${registeredExecutionDialogControls.container.id} {
+    [id^=uidialog] #${registeredExecutionDialogControls.container.id} {
       margin: 0 auto;
       margin-bottom: 16px;
       text-align: center;
@@ -333,7 +340,7 @@ GM.addStyle(`
   }
 
   @media (max-width:740px) {
-    #${registeredExecutionDialogControls.container.id} {
+    [id^=uidialog] #${registeredExecutionDialogControls.container.id} {
       display: none;
     }
   }

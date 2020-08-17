@@ -103,6 +103,25 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
+          <Label>{i18n.dialog_enabledInProchart_brief()}</Label>
+          <Toggle
+            checked={!configs.executionMacroEnabledInProchart}
+            onChange={(event, enabled) => {
+              gaAPI.sendEvent(
+                GaEventId.setting_dialogEnabledOnProchartSet,
+                `enabled=${String(enabled)}`,
+              )
+
+              dispatch(
+                setBetterEtoroUIConfig({
+                  executionMacroEnabledInProchart: enabled,
+                }),
+              )
+            }}
+          ></Toggle>
+        </Stack.Item>
+
+        <Stack.Item>
           <Label>{i18n.dialog_buttonsSetup_brief()}</Label>
           <TextField
             value={macroAmountInput}

@@ -2,6 +2,7 @@ import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
+import { storage } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Icon } from '@fluentui/react'
@@ -29,7 +30,7 @@ export const ExecutionDialogTakeProfitControls = () => {
         dispatch(
           setBetterEtoroUIConfig({
             takeProfitLastPercent:
-              angularAPI.executionDialogScope?.model.takeProfit.percentAmount,
+              angularAPI.executionDialogScope?.model?.takeProfit.percentAmount,
           }),
         )
       }, 500),
@@ -74,6 +75,10 @@ export const registeredExecutionDialogTakeProfitControls = registerReactComponen
     containerId: ExecutionDialogTakeProfitControls.name,
     containerConstructor: containerElement => {
       $('tabtitle').eq(2).append(containerElement)
+    },
+    disabled: () => {
+      if (!storage.findConfig().executionMacroEnabledInProchart) return true
+      return false
     },
   },
 )

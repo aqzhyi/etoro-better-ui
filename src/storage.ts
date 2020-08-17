@@ -39,6 +39,7 @@ export type BetterEtoroUIConfig = {
   /** @deprecated */
   useTabKeyBuySell: boolean
   listCompactOn: boolean
+  executionMacroEnabledInProchart: boolean
   executionMacroEnabled: boolean
   executionAmount: number[]
   executionLever: number[]
@@ -61,6 +62,7 @@ export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   NTD: { buy: 0, sell: 0 },
   useTabKeyBuySell: false,
   listCompactOn: false,
+  executionMacroEnabledInProchart: false,
   executionMacroEnabled: false,
   executionAmount: [50, 100, 200, 300, 500],
   executionLever: [1, 2, 5, 10, 20],

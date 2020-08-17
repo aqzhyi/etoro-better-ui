@@ -9,6 +9,8 @@ import { angularAPI, Position } from '@/angularAPI'
 import { HighlightText } from '@/components/TooltipHighlightText'
 import { ProfitText } from '@/components/ProfitText'
 import { useInterval } from 'react-use'
+import { storage } from '@/storage'
+import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
@@ -41,7 +43,7 @@ export const ExecutionDialogStatusInfo = () => {
     const items = angularAPI.$rootScope?.session.user.portfolio.manualPositions?.filter(
       position =>
         position.Instrument.DisplayName ===
-        angularAPI.executionDialogScope?.controller.instrument?.DisplayName,
+        angularAPI.executionDialogScope?.controller?.instrument?.DisplayName,
     )
 
     positionsSetter(() => [...(items || [])])
@@ -56,7 +58,7 @@ export const ExecutionDialogStatusInfo = () => {
   }, [positions])
 
   const instrumentName = useMemo(() => {
-    return angularAPI.executionDialogScope?.controller.instrument?.Name
+    return angularAPI.executionDialogScope?.controller?.instrument?.Name
   }, [positions])
 
   /** from etoro html element */
@@ -150,18 +152,23 @@ export const registeredExecutionDialogStatusInfo = registerReactComponent({
   containerConstructor: containerElement => {
     $(containerElement).insertBefore('.execution-head')
   },
+  disabled: () => {
+    if (isDisabledInProchart()) return true
+    if ($(angularAPI.selectors.dialogPriceDisplayValue).length < 1) return true
+    return false
+  },
 })
 
 GM.addStyle(`
-  #${registeredExecutionDialogStatusInfo.container.id} {
+  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} {
     display: flex;
   }
 
-  #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
+  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
     border-right: 1px solid #cccccc;
   }
 
-  #${registeredExecutionDialogStatusInfo.container.id} .indicator-callout-box {
+  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .indicator-callout-box {
     display: inline-block;
     width: 120px;
     background-color: rgb(235, 235, 235);
@@ -171,7 +178,7 @@ GM.addStyle(`
   }
 
   /** 因為加高了視窗，為了放置額外資訊 */
-  .uidialog-content .execution {
+  [id^=uidialog] .uidialog-content .execution {
     height: 755px;
   }
 `)
