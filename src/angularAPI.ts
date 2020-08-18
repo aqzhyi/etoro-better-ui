@@ -1,24 +1,19 @@
 import type { IRootScopeService, ILocationService } from 'angular'
 
 export interface InstrumentRate {
-  /** 看起來是槓桿買入價 e.g. BTC, ETH */
   Ask: number
-  /** 看起來是x1買入價 e.g. BTC, ETH */
   AskDiscounted: number
-  /** 看起來是槓桿賣出價 e.g. BTC, ETH */
   Bid: number
-  /** 看起來是x1賣出價 e.g. BTC, ETH */
   BidDiscounted: number
-  /** 上次買入價 */
   LastAsk: number
-  /** 上次賣出價 */
   LastBid: number
-  /** 上次報價 */
   LastExecution: number
-  /** 看起來是蠟蠋賣出價 e.g. BTC, ETH */
+  /** 看起來是蠟蠋賣出價 */
   lastPrice: number
-  /** 看起來是蠟蠋買入價 e.g. BTC, ETH */
+  lastBidChange: number
+  /** 看起來是蠟蠋買入價 */
   lastAskPrice: number
+  lastAskChange: number
   /** 差價合約報價 */
   UnitMargin: number
   /** 差價合約槓桿買入價 */

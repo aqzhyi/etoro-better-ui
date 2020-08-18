@@ -16,7 +16,7 @@ import '@/components/Watchlist/WatchlistFindAndRegister'
 import '@/components/UniversalControl/UniversalControlKeyObserver'
 import '@/components/Sidebar/SidebarPendingOrdersLink'
 import '@/components/Portfolio/ProtfolioInvestedCloseButton'
-import '@/invite/ExecutionDialogPrices'
+import '@/components/ExecutionDialog/ExecutionDialogPrices'
 import { registeredComponents } from '@/utils/registerReactComponent'
 
 export const renderStickReactComponents = () => {
