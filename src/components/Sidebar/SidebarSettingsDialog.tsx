@@ -4,7 +4,7 @@ import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { getMYR, getNTD } from '@/exchange'
 import { i18n } from '@/i18n'
-import { BetterEtoroUIConfig, storage } from '@/storage'
+import { BetterEtoroUIConfig } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import {
   ChoiceGroup,
@@ -303,18 +303,20 @@ export const SidebarSettingsDialog: React.FC = () => {
         tokens={{ padding: 8, childrenGap: 16 }}
         styles={{ root: { outline: '1px solid #dddddd', marginTop: 16 } }}
       >
-        <Label>俱樂部</Label>
+        <Label>俱樂部實驗</Label>
 
         <Stack.Item>
           <Slider
             label={
               '掌聲高聲歡呼之精采程度（請注意健康風險，掌聲過於激烈恐將導致耳朵承受不可逆的傷害）'
             }
-            value={configs.inviteExcitingDegree ?? 0}
-            valueFormat={value => (value < 15 ? '停用' : String(value))}
+            defaultValue={configs.inviteExcitingDegree ?? 0}
+            valueFormat={value => (value < 15 ? '停用' : String(value) + 'ms')}
             step={1}
-            min={14}
+            min={-15}
             max={100}
+            snapToStep
+            originFromZero
             onChanged={(event, value) => {
               gaAPI.sendEvent(
                 GaEventId.setting_inviteExcitingDegree,
