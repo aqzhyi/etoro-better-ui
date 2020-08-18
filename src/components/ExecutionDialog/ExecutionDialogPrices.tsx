@@ -3,7 +3,6 @@ import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInP
 import { ProfitText } from '@/components/ProfitText'
 import { emitter, Events } from '@/emitter'
 import { GM } from '@/GM'
-import { isVerifiedInvite } from '@/invite/isVerifiedInvite'
 import { useRate } from '@/hooks/useRate'
 import { useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
@@ -26,14 +25,11 @@ const ExecutionDialogPrices: React.FC = () => {
 
   const degree = useAppSelector(state => state.settings.inviteExcitingDegree)
 
-  useInterval(
-    () => {
-      rate.updateValue()
-    },
-    isVerifiedInvite() ? degree : null,
-  )
+  useInterval(() => {
+    rate.updateValue()
+  }, degree)
 
-  if (!rate.value || !degree || !isVerifiedInvite()) {
+  if (!rate.value || !degree) {
     return null
   }
 

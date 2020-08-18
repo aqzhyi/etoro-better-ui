@@ -25,7 +25,6 @@ import Tooltip from 'rc-tooltip'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { stringify } from 'query-string'
 import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
-import { getInviteCode } from '@/invite/getInviteCode'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -320,7 +319,7 @@ export const SidebarSettingsDialog: React.FC = () => {
             onChanged={(event, value) => {
               gaAPI.sendEvent(
                 GaEventId.setting_inviteExcitingDegree,
-                `value=${value}, code=${String(getInviteCode())}`,
+                `value=${value}`,
               )
 
               dispatch(
