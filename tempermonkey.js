@@ -1,7 +1,7 @@
 /**
-  !! 強烈建議您：在非交易日，或非交易時間，執行安裝，或更新新版本；並在虛擬交易中，嘗試之後，再應用於真實交易之上
+  !! 強烈建議您：先行開啟虛擬交易之後，再執行安裝，或更新版本；並在虛擬交易中，嘗試之後再應用於真實交易之上。
 
-  !! Strong Recommended: Install or update with a new version on holiday and have tried it on virtual mode before real trading.
+  !! Strong Recommended: Turn on the virtual mode at first, and install or update with a new version, and make sure you have tried it in virtual mode before real trading.
 */
 
 /** 更新日誌 Change Logs： https://github.com/hilezir/etoro-better-ui/releases */
@@ -40,8 +40,8 @@ console.info('better-ui: loading...')
 
 try {
   // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-  // target version available value are: 'latest' | 'nightly' | '0.26' | '0.25' | '0.24' | '0.23', etc
-  const url = getBundleUrl('nightly')
+  // target version available value are: 'latest' | 'beta' | 'nightly' | '0.26' | '0.25' | '0.24' | '0.23', etc
+  const url = getBundleUrl('beta')
   // ------------------------------------------------------------------------------------------------
 
   window['GM_xmlhttpRequest']({
@@ -62,7 +62,7 @@ try {
 
 function getBundleUrl(
   /**
-    @type{ | 'latest' | 'nightly' | 'dev' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
+    @type{ | 'latest' | 'beta' | 'nightly' | 'dev' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
     */
   targetVersion,
 ) {
@@ -72,9 +72,11 @@ function getBundleUrl(
     }
   */
   const builds = {
+    beta: { hash: 'v0.28.0-20200820-beta', filename: 'etoro' },
     dev: { hash: 'http://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.27.0-20200730', filename: 'etoro' },
+    '0.27': { hash: 'v0.27.0-20200730', filename: 'etoro' },
     '0.26': { hash: 'v0.26.1-20200721', filename: 'etoro' },
     '0.25': { hash: 'v0.25.3', filename: 'etoro' },
     '0.24': { hash: 'v0.24.1', filename: 'etoro' },
