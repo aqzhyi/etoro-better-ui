@@ -187,7 +187,7 @@ const zh = {
       <React.Fragment>
         <span>
           <HighlightText>強烈建議您</HighlightText>
-          ：在非交易日，或非交易時間，執行安裝，或更新新版本；並在虛擬交易中，嘗試之後，再應用於真實交易之上
+          ：先行開啟虛擬交易之後，再執行安裝，或更新版本；並在虛擬交易中，嘗試之後再應用於真實交易之上。
         </span>
       </React.Fragment>
     )
@@ -372,9 +372,9 @@ const en: typeof zh = {
   universal_welcomeMessage_text: (Link: React.FC) => {
     return (
       <React.Fragment>
-        <HighlightText>Strong Recommended</HighlightText>: Install or update
-        with a new version on holiday and have tried it on virtual mode before
-        real trading.
+        <HighlightText>Strong Recommended</HighlightText>: Turn on the virtual
+        mode at first, and install or update with a new version, and make sure
+        you have tried it in virtual mode before real trading.
       </React.Fragment>
     )
   },
