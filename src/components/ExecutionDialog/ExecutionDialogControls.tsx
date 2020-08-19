@@ -81,7 +81,11 @@ const useLeverView = () => {
 
   const getLeverViewValue = () => {
     const value = Number(
-      $(angularAPI.selectors.dialogLeverLevelDisplayText).html()?.trim()[1],
+      $(angularAPI.selectors.dialogLeverLevelDisplayText)
+        .html()
+        ?.trim()
+        // X1 -> 1; X30 -> 30; X100 -> 100
+        .slice(1, 100),
     )
 
     if (Number.isInteger(value)) {
