@@ -5,21 +5,40 @@ import {
   dialogSaveLeverToStorage,
 } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
+import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
+import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { ProviderBy } from '@/components/ProviderBy'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
 import { i18n } from '@/i18n'
+import { storage } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
-import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
 import { registerReactComponent } from '@/utils/registerReactComponent'
-import { PrimaryButton, Stack } from '@fluentui/react'
+import { Icon, PrimaryButton, Stack } from '@fluentui/react'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
-import Tooltip from 'rc-tooltip'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInterval, useTimeoutFn } from 'react-use'
-import { storage } from '@/storage'
-import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
+import styled from 'styled-components'
+
+const StyledFixedTipOnAmountInput = styled.span`
+  position: absolute;
+  left: 425px;
+  margin-top: 10px;
+  top: ${() => {
+    const [px, pxSetter] = useState('auto')
+
+    useTimeoutFn(() => {
+      const target = String(
+        $(angularAPI.selectors.dialogAmountInput).position()?.top,
+      )
+
+      pxSetter((target && target + 'px') || '247px')
+    }, 1500)
+
+    return px
+  }};
+`
 
 const useAmountView = () => {
   const amountExpectFixedAt = useAppSelector(
@@ -35,6 +54,12 @@ const useAmountView = () => {
     }
 
     if (amountExpectFixedAt === getAmountViewValue()) {
+      return false
+    }
+
+    const isInputFocus = $(angularAPI.selectors.dialogAmountInput).is(':focus')
+
+    if (isInputFocus) {
       return false
     }
 
@@ -184,7 +209,9 @@ const showRiskAgreement = throttle(() => {
 /**
  * 下單輔助巨集
  */
-export const ExecutionDialogControls = () => {
+export const ExecutionDialogControls: React.FC<{
+  className?: string
+}> = props => {
   const dispatch = useAppDispatch()
 
   const amountView = useAmountView()
@@ -234,6 +261,18 @@ export const ExecutionDialogControls = () => {
 
   return (
     <React.Fragment>
+      <React.Fragment>
+        <StyledFixedTipOnAmountInput>
+          <PrimaryTooltip overlay={i18n.dialog_fixedNextOrderValue_brief()}>
+            {(executionUseApplyLast && (
+              <Icon className={props.className} iconName='LockSolid'></Icon>
+            )) || (
+              <Icon className={props.className} iconName='UnlockSolid'></Icon>
+            )}
+          </PrimaryTooltip>
+        </StyledFixedTipOnAmountInput>
+      </React.Fragment>
+
       <ProviderBy />
 
       <Stack horizontal={false} tokens={{ childrenGap: 16 }}>
