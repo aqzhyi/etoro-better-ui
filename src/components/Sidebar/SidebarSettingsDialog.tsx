@@ -25,6 +25,7 @@ import Tooltip from 'rc-tooltip'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { stringify } from 'query-string'
 import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
+import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
@@ -147,6 +148,101 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Stack.Item>
           <Label>{i18n.dialog_fixedNextOrderValue_brief()}</Label>
           <ExecutionDialogFixedAmountLever />
+        </Stack.Item>
+
+        <Stack.Item>
+          <Stack horizontal tokens={{ childrenGap: 8 }}>
+            <Stack.Item>
+              <Label>
+                {i18n.profits_fixedStopLossTakeProfitEnabled_brief()}
+              </Label>
+              <Toggle
+                checked={configs.stopLossAndTakeProfitUseLastPercent}
+                onChange={(event, enabled) => {
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      stopLossAndTakeProfitUseLastPercent: enabled,
+                    }),
+                  )
+                }}
+              ></Toggle>
+            </Stack.Item>
+
+            <Stack.Item>
+              <Label>
+                {i18n.profits_fixedStopLossValueOnOrder_help(
+                  configs.stopLossLastPercent,
+                )}
+              </Label>
+              <PrimaryTooltip
+                overlay={i18n.profits_fixedStopLossValueOnOrder_brief(
+                  configs.stopLossLastPercent,
+                )}
+              >
+                <TextField
+                  defaultValue={String(configs.stopLossLastPercent)}
+                  onBlur={event => {
+                    const newValue = Number(event.target.value)
+
+                    if (
+                      !Number.isNaN(newValue) &&
+                      newValue !== configs.stopLossLastPercent
+                    ) {
+                      toast.success(
+                        i18n.universal_doChanged_text(() => (
+                          <span>{newValue}%</span>
+                        )),
+                      )
+
+                      dispatch(
+                        setBetterEtoroUIConfig({
+                          stopLossLastPercent: newValue,
+                        }),
+                      )
+                    }
+                  }}
+                ></TextField>
+              </PrimaryTooltip>
+            </Stack.Item>
+
+            <Stack.Item>
+              <Label>
+                {i18n.profits_fixedTakeValueOnOrder_help(
+                  configs.takeProfitLastPercent,
+                )}
+              </Label>
+
+              <PrimaryTooltip
+                overlay={i18n.profits_fixedTakeValueOnOrder_brief(
+                  configs.stopLossLastPercent,
+                )}
+              >
+                <TextField
+                  defaultValue={String(configs.takeProfitLastPercent)}
+                  onBlur={event => {
+                    const newValue = Number(event.target.value)
+
+                    if (
+                      !Number.isNaN(newValue) &&
+                      newValue !== configs.takeProfitLastPercent
+                    ) {
+                      toast.success(
+                        i18n.universal_doChanged_text(() => (
+                          <span>{newValue}%</span>
+                        )),
+                      )
+
+                      dispatch(
+                        setBetterEtoroUIConfig({
+                          takeProfitLastPercent: newValue,
+                        }),
+                      )
+                    }
+                  }}
+                ></TextField>
+              </PrimaryTooltip>
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
 
         <Stack.Item>

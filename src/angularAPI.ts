@@ -254,12 +254,10 @@ export const angularAPI = {
     })
   },
   setDialogTakeProfit: (profitPercent: number) => {
-    angularAPI.executionDialogScope?.$apply(() => {
-      if (angularAPI.executionDialogScope?.model) {
-        angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
-        angularAPI.executionDialogScope.model.takeProfit.defaultPercent = profitPercent
-      }
-    })
+    if (angularAPI.executionDialogScope?.model) {
+      angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
+      angularAPI.executionDialogScope.model.takeProfit.defaultPercent = profitPercent
+    }
   },
   /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
   filterPortfolioListByText: (filterText = '') => {

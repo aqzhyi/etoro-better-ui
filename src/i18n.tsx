@@ -75,10 +75,16 @@ const zh = {
     <React.Fragment>（{value}）銀行買入</React.Fragment>
   ),
   profits_availableValues_text: () => '可用餘額',
+  profits_fixedStopLossTakeProfitEnabled_brief: () =>
+    `每次下單自動套用「止損」與「止盈」％數`,
+  profits_fixedStopLossValueOnOrder_help: (lastPercent: number) =>
+    `套用每次下單的「止損」趴數，當前設定：${lastPercent}％`,
   profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) =>
-    `每次下單視窗開啟時，套用上一次的止損趴數（上一次 ${lastPercent}%）`,
+    `每次下單視窗開啟時，套用止損趴數（當前設定：${lastPercent}％）。請注意，有些商品可能有所謂「最低止損」的限制。`,
+  profits_fixedTakeValueOnOrder_help: (lastPercent: number) =>
+    `套用每次下單的「止盈」趴數，當前設定：${lastPercent}％`,
   profits_fixedTakeValueOnOrder_brief: (lastPercent: number) =>
-    `每次下單視窗開啟時，套用上一次的止盈趴數（上一次 ${lastPercent}%）`,
+    `每次下單視窗開啟時，套用止盈趴數（當前設定：${lastPercent}％）。請注意，有些商品可能有所謂「最低止損」的限制。`,
   profits_invested_brief: () => (
     <span>
       {' '}
@@ -246,10 +252,16 @@ const en: typeof zh = {
     <React.Fragment>{value}</React.Fragment>
   ),
   profits_availableValues_text: () => 'Available Value',
+  profits_fixedStopLossTakeProfitEnabled_brief: () =>
+    `When Trade Execution-Dialog on mount, it's applying percent of Stop-Loss and TakeProfit`,
+  profits_fixedStopLossValueOnOrder_help: (lastPercent: number) =>
+    `Apply percent of Stop-Loss, current: ${lastPercent}%`,
   profits_fixedStopLossValueOnOrder_brief: (lastPercent: number) =>
-    `When Execution-Dialog on render, it's applying the last percent of Stop-Loss (will apply ${lastPercent}%)`,
+    `When Trade Execution-Dialog on mount, it's applying percent of Stop-Loss (will apply ${lastPercent}%). Notable that there some instruments that may have the limit of min Stop Loss.`,
+  profits_fixedTakeValueOnOrder_help: (lastPercent: number) =>
+    `Apply percent of Take-Profit, current: ${lastPercent}%`,
   profits_fixedTakeValueOnOrder_brief: (lastPercent: number) =>
-    `When Execution-Dialog on render, it's applying the last percent of Take-Profit (will apply ${lastPercent}%)`,
+    `When Trade Execution-Dialog on mount, it's applying percent of Take-Profit (will apply ${lastPercent}%). Notable that there some instruments that may have the limit of min Take Profit.`,
   profits_invested_brief: () => (
     <span>
       {' '}

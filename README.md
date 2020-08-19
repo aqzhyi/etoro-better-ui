@@ -1,5 +1,7 @@
 Better eToro UI
 ===
+[![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
+
 ---
 > A UI extension for the [#etoro](https://twitter.com/search?q=%23etoro&src=typed_query) site, it's 100% open-source and built with [#TypeScript](https://twitter.com/search?q=%23typescript&src=typed_query). Free to install and usage, it's many functions providers that you may need. More function preview on videos feels free to discover on our extension website.
 ---

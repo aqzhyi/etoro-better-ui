@@ -18,8 +18,6 @@ import { registeredExecutionDialogStatusInfo } from '@/components/ExecutionDialo
 import { registeredPortfolioHistoryHeaderExtraButtons } from '@/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
 import { registeredPortfolioHeaderExtraButtons } from '@/components/Portfolio/PortfolioHeaderExtraButtons'
 import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { registeredExecutionDialogTakeProfitControls } from '@/components/ExecutionDialog/ExecutionDialogTakeProfitControls'
-import { registeredExecutionDialogStopLossControls } from '@/components/ExecutionDialog/ExecutionDialogStopLossControls'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import packageJSON from '../package.json'
 import {
@@ -120,23 +118,6 @@ emitter.on(Events.onDialogNotFound, registeredExecutionDialogStatusInfo.unmount)
 
 emitter.on(Events.onDialogHover, registeredExecutionDialogControls.mount)
 emitter.on(Events.onDialogNotFound, registeredExecutionDialogControls.unmount)
-
-emitter.on(
-  Events.onDialogHover,
-  registeredExecutionDialogTakeProfitControls.mount,
-)
-emitter.on(
-  Events.onDialogNotFound,
-  registeredExecutionDialogTakeProfitControls.unmount,
-)
-emitter.on(
-  Events.onDialogHover,
-  registeredExecutionDialogStopLossControls.mount,
-)
-emitter.on(
-  Events.onDialogNotFound,
-  registeredExecutionDialogStopLossControls.unmount,
-)
 
 // Make execution dialog of native etoro functions able to and save values to localStorage
 emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)
