@@ -5,11 +5,16 @@ Better eToro UI
 [![i18n: i18next](https://img.shields.io/badge/i18n-🌏%20i18next-default.svg?style=flat-square&colorA=334a5d&colorB=009789)](https://github.com/antfu/i18n-ally)
 [![UI: react & redux](https://img.shields.io/badge/UI-🎨%20react%20&%20redux-blue.svg?style=flat-square)](https://github.com/facebook/react)
 [![style: styled-components](https://img.shields.io/badge/style-💅styled--components-orange.svg?style=flat-square&colorA=db748e&colorB=daa357)](https://github.com/styled-components/styled-components)
+[![code style: prettier](https://img.shields.io/badge/code_style-💅%20prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![UI: jQuery](https://img.shields.io/badge/UI-🎨%20jQuery-default.svg?style=flat-square&colorA=282c34&colorB=0769ad)](https://jquery.com/)
 [![UI: angularjs](https://img.shields.io/badge/UI-🎨%20angularjs-default.svg?style=flat-square&colorA=282c34&colorB=a6120d)](https://angularjs.org/)
 
 ---
-> A UI extension for the [#etoro](https://twitter.com/search?q=%23etoro&src=typed_query) site, it's 100% open-source and built with [#TypeScript](https://twitter.com/search?q=%23typescript&src=typed_query). Free to install and usage, it's many functions providers that you may need. More function preview on videos feels free to discover on our extension website.
+
+## An extension, plugin and helper in Chrome, Firefox, and Edge built for the eToro website and available in Tampermonkey.
+
+Please note that I am not an eToro employee; this is personal side-project; it is not official. I use the react and typescript to built that, and it's based on eToro front-end UI if you want to try this project on your trading please see [THIS LINK](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3), and make sure you know that risks.
+
 ---
 
 > requirement: [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
@@ -17,10 +22,6 @@ Better eToro UI
 ## Preview
 
 ![](./extension-preview.gif)
-
-## More information
-
-> https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3
 
 ## Contact me
 
