@@ -162,6 +162,9 @@ export interface ExecutionDialogScope extends IRootScopeService {
     in case such as https://www.etoro.com/app/procharts, didn't has the property `model`
    */
   model?: {
+    isCFD: boolean
+    /** Will lead the price different */
+    isLowLeverage: boolean
     stopLoss: {
       /** Take how much amount of Loss dollar */
       amount: number

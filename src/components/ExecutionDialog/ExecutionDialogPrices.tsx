@@ -6,7 +6,7 @@ import { GM } from '@/GM'
 import { useRate } from '@/hooks/useRate'
 import { useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useInterval } from 'react-use'
 
 enum Blocks {
@@ -25,6 +25,14 @@ const ExecutionDialogPrices: React.FC = () => {
 
   const degree = useAppSelector(state => state.settings.inviteExcitingDegree)
 
+  const askValue = useMemo(() => {
+    if (rate.model?.isLowLeverage) {
+      return rate.value?.AskDiscounted ?? 0
+    }
+
+    return rate.value?.lastAskPrice ?? 0
+  }, [rate])
+
   useInterval(() => {
     rate.updateValue()
   }, degree)
@@ -39,18 +47,18 @@ const ExecutionDialogPrices: React.FC = () => {
         className={`${withBlock(Blocks.price)} ${withBlock(Blocks.priceBid)}`}
       >
         <ProfitText profit={rate.value.lastPrice} pureDollar noDollarSign />
-        <span className={withBlock(Blocks.priceMovement)}>
+        {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
-        </span>
+        </span> */}
       </span>
 
       <span
         className={`${withBlock(Blocks.price)} ${withBlock(Blocks.priceAsk)}`}
       >
-        <ProfitText profit={rate.value.lastAskPrice} pureDollar noDollarSign />
-        <span className={withBlock(Blocks.priceMovement)}>
+        <ProfitText profit={askValue} pureDollar noDollarSign />
+        {/* <span className={withBlock(Blocks.priceMovement)}>
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
-        </span>
+        </span> */}
       </span>
     </React.Fragment>
   )
