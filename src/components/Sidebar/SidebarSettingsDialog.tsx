@@ -124,7 +124,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
               dispatch(
                 setBetterEtoroUIConfig({
-                  executionMacroEnabledInProchart: enabled,
+                  executionMacroEnabledInProchart: !enabled,
                 }),
               )
             }}
