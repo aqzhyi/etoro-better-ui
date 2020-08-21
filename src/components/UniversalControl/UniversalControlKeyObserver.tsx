@@ -1,10 +1,10 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { angularAPI } from '@/angularAPI'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { WatchlistHeader } from '@/components/Watchlist/WatchlistHeader'
 import { debugAPI } from '@/debugAPI'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import cogoToast from 'cogo-toast'
@@ -26,9 +26,10 @@ export const UniversalControlKeyObserver = () => {
 
   const notifyFunctionShouldEnable = useCallback(() => {
     cogoToast.info(
-      i18n.universal_useKeyboardHotkeys_help(() => {
-        dispatch(toggleSettingsDialog(true))
-      }),
+      <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_help'></PrimaryTrans>,
+      // i18n.universal_useKeyboardHotkeys_help(() => {
+      //   dispatch(toggleSettingsDialog(true))
+      // }),
       {
         position: 'bottom-left',
         hideAfter: 5,

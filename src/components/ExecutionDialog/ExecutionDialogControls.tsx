@@ -7,10 +7,9 @@ import {
 import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
 import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
-import { ProviderBy } from '@/components/ProviderBy'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { storage } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
@@ -18,6 +17,7 @@ import { Icon, PrimaryButton, Stack } from '@fluentui/react'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useInterval, useTimeoutFn } from 'react-use'
 import styled from 'styled-components'
 
@@ -186,16 +186,7 @@ const useLeverView = () => {
 
 const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
-    <span>
-      {i18n.link_riskKnown_text(() => (
-        <a
-          target='_blank'
-          href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
-        >
-          🔎 🔗 🌐
-        </a>
-      ))}
-    </span>,
+    <PrimaryTrans i18nKey='link_riskKnown_text'></PrimaryTrans>,
     {
       position: 'bottom-left',
       hideAfter: 8,
@@ -212,6 +203,8 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls: React.FC<{
   className?: string
 }> = props => {
+  const locale = useTranslation()
+
   const dispatch = useAppDispatch()
 
   const amountView = useAmountView()
@@ -263,7 +256,9 @@ export const ExecutionDialogControls: React.FC<{
     <React.Fragment>
       <React.Fragment>
         <StyledFixedTipOnAmountInput>
-          <PrimaryTooltip overlay={i18n.dialog_fixedNextOrderValue_brief()}>
+          <PrimaryTooltip
+            overlay={locale.t('dialog_fixedNextOrderValue_brief')}
+          >
             {(executionUseApplyLast && (
               <Icon className={props.className} iconName='LockSolid'></Icon>
             )) || (
@@ -273,12 +268,10 @@ export const ExecutionDialogControls: React.FC<{
         </StyledFixedTipOnAmountInput>
       </React.Fragment>
 
-      <ProviderBy />
-
       <Stack horizontal={false} tokens={{ childrenGap: 16 }}>
         <Stack.Item>
           <h2 style={{ textAlign: 'center' }}>
-            {i18n.universal_amount_text()}
+            <PrimaryTrans i18nKey='universal_amount_text'></PrimaryTrans>
           </h2>
 
           <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
@@ -312,14 +305,16 @@ export const ExecutionDialogControls: React.FC<{
                   dispatch(openPromptForSetMacroAmount())
                 }}
               >
-                {i18n.dialog_buttonsSetup_text()}
+                {locale.t('common_buttonSetup')}
               </PrimaryButton>
             </Stack.Item>
           </Stack>
         </Stack.Item>
 
         <Stack.Item>
-          <h2 style={{ textAlign: 'center' }}>{i18n.universal_lever_text()}</h2>
+          <h2 style={{ textAlign: 'center' }}>
+            <PrimaryTrans i18nKey='universal_lever_text'></PrimaryTrans>
+          </h2>
           <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
             {levers.map((value, index) => {
               return (

@@ -2,7 +2,6 @@ import { angularAPI } from '@/angularAPI'
 import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
@@ -10,8 +9,11 @@ import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useMount, useDebounce } from 'react-use'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { useTranslation } from 'react-i18next'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const WatchlistHeader: React.FC = () => {
+  const locale = useTranslation()
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
   const shouldShowInvested = useAppSelector(
     state => state.settings.showInvested,
@@ -38,7 +40,7 @@ export const WatchlistHeader: React.FC = () => {
     <Stack horizontal tokens={{ childrenGap: 8 }}>
       <Stack.Item>
         <DefaultButton
-          text={i18n.filterText_clearText_text()}
+          text={locale.t('filterText_clearText_text')}
           onClick={() => {
             filterTextSet('')
             angularAPI.filterWatchlistByText('')
@@ -50,11 +52,16 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.filterText_input_brief()}>
+        <Tooltip
+          placement='bottom'
+          overlay={
+            <PrimaryTrans i18nKey='filterText_input_brief'></PrimaryTrans>
+          }
+        >
           <TextField
             value={filterText}
             componentRef={searchBoxRef}
-            placeholder={i18n.filterText_input_help()}
+            placeholder={locale.t('filterText_input_help')}
             iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
             onChange={(event, newValue) => {
               filterTextSet(newValue)
@@ -92,7 +99,12 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.universal_compact_brief()}>
+        <Tooltip
+          placement='bottom'
+          overlay={
+            <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
+          }
+        >
           <div>
             <WatchlistCompactSwitch />
           </div>
@@ -100,7 +112,12 @@ export const WatchlistHeader: React.FC = () => {
       </Stack.Item>
 
       <Stack.Item>
-        <Tooltip placement='bottom' overlay={i18n.profits_invested_brief()}>
+        <Tooltip
+          placement='bottom'
+          overlay={
+            <PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>
+          }
+        >
           <div>
             <WatchlistInvestedSwitch />
           </div>

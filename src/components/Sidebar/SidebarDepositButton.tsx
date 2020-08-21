@@ -1,6 +1,6 @@
-import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 import { storage } from '@/storage'
+import i18next from 'i18next'
 
 const extraElementClassName = 'deposit-extra-info'
 
@@ -15,7 +15,11 @@ export const renderSidebarDepositButton = () => {
 
     const extraInfoElement = $(`<span>`)
       .addClass(extraElementClassName)
-      .html(i18n.link_deposit_text(currency.sell))
+      .html(
+        i18next.t('link_deposit_text', {
+          value: currency.sell,
+        }),
+      )
 
     if (!target.find(`.${extraElementClassName}`).length) {
       target.append(extraInfoElement)

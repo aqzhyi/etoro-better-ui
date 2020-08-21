@@ -1,12 +1,13 @@
 import React from 'react'
 import { Toggle } from '@fluentui/react'
-import { i18n } from '@/i18n'
 import { angularAPI } from '@/angularAPI'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { useTranslation } from 'react-i18next'
 
 export const WatchlistInvestedSwitch = () => {
+  const locale = useTranslation()
   const dispatch = useAppDispatch()
   const shouldShowInvested = useAppSelector(
     state => state.settings.showInvested,
@@ -14,7 +15,7 @@ export const WatchlistInvestedSwitch = () => {
 
   return (
     <Toggle
-      label={i18n.profits_invested_text()}
+      label={locale.t('profits_invested_text')}
       inlineLabel
       checked={shouldShowInvested}
       onClick={() => {

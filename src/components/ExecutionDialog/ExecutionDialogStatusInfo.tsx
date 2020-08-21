@@ -1,5 +1,4 @@
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { useAppSelector } from '@/store/_store'
 import { ProgressIndicator, Spinner } from '@fluentui/react'
 import React, { useMemo, useState } from 'react'
@@ -11,6 +10,7 @@ import { ProfitText } from '@/components/ProfitText'
 import { useInterval } from 'react-use'
 import { storage } from '@/storage'
 import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
@@ -71,7 +71,12 @@ export const ExecutionDialogStatusInfo = () => {
       <Tooltip
         placement='top'
         overlay={() => (
-          <span>{i18n.profits_selectedObjective_brief(instrumentName)}</span>
+          <PrimaryTrans
+            i18nKey='profits_selectedObjective_brief'
+            values={{
+              name: instrumentName,
+            }}
+          ></PrimaryTrans>
         )}
       >
         <span className='indicator-callout-box'>
@@ -116,7 +121,12 @@ export const ExecutionDialogStatusInfo = () => {
         </span>
       </Tooltip>
 
-      <Tooltip placement='top' overlay={i18n.status_inferringDelay_text()}>
+      <Tooltip
+        placement='top'
+        overlay={
+          <PrimaryTrans i18nKey='status_inferringDelay_text'></PrimaryTrans>
+        }
+      >
         <span className='indicator-callout-box'>
           <ProgressIndicator
             styles={{
@@ -130,7 +140,9 @@ export const ExecutionDialogStatusInfo = () => {
 
       <Tooltip
         placement='top'
-        overlay={<span>{i18n.profits_availableValues_text()}</span>}
+        overlay={
+          <PrimaryTrans i18nKey='profits_availableValues_text'></PrimaryTrans>
+        }
       >
         <span className='indicator-callout-box'>
           <ProgressIndicator

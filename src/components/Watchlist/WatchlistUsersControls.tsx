@@ -1,6 +1,5 @@
 import { debugAPI } from '@/debugAPI'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
@@ -8,6 +7,7 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { getRandomString } from '@/utils/getRandomString'
 import { DefaultButton, Stack } from '@fluentui/react'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string
@@ -60,9 +60,11 @@ export const WatchlistUsersControls: React.FunctionComponent<{
           gaAPI.sendEvent(GaEventId.watchlists_balanceLinkClick)
         }}
       >
-        {equityState.value
-          ? `${equityState.value}%`
-          : i18n.link_checkBalance_text()}
+        {equityState.value ? (
+          `${equityState.value}%`
+        ) : (
+          <PrimaryTrans i18nKey='link_checkBalance_text'></PrimaryTrans>
+        )}
       </DefaultButton>
 
       {props.username && (
@@ -73,7 +75,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
               gaAPI.sendEvent(GaEventId.watchlists_portfolioLinkClick)
             }}
           >
-            {i18n.link_portfolio_text()}
+            <PrimaryTrans i18nKey='link_portfolio_text'></PrimaryTrans>
           </a>
         </DefaultButton>
       )}

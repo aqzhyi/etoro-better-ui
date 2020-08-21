@@ -2,10 +2,11 @@ import React from 'react'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '@/store/_store'
 import toast from 'cogo-toast'
-import { i18n } from '@/i18n'
 import { emitter, Events } from '@/emitter'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import i18next from 'i18next'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const openPromptForSetMacroAmount = createAsyncThunk<
   void,
@@ -18,7 +19,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
 
   const newValue = (props?.join(',') ||
     prompt(
-      i18n.dialog_buttonsSetup_help(),
+      i18next.t('dialog_buttonsSetup_help'),
       state.settings.executionAmount.join(','),
     )) as string
 
@@ -37,17 +38,25 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
     )
 
     toast.success(
-      i18n.universal_doChanged_text(() => <span>{thunkValue.join(',')}</span>),
+      <PrimaryTrans
+        i18nKey='universal_doChanged_text'
+        values={{
+          text: thunkValue.join(','),
+        }}
+      ></PrimaryTrans>,
+      { position: 'bottom-left' },
+    )
+  } else {
+    toast.info(
+      <PrimaryTrans
+        i18nKey='universal_doNothing_text'
+        values={{
+          text: state.settings.executionAmount.join(','),
+        }}
+      ></PrimaryTrans>,
       { position: 'bottom-left' },
     )
   }
-
-  toast.info(
-    i18n.universal_doNothing_text(() => (
-      <span>{state.settings.executionAmount.join(',')}</span>
-    )),
-    { position: 'bottom-left' },
-  )
 
   return thunkAPI.rejectWithValue('📣 使用者取消 prompt 操作')
 })

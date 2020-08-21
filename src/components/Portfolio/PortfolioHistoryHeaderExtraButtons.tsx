@@ -1,12 +1,13 @@
 import React from 'react'
 import { Stack, TextField, TextFieldBase } from '@fluentui/react'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { debounce } from 'lodash'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { angularAPI } from '@/angularAPI'
+import { useTranslation } from 'react-i18next'
 
 export const PortfolioHistoryHeaderExtraButtons = () => {
+  const locale = useTranslation()
   const searchBoxRef = React.createRef<TextFieldBase>()
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
 
@@ -14,7 +15,7 @@ export const PortfolioHistoryHeaderExtraButtons = () => {
     <Stack horizontal horizontalAlign='center'>
       <TextField
         componentRef={searchBoxRef}
-        placeholder={i18n.filterText_input_help()}
+        placeholder={locale.t('filterText_input_help')}
         iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
         onChange={debounce((event, newValue) => {
           filterTextSet(newValue)

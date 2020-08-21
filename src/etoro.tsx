@@ -24,6 +24,7 @@ import {
   nativeEtoroAmountSaveToStorage,
   nativeEtoroLeverSaveToStorage,
 } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
+import '@/i18n'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)

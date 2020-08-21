@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { Label, Stack, Toggle } from '@fluentui/react'
 import React from 'react'
-import { i18n } from '@/i18n'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const UniversalHotkeySettings: React.FC = props => {
   const dispatch = useAppDispatch()
@@ -10,7 +10,20 @@ export const UniversalHotkeySettings: React.FC = props => {
 
   return (
     <React.Fragment>
-      <Label>{i18n.universal_useKeyboardHotkeys_brief()}</Label>
+      <Label>
+        <div>
+          <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_tab_brief'></PrimaryTrans>
+        </div>
+        <div>
+          <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_esc_brief'></PrimaryTrans>
+        </div>
+        <div>
+          <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_space_brief'></PrimaryTrans>
+        </div>
+        <div>
+          <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_f_brief'></PrimaryTrans>
+        </div>
+      </Label>
 
       <Stack horizontal tokens={{ childrenGap: 16 }}>
         <Stack.Item>

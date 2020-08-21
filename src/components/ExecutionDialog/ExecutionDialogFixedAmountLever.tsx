@@ -1,11 +1,11 @@
 import React from 'react'
 import { Label, Toggle } from '@fluentui/react'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
-import { i18n } from '@/i18n'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import Tooltip from 'rc-tooltip'
 import { HelpIcon } from '@/components/HelpIcon'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 export const ExecutionDialogFixedAmountLever = () => {
   const dispatch = useAppDispatch()
@@ -19,15 +19,17 @@ export const ExecutionDialogFixedAmountLever = () => {
         placement='left'
         overlay={
           <span style={{ display: 'inline-block', width: 200 }}>
-            {i18n.dialog_fixedNextOrderValue_brief()}
+            <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
           </span>
         }
       >
         <span style={{ display: 'inline-block' }}>
           <Label>
-            {executionUseApplyLast
-              ? i18n.dialog_fixedNextOrderValue_text()
-              : i18n.dialog_fixedNextOrderValueNot_text()}
+            {executionUseApplyLast ? (
+              <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
+            ) : (
+              <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
+            )}
 
             <HelpIcon
               notionHref={

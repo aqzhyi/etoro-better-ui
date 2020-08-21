@@ -1,12 +1,9 @@
-import { angularAPI } from '@/angularAPI'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
-import { HighlightText } from '@/components/TooltipHighlightText'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { useAppPendingOrder } from '@/hooks/useAppPendingOrder'
-import { i18n } from '@/i18n'
 import { registerReactComponent } from '@/utils/registerReactComponent'
-import React, { useEffect, useMemo, useState } from 'react'
-import { useInterval } from 'react-use'
+import React, { useEffect, useMemo } from 'react'
 
 export const SidebarPendingOrdersLink: React.FC = props => {
   const pendingOrders = useAppPendingOrder()
@@ -34,8 +31,12 @@ export const SidebarPendingOrdersLink: React.FC = props => {
         },
       }}
     >
-      {i18n.link_pendingOrders_text()}（
-      <HighlightText>{pendingOrders.value.length}</HighlightText>）
+      <PrimaryTrans
+        i18nKey='link_pendingOrders_text'
+        values={{
+          value: pendingOrders.value.length,
+        }}
+      ></PrimaryTrans>
     </SidebarMenuItem>
   )
 }

@@ -2,9 +2,9 @@ import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { angularAPI } from '@/angularAPI'
 import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { emitter, Events } from '@/emitter'
 import { GM } from '@/GM'
-import { i18n } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { Icon } from '@fluentui/react'
@@ -72,9 +72,14 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
     <React.Fragment>
       <StyledStopLoss>
         <PrimaryTooltip
-          overlay={i18n.profits_fixedStopLossValueOnOrder_brief(
-            lastPercentOfStopLoss,
-          )}
+          overlay={
+            <PrimaryTrans
+              i18nKey='profits_fixedTakeProfitValueOnOrder_help'
+              values={{
+                value: lastPercentOfStopLoss,
+              }}
+            ></PrimaryTrans>
+          }
         >
           <Icon
             className={props.className}
@@ -94,11 +99,12 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
       <StyledTakeProfit>
         <PrimaryTooltip
           overlay={
-            <span>
-              {i18n.profits_fixedTakeValueOnOrder_brief(
-                lastPercentOfTakeProfit,
-              )}
-            </span>
+            <PrimaryTrans
+              i18nKey='profits_fixedTakeProfitValueOnOrder_help'
+              values={{
+                value: lastPercentOfTakeProfit,
+              }}
+            ></PrimaryTrans>
           }
         >
           <Icon

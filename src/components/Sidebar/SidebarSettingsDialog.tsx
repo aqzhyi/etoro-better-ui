@@ -2,8 +2,14 @@ import { resetBetterEtoroUIConfig } from '@/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
+import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
+import { PrimaryTooltip } from '@/components/PrimaryTooltip'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
+import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
+import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { getMYR, getNTD } from '@/exchange'
-import { i18n } from '@/i18n'
+import { gaAPI, GaEventId } from '@/gaAPI'
 import { BetterEtoroUIConfig } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import {
@@ -11,25 +17,20 @@ import {
   DefaultButton,
   Dialog,
   Label,
+  Slider,
   Stack,
   TextField,
   Toggle,
-  Slider,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
-import React, { useEffect, createRef } from 'react'
-import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactSwitch'
-import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
-import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
-import Tooltip from 'rc-tooltip'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { stringify } from 'query-string'
-import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
-import { PrimaryTooltip } from '@/components/PrimaryTooltip'
+import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import i18next from 'i18next'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
 export const SidebarSettingsDialog: React.FC = () => {
+  const locale = useTranslation()
   const dispatch = useAppDispatch()
 
   const configs = useAppSelector(state => state.settings)
@@ -47,7 +48,9 @@ export const SidebarSettingsDialog: React.FC = () => {
 
   return (
     <Dialog
-      title={i18n.universal_extensionName_text()}
+      title={
+        <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans>
+      }
       dialogContentProps={{ showCloseButton: true }}
       minWidth={642}
       onDismiss={() => {
@@ -62,7 +65,9 @@ export const SidebarSettingsDialog: React.FC = () => {
         <Label>Execution Dialog</Label>
 
         <Stack.Item>
-          <Label>{i18n.dialog_enabled_brief()}</Label>
+          <Label>
+            <PrimaryTrans i18nKey='dialog_enabled_brief'></PrimaryTrans>
+          </Label>
           <ChoiceGroup
             options={[
               {
@@ -93,9 +98,12 @@ export const SidebarSettingsDialog: React.FC = () => {
               )
 
               toast.success(
-                i18n.universal_doChanged_text(() => (
-                  <span>{JSON.stringify(yourEnabled)}</span>
-                )),
+                <PrimaryTrans
+                  i18nKey='universal_doChanged_text'
+                  values={{
+                    text: String(yourEnabled),
+                  }}
+                ></PrimaryTrans>,
                 { position: 'bottom-left' },
               )
             }}
@@ -103,7 +111,9 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <Label>{i18n.dialog_enabledInProchart_brief()}</Label>
+          <Label>
+            <PrimaryTrans i18nKey='dialog_enabledInProchart_brief'></PrimaryTrans>
+          </Label>
           <Toggle
             checked={!configs.executionMacroEnabledInProchart}
             onChange={(event, enabled) => {
@@ -122,7 +132,7 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <Label>{i18n.dialog_buttonsSetup_brief()}</Label>
+          <Label>{locale.t('dialog_buttonsSetup_brief')}</Label>
           <TextField
             value={macroAmountInput}
             onChange={(event, newValue) => {
@@ -146,7 +156,9 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <Label>{i18n.dialog_fixedNextOrderValue_brief()}</Label>
+          <Label>
+            <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
+          </Label>
           <ExecutionDialogFixedAmountLever />
         </Stack.Item>
 
@@ -154,7 +166,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Stack horizontal tokens={{ childrenGap: 8 }}>
             <Stack.Item>
               <Label>
-                {i18n.profits_fixedStopLossTakeProfitEnabled_brief()}
+                <PrimaryTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></PrimaryTrans>
               </Label>
               <Toggle
                 checked={configs.stopLossAndTakeProfitUseLastPercent}
@@ -170,14 +182,22 @@ export const SidebarSettingsDialog: React.FC = () => {
 
             <Stack.Item>
               <Label>
-                {i18n.profits_fixedStopLossValueOnOrder_help(
-                  configs.stopLossLastPercent,
-                )}
+                <PrimaryTrans
+                  i18nKey='profits_fixedStopLossValueOnOrder_brief'
+                  values={{
+                    value: configs.stopLossLastPercent,
+                  }}
+                ></PrimaryTrans>
               </Label>
               <PrimaryTooltip
-                overlay={i18n.profits_fixedStopLossValueOnOrder_brief(
-                  configs.stopLossLastPercent,
-                )}
+                overlay={
+                  <PrimaryTrans
+                    i18nKey='profits_fixedStopLossValueOnOrder_help'
+                    values={{
+                      value: configs.stopLossLastPercent,
+                    }}
+                  ></PrimaryTrans>
+                }
               >
                 <TextField
                   defaultValue={String(configs.stopLossLastPercent)}
@@ -189,9 +209,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                       newValue !== configs.stopLossLastPercent
                     ) {
                       toast.success(
-                        i18n.universal_doChanged_text(() => (
-                          <span>{newValue}%</span>
-                        )),
+                        <PrimaryTrans
+                          i18nKey='universal_doChanged_text'
+                          values={{
+                            text: `${newValue}%`,
+                          }}
+                        ></PrimaryTrans>,
                       )
 
                       dispatch(
@@ -207,15 +230,23 @@ export const SidebarSettingsDialog: React.FC = () => {
 
             <Stack.Item>
               <Label>
-                {i18n.profits_fixedTakeValueOnOrder_help(
-                  configs.takeProfitLastPercent,
-                )}
+                <PrimaryTrans
+                  i18nKey='profits_fixedTakeProfitValueOnOrder_brief'
+                  values={{
+                    value: configs.takeProfitLastPercent,
+                  }}
+                ></PrimaryTrans>
               </Label>
 
               <PrimaryTooltip
-                overlay={i18n.profits_fixedTakeValueOnOrder_brief(
-                  configs.stopLossLastPercent,
-                )}
+                overlay={
+                  <PrimaryTrans
+                    i18nKey='profits_fixedTakeProfitValueOnOrder_help'
+                    values={{
+                      value: configs.takeProfitLastPercent,
+                    }}
+                  ></PrimaryTrans>
+                }
               >
                 <TextField
                   defaultValue={String(configs.takeProfitLastPercent)}
@@ -227,9 +258,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                       newValue !== configs.takeProfitLastPercent
                     ) {
                       toast.success(
-                        i18n.universal_doChanged_text(() => (
-                          <span>{newValue}%</span>
-                        )),
+                        <PrimaryTrans
+                          i18nKey='universal_doChanged_text'
+                          values={{
+                            text: `${newValue}%`,
+                          }}
+                        ></PrimaryTrans>,
                       )
 
                       dispatch(
@@ -251,7 +285,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <Slider
-            label={i18n.universal_intervalCheckingStatus_brief()}
+            label={locale.t('universal_intervalCheckingStatus_brief')}
             min={5}
             max={60 * 5}
             step={1}
@@ -281,19 +315,30 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <React.Fragment>
-            <Label>{i18n.universal_compact_brief()}</Label>
+            <Label>
+              <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
+            </Label>
             <WatchlistCompactSwitch />
           </React.Fragment>
         </Stack.Item>
 
         <Stack.Item>
-          <Label>{i18n.profits_invested_brief()}</Label>
+          <Label>
+            <PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>
+          </Label>
           <WatchlistInvestedSwitch />
         </Stack.Item>
 
         <Stack.Item styles={{ root: { flex: 4 } }}>
+          <Label>
+            <PrimaryTrans
+              i18nKey='exchange_usedSetup_brief'
+              values={{
+                text: configs.selectedExchange,
+              }}
+            ></PrimaryTrans>
+          </Label>
           <ChoiceGroup
-            label={i18n.exchange_usedSetup_brief(configs.selectedExchange)}
             options={[
               {
                 key: 'NTD',
@@ -315,9 +360,12 @@ export const SidebarSettingsDialog: React.FC = () => {
               },
             ]}
             onChange={async (event, option) => {
-              const loading = toast.loading(i18n.universal_doChanging_text(), {
-                position: 'bottom-left',
-              })
+              const loading = toast.loading(
+                <PrimaryTrans i18nKey='universal_doChanging_text'></PrimaryTrans>,
+                {
+                  position: 'bottom-left',
+                },
+              )
 
               const youSelected = (option?.key ||
                 'NTD') as BetterEtoroUIConfig['selectedExchange']
@@ -354,7 +402,12 @@ export const SidebarSettingsDialog: React.FC = () => {
               }
 
               toast.success(
-                i18n.universal_doChanged_text(() => <span>{youSelected}</span>),
+                <PrimaryTrans
+                  i18nKey='universal_doChanged_text'
+                  values={{
+                    text: youSelected,
+                  }}
+                ></PrimaryTrans>,
                 { position: 'bottom-left' },
               )
 
@@ -364,11 +417,13 @@ export const SidebarSettingsDialog: React.FC = () => {
         </Stack.Item>
 
         <Stack.Item>
-          <Label>{i18n.setting_resetAll_text()}</Label>
+          <Label>
+            <PrimaryTrans i18nKey='setting_resetAll_text'></PrimaryTrans>
+          </Label>
           <DefaultButton
             iconProps={{ iconName: 'SyncStatusSolid' }}
             onClick={() => {
-              const yes = confirm(`${i18n.setting_resetAll_text()}, YES?`)
+              const yes = confirm(`${i18next.t('setting_resetAll_text')}, YES?`)
 
               if (yes) {
                 gaAPI.sendEvent(GaEventId.setting_resetAllClick)
@@ -381,7 +436,9 @@ export const SidebarSettingsDialog: React.FC = () => {
 
         <Stack.Item>
           <Toggle
-            label={i18n.universal_googleAnalyticsEnabled_brief()}
+            label={
+              <PrimaryTrans i18nKey='universal_googleAnalyticsEnabled_brief'></PrimaryTrans>
+            }
             checked={configs.googleAnalyticsEnabled}
             onChange={(event, checked) => {
               dispatch(

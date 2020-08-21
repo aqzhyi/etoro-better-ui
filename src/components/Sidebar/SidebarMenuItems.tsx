@@ -1,6 +1,5 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
-import { i18n } from '@/i18n'
 import React from 'react'
 import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
@@ -8,12 +7,15 @@ import packageJSON from '../../../package.json'
 import { GM } from '@/GM'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
+import { useTranslation } from 'react-i18next'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
 }
 
 export const SidebarMenuItems = () => {
+  const locale = useTranslation()
   const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
 
@@ -30,7 +32,9 @@ export const SidebarMenuItems = () => {
   return (
     <span>
       <div {...attrsToAppend} className='i-menu-sep'>
-        <span>{i18n.universal_extensionName_text()}</span>
+        <span>
+          <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans>
+        </span>
         <a
           href='https://github.com/hilezir/etoro-better-ui/releases'
           target='_blank'
@@ -48,7 +52,7 @@ export const SidebarMenuItems = () => {
           },
         }}
       >
-        {i18n.universal_setup_text()}
+        <PrimaryTrans i18nKey='universal_setup_text'></PrimaryTrans>
       </SidebarMenuItem>
 
       <SidebarMenuItem
@@ -60,7 +64,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_donate'),
         }}
       >
-        {i18n.link_donation_text()}
+        <PrimaryTrans i18nKey='link_donation_text'></PrimaryTrans>
       </SidebarMenuItem>
 
       <SidebarMenuItem
@@ -84,7 +88,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_website'),
         }}
       >
-        {i18n.link_extensionWebsite_text()}
+        <PrimaryTrans i18nKey='link_extensionWebsite_text'></PrimaryTrans>
       </SidebarMenuItem>
 
       <SidebarSettingsDialog></SidebarSettingsDialog>

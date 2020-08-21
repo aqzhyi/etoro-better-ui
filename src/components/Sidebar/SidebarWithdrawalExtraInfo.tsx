@@ -1,9 +1,9 @@
 import React from 'react'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { useAppSelector } from '@/store/_store'
-import { i18n } from '@/i18n'
 import { GM } from '@/GM'
 import { ProfitText } from '@/components/ProfitText'
+import { PrimaryTrans } from '@/components/PrimaryTrans'
 
 const SidebarWithdrawalExtraInfo = () => {
   const selected = useAppSelector(state => state.settings.selectedExchange)
@@ -16,8 +16,13 @@ const SidebarWithdrawalExtraInfo = () => {
     return null
   }
 
-  return i18n.link_withdrawExtra_text(
-    <ProfitText profit={exchanges[selected].buy} />,
+  return (
+    <PrimaryTrans
+      i18nKey='link_withdrawExtra_text'
+      values={{
+        value: exchanges[selected].buy,
+      }}
+    ></PrimaryTrans>
   )
 }
 
