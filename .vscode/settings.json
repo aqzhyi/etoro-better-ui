@@ -1,11 +1,32 @@
 {
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "deno.enable": false,
-  "i18n-ally.sortKeys": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "i18n-ally.keepFulfilled": true,
-  "i18n-ally.localesPaths": ["locales"],
   "i18n-ally.keystyle": "flat",
   "i18n-ally.localeCountryMap": {
     "zh": "tw"
   },
-  "i18n-ally.sourceLanguage": "zh"
+  "i18n-ally.localesPaths": ["locales"],
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.sourceLanguage": "en",
+  "prettier.requireConfig": true,
+  "prettier.withNodeModules": true
 }
