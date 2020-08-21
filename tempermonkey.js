@@ -1,23 +1,27 @@
 /**
   !! 強烈建議您：先行開啟虛擬交易之後，再執行安裝，或更新版本；並在虛擬交易中，嘗試之後再應用於真實交易之上。
 
-  !! Strong Recommended: Turn on the virtual mode at first, and install or update with a new version, and make sure you have tried it in virtual mode before real trading.
+  !! Strong Recommended: Turn on the virtual mode at first, and install or update with a new version,
+    and make sure you have tried it in virtual mode before real trading.
 */
 
 /** 更新日誌 Change Logs： https://github.com/hilezir/etoro-better-ui/releases */
 
 // ==UserScript==
-// @name            Better etoro UI for Developer
-// @version         0.0.0
+// @name            eToro Better UI
+// @name:en         eToro Better UI
+// @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
+// @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
+// @version         0.27.3
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
 // @match           https://*.etoro.com/*
 // @match           https://etoro.com/*
-// @exclude         https://*.etoro.com/chat/*
-// @exclude         https://*.etoro.com/chats/*
-// @exclude         https://*.etoro.com/*/chat/*
-// @exclude         https://*.etoro.com/*/chats/*
+// @exclude         https://*.etoro.com/chat
+// @exclude         https://*.etoro.com/chats
+// @exclude         https://*.etoro.com/*/chat
+// @exclude         https://*.etoro.com/*/chats
 // @run-at          document-idle
 // @noframes
 // @namespace       http://tampermonkey.net/
@@ -42,14 +46,18 @@ console.info('better-ui: loading...')
 
 try {
   // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-  // target version available value are: 'latest' | 'beta' | 'nightly' | '0.26' | '0.25' | '0.24' | '0.23', etc
-  const url = getBundleUrl('beta')
+  // 如果你想切換版本的使用，可以參考下面這一行程式碼
+  // If you are looking for another version, please change the word to the your target
+  //
+  // 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23', etc
+  // target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23', etc
+  const url = getBundleUrl('latest')
   // ------------------------------------------------------------------------------------------------
 
   window['GM_xmlhttpRequest']({
     url: url,
     onload: event => {
-      console.info('better-ui: loaded...')
+      console.info('better-ui: loaded with', url)
       eval(event.responseText)
       console.info('better-ui: should up!')
     },
