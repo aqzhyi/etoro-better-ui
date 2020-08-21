@@ -40,7 +40,7 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
   )
 
   useInterval(() => {
-    if (!angularAPI.executionDialogScope?.model) {
+    if (!angularAPI.executionDialogScope?.model || !enabled) {
       return
     }
 
@@ -54,6 +54,10 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
   }, 400)
 
   useMount(() => {
+    if (!enabled) {
+      return
+    }
+
     lastPercentOfStopLoss && angularAPI.setDialogStopLoss(lastPercentOfStopLoss)
 
     lastPercentOfTakeProfit &&
