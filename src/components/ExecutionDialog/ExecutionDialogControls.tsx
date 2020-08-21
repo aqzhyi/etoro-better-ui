@@ -4,7 +4,7 @@ import {
   dialogSaveAmountToStorage,
   dialogSaveLeverToStorage,
 } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
-import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
+import { ExecutionDialogFixedAmountLeverToggle } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
@@ -338,7 +338,7 @@ export const ExecutionDialogControls: React.FC<{
         </Stack.Item>
 
         <Stack.Item>
-          <ExecutionDialogFixedAmountLever />
+          <ExecutionDialogFixedAmountLeverToggle />
         </Stack.Item>
       </Stack>
     </React.Fragment>

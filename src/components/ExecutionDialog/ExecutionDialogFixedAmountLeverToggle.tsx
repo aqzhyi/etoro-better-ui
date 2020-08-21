@@ -7,7 +7,7 @@ import Tooltip from 'rc-tooltip'
 import { HelpIcon } from '@/components/HelpIcon'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 
-export const ExecutionDialogFixedAmountLever = () => {
+export const ExecutionDialogFixedAmountLeverToggle = () => {
   const dispatch = useAppDispatch()
   const executionUseApplyLast = useAppSelector(
     state => state.settings.executionUseApplyLast,

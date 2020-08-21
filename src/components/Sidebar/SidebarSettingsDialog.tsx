@@ -2,7 +2,7 @@ import { resetBetterEtoroUIConfig } from '@/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { openPromptForSetMacroAmount } from '@/actions/setMacroAmount'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import { ExecutionDialogFixedAmountLever } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLever'
+import { ExecutionDialogFixedAmountLeverToggle } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { UniversalHotkeySettings } from '@/components/UniversalControl/UniversalHotkeySettings'
@@ -159,7 +159,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Label>
             <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
           </Label>
-          <ExecutionDialogFixedAmountLever />
+          <ExecutionDialogFixedAmountLeverToggle />
         </Stack.Item>
 
         <Stack.Item>
