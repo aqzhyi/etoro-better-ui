@@ -20,6 +20,7 @@
   "link_riskKnown_text": "本程式非官方提供，請確保您知道使用風險 <riskLink>🔎 🔗 🌐</riskLink>",
   "link_withdrawExtra_text": "($<notable>{{value}}</notable>) 銀行買入",
   "profits_availableValues_text": "可用餘額",
+  "profits_fixedStopLossTakeProfitEnabled_shortLabel": "鎖定止盈止損",
   "profits_fixedStopLossTakeProfitEnabled_brief": "每次下單自動套用「止損」與「止盈」％數",
   "profits_fixedStopLossValueOnOrder_brief": "套用每次下單的「止損」趴數，當前設定：{{value}}％",
   "profits_fixedStopLossValueOnOrder_help": "每次下單視窗開啟時，套用止損趴數（當前設定：{{value}}％）。請注意，有些商品可能有所謂「最低止損」的限制。",

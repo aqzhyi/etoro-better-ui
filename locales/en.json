@@ -21,6 +21,7 @@
   "link_withdrawExtra_text": "($<notable>{{value}}</notable>)",
   "profits_availableValues_text": "available value",
   "profits_fixedStopLossTakeProfitEnabled_brief": "When Trade Execution-Dialog on mount, it's applying percent of Stop-Loss and TakeProfit",
+  "profits_fixedStopLossTakeProfitEnabled_shortLabel": "StopLoss/TakeProfit Fixed",
   "profits_fixedStopLossValueOnOrder_brief": "Apply percent of Stop-Loss, current: {{value}}%",
   "profits_fixedStopLossValueOnOrder_help": "When Trade Execution-Dialog on mount, it's applying percent of Stop-Loss (will apply {{value}}%). Notable that there some instruments that may have the limit of min Stop Loss.",
   "profits_fixedTakeProfitValueOnOrder_brief": "Apply percent of Take-Profit, current: {{value}}%",

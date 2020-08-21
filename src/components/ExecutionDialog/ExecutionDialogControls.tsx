@@ -5,6 +5,7 @@ import {
   dialogSaveLeverToStorage,
 } from '@/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import { ExecutionDialogFixedAmountLeverToggle } from '@/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
+import { ExecutionDialogFixedStopLossTakeProfitToggle } from '@/components/ExecutionDialog/ExecutionDialogFixedStopLossTakeProfitToggle'
 import { isDisabledInProchart } from '@/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
@@ -20,25 +21,6 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useInterval, useTimeoutFn } from 'react-use'
 import styled from 'styled-components'
-
-const StyledFixedTipOnAmountInput = styled.span`
-  position: absolute;
-  left: 425px;
-  margin-top: 10px;
-  top: ${() => {
-    const [px, pxSetter] = useState('auto')
-
-    useTimeoutFn(() => {
-      const target = String(
-        $(angularAPI.selectors.dialogAmountInput).position()?.top,
-      )
-
-      pxSetter((target && target + 'px') || '247px')
-    }, 1500)
-
-    return px
-  }};
-`
 
 const useAmountView = () => {
   const amountExpectFixedAt = useAppSelector(
@@ -340,13 +322,57 @@ export const ExecutionDialogControls: React.FC<{
         <Stack.Item>
           <ExecutionDialogFixedAmountLeverToggle />
         </Stack.Item>
+
+        <Stack.Item>
+          <ExecutionDialogFixedStopLossTakeProfitToggle />
+        </Stack.Item>
       </Stack>
     </React.Fragment>
   )
 }
 
+const StyledFixedTipOnAmountInput = styled.span`
+  position: absolute;
+  left: 425px;
+  margin-top: 10px;
+  top: ${() => {
+    const [px, pxSetter] = useState('auto')
+
+    useTimeoutFn(() => {
+      const target = String(
+        $(angularAPI.selectors.dialogAmountInput).position()?.top,
+      )
+
+      pxSetter((target && target + 'px') || '247px')
+    }, 1500)
+
+    return px
+  }};
+`
+
+const StyledContainer = styled.span`
+  @media (min-width: 741px) {
+    display: inline-block;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 16px;
+    text-align: center;
+    flex: 0.9;
+    /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
+    z-index: 1;
+  }
+
+  @media (max-width: 740px) {
+    display: none;
+  }
+`
+
 export const registeredExecutionDialogControls = registerReactComponent({
-  component: <ExecutionDialogControls />,
+  component: (
+    <StyledContainer>
+      <ExecutionDialogControls />
+    </StyledContainer>
+  ),
   containerId: 'ExecutionDialogControls',
   containerConstructor: containerElement => {
     $('.uidialog .execution-main').prepend(containerElement)
@@ -367,19 +393,10 @@ GM.addStyle(`
       justify-content: center;
     }
 
-    [id^=uidialog] #${registeredExecutionDialogControls.container.id} {
-      margin: 0 auto;
-      margin-bottom: 16px;
-      text-align: center;
-      flex: 0.9;
-      /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
-      z-index: 1;
-    }
-  }
-
-  @media (max-width:740px) {
-    [id^=uidialog] #${registeredExecutionDialogControls.container.id} {
-      display: none;
+    [id^=uidialog] .execution-action-button {
+      right: 0;
+      width: 540px;
+      left: auto;
     }
   }
 `)
