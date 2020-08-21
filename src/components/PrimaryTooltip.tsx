@@ -4,7 +4,7 @@ import { TooltipProps } from 'rc-tooltip/lib/Tooltip'
 import React from 'react'
 
 export const PrimaryTooltip: React.FC<React.PropsWithChildren<{
-  tooltipProps?: TooltipProps
+  tooltipProps?: Omit<TooltipProps, 'overlay'>
   overlay: TooltipProps['overlay']
 }>> = props => {
   return (
