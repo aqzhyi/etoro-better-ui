@@ -16,6 +16,8 @@
 // @match           https://etoro.com/*
 // @exclude         https://*.etoro.com/chat/*
 // @exclude         https://*.etoro.com/chats/*
+// @exclude         https://*.etoro.com/*/chat/*
+// @exclude         https://*.etoro.com/*/chats/*
 // @run-at          document-idle
 // @noframes
 // @namespace       http://tampermonkey.net/
