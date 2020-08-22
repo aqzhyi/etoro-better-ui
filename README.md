@@ -21,6 +21,8 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Preview
 
+![](./trading-dashboard-preview.jpg)
+
 ![](./extension-preview.gif)
 
 ## Contact me
@@ -31,102 +33,11 @@ via telegram personal https://t.me/whatisclown
 
 ## Development
 
-1. one terminal session for `npm run server`
-1. one terminal session for `npm run dev`
-1. add new script in tempermonkey with
+1. Install [Tampermonkey Extension to your Chrome, Edge](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW) or [Extension in Firefox](https://addons.mozilla.org/zh-TW/firefox/addon/tampermonkey/).
+1. One terminal session for `npm run server`
+1. add new script that code [./temperscript.js](https://github.com/hilezir/etoro-better-ui/blob/master/tempermonkey.js) to your tempermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
 
-    ```ts
-      // ==UserScript==
-      // @name            Better etoro UI - Switch In Another Build
-      // @version         0.0.0
-      // @author          hilezir
-      // @grant           GM_xmlhttpRequest
-      // @grant           GM_addStyle
-      // @match           https://*.etoro.com/*
-      // @match           https://etoro.com/*
-      // @exclude         https://*.etoro.com/chat/*
-      // @exclude         https://*.etoro.com/chats/*
-      // @run-at          document-idle
-      // @noframes
-      // @namespace       http://tampermonkey.net/
-
-      ///////////////////** 開源程式碼庫 */
-      // @connect         cdn.jsdelivr.net
-      // @connect         cdnjs.cloudflare.com
-
-      ///////////////////** 台灣臺灣銀行 */
-      // @connect         bot.com.tw
-
-      ///////////////////** 馬國大眾銀行 */
-      // @connect         www.pbebank.com
-
-      ///////////////////** 本地開發專用 */
-      // @connect        127.0.0.1
-      // ==/UserScript==
-
-      // @ts-check
-
-      console.info('better-ui: loading...')
-
-      try {
-        // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-        // target version available value are: 'latest' | 'beta' | 'nightly' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23', etc
-        const url = getBundleUrl('dev')
-        // ------------------------------------------------------------------------------------------------
-
-        window['GM_xmlhttpRequest']({
-          url: url,
-          onload: event => {
-            console.info('better-ui: loaded...')
-            eval(event.responseText)
-            console.info('better-ui: should up!')
-          },
-        })
-      } catch (error) {
-        if (error && error.message) {
-          alert(error.message)
-        } else {
-          alert(`Error: better-ui load failed, don't know why`)
-        }
-      }
-
-      function getBundleUrl(
-        /**
-          @type{ | 'latest' | 'beta' | 'nightly' | 'dev' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
-          */
-        targetVersion,
-      ) {
-        /**
-          @type{
-            Record<typeof targetVersion, { hash: string, filename: string }>
-          }
-        */
-        const builds = {
-          beta: { hash: 'v0.28.0-20200820-beta', filename: 'etoro' },
-          dev: { hash: 'http://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
-          nightly: { hash: 'master', filename: 'etoro' },
-          latest: { hash: 'v0.27.0-20200730', filename: 'etoro' },
-          '0.27': { hash: 'v0.27.0-20200730', filename: 'etoro' },
-          '0.26': { hash: 'v0.26.1-20200721', filename: 'etoro' },
-          '0.25': { hash: 'v0.25.3', filename: 'etoro' },
-          '0.24': { hash: 'v0.24.1', filename: 'etoro' },
-          '0.23': { hash: 'v0.23.1', filename: 'etoro' },
-        }
-
-        if (!builds[targetVersion]) {
-          throw new Error('better-ui: target version not invalid')
-        }
-
-        const url = builds[targetVersion].hash.startsWith('http')
-          ? builds[targetVersion].hash
-          : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/src_dist/etoro.bundle.js` +
-            `${targetVersion === 'nightly' ? `?time=${new Date().getTime()}` : ''}`
-
-        return url
-      }
-    ```
-
-    See more in [eToro-better-UI Switch in another build](https://www.notion.so/hilezi/eToro-better-UI-Switch-in-another-build-eb3b7842ae8e46d58d43b7bb3059b624)
+    if you're looking for how multiple etoro-better-UI scripts to exist, visit [eToro-better-UI Switch in another build](https://www.notion.so/hilezi/eToro-better-UI-Switch-in-another-build-eb3b7842ae8e46d58d43b7bb3059b624)
 
 1. make sure be enabled it script
 
