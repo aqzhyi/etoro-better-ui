@@ -10,6 +10,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const packageJSON = require('./package.json')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -43,6 +44,11 @@ const configration = {
   },
   /** TODO: cheap-module-eval-source-map is no suit for production */
   devtool: isProd ? '' : 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: './src_dist',
+    allowedHosts: ['.etoro.com'],
+    hot: true,
+  },
   mode: isProd ? 'production' : 'development',
   entry: {
     etoro: path.resolve(__dirname, 'src/etoro'),
@@ -130,6 +136,9 @@ const configration = {
 
         website: https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3
       `,
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hot Module Replacement',
     }),
   ].filter(Boolean),
 }

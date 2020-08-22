@@ -15,3 +15,9 @@ declare namespace globalThis {
     }
   }
 }
+
+interface NodeModule {
+  hot?: {
+    accept?(dep, callback)
+  }
+}

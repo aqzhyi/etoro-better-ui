@@ -83,7 +83,7 @@ function getBundleUrl(
   */
   const builds = {
     beta: { hash: 'v0.28.0-20200820-beta', filename: 'etoro' },
-    dev: { hash: 'http://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
+    dev: { hash: 'https://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.27.0-20200730', filename: 'etoro' },
     '0.27': { hash: 'v0.27.0-20200730', filename: 'etoro' },
