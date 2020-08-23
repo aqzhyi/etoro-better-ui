@@ -1,4 +1,5 @@
 import type { IRootScopeService, ILocationService } from 'angular'
+import { AnyFunction } from 'tsdef'
 
 export interface InstrumentRate {
   Ask: number
@@ -93,6 +94,24 @@ export interface Position {
   /** 當前價格 */
   CurrentRate: number
   OpenDateTime: Date
+  close: AnyFunction
+  isPendingClose?: boolean
+  getGroup(): {
+    FirstOpenDate: Date | null
+    /** 可用資金 */
+    AvailableAmount: number
+    /** 未平倉合約投資額 */
+    Amount: number
+    GroupName: string
+    /** 未平倉盈虧百分比 */
+    TotalGain: number
+    /** 帳面盈虧金額（含已平倉、未平倉） */
+    TotalProfit: number
+    /** */
+    TotalProfitAndClosedPL: number
+    ParentUsername: string
+    ClosedPL: number
+  }
 }
 
 interface EtoroRootScope extends IRootScopeService {
@@ -101,6 +120,7 @@ interface EtoroRootScope extends IRootScopeService {
     accountMode: 'Demo' | 'Real'
     user: {
       portfolio: {
+        api: '/sapi/trade-demo' | '/sapi/trade-real'
         /** 可用餘額 */
         availibleToTrade: number
         /** 淨值 */
@@ -133,6 +153,10 @@ interface EtoroRootScope extends IRootScopeService {
         orders: PendingOrder[]
         /** 手動開倉倉位 */
         manualPositions: Position[]
+        /** 所有開倉倉位 */
+        positions: Partial<{
+          [PositionId: string]: Position
+        }>
       }
     }
   }

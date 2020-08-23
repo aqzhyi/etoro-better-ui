@@ -1,14 +1,15 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
-import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
-import React from 'react'
-import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { registerReactComponent } from '@/utils/registerReactComponent'
-import packageJSON from '../../../package.json'
-import { GM } from '@/GM'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
-import { useTranslation } from 'react-i18next'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { SdiebarTradeDashboardLink } from '@/components/Sidebar/SdiebarTradeDashboardLink'
+import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
+import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
+import { gaAPI, GaEventId } from '@/gaAPI'
+import { GM } from '@/GM'
+import { useAppDispatch, useAppSelector } from '@/store/_store'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import packageJSON from '../../../package.json'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -54,7 +55,6 @@ export const SidebarMenuItems = () => {
       >
         <PrimaryTrans i18nKey='universal_setup_text'></PrimaryTrans>
       </SidebarMenuItem>
-
       <SidebarMenuItem
         iconName='funds'
         aProps={{
@@ -66,7 +66,6 @@ export const SidebarMenuItems = () => {
       >
         <PrimaryTrans i18nKey='link_donation_text'></PrimaryTrans>
       </SidebarMenuItem>
-
       <SidebarMenuItem
         iconName='people-ref'
         aProps={{
@@ -79,7 +78,6 @@ export const SidebarMenuItems = () => {
       >
         Telegram
       </SidebarMenuItem>
-
       <SidebarMenuItem
         iconName='news'
         aProps={{
@@ -90,7 +88,6 @@ export const SidebarMenuItems = () => {
       >
         <PrimaryTrans i18nKey='link_extensionWebsite_text'></PrimaryTrans>
       </SidebarMenuItem>
-
       <SidebarSettingsDialog></SidebarSettingsDialog>
     </span>
   )

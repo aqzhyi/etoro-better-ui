@@ -5,6 +5,7 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  showTradeDashboard: boolean
   /** 掌聲高聲歡呼之精采程度 */
   inviteExcitingDegree: number | null
   useHotkeys: {
@@ -49,6 +50,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  showTradeDashboard: false,
   inviteExcitingDegree: null,
   useHotkeys: {},
   intervalCheckingStatus: 15,
