@@ -2,7 +2,6 @@ import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { ProfitText } from '@/components/ProfitText'
-import { Events } from '@/emitter'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
 import { usePortfolio } from '@/hooks/usePortfolio'
@@ -37,7 +36,7 @@ const StyledTradeDashboard = styled.span<{
 
 const StyledRow = styled.div`
   display: grid;
-  grid-template-columns: 170px 100px 100px 250px 120px auto;
+  grid-template-columns: 170px 90px 120px 250px 80px auto;
   margin: 8px;
   line-height: 32px;
 
@@ -46,7 +45,7 @@ const StyledRow = styled.div`
   }
 
   @media (max-width: 1024px) {
-    grid-template-columns: 100px 100px 250px 120px auto;
+    grid-template-columns: 90px 120px 250px 80px auto;
   }
 `
 
@@ -99,10 +98,10 @@ export const TradeDashboard: React.FC = props => {
           <PrimaryTrans i18nKey='tradeDashboard_openDate'></PrimaryTrans>
         </span>
         <span>
-          <PrimaryTrans i18nKey='tradeDashboard_group'></PrimaryTrans>
+          <PrimaryTrans i18nKey='tradeDashboard_instrumentName'></PrimaryTrans>
         </span>
         <span>
-          <PrimaryTrans i18nKey='tradeDashboard_instrumentName'></PrimaryTrans>
+          <PrimaryTrans i18nKey='tradeDashboard_amount'></PrimaryTrans>
         </span>
         <span>
           <PrimaryTrans i18nKey='tradeDashboard_rates'></PrimaryTrans>
@@ -128,9 +127,11 @@ export const TradeDashboard: React.FC = props => {
               </PrimaryTooltip>
             </span>
 
-            <span>{position.getGroup().GroupName}</span>
-
             <span>{position.Instrument.Name}</span>
+
+            <span>
+              ${position.Amount} x{position.Leverage}
+            </span>
 
             <span>
               <React.Fragment>

@@ -35,7 +35,7 @@
   "status_inferringDelay_text": "大概延遲",
   "tradeDashboard_action": "執行",
   "tradeDashboard_actionClose": "平倉",
-  "tradeDashboard_group": "市場",
+  "tradeDashboard_amount": "金額與槓桿",
   "tradeDashboard_instrumentName": "商品",
   "tradeDashboard_openDate": "開倉時間",
   "tradeDashboard_openRate": "開倉點位",
