@@ -11,6 +11,7 @@ import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 import { storage } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
@@ -18,7 +19,6 @@ import { Icon, PrimaryButton, Stack } from '@fluentui/react'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useInterval, useTimeoutFn } from 'react-use'
 import styled from 'styled-components'
 
@@ -185,7 +185,7 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls: React.FC<{
   className?: string
 }> = props => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
 
   const dispatch = useAppDispatch()
 
@@ -239,7 +239,9 @@ export const ExecutionDialogControls: React.FC<{
       <React.Fragment>
         <StyledFixedTipOnAmountInput>
           <PrimaryTooltip
-            overlay={locale.t('dialog_fixedNextOrderValue_brief')}
+            overlay={
+              <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
+            }
           >
             {(executionUseApplyLast && (
               <Icon className={props.className} iconName='LockSolid'></Icon>
@@ -287,7 +289,7 @@ export const ExecutionDialogControls: React.FC<{
                   dispatch(openPromptForSetMacroAmount())
                 }}
               >
-                {locale.t('common_buttonSetup')}
+                <PrimaryTrans i18nKey='common_buttonSetup'></PrimaryTrans>
               </PrimaryButton>
             </Stack.Item>
           </Stack>

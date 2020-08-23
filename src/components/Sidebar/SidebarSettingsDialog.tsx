@@ -10,6 +10,7 @@ import { WatchlistCompactSwitch } from '@/components/Watchlist/WatchlistCompactS
 import { WatchlistInvestedSwitch } from '@/components/Watchlist/WatchlistInvestedSwitch'
 import { getMYR, getNTD } from '@/exchange'
 import { gaAPI, GaEventId } from '@/gaAPI'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 import { BetterEtoroUIConfig } from '@/storage'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import {
@@ -23,14 +24,13 @@ import {
   Toggle,
 } from '@fluentui/react'
 import toast from 'cogo-toast'
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
+import React, { useEffect } from 'react'
 
 const getArrayNumbers = (values = '200') => values.split(',').map(Number)
 
 export const SidebarSettingsDialog: React.FC = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const dispatch = useAppDispatch()
 
   const configs = useAppSelector(state => state.settings)

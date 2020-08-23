@@ -1,14 +1,13 @@
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
-import { SdiebarTradeDashboardLink } from '@/components/Sidebar/SdiebarTradeDashboardLink'
 import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
 import { SidebarSettingsDialog } from '@/components/Sidebar/SidebarSettingsDialog'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 import { useAppDispatch, useAppSelector } from '@/store/_store'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import packageJSON from '../../../package.json'
 
 const sendEvent = (label: string) => {
@@ -16,7 +15,7 @@ const sendEvent = (label: string) => {
 }
 
 export const SidebarMenuItems = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
 

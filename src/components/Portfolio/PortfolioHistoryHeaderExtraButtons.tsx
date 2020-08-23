@@ -1,13 +1,13 @@
-import React from 'react'
-import { Stack, TextField, TextFieldBase } from '@fluentui/react'
-import { GM } from '@/GM'
-import { debounce } from 'lodash'
-import { registerReactComponent } from '@/utils/registerReactComponent'
 import { angularAPI } from '@/angularAPI'
-import { useTranslation } from 'react-i18next'
+import { GM } from '@/GM'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
+import { registerReactComponent } from '@/utils/registerReactComponent'
+import { Stack, TextField, TextFieldBase } from '@fluentui/react'
+import { debounce } from 'lodash'
+import React from 'react'
 
 export const PortfolioHistoryHeaderExtraButtons = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const searchBoxRef = React.createRef<TextFieldBase>()
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
 

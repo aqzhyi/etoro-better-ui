@@ -4,10 +4,10 @@ import { useAppSelector, useAppDispatch } from '@/store/_store'
 import { angularAPI } from '@/angularAPI'
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { gaAPI, GaEventId } from '@/gaAPI'
-import { useTranslation } from 'react-i18next'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 
 export const WatchlistCompactSwitch = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const dispatch = useAppDispatch()
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
 

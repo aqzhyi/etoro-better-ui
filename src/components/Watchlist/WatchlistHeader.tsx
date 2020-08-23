@@ -9,11 +9,11 @@ import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useMount, useDebounce } from 'react-use'
 import { gaAPI, GaEventId } from '@/gaAPI'
-import { useTranslation } from 'react-i18next'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 
 export const WatchlistHeader: React.FC = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
   const shouldShowInvested = useAppSelector(
     state => state.settings.showInvested,

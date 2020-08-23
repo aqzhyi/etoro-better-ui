@@ -1,13 +1,13 @@
 import { angularAPI } from '@/angularAPI'
 import { GM } from '@/GM'
+import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
 import { registerReactComponent } from '@/utils/registerReactComponent'
 import { TextField, TextFieldBase } from '@fluentui/react'
-import React from 'react'
 import { debounce } from 'lodash'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 
 export const PortfolioHeaderExtraButtons = () => {
-  const locale = useTranslation()
+  const locale = usePrimaryTranslation()
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
   const searchBoxRef = React.createRef<TextFieldBase>()
 
