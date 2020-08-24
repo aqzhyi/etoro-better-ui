@@ -21,6 +21,8 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Preview
 
+![](./trading-dashboard-preview.gif)
+
 ![](./trading-dashboard-preview.jpg)
 
 ![](./extension-preview.gif)
