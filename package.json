@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/etoro.tsx --https --port 8087 --target browser",
+    "build": "parcel build src/etoro.tsx --target browser",
     "test": "jest",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"
