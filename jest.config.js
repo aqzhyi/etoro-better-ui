@@ -14,7 +14,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'ts', 'tsx'],
   moduleNameMapper: {
-    '@\\/(.*)': path.resolve(__dirname, 'src/$1'),
+    '~\\/(.*)': path.resolve(__dirname, 'src/$1'),
   },
   transformIgnorePatterns: ['/node_modules/'],
   setupFiles: ['./jest.setup.js'],
