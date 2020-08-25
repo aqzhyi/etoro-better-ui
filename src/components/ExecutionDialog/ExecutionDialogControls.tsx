@@ -61,12 +61,18 @@ const useAmountView = () => {
   }
 
   const setAmountViewValue = (value: number) => {
+    const currentLever =
+      angularAPI.executionDialogScope?.model?.leverages.selectedLeverage ?? 1
+
     const etoroMinAmountValue =
       angularAPI.executionDialogScope?.model?.instrument?.MinPositionAmount ??
       value
 
+    const valueWillSetup =
+      value * currentLever < etoroMinAmountValue ? etoroMinAmountValue : value
+
     $(angularAPI.selectors.dialogAmountInput)
-      .val(`${value < etoroMinAmountValue ? etoroMinAmountValue : value}`)
+      .val(`${valueWillSetup}`)
       .delay(50)
       .trigger('change')
       .delay(50)
