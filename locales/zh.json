@@ -10,7 +10,7 @@
   "dialog_fixedNextOrderValue_text": "金額槓桿鎖定",
   "exchange_usedSetup_brief": "設定幣別（當前：<notable>{{text}}</notable>）",
   "filterText_clearText_text": "清除輸入",
-  "filterText_input_brief": "使用 <kbd>Enter</kbd> 可以開啟第一個標的之下單框。使用 <kbd>Escape</kbd> 可以清除輸入框。",
+  "filterText_input_brief": "全域使用 <kbd>T</kbd> 或輸入框中使用 <kbd>Enter</kbd> 可以開啟第一個標的之下單框。使用 <kbd>Escape</kbd> 可以清除輸入框。",
   "filterText_input_help": "過濾...",
   "link_checkBalance_text": "餘額",
   "link_dashboard_text": "倉位與下單",

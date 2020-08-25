@@ -10,7 +10,7 @@
   "dialog_fixedNextOrderValue_text": "Amount/Lever Fixed",
   "exchange_usedSetup_brief": "Currency (current: <notable>{{text}}</notable>)",
   "filterText_clearText_text": "Clear Filter",
-  "filterText_input_brief": "Use the <kbd>Enter</kbd> key to open the first Execution Dialog. Use the <kbd>ESC</kbd> to clear the input .",
+  "filterText_input_brief": "Use the <kbd>T</kbd> key on watchlist, or use <kbd>Enter</kbd> when input focus to open the first Execution Dialog. Use the <kbd>ESC</kbd> to clear the input.",
   "filterText_input_help": "Filter...",
   "link_checkBalance_text": "balance",
   "link_dashboard_text": "Trades Dashboard",

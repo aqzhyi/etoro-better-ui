@@ -87,9 +87,7 @@ export const WatchlistHeader: React.FC = () => {
 
               if (event.key.toLowerCase() === 'enter') {
                 gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
-                $('[automation-id="buy-sell-button-container-buy"]:visible')
-                  .eq(0)
-                  .click()
+                angularAPI.openTradeDialog()
 
                 searchBoxRef.current?.blur()
               }
