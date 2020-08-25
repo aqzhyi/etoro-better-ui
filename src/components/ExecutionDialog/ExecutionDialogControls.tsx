@@ -278,7 +278,11 @@ export const ExecutionDialogControls: React.FC<{
                       dialogSaveAmountToStorage(value)
                     }}
                   >
-                    $<span>{value}</span>
+                    <StyledButtonActiveText
+                      active={lastApplied.amount === value}
+                    >
+                      ${value}
+                    </StyledButtonActiveText>
                   </PrimaryButton>
                 </Stack.Item>
               )
@@ -319,7 +323,11 @@ export const ExecutionDialogControls: React.FC<{
                       dialogSaveLeverToStorage(value)
                     }}
                   >
-                    x<span>{value}</span>
+                    <StyledButtonActiveText
+                      active={lastApplied.lever === value}
+                    >
+                      x{value}
+                    </StyledButtonActiveText>
                   </PrimaryButton>
                 </Stack.Item>
               )
@@ -338,6 +346,11 @@ export const ExecutionDialogControls: React.FC<{
     </React.Fragment>
   )
 }
+
+const StyledButtonActiveText = styled.span<{ active?: boolean }>`
+  ${props => (props.active && 'text-shadow: 1px 1px 2px black') || ''};
+  ${props => (props.active && 'font-weight: 700;') || ''};
+`
 
 const StyledFixedTipOnAmountInput = styled.span`
   position: absolute;
