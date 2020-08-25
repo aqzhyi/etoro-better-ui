@@ -12,7 +12,7 @@
 // @name:en         eToro Better UI
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.29.0
+// @version         0.30.0
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
@@ -49,8 +49,8 @@ try {
   // 如果你想切換版本的使用，可以參考下面這一行程式碼
   // If you are looking for another version, please change the word to the your target
   //
-  // 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.29' | '0.28', etc
-  // target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.29' | '0.28', etc
+  // 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
+  // target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
   const url = getBundleUrl('latest')
   // ------------------------------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ try {
 
 function getBundleUrl(
   /**
-    @type{ | 'latest' | 'beta' | 'nightly' | 'dev' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
+    @type{ | 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
     */
   targetVersion,
 ) {
@@ -85,7 +85,8 @@ function getBundleUrl(
     beta: { hash: '0.28.0-20200823-beta3', filename: 'etoro' },
     dev: { hash: 'https://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
-    latest: { hash: 'v0.29.0-20200825', filename: 'etoro' },
+    latest: { hash: 'v0.30.0-20200825', filename: 'etoro' },
+    '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
     '0.29': { hash: 'v0.29.0-20200825', filename: 'etoro' },
     '0.28': { hash: 'v0.28.0-20200823-beta3', filename: 'etoro' },
     '0.27': { hash: 'v0.27.0-20200730', filename: 'etoro' },
