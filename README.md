@@ -19,25 +19,15 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 > requirement: [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
 
-## Preview
+## Real Trading Preview
 
-![](./trading-dashboard-preview.gif)
-
-![](./trading-dashboard-preview.jpg)
-
-![](./extension-preview.gif)
-
-## Contact me
-
-via telegram group https://t.me/etoro_better_ui
-
-via telegram personal https://t.me/whatisclown
+![](./trade-dashboard-real-trading-preview.gif)
 
 ## Development
 
 1. Install [Tampermonkey Extension to your Chrome, Edge](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW) or [Extension in Firefox](https://addons.mozilla.org/zh-TW/firefox/addon/tampermonkey/).
-1. One terminal session for `npm run server`
-1. add new script that code [./temperscript.js](https://github.com/hilezir/etoro-better-ui/blob/master/tempermonkey.js) to your tempermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
+1. One terminal session for `npm run dev`
+1. add new script that code [./tamperscript.js](https://github.com/hilezir/etoro-better-ui/blob/master/tempermonkey.js) to your tempermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
 
     if you're looking for how multiple etoro-better-UI scripts to exist, visit [eToro-better-UI Switch in another build](https://www.notion.so/hilezi/eToro-better-UI-Switch-in-another-build-eb3b7842ae8e46d58d43b7bb3059b624)
 
@@ -51,6 +41,10 @@ via telegram personal https://t.me/whatisclown
 4. [release](https://github.com/hilezir/etoro-better-ui/releases) on github
 5. release on [greasyfork.org](https://greasyfork.org/zh-TW/scripts/400518/)
 
-## Donation
+## About
 
-https://www.notion.so/hilezi/ab484fc786bf44f8b19a017fdbe4a698
+- [💰 Donation](https://www.notion.so/hilezi/ab484fc786bf44f8b19a017fdbe4a698)
+
+- [💬 UI Feedback](https://t.me/etoro_better_ui) in Telegram 🛩
+
+- [💬 Contact](https://t.me/whatisclown)  in Telegram 🛩
