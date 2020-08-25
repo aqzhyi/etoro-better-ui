@@ -10,8 +10,8 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { PrimaryButton } from '@fluentui/react'
 import dayjs from 'dayjs'
 import { map } from 'lodash'
-import React from 'react'
-import { useInterval, useKey, useMount } from 'react-use'
+import React, { useState } from 'react'
+import { useInterval, useKey, useList, useMount } from 'react-use'
 import styled from 'styled-components'
 
 const StyledTradeDashboard = styled.span<{
@@ -53,6 +53,7 @@ export const TradeDashboard: React.FC = props => {
   const protfolio = usePortfolio()
   const dispatch = useAppDispatch()
   const isActive = useAppSelector(state => state.settings.showTradeDashboard)
+  const [closing, closingAct] = useList<number>([])
 
   const closeDashboard = () => {
     dispatch(
@@ -172,10 +173,13 @@ export const TradeDashboard: React.FC = props => {
             <ProfitText profit={position.Profit}></ProfitText>
 
             <PrimaryButton
-              disabled={position.isPendingClose}
+              disabled={
+                position.isPendingClose || closing.includes(position.PositionID)
+              }
               onClick={event => {
                 gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
                 position.close()
+                closingAct.push(position.PositionID)
               }}
             >
               <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>
