@@ -41,6 +41,7 @@
   "tradeDashboard_openRate": "開倉點位",
   "tradeDashboard_profit": "收益",
   "tradeDashboard_rates": "水位 @ 當前 (上/下)",
+  "tradeDashboard_refreshRate_brief": "倉位情報的重新渲染速度；越低的數值，代表越快的速率，但同時也会消耗更多的CPU使用率。",
   "universal_amount_text": "金額",
   "universal_compact_brief": "不顯示關注列表中的無用介面（當前以開發者視角主觀認定）",
   "universal_compact_text": "緊湊",

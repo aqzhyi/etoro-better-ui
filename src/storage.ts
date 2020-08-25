@@ -5,6 +5,8 @@ import { debugAPI } from '@/debugAPI'
 import { emitter, Events } from '@/emitter'
 
 export type BetterEtoroUIConfig = {
+  /** Trade Dashboard the positions the rate of refresh profits */
+  tradeDashboardRefreshRate: number
   showTradeDashboard: boolean
   /** 掌聲高聲歡呼之精采程度 */
   inviteExcitingDegree: number | null
@@ -50,6 +52,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  tradeDashboardRefreshRate: 300,
   showTradeDashboard: false,
   inviteExcitingDegree: null,
   useHotkeys: {},

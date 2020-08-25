@@ -1,7 +1,9 @@
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { Kbd } from '@/components/Kbd'
 import { PrimaryTooltip } from '@/components/PrimaryTooltip'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { ProfitText } from '@/components/ProfitText'
+import { TradeDashboardRefreshRateSlider } from '@/components/TradeDashboardRefreshRateSlider'
 import { gaAPI, GaEventId } from '@/gaAPI'
 import { GM } from '@/GM'
 import { usePortfolio } from '@/hooks/usePortfolio'
@@ -10,7 +12,7 @@ import { registerReactComponent } from '@/utils/registerReactComponent'
 import { PrimaryButton } from '@fluentui/react'
 import dayjs from 'dayjs'
 import { map } from 'lodash'
-import React, { useState } from 'react'
+import React from 'react'
 import { useInterval, useKey, useList, useMount } from 'react-use'
 import styled from 'styled-components'
 
@@ -54,6 +56,9 @@ export const TradeDashboard: React.FC = props => {
   const dispatch = useAppDispatch()
   const isActive = useAppSelector(state => state.settings.showTradeDashboard)
   const [closing, closingAct] = useList<number>([])
+  const refreshRate = useAppSelector(
+    state => state.settings.tradeDashboardRefreshRate,
+  )
 
   const closeDashboard = () => {
     dispatch(
@@ -73,7 +78,7 @@ export const TradeDashboard: React.FC = props => {
 
   useInterval(() => {
     protfolio.update()
-  }, (isActive && 300) || null)
+  }, (isActive && refreshRate) || null)
 
   return (
     <StyledTradeDashboard open={isActive}>
@@ -81,17 +86,16 @@ export const TradeDashboard: React.FC = props => {
         <PrimaryTrans i18nKey='universal_extensionSupportName_text'></PrimaryTrans>
       </div>
 
-      <div style={{ margin: 8 }}>
-        <PrimaryButton
-          style={{
-            width: '100%',
-          }}
-          onClick={() => {
-            closeDashboard()
-          }}
-        >
-          ❌
-        </PrimaryButton>
+      <div style={{ margin: 8, textAlign: 'right' }}>
+        <PrimaryTooltip overlay={() => <Kbd>Esc</Kbd>}>
+          <PrimaryButton
+            onClick={() => {
+              closeDashboard()
+            }}
+          >
+            <span>❌</span>
+          </PrimaryButton>
+        </PrimaryTooltip>
       </div>
 
       <StyledRow>
@@ -193,16 +197,7 @@ export const TradeDashboard: React.FC = props => {
       </div>
 
       <div style={{ margin: 8 }}>
-        <PrimaryButton
-          style={{
-            width: '100%',
-          }}
-          onClick={() => {
-            closeDashboard()
-          }}
-        >
-          ❌
-        </PrimaryButton>
+        <TradeDashboardRefreshRateSlider />
       </div>
     </StyledTradeDashboard>
   )
