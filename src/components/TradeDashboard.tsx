@@ -15,6 +15,7 @@ import { map } from 'lodash'
 import React from 'react'
 import { useInterval, useKey, useList, useMount } from 'react-use'
 import styled from 'styled-components'
+import { angularAPI } from '~/angularAPI'
 
 const StyledTradeDashboard = styled.span<{
   open: boolean
@@ -73,6 +74,10 @@ export const TradeDashboard: React.FC = props => {
   })
 
   useKey('Escape', () => {
+    if (angularAPI.executionDialogScope) {
+      return
+    }
+
     closeDashboard()
   })
 
