@@ -55,7 +55,7 @@ const version = 'latest'
 // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
 
 try {
-  const url = getBundleUrl('latest')
+  const url = getBundleUrl(version)
 
   console.info('better-ui: loading...')
 
