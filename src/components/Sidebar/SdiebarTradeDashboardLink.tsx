@@ -1,4 +1,5 @@
 import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
+import { Kbd } from '@/components/Kbd'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
 import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
 import { gaAPI, GaEventId } from '@/gaAPI'
@@ -27,6 +28,7 @@ export const SdiebarTradeDashboardLink: React.FC = props => {
         }}
       >
         <PrimaryTrans i18nKey='link_dashboard_text'></PrimaryTrans>
+        <Kbd>D</Kbd>
       </SidebarMenuItem>
     </React.Fragment>
   )

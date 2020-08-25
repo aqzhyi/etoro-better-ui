@@ -1,3 +1,4 @@
+import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
 import { toggleSettingsDialog } from '@/actions/toggleSettingsDialog'
 import { angularAPI } from '@/angularAPI'
 import { PrimaryTrans } from '@/components/PrimaryTrans'
@@ -48,6 +49,25 @@ export const UniversalControlKeyObserver = () => {
         .addClass(KEYBOARD_DISABLED_CLASSNAME)
     }
   }, [hotkeySettings])
+
+  /** 交易與倉位控制面版 */
+  useKey(
+    'D',
+    event => {
+      if (isInputUsesFocusing()) return
+
+      debugAPI.keyboard.extend('D')(event.key)
+
+      gaAPI.sendEvent(GaEventId.sidebar_dashboardLinkClick)
+      dispatch(
+        setBetterEtoroUIConfig({
+          showTradeDashboard: true,
+        }),
+      )
+    },
+    {},
+    [hotkeySettings],
+  )
 
   /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
   useKey(

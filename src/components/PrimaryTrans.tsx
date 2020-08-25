@@ -1,3 +1,4 @@
+import { Kbd } from '@/components/Kbd'
 import React from 'react'
 import { Trans, TransProps } from 'react-i18next'
 import styled from 'styled-components'
@@ -17,24 +18,6 @@ const StyledNotable = styled.span`
   font-weight: bold;
 `
 
-const StyledKbd = styled.kbd`
-  box-shadow: 1px 1px 3px 1px #666666;
-  padding: 1px 3px;
-  font-family: consolas;
-  margin: 0 3px;
-  border-radius: 3px;
-  vertical-align: text-bottom;
-  cursor: pointer;
-  color: #666;
-
-  :active {
-    box-shadow: 1px 1px 3px 1px #333333;
-    position: relative;
-    top: 1px;
-    left: 1px;
-  }
-`
-
 export const PrimaryTrans: React.FC<
   Omit<TransProps, 'i18nKey'> & {
     i18nKey: keyof typeof zhLocale
@@ -45,7 +28,7 @@ export const PrimaryTrans: React.FC<
       {...props}
       components={{
         notable: <StyledNotable></StyledNotable>,
-        kbd: <StyledKbd></StyledKbd>,
+        kbd: <Kbd></Kbd>,
         riskLink: <RiskLink></RiskLink>,
       }}
     >
