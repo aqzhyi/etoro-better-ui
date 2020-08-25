@@ -1,4 +1,4 @@
-import { GM } from '@/GM'
+import { GM } from '~/GM'
 import { Icon } from '@fluentui/react'
 import React from 'react'
 

@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '@/store/_store'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { Label, Stack, Toggle } from '@fluentui/react'
 import React from 'react'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 export const UniversalHotkeySettings: React.FC = props => {
   const dispatch = useAppDispatch()

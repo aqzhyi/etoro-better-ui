@@ -1,4 +1,4 @@
-import { GM } from '@/GM'
+import { GM } from '~/GM'
 
 /**
  * Auto-scaling the execution dialog window to suitable who using the smaller screen

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Label, Toggle } from '@fluentui/react'
-import { useAppDispatch, useAppSelector } from '@/store/_store'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { gaAPI, GaEventId } from '@/gaAPI'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaEventId } from '~/gaAPI'
 import Tooltip from 'rc-tooltip'
-import { HelpIcon } from '@/components/HelpIcon'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { HelpIcon } from '~/components/HelpIcon'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 export const ExecutionDialogFixedAmountLeverToggle = () => {
   const dispatch = useAppDispatch()

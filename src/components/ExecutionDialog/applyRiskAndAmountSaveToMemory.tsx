@@ -1,7 +1,7 @@
-import store from '@/store/_store'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { angularAPI } from '@/angularAPI'
-import { currencyTextToNumber } from '@/utils/currencyTextToNumber'
+import store from '~/store/_store'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { angularAPI } from '~/angularAPI'
+import { currencyTextToNumber } from '~/utils/currencyTextToNumber'
 
 export const dialogSaveAmountToStorage = (amount?: number) => {
   const state = store.getState()

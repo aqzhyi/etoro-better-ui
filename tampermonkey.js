@@ -42,17 +42,26 @@
 
 // @ts-check
 
-console.info('better-ui: loading...')
+// 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
+// 如果你想切換版本的使用，可以參考下面這一行程式碼
+// If you are looking for another version, please change the word to the your target
+//
+// 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
+// target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
+//
+/** @type{version} */
+const version = 'latest'
+//
+// 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
 
 try {
-  // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-  // 如果你想切換版本的使用，可以參考下面這一行程式碼
-  // If you are looking for another version, please change the word to the your target
-  //
-  // 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
-  // target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
   const url = getBundleUrl('latest')
-  // ------------------------------------------------------------------------------------------------
+
+  console.info('better-ui: loading...')
+
+  addStylesheetTag({
+    url: url.replace('.js', '.css'),
+  })
 
   window['GM_xmlhttpRequest']({
     url: url,
@@ -72,7 +81,7 @@ try {
 
 function getBundleUrl(
   /**
-    @type{ | 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' }
+    @type{version}
     */
   targetVersion,
 ) {
@@ -83,7 +92,7 @@ function getBundleUrl(
   */
   const builds = {
     beta: { hash: '0.28.0-20200823-beta3', filename: 'etoro' },
-    dev: { hash: 'https://127.0.0.1:8087/etoro.bundle.js', filename: 'etoro' },
+    dev: { hash: 'https://127.0.0.1:8087/etoro.js', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.30.0-20200825', filename: 'etoro' },
     '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
@@ -107,3 +116,24 @@ function getBundleUrl(
 
   return url
 }
+
+function addStylesheetTag(
+  /**
+    @type {{ url: string }}
+  */
+  options,
+) {
+  const head = globalThis.document.querySelector('head')
+  const link = globalThis.document.createElement('link')
+  link.href = options.url
+  link.type = 'text/css'
+  link.rel = 'stylesheet'
+
+  head?.appendChild(link)
+}
+
+/* global globalThis */
+
+/**
+  @typedef { | 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
+ */

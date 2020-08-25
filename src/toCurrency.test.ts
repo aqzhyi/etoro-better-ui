@@ -1,4 +1,4 @@
-import { toCurrency } from '@/toCurrency'
+import { toCurrency } from '~/toCurrency'
 import { random } from 'lodash'
 
 test('Normal Usage', () => {

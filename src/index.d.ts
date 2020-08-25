@@ -1,5 +1,5 @@
-const { registeredComponents } = await import('@/utils/registerReactComponent')
-const { store } = await import('@/store/_store')
+const { registeredComponents } = await import('~/utils/registerReactComponent')
+const { store } = await import('~/store/_store')
 
 declare namespace NodeJS {
   interface ProcessEnv {

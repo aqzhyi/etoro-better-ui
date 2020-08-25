@@ -1,7 +1,7 @@
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { PrimaryTooltip } from '@/components/PrimaryTooltip'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
-import { useAppDispatch, useAppSelector } from '@/store/_store'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { PrimaryTooltip } from '~/components/PrimaryTooltip'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { Label, Toggle } from '@fluentui/react'
 import React from 'react'
 

@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import zhJSON from '../locales/zh.json'
 import enJSON from '../locales/en.json'
-import { angularAPI } from '@/angularAPI'
+import { angularAPI } from '~/angularAPI'
 
 i18next.use(initReactI18next).init({
   resources: {

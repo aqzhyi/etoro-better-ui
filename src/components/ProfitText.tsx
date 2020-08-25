@@ -1,5 +1,5 @@
-import { GM } from '@/GM'
-import { toCurrency } from '@/toCurrency'
+import { GM } from '~/GM'
+import { toCurrency } from '~/toCurrency'
 import React, { useMemo } from 'react'
 import cxx from 'classnames'
 

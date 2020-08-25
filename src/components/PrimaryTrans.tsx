@@ -1,4 +1,4 @@
-import { Kbd } from '@/components/Kbd'
+import { Kbd } from '~/components/Kbd'
 import React from 'react'
 import { Trans, TransProps } from 'react-i18next'
 import styled from 'styled-components'

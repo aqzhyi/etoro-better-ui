@@ -1,8 +1,8 @@
 import toast from 'cogo-toast'
 import { Middleware } from 'redux'
 import { PayloadAction } from '@reduxjs/toolkit'
-import { debugAPI } from '@/debugAPI'
-import { emitter, Events } from '@/emitter'
+import { debugAPI } from '~/debugAPI'
+import { emitter, Events } from '~/emitter'
 
 export type BetterEtoroUIConfig = {
   /** Trade Dashboard the positions the rate of refresh profits */

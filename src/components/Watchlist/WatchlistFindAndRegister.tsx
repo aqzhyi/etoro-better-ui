@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { registerReactComponent } from '@/utils/registerReactComponent'
-import { WatchlistUsersControls } from '@/components/Watchlist/WatchlistUsersControls'
-import { getRandomString } from '@/utils/getRandomString'
+import { registerReactComponent } from '~/utils/registerReactComponent'
+import { WatchlistUsersControls } from '~/components/Watchlist/WatchlistUsersControls'
+import { getRandomString } from '~/utils/getRandomString'
 import { useMount } from 'react-use'
 
 const findAndRegister = () => {

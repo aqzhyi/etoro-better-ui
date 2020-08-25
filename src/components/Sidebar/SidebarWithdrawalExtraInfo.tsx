@@ -1,9 +1,9 @@
 import React from 'react'
-import { registerReactComponent } from '@/utils/registerReactComponent'
-import { useAppSelector } from '@/store/_store'
-import { GM } from '@/GM'
-import { ProfitText } from '@/components/ProfitText'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { registerReactComponent } from '~/utils/registerReactComponent'
+import { useAppSelector } from '~/store/_store'
+import { GM } from '~/GM'
+import { ProfitText } from '~/components/ProfitText'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 const SidebarWithdrawalExtraInfo = () => {
   const selected = useAppSelector(state => state.settings.selectedExchange)

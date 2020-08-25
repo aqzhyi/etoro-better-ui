@@ -1,10 +1,10 @@
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { Kbd } from '@/components/Kbd'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
-import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { useAppDispatch, useAppSelector } from '@/store/_store'
-import { registerReactComponent } from '@/utils/registerReactComponent'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { Kbd } from '~/components/Kbd'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
+import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
 
 export const SdiebarTradeDashboardLink: React.FC = props => {

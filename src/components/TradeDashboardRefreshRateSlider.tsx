@@ -1,6 +1,6 @@
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
-import { useAppDispatch, useAppSelector } from '@/store/_store'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { Label, Slider } from '@fluentui/react'
 import React from 'react'
 

@@ -1,7 +1,7 @@
 import cogoToast from 'cogo-toast'
 import React from 'react'
-import { debugAPI } from '@/debugAPI'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { debugAPI } from '~/debugAPI'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 /** 計算啟動時間 */
 const bootstrapStartAt = new Date()

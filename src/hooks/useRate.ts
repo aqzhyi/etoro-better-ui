@@ -1,4 +1,4 @@
-import { angularAPI } from '@/angularAPI'
+import { angularAPI } from '~/angularAPI'
 import { useMemo, useState } from 'react'
 
 export const useRate = () => {

@@ -1,7 +1,7 @@
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { getMYR, getNTD } from '@/exchange'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { getMYR, getNTD } from '~/exchange'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { emitter, Events } from '@/emitter'
+import { emitter, Events } from '~/emitter'
 
 export const fetchExtraCurrency = createAsyncThunk(
   'fetchExtraCurrency',

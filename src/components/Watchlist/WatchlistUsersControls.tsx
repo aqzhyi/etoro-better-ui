@@ -1,13 +1,13 @@
-import { debugAPI } from '@/debugAPI'
-import { GM } from '@/GM'
+import { debugAPI } from '~/debugAPI'
+import { GM } from '~/GM'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
-import { registerReactComponent } from '@/utils/registerReactComponent'
-import { getRandomString } from '@/utils/getRandomString'
+import { registerReactComponent } from '~/utils/registerReactComponent'
+import { getRandomString } from '~/utils/getRandomString'
 import { DefaultButton, Stack } from '@fluentui/react'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string

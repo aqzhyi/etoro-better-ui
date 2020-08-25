@@ -1,4 +1,4 @@
-import { BetterEtoroUIConfig } from '@/storage'
+import { BetterEtoroUIConfig } from '~/storage'
 import { createAction } from '@reduxjs/toolkit'
 
 export const setBetterEtoroUIConfig = createAction<

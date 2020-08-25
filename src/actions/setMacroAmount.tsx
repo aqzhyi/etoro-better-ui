@@ -1,12 +1,12 @@
 import React from 'react'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { RootState } from '@/store/_store'
+import { RootState } from '~/store/_store'
 import toast from 'cogo-toast'
-import { emitter, Events } from '@/emitter'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { gaAPI, GaEventId } from '@/gaAPI'
+import { emitter, Events } from '~/emitter'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaEventId } from '~/gaAPI'
 import i18next from 'i18next'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 export const openPromptForSetMacroAmount = createAsyncThunk<
   void,

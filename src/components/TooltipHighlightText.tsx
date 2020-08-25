@@ -1,5 +1,5 @@
 import React from 'react'
-import { GM } from '@/GM'
+import { GM } from '~/GM'
 
 /** @deprecated */
 export const HighlightText: React.FC = props => {

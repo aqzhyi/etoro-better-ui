@@ -1,8 +1,8 @@
-import { PrimaryTrans } from '@/components/PrimaryTrans'
-import { SidebarMenuItem } from '@/components/Sidebar/SidebarMenuItem'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { useAppPendingOrder } from '@/hooks/useAppPendingOrder'
-import { registerReactComponent } from '@/utils/registerReactComponent'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { useAppPendingOrder } from '~/hooks/useAppPendingOrder'
+import { registerReactComponent } from '~/utils/registerReactComponent'
 import React, { useEffect, useMemo } from 'react'
 
 export const SidebarPendingOrdersLink: React.FC = props => {

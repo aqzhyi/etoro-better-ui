@@ -1,6 +1,6 @@
-import { debugAPI } from '@/debugAPI'
-import store from '@/store/_store'
-import { angularAPI } from '@/angularAPI'
+import { debugAPI } from '~/debugAPI'
+import store from '~/store/_store'
+import { angularAPI } from '~/angularAPI'
 
 /**
  * naming rule

@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from '@fluentui/react'
 import { ErrorBoundary } from 'libreact/lib/ErrorBoundary'
 import Tooltip from 'rc-tooltip'
-import { PrimaryTrans } from '@/components/PrimaryTrans'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 import cogoToast from 'cogo-toast'
 
 export const IconAsErrorBoundary: React.FC = props => {

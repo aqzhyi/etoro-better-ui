@@ -1,4 +1,4 @@
-import { emitter, Events } from '@/emitter'
+import { emitter, Events } from '~/emitter'
 
 export let sidebarDynamicNgContent = ''
 

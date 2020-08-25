@@ -1,12 +1,12 @@
-import { angularAPI } from '@/angularAPI'
-import { registeredExecutionDialogControls } from '@/components/ExecutionDialog/ExecutionDialogControls'
-import { registeredExecutionDialogStatusInfo } from '@/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import { debugAPI } from '@/debugAPI'
-import { emitter, Events } from '@/emitter'
+import { angularAPI } from '~/angularAPI'
+import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/ExecutionDialogControls'
+import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
+import { debugAPI } from '~/debugAPI'
+import { emitter, Events } from '~/emitter'
 import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
-import store from '@/store/_store'
-import { exectionDialogPrices } from '@/components/ExecutionDialog/ExecutionDialogPrices'
+import store from '~/store/_store'
+import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDialogPrices'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']

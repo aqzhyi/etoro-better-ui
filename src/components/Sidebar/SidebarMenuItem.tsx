@@ -1,5 +1,5 @@
 import React, { AnchorHTMLAttributes } from 'react'
-import { sidebarDynamicNgContent } from '@/utils/sidebarDynamicNgContent'
+import { sidebarDynamicNgContent } from '~/utils/sidebarDynamicNgContent'
 
 export const SidebarMenuItem: React.FC<{
   iconName:

@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { getRandomString } from '@/utils/getRandomString'
-import store from '@/store/_store'
+import { getRandomString } from '~/utils/getRandomString'
+import store from '~/store/_store'
 import { Provider } from 'react-redux'
-import { IconAsErrorBoundary } from '@/components/ErrorBoundary/IconAsErrorBoundary'
+import { IconAsErrorBoundary } from '~/components/ErrorBoundary/IconAsErrorBoundary'
 
 export const registeredComponents = new Map<
   string,
@@ -20,7 +20,7 @@ export const registeredComponents = new Map<
   ❗️IMPORTANT: after you call this function, also you should import it on file at @utils/renderStickReactComponents
 
   ```ts
-    // @/components/MyComponent.tsx
+    // ~/components/MyComponent.tsx
     registerReactComponent({
       component: <MyComponent />,
       containerId: MyComponent.name,
@@ -31,8 +31,8 @@ export const registeredComponents = new Map<
   ```
 
   ```ts
-    // @/utils/renderStickReactComponents.ts
-    import '@/components/MyComponent'
+    // ~/utils/renderStickReactComponents.ts
+    import '~/components/MyComponent'
   ```
  */
 export const registerReactComponent = <

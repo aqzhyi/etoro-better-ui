@@ -1,5 +1,5 @@
-import { GM } from '@/GM'
-import { storage } from '@/storage'
+import { GM } from '~/GM'
+import { storage } from '~/storage'
 import i18next from 'i18next'
 
 const extraElementClassName = 'deposit-extra-info'

@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -w",
-    "build": "NODE_ENV=production webpack",
-    "server": "webpack-dev-server --hot --port 8087 --https",
+    "dev": "parcel src/etoro.tsx --https --port 8087 --target browser",
     "test": "jest",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"

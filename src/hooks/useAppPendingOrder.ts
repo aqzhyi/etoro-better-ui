@@ -1,4 +1,4 @@
-import { angularAPI } from '@/angularAPI'
+import { angularAPI } from '~/angularAPI'
 import { useState } from 'react'
 import { useInterval } from 'react-use'
 

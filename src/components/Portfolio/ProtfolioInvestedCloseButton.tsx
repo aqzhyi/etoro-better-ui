@@ -1,4 +1,4 @@
-import { GM } from '@/GM'
+import { GM } from '~/GM'
 
 GM.addStyle(`
   [data-etoro-automation-id="open-trades-table-body-cell-user-actions-close-button"],

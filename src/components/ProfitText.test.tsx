@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { ProfitText } from '@/components/ProfitText'
+import { ProfitText } from '~/components/ProfitText'
 
 describe('props.profit', () => {
   it(`777.771257325 tobe $777.77`, () => {

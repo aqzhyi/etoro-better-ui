@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import Emittery from 'emittery'
-import { debugAPI } from '@/debugAPI'
+import { debugAPI } from '~/debugAPI'
 
 export enum Events {
   ready = 'ready',

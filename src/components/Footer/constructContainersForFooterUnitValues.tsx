@@ -1,6 +1,6 @@
-import { FooterUnitValue } from '@/components/Footer/FooterUnitValue'
-import { GM } from '@/GM'
-import { registerReactComponent } from '@/utils/registerReactComponent'
+import { FooterUnitValue } from '~/components/Footer/FooterUnitValue'
+import { GM } from '~/GM'
+import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
 
 const CONTAINER_CLASS_NAME = 'FooterUnitValue-Container'

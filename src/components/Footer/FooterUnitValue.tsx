@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useAppSelector } from '@/store/_store'
-import { toCurrency } from '@/toCurrency'
-import { angularAPI } from '@/angularAPI'
+import { useAppSelector } from '~/store/_store'
+import { toCurrency } from '~/toCurrency'
+import { angularAPI } from '~/angularAPI'
 import { useInterval, useMount } from 'react-use'
 
 export const FooterUnitValue: React.FC<{

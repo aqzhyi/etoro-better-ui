@@ -1,10 +1,10 @@
 import React from 'react'
 import { Toggle } from '@fluentui/react'
-import { useAppSelector, useAppDispatch } from '@/store/_store'
-import { angularAPI } from '@/angularAPI'
-import { setBetterEtoroUIConfig } from '@/actions/setBetterEtoroUIConfig'
-import { gaAPI, GaEventId } from '@/gaAPI'
-import { usePrimaryTranslation } from '@/hooks/usePrimaryTranslation'
+import { useAppSelector, useAppDispatch } from '~/store/_store'
+import { angularAPI } from '~/angularAPI'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
 
 export const WatchlistCompactSwitch = () => {
   const locale = usePrimaryTranslation()
