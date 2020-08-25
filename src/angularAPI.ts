@@ -362,6 +362,8 @@ export const angularAPI = {
   /** 打開關注列表的第一個商品的交易視窗，適用於「關注列表的過濾功能」 */
   openTradeDialog: () => {
     $('[automation-id="buy-sell-button-container-buy"]:visible')
+      /** the user may enable the "One-Click Trade", so there to avoid the hit on the mistake */
+      .not('.one-click')
       .eq(0)
       .trigger('click')
   },
