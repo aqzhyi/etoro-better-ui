@@ -1,15 +1,17 @@
-import React from 'react'
 import { Icon } from '@fluentui/react'
 import { ErrorBoundary } from 'libreact/lib/ErrorBoundary'
 import Tooltip from 'rc-tooltip'
+import React from 'react'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
-import cogoToast from 'cogo-toast'
+import { emitter, Events } from '~/emitter'
 
 export const IconAsErrorBoundary: React.FC = props => {
   return (
     <ErrorBoundary
       renderError={({ error, info }) => {
         console.warn(error.message, info.componentStack)
+
+        emitter.emit(Events.onUnmountUIs)
 
         return (
           <Tooltip

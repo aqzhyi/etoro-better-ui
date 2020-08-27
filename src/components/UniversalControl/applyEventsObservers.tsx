@@ -61,7 +61,7 @@ function _applyEventsObservers() {
     '.main-app-view',
     throttle(event => {
       emitter.emit(Events.onMountUIs)
-    }, 3000),
+    }, 1500),
   )
 
   /**
