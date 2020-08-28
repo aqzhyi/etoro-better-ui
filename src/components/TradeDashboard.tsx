@@ -1,4 +1,11 @@
+import { Button } from '@material-ui/core'
+import dayjs from 'dayjs'
+import { map } from 'lodash'
+import React, { useEffect } from 'react'
+import { useInterval, useKey, useList, useMount } from 'react-use'
+import styled from 'styled-components'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
+import { angularAPI } from '~/angularAPI'
 import { Kbd } from '~/components/Kbd'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
@@ -9,13 +16,6 @@ import { GM } from '~/GM'
 import { usePortfolio } from '~/hooks/usePortfolio'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import { PrimaryButton } from '@fluentui/react'
-import dayjs from 'dayjs'
-import { map } from 'lodash'
-import React from 'react'
-import { useInterval, useKey, useList, useMount } from 'react-use'
-import styled from 'styled-components'
-import { angularAPI } from '~/angularAPI'
 
 const StyledTradeDashboard = styled.span<{
   open: boolean
@@ -37,19 +37,25 @@ const StyledTradeDashboard = styled.span<{
   }
 `
 
-const StyledRow = styled.div`
+const StyledRow = styled.div<{ closing?: boolean }>`
   display: grid;
-  grid-template-columns: 170px 90px 120px 250px 80px auto;
+  grid-template-columns: 90px 120px 250px 80px auto;
   margin: 8px;
   line-height: 32px;
+  transition-duration: 3s;
 
   :hover {
     background-color: #dbdbdbcc;
   }
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 90px 120px 250px 80px auto;
-  }
+  ${props => {
+    if (props.closing) {
+      return `
+        filter: blur(1px);
+        opacity: 0;
+      `
+    }
+  }}
 `
 
 export const TradeDashboard: React.FC = props => {
@@ -69,6 +75,12 @@ export const TradeDashboard: React.FC = props => {
     )
   }
 
+  useEffect(() => {
+    if (!isActive) {
+      closingAct.clear()
+    }
+  }, [closingAct, isActive])
+
   useMount(() => {
     closeDashboard()
   })
@@ -82,6 +94,8 @@ export const TradeDashboard: React.FC = props => {
   })
 
   useInterval(() => {
+    if (!isActive) return
+
     protfolio.update()
   }, (isActive && refreshRate) || null)
 
@@ -93,20 +107,22 @@ export const TradeDashboard: React.FC = props => {
 
       <div style={{ margin: 8, textAlign: 'right' }}>
         <PrimaryTooltip overlay={() => <Kbd>Esc</Kbd>}>
-          <PrimaryButton
+          <Button
+            variant='outlined'
             onClick={() => {
               closeDashboard()
             }}
           >
             <span>❌</span>
-          </PrimaryButton>
+          </Button>
         </PrimaryTooltip>
       </div>
 
+      <div style={{ margin: 8 }}>
+        <TradeDashboardRefreshRateSlider />
+      </div>
+
       <StyledRow>
-        <span className='hideOnMax1024'>
-          <PrimaryTrans i18nKey='tradeDashboard_openDate'></PrimaryTrans>
-        </span>
         <span>
           <PrimaryTrans i18nKey='tradeDashboard_instrumentName'></PrimaryTrans>
         </span>
@@ -130,17 +146,19 @@ export const TradeDashboard: React.FC = props => {
         )
 
         return (
-          <StyledRow key={position.PositionID}>
-            <span className='hideOnMax1024'>
-              <PrimaryTooltip overlay={position.PositionID}>
-                {openAt}
+          <StyledRow
+            key={position.PositionID}
+            closing={closing.includes(position.PositionID)}
+          >
+            <span>
+              <PrimaryTooltip overlay={`ID=${position.PositionID} @ ${openAt}`}>
+                {position.Instrument.Name}
               </PrimaryTooltip>
             </span>
 
-            <span>{position.Instrument.Name}</span>
-
             <span>
-              ${position.Amount} x{position.Leverage}
+              <ProfitText profit={position.Amount}></ProfitText> x
+              {position.Leverage}
             </span>
 
             <span>
@@ -181,10 +199,9 @@ export const TradeDashboard: React.FC = props => {
 
             <ProfitText profit={position.Profit}></ProfitText>
 
-            <PrimaryButton
-              disabled={
-                position.isPendingClose || closing.includes(position.PositionID)
-              }
+            <Button
+              variant='outlined'
+              disabled={position.isPendingClose}
               onClick={event => {
                 gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
                 position.close()
@@ -192,17 +209,13 @@ export const TradeDashboard: React.FC = props => {
               }}
             >
               <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>
-            </PrimaryButton>
+            </Button>
           </StyledRow>
         )
       })}
 
       <div style={{ margin: 8 }}>
         <PrimaryTrans i18nKey='common_beta_brief'></PrimaryTrans>
-      </div>
-
-      <div style={{ margin: 8 }}>
-        <TradeDashboardRefreshRateSlider />
       </div>
     </StyledTradeDashboard>
   )

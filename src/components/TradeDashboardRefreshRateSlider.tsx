@@ -1,8 +1,8 @@
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
-import { Label, Slider } from '@fluentui/react'
 import React from 'react'
+import { Slider, FormControlLabel } from '@material-ui/core'
 
 export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
   const dispatch = useAppDispatch()
@@ -10,24 +10,41 @@ export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
 
   return (
     <React.Fragment>
-      <Label>
-        <PrimaryTrans i18nKey='tradeDashboard_refreshRate_brief'></PrimaryTrans>
-      </Label>
-      <Slider
-        defaultValue={rate}
-        min={50}
-        max={3000}
-        valueFormat={value => {
-          return `${value}ms`
-        }}
-        onChanged={(event, value) => {
-          dispatch(
-            setBetterEtoroUIConfig({
-              tradeDashboardRefreshRate: value,
-            }),
-          )
-        }}
-      ></Slider>
+      <FormControlLabel
+        label={
+          <PrimaryTrans i18nKey='tradeDashboard_refreshRate_brief'></PrimaryTrans>
+        }
+        labelPlacement='top'
+        control={
+          <Slider
+            defaultValue={rate}
+            min={50}
+            max={1500}
+            valueLabelDisplay='auto'
+            valueLabelFormat={value => {
+              return `${value}ms`
+            }}
+            marks={[
+              { value: 50, label: '50 ms' },
+              { value: 200, label: '200 ms' },
+              { value: 500, label: '500 ms' },
+              { value: 1000, label: '1000 ms' },
+              { value: 1500, label: '1500 ms' },
+            ]}
+            onChangeCommitted={(event, value) => {
+              if (Array.isArray(value)) {
+                return
+              }
+
+              dispatch(
+                setBetterEtoroUIConfig({
+                  tradeDashboardRefreshRate: value,
+                }),
+              )
+            }}
+          ></Slider>
+        }
+      ></FormControlLabel>
     </React.Fragment>
   )
 }
