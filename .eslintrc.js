@@ -56,7 +56,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/webpack.config.js', '**/tempermonkey.js'],
+      files: ['**/tempermonkey.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
