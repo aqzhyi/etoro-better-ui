@@ -34,8 +34,13 @@ export const ProfitText: React.FC<{
     true // $777.77
    */
   noDollarSign?: boolean
+  /**
+    Controls whether negative symbol should be showm or not
+   */
+  noNegative?: boolean
 }> = props => {
   const isNegative = props.profit < 0
+  const negativeSymbol = props.noNegative ? '' : '-'
 
   const values = useMemo(() => {
     const value = Math.abs(props.profit)
@@ -49,10 +54,10 @@ export const ProfitText: React.FC<{
 
   const dollarPrefix = props.noDollarSign
     ? isNegative
-      ? '-'
+      ? negativeSymbol
       : ''
     : isNegative
-    ? '-$'
+    ? `${negativeSymbol}$`
     : '$'
 
   return (

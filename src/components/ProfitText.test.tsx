@@ -52,3 +52,10 @@ describe(`props.pureDollar`, () => {
     expect(screen.getByTestId('root').className.toLowerCase()).toMatch(/yellow/)
   })
 })
+
+describe(`props.noNegative`, () => {
+  test('tobe positive integer', () => {
+    render(<ProfitText profit={-777.771257325} noNegative></ProfitText>)
+    expect(screen.getByTestId('root').textContent).toBe('$777.77')
+  })
+})
