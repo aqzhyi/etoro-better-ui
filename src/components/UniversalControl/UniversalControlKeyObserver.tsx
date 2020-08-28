@@ -133,29 +133,6 @@ export const UniversalControlKeyObserver = () => {
     [hotkeySettings],
   )
 
-  /** The hotkey "F" able to get focus on the input of filter */
-  useKey(
-    'F',
-    event => {
-      const targetElement = $(`#${WatchlistHeader.name} input`)
-
-      if (isInputUsesFocusing()) return
-      if (!targetElement.length) return
-      if (!hotkeySettings.watchlistFilter) {
-        notifyFunctionShouldEnable()
-        return
-      }
-      if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
-
-      debugAPI.keyboard.extend('FilterText')(event.key)
-
-      gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
-      targetElement.trigger('focus')
-    },
-    { event: 'keyup' },
-    [hotkeySettings],
-  )
-
   /** The hotkey "SPACE" able to trigger "Open Trade" button with a click */
   useKey(
     ' ',

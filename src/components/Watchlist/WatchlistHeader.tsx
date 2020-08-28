@@ -1,25 +1,28 @@
+import { Button, Grid, Hidden, TextField } from '@material-ui/core'
+import Tooltip from 'rc-tooltip'
+import React from 'react'
+import { useDebounce, useKey, useMount } from 'react-use'
 import { angularAPI } from '~/angularAPI'
+import { Kbd } from '~/components/Kbd'
+import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
+import { debugAPI } from '~/debugAPI'
+import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import { DefaultButton, Stack, TextField, TextFieldBase } from '@fluentui/react'
-import Tooltip from 'rc-tooltip'
-import React from 'react'
-import { useMount, useDebounce } from 'react-use'
-import { gaAPI, GaEventId } from '~/gaAPI'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
-import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
 
 export const WatchlistHeader: React.FC = () => {
-  const locale = usePrimaryTranslation()
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
   const shouldShowInvested = useAppSelector(
     state => state.settings.showInvested,
   )
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
-  const searchBoxRef = React.createRef<TextFieldBase>()
+  const searchBoxRef = React.createRef<HTMLInputElement>()
+  const hotkeyEnabled = useAppSelector(
+    state => state.settings.useHotkeys.watchlistFilter,
+  )
 
   useMount(() => {
     angularAPI.toggleListCompact(listCompactOn)
@@ -36,22 +39,46 @@ export const WatchlistHeader: React.FC = () => {
     [filterText],
   )
 
-  return (
-    <Stack horizontal tokens={{ childrenGap: 8 }}>
-      <Stack.Item>
-        <DefaultButton
-          text={locale.t('filterText_clearText_text')}
-          onClick={() => {
-            filterTextSet('')
-            angularAPI.filterWatchlistByText('')
-            angularAPI.toggleListInvested(shouldShowInvested)
-            gaAPI.sendEvent(GaEventId.watchlists_filterByTextClearClick)
-          }}
-          allowDisabledFocus
-        />
-      </Stack.Item>
+  /** The hotkey "F" able to get focus on the input of filter */
+  useKey(
+    'F',
+    event => {
+      if (!hotkeyEnabled) return
+      if (!searchBoxRef.current) return
+      if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
 
-      <Stack.Item>
+      const targetElement = $(searchBoxRef.current)
+
+      if (targetElement.is(':focus')) return
+
+      debugAPI.keyboard.extend('FilterText')(event.key)
+
+      gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
+      targetElement.trigger('focus')
+    },
+    { event: 'keyup' },
+    [hotkeyEnabled, searchBoxRef],
+  )
+
+  return (
+    <Grid container direction='row' spacing={2}>
+      <Hidden mdDown>
+        <Grid item>
+          <Button
+            variant='outlined'
+            onClick={() => {
+              filterTextSet('')
+              angularAPI.filterWatchlistByText('')
+              angularAPI.toggleListInvested(shouldShowInvested)
+              gaAPI.sendEvent(GaEventId.watchlists_filterByTextClearClick)
+            }}
+          >
+            <PrimaryTrans i18nKey='filterText_clearText_text'></PrimaryTrans>
+          </Button>
+        </Grid>
+      </Hidden>
+
+      <Grid item>
         <Tooltip
           placement='bottom'
           overlay={
@@ -59,23 +86,24 @@ export const WatchlistHeader: React.FC = () => {
           }
         >
           <TextField
+            size='small'
+            style={{ width: 120 }}
+            label={
+              <PrimaryTrans i18nKey='filterText_input_help'></PrimaryTrans>
+            }
+            InputProps={{
+              endAdornment: <Kbd>F</Kbd>,
+            }}
+            variant='outlined'
             value={filterText}
-            componentRef={searchBoxRef}
-            placeholder={locale.t('filterText_input_help')}
-            iconProps={{ iconName: filterText ? 'FilterSolid' : 'Filter' }}
-            onChange={(event, newValue) => {
+            onChange={event => {
+              const newValue = event.target.value || ''
               filterTextSet(newValue)
               angularAPI.filterWatchlistByText(newValue)
 
               if (!newValue) {
                 angularAPI.toggleListInvested(shouldShowInvested)
               }
-            }}
-            onMouseEnter={() => {
-              // setTimeout 避免 polyfills-es5 報錯 Cannot assign to read only property 'event' of object '[object Object]'
-              globalThis.setTimeout(() => {
-                searchBoxRef.current?.focus()
-              })
             }}
             onKeyDown={event => {
               if (event.key.toLowerCase() === 'escape') {
@@ -88,15 +116,16 @@ export const WatchlistHeader: React.FC = () => {
               if (event.key.toLowerCase() === 'enter') {
                 gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
                 angularAPI.openTradeDialog()
-
-                searchBoxRef.current?.blur()
               }
-            }}
-          />
-        </Tooltip>
-      </Stack.Item>
 
-      <Stack.Item>
+              searchBoxRef.current && $(searchBoxRef.current).trigger('blur')
+            }}
+            inputRef={searchBoxRef}
+          ></TextField>
+        </Tooltip>
+      </Grid>
+
+      <Grid item>
         <Tooltip
           placement='bottom'
           overlay={
@@ -107,9 +136,9 @@ export const WatchlistHeader: React.FC = () => {
             <WatchlistCompactSwitch />
           </div>
         </Tooltip>
-      </Stack.Item>
+      </Grid>
 
-      <Stack.Item>
+      <Grid item>
         <Tooltip
           placement='bottom'
           overlay={
@@ -120,8 +149,8 @@ export const WatchlistHeader: React.FC = () => {
             <WatchlistInvestedSwitch />
           </div>
         </Tooltip>
-      </Stack.Item>
-    </Stack>
+      </Grid>
+    </Grid>
   )
 }
 
@@ -136,9 +165,5 @@ export const registeredWatchlistHeader = registerReactComponent({
 GM.addStyle(`
   #${registeredWatchlistHeader.container.id} {
     margin-top: 18px;
-  }
-
-  #${registeredWatchlistHeader.container.id} .ms-Toggle .ms-Label {
-    margin-left: 4px;
   }
 `)
