@@ -3,7 +3,6 @@ import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { debugAPI } from '~/debugAPI'
 import { emitter, Events } from '~/emitter'
-import { initializeIcons } from '@fluentui/react'
 import { throttle } from 'lodash'
 import store from '~/store/_store'
 import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDialogPrices'
@@ -14,8 +13,6 @@ let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
 
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
-
-  initializeIcons()
 
   /**
    * On Execution-Dialog closed

@@ -111,14 +111,14 @@ export const WatchlistHeader: React.FC = () => {
                 filterTextSet('')
                 angularAPI.filterWatchlistByText('')
                 angularAPI.toggleListInvested(shouldShowInvested)
+                searchBoxRef.current && $(searchBoxRef.current).trigger('blur')
               }
 
               if (event.key.toLowerCase() === 'enter') {
                 gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
                 angularAPI.openTradeDialog()
+                searchBoxRef.current && $(searchBoxRef.current).trigger('blur')
               }
-
-              searchBoxRef.current && $(searchBoxRef.current).trigger('blur')
             }}
             inputRef={searchBoxRef}
           ></TextField>

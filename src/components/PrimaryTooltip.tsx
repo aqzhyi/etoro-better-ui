@@ -1,4 +1,3 @@
-import { Icon } from '@fluentui/react'
 import Tooltip from 'rc-tooltip'
 import { TooltipProps } from 'rc-tooltip/lib/Tooltip'
 import React from 'react'

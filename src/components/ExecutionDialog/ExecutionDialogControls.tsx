@@ -15,12 +15,14 @@ import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
 import { storage } from '~/storage'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import { Icon, PrimaryButton, Stack } from '@fluentui/react'
+import LockIcon from '@material-ui/icons/Lock'
+import LockOpenIcon from '@material-ui/icons/LockOpen'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useInterval, useTimeoutFn } from 'react-use'
 import styled from 'styled-components'
+import { Button, Grid } from '@material-ui/core'
 
 const useAmountView = () => {
   const amountExpectFixedAt = useAppSelector(
@@ -249,26 +251,29 @@ export const ExecutionDialogControls: React.FC<{
               <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
             }
           >
-            {(executionUseApplyLast && (
-              <Icon className={props.className} iconName='LockSolid'></Icon>
-            )) || (
-              <Icon className={props.className} iconName='UnlockSolid'></Icon>
-            )}
+            {(executionUseApplyLast && <LockIcon />) || <LockOpenIcon />}
           </PrimaryTooltip>
         </StyledFixedTipOnAmountInput>
       </React.Fragment>
 
-      <Stack horizontal={false} tokens={{ childrenGap: 16 }}>
-        <Stack.Item>
+      <Grid container direction='column'>
+        <Grid item>
           <h2 style={{ textAlign: 'center' }}>
             <PrimaryTrans i18nKey='universal_amount_text'></PrimaryTrans>
           </h2>
 
-          <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
+          <Grid container direction='column'>
             {amounts.map((value, index) => {
               return (
-                <Stack.Item key={index}>
-                  <PrimaryButton
+                <Grid item key={index} style={{ marginBottom: 4 }}>
+                  <Button
+                    variant={
+                      (lastApplied.amount === value && 'contained') ||
+                      'outlined'
+                    }
+                    color='primary'
+                    fullWidth
+                    size='small'
                     onClick={() => {
                       gaAPI.sendEvent(
                         GaEventId.dialog_amountButtonsClick,
@@ -278,42 +283,44 @@ export const ExecutionDialogControls: React.FC<{
                       dialogSaveAmountToStorage(value)
                     }}
                   >
-                    <StyledButtonActiveText
-                      active={lastApplied.amount === value}
-                    >
-                      ${value}
-                    </StyledButtonActiveText>
-                  </PrimaryButton>
-                </Stack.Item>
+                    ${value}
+                  </Button>
+                </Grid>
               )
             })}
-          </Stack>
-        </Stack.Item>
+          </Grid>
+        </Grid>
 
-        <Stack.Item>
-          <Stack>
-            <Stack.Item>
-              <PrimaryButton
-                onClick={() => {
-                  gaAPI.sendEvent(GaEventId.dialog_buttonsArrangeClick)
-                  dispatch(openPromptForSetMacroAmount())
-                }}
-              >
-                <PrimaryTrans i18nKey='common_buttonSetup'></PrimaryTrans>
-              </PrimaryButton>
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
+        <Grid item>
+          <Button
+            variant='outlined'
+            color='primary'
+            size='small'
+            fullWidth
+            onClick={() => {
+              gaAPI.sendEvent(GaEventId.dialog_buttonsArrangeClick)
+              dispatch(openPromptForSetMacroAmount())
+            }}
+          >
+            <PrimaryTrans i18nKey='common_buttonSetup'></PrimaryTrans>
+          </Button>
+        </Grid>
 
-        <Stack.Item>
+        <Grid item>
           <h2 style={{ textAlign: 'center' }}>
             <PrimaryTrans i18nKey='universal_lever_text'></PrimaryTrans>
           </h2>
-          <Stack horizontal={false} tokens={{ childrenGap: 1 }}>
+          <Grid container direction='column'>
             {levers.map((value, index) => {
               return (
-                <Stack.Item key={index}>
-                  <PrimaryButton
+                <Grid item key={index} style={{ marginBottom: 4 }}>
+                  <Button
+                    variant={
+                      (lastApplied.lever === value && 'contained') || 'outlined'
+                    }
+                    color='primary'
+                    fullWidth
+                    size='small'
                     onClick={() => {
                       gaAPI.sendEvent(
                         GaEventId.dialog_leverButtonsClick,
@@ -323,48 +330,41 @@ export const ExecutionDialogControls: React.FC<{
                       dialogSaveLeverToStorage(value)
                     }}
                   >
-                    <StyledButtonActiveText
-                      active={lastApplied.lever === value}
-                    >
-                      x{value}
-                    </StyledButtonActiveText>
-                  </PrimaryButton>
-                </Stack.Item>
+                    x{value}
+                  </Button>
+                </Grid>
               )
             })}
-          </Stack>
-        </Stack.Item>
+          </Grid>
+        </Grid>
 
-        <Stack.Item>
-          <ExecutionDialogFixedAmountLeverToggle />
-        </Stack.Item>
+        <Grid item>
+          <ExecutionDialogFixedAmountLeverToggle labelPlacement='top' />
+        </Grid>
 
-        <Stack.Item>
-          <ExecutionDialogFixedStopLossTakeProfitToggle />
-        </Stack.Item>
-      </Stack>
+        <Grid item>
+          <ExecutionDialogFixedStopLossTakeProfitToggle labelPlacement='top' />
+        </Grid>
+      </Grid>
     </React.Fragment>
   )
 }
 
-const StyledButtonActiveText = styled.span<{ active?: boolean }>`
-  ${props => (props.active && 'text-shadow: 1px 1px 2px black') || ''};
-  ${props => (props.active && 'font-weight: 700;') || ''};
-`
-
 const StyledFixedTipOnAmountInput = styled.span`
   position: absolute;
-  left: 425px;
+  left: 537px;
   margin-top: 10px;
+  z-index: 100000;
   top: ${() => {
     const [px, pxSetter] = useState('auto')
+    const magic = 114
 
     useTimeoutFn(() => {
       const target = String(
-        $(angularAPI.selectors.dialogAmountInput).position()?.top,
+        $(angularAPI.selectors.dialogAmountInput).position()?.top - magic,
       )
 
-      pxSetter((target && target + 'px') || '247px')
+      pxSetter((target && target + 'px') || '135px')
     }, 1500)
 
     return px
@@ -374,13 +374,16 @@ const StyledFixedTipOnAmountInput = styled.span`
 const StyledContainer = styled.span`
   @media (min-width: 741px) {
     display: inline-block;
-    width: 100px;
+    width: 220px;
     margin: 0 auto;
     margin-bottom: 16px;
     text-align: center;
     flex: 0.9;
     /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
     z-index: 1;
+    position: absolute;
+    margin-left: -175px;
+    background-color: #fff;
   }
 
   @media (max-width: 740px) {
@@ -406,18 +409,3 @@ export const registeredExecutionDialogControls = registerReactComponent({
     return false
   },
 })
-
-GM.addStyle(`
-  @media (min-width:741px) {
-    [id^=uidialog] .execution-main {
-      display: flex;
-      justify-content: center;
-    }
-
-    [id^=uidialog] .execution-action-button {
-      right: 0;
-      width: 540px;
-      left: auto;
-    }
-  }
-`)

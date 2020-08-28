@@ -29,7 +29,7 @@
     "@types/jest": "^26.0.10",
     "@types/jquery": "^3.5.1",
     "@types/lodash": "^4.14.159",
-    "@types/react": "^16.9.46",
+    "@types/react": "^16.9.48",
     "@types/react-dom": "^16.9.8",
     "@types/redux-logger": "^3.0.8",
     "@types/redux-thunk": "^2.1.0",
@@ -59,8 +59,9 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "@blueprintjs/docs-theme": "^3.6.5",
-    "@fluentui/react": "^7.129.1",
+    "@fluentui/react": "^7.132.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.4.0",
     "@types/react-redux": "^7.1.9",
     "classnames": "^2.2.6",

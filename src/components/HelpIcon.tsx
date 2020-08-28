@@ -1,13 +1,13 @@
 import { GM } from '~/GM'
-import { Icon } from '@fluentui/react'
 import React from 'react'
+import LiveHelpIcon from '@material-ui/icons/LiveHelp'
 
 export const HelpIcon: React.FC<{
   notionHref: string
 }> = props => {
   return (
     <a className={HelpIcon.name} target='_blank' href={props.notionHref}>
-      <Icon iconName='FeedbackRequestSolid'></Icon>
+      <LiveHelpIcon />
     </a>
   )
 }

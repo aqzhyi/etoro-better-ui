@@ -1,4 +1,8 @@
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import SyncOutlinedIcon from '@material-ui/icons/SyncOutlined'
+import SyncProblemOutlinedIcon from '@material-ui/icons/SyncProblemOutlined'
+import React, { useState } from 'react'
+import { useInterval, useMount } from 'react-use'
+import styled from 'styled-components'
 import { angularAPI } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
@@ -7,11 +11,6 @@ import { emitter, Events } from '~/emitter'
 import { GM } from '~/GM'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import { Icon } from '@fluentui/react'
-import Tooltip from 'rc-tooltip'
-import React, { useState } from 'react'
-import { useInterval, useMount } from 'react-use'
-import styled from 'styled-components'
 
 /** 在此倍率中，屬於正常誤差範圍 */
 const errorGapInPercents = 1.5
@@ -85,18 +84,12 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             ></PrimaryTrans>
           }
         >
-          <Icon
-            className={props.className}
-            iconName={
-              Math.abs((stopLossViewValue ?? 100) / lastPercentOfStopLoss) <
-              errorGapInPercents
-                ? 'DatabaseSync'
-                : 'UnsyncOccurence'
-            }
-            style={{
-              cursor: 'pointer',
-            }}
-          />
+          {Math.abs((stopLossViewValue ?? 100) / lastPercentOfStopLoss) <
+          errorGapInPercents ? (
+            <SyncOutlinedIcon />
+          ) : (
+            <SyncProblemOutlinedIcon />
+          )}
         </PrimaryTooltip>
       </StyledStopLoss>
 
@@ -111,18 +104,12 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             ></PrimaryTrans>
           }
         >
-          <Icon
-            className={props.className}
-            iconName={
-              Math.abs((takeProfitViewValue ?? 100) / lastPercentOfTakeProfit) <
-              errorGapInPercents
-                ? 'DatabaseSync'
-                : 'UnsyncOccurence'
-            }
-            style={{
-              cursor: 'pointer',
-            }}
-          />
+          {Math.abs((takeProfitViewValue ?? 100) / lastPercentOfTakeProfit) <
+          errorGapInPercents ? (
+            <SyncOutlinedIcon />
+          ) : (
+            <SyncProblemOutlinedIcon />
+          )}
         </PrimaryTooltip>
       </StyledTakeProfit>
     </React.Fragment>

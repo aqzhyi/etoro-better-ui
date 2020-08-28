@@ -158,8 +158,13 @@ export const TradeDashboard: React.FC = props => {
             </span>
 
             <span>
-              <ProfitText profit={position.Amount}></ProfitText> x
-              {position.Leverage}
+              <ProfitText
+                noNegative
+                profit={
+                  (position.Profit > 0 && position.Amount) || -position.Amount
+                }
+              ></ProfitText>{' '}
+              x{position.Leverage}
             </span>
 
             <span>

@@ -1,13 +1,19 @@
-import React from 'react'
-import { Label, Toggle } from '@fluentui/react'
-import { useAppDispatch, useAppSelector } from '~/store/_store'
-import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { gaAPI, GaEventId } from '~/gaAPI'
+import {
+  FormControlLabel,
+  FormControlLabelProps,
+  Switch,
+} from '@material-ui/core'
 import Tooltip from 'rc-tooltip'
+import React from 'react'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { HelpIcon } from '~/components/HelpIcon'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { useAppDispatch, useAppSelector } from '~/store/_store'
 
-export const ExecutionDialogFixedAmountLeverToggle = () => {
+export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
+  labelPlacement?: FormControlLabelProps['labelPlacement']
+}> = props => {
   const dispatch = useAppDispatch()
   const executionUseApplyLast = useAppSelector(
     state => state.settings.executionUseApplyLast,
@@ -16,7 +22,7 @@ export const ExecutionDialogFixedAmountLeverToggle = () => {
   return (
     <React.Fragment>
       <Tooltip
-        placement='left'
+        placement='top'
         overlay={
           <span style={{ display: 'inline-block', width: 200 }}>
             <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
@@ -24,33 +30,40 @@ export const ExecutionDialogFixedAmountLeverToggle = () => {
         }
       >
         <span style={{ display: 'inline-block' }}>
-          <Label>
-            {executionUseApplyLast ? (
-              <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
-            ) : (
-              <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
-            )}
+          <FormControlLabel
+            label={
+              <React.Fragment>
+                {executionUseApplyLast ? (
+                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
+                ) : (
+                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
+                )}
 
-            <HelpIcon
-              notionHref={
-                'https://www.notion.so/hilezi/Fixes-value-of-leverage-and-amount-on-Trade-Execution-Dialog-window-5654a6c6140e4196b44effc525ef79e0'
-              }
-            ></HelpIcon>
-          </Label>
-          <Toggle
-            checked={executionUseApplyLast}
-            onChange={(event, checked) => {
-              gaAPI.sendEvent(
-                GaEventId.setting_sameOrderEnabledSet,
-                `checked=${String(checked)}`,
-              )
-              dispatch(
-                setBetterEtoroUIConfig({
-                  executionUseApplyLast: checked,
-                }),
-              )
-            }}
-          ></Toggle>
+                <HelpIcon
+                  notionHref={
+                    'https://www.notion.so/hilezi/Fixes-value-of-leverage-and-amount-on-Trade-Execution-Dialog-window-5654a6c6140e4196b44effc525ef79e0'
+                  }
+                ></HelpIcon>
+              </React.Fragment>
+            }
+            labelPlacement={props.labelPlacement}
+            control={
+              <Switch
+                checked={executionUseApplyLast}
+                onChange={(event, checked) => {
+                  gaAPI.sendEvent(
+                    GaEventId.setting_sameOrderEnabledSet,
+                    `checked=${String(checked)}`,
+                  )
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      executionUseApplyLast: checked,
+                    }),
+                  )
+                }}
+              ></Switch>
+            }
+          ></FormControlLabel>
         </span>
       </Tooltip>
     </React.Fragment>

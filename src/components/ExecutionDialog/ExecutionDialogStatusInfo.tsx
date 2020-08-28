@@ -1,16 +1,16 @@
-import { GM } from '~/GM'
-import { useAppSelector } from '~/store/_store'
-import { ProgressIndicator, Spinner } from '@fluentui/react'
-import React, { useMemo, useState } from 'react'
-import { registerReactComponent } from '~/utils/registerReactComponent'
+import LoopIcon from '@material-ui/icons/Loop'
 import Tooltip from 'rc-tooltip'
-import { angularAPI, Position } from '~/angularAPI'
-import { HighlightText } from '~/components/TooltipHighlightText'
-import { ProfitText } from '~/components/ProfitText'
+import React, { useMemo, useState } from 'react'
 import { useInterval } from 'react-use'
-import { storage } from '~/storage'
+import styled from 'styled-components'
+import { angularAPI, Position } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { ProfitText } from '~/components/ProfitText'
+import { HighlightText } from '~/components/TooltipHighlightText'
+import { GM } from '~/GM'
+import { useAppSelector } from '~/store/_store'
+import { registerReactComponent } from '~/utils/registerReactComponent'
 
 export const ExecutionDialogStatusInfo = () => {
   const statusInfo = useAppSelector(state => state.status.statusCheckAggregate)
@@ -26,16 +26,12 @@ export const ExecutionDialogStatusInfo = () => {
       'Degraded Performance' ? (
       '😱'
     ) : (
-      <Spinner label='testing...' labelPosition='right' />
+      <LoopIcon />
     )
 
   /** 可用餘額 */
   const labelPingValue =
-    statusPingValue > 0 ? (
-      `${statusPingValue}ms`
-    ) : (
-      <Spinner label='inferring...' labelPosition='right' />
-    )
+    statusPingValue > 0 ? `${statusPingValue}ms` : <LoopIcon />
 
   const [positions, positionsSetter] = useState<Position[]>([])
 
@@ -79,20 +75,10 @@ export const ExecutionDialogStatusInfo = () => {
           ></PrimaryTrans>
         )}
       >
-        <span className='indicator-callout-box'>
-          <ProgressIndicator
-            styles={{
-              itemDescription: { textAlign: 'center' },
-              itemName: { textAlign: 'center' },
-            }}
-            label={
-              <span>
-                <ProfitText profit={totalProfit} /> @{' '}
-                <HighlightText>{positions?.length || 0}</HighlightText>
-              </span>
-            }
-          />
-        </span>
+        <StyledBox>
+          <ProfitText profit={totalProfit} /> @{' '}
+          <HighlightText>{positions?.length || 0}</HighlightText>
+        </StyledBox>
       </Tooltip>
 
       <Tooltip
@@ -110,15 +96,7 @@ export const ExecutionDialogStatusInfo = () => {
           </span>
         )}
       >
-        <span className='indicator-callout-box'>
-          <ProgressIndicator
-            styles={{
-              itemDescription: { textAlign: 'center' },
-              itemName: { textAlign: 'center' },
-            }}
-            label={labelManualTrading}
-          />
-        </span>
+        <StyledBox>{labelManualTrading}</StyledBox>
       </Tooltip>
 
       <Tooltip
@@ -127,15 +105,7 @@ export const ExecutionDialogStatusInfo = () => {
           <PrimaryTrans i18nKey='status_inferringDelay_text'></PrimaryTrans>
         }
       >
-        <span className='indicator-callout-box'>
-          <ProgressIndicator
-            styles={{
-              itemDescription: { textAlign: 'center' },
-              itemName: { textAlign: 'center' },
-            }}
-            label={labelPingValue}
-          />
-        </span>
+        <StyledBox>{labelPingValue}</StyledBox>
       </Tooltip>
 
       <Tooltip
@@ -144,19 +114,23 @@ export const ExecutionDialogStatusInfo = () => {
           <PrimaryTrans i18nKey='profits_availableValues_text'></PrimaryTrans>
         }
       >
-        <span className='indicator-callout-box'>
-          <ProgressIndicator
-            styles={{
-              itemDescription: { textAlign: 'center' },
-              itemName: { textAlign: 'center' },
-            }}
-            label={availableValueLabel}
-          />
-        </span>
+        <StyledBox>{availableValueLabel}</StyledBox>
       </Tooltip>
     </React.Fragment>
   )
 }
+
+const StyledBox = styled.span`
+  display: inline-block;
+  width: 120px;
+  background-color: #e1e1e1;
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  margin-right: -1px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 0.9em;
+`
 
 export const registeredExecutionDialogStatusInfo = registerReactComponent({
   containerId: 'ExecutionDialogStatusInfo',
@@ -178,15 +152,6 @@ GM.addStyle(`
 
   [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
     border-right: 1px solid #cccccc;
-  }
-
-  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .indicator-callout-box {
-    display: inline-block;
-    width: 120px;
-    background-color: rgb(235, 235, 235);
-    padding: 4px 12px;
-    border: 1px solid rgb(204, 204, 204);
-    margin-right: -1px;
   }
 
   /** 因為加高了視窗，為了放置額外資訊 */

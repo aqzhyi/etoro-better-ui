@@ -1,4 +1,4 @@
-import { Icon } from '@fluentui/react'
+import ErrorIcon from '@material-ui/icons/Error'
 import { ErrorBoundary } from 'libreact/lib/ErrorBoundary'
 import Tooltip from 'rc-tooltip'
 import React from 'react'
@@ -31,7 +31,7 @@ export const IconAsErrorBoundary: React.FC = props => {
               }
               overlayInnerStyle={{ width: 250 }}
             >
-              <Icon iconName='WarningSolid'></Icon>
+              <ErrorIcon />
             </Tooltip>
           </Tooltip>
         )

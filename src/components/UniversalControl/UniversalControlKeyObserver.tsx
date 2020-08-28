@@ -62,6 +62,11 @@ export const UniversalControlKeyObserver = () => {
         return false
       }
 
+      // avoid open dialog twice
+      if (angularAPI.executionDialogScope?.model) {
+        return
+      }
+
       gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
       angularAPI.openTradeDialog()
     },

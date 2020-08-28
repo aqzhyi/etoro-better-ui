@@ -1,13 +1,13 @@
-import { debugAPI } from '~/debugAPI'
-import { GM } from '~/GM'
+import { Button, Grid, Tooltip } from '@material-ui/core'
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import TableChartIcon from '@material-ui/icons/TableChart'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
-import { registerReactComponent } from '~/utils/registerReactComponent'
-import { getRandomString } from '~/utils/getRandomString'
-import { DefaultButton, Stack } from '@fluentui/react'
-import { gaAPI, GaEventId } from '~/gaAPI'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { debugAPI } from '~/debugAPI'
+import { gaAPI, GaEventId } from '~/gaAPI'
+import { GM } from '~/GM'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string
@@ -43,48 +43,58 @@ export const WatchlistUsersControls: React.FunctionComponent<{
       })
   }, [])
 
-  const minimalStyle: React.CSSProperties = {
-    paddingLeft: '2px',
-    paddingRight: '2px',
-  }
-
   return (
-    <Stack tokens={{ childrenGap: 1 }} horizontal>
-      <DefaultButton
-        style={minimalStyle}
-        iconProps={{
-          iconName: equityState.loading ? 'Refresh' : 'AllCurrency',
-        }}
-        onClick={() => {
-          equityQuery()
-          gaAPI.sendEvent(GaEventId.watchlists_balanceLinkClick)
-        }}
-      >
-        {equityState.value ? (
-          `${equityState.value}%`
-        ) : (
-          <PrimaryTrans i18nKey='link_checkBalance_text'></PrimaryTrans>
-        )}
-      </DefaultButton>
-
-      {props.username && (
-        <DefaultButton style={minimalStyle}>
-          <a
-            href={`/people/${props.username.toLowerCase()}/portfolio`}
+    <Grid container direction='row' spacing={0}>
+      <Grid item>
+        <Tooltip
+          arrow
+          placement='right'
+          title={<PrimaryTrans i18nKey='link_checkBalance_text'></PrimaryTrans>}
+        >
+          <Button
+            size='small'
+            variant='outlined'
             onClick={() => {
-              gaAPI.sendEvent(GaEventId.watchlists_portfolioLinkClick)
+              equityQuery()
+              gaAPI.sendEvent(GaEventId.watchlists_balanceLinkClick)
             }}
           >
-            <PrimaryTrans i18nKey='link_portfolio_text'></PrimaryTrans>
-          </a>
-        </DefaultButton>
+            {equityState.value ? (
+              `${equityState.value}%`
+            ) : (
+              <MonetizationOnIcon />
+            )}
+          </Button>
+        </Tooltip>
+      </Grid>
+
+      {props.username && (
+        <Grid item>
+          <Tooltip
+            arrow
+            placement='right'
+            title={<PrimaryTrans i18nKey='link_portfolio_text'></PrimaryTrans>}
+          >
+            <a
+              href={`/people/${props.username.toLowerCase()}/portfolio`}
+              onClick={() => {
+                gaAPI.sendEvent(GaEventId.watchlists_portfolioLinkClick)
+              }}
+            >
+              <Button size='small' variant='outlined'>
+                <TableChartIcon />
+              </Button>
+            </a>
+          </Tooltip>
+        </Grid>
       )}
-    </Stack>
+    </Grid>
   )
 }
 
 GM.addStyle(`
   .${WatchlistUsersControls.name} {
+    width: 130px;
     margin-right: 8px;
     margin-top: 4px;
   }
