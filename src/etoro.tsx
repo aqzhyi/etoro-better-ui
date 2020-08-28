@@ -15,8 +15,6 @@ import { throttle } from 'lodash'
 import React from 'react'
 import { enableES5 } from 'immer'
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import { registeredPortfolioHistoryHeaderExtraButtons } from '~/components/Portfolio/PortfolioHistoryHeaderExtraButtons'
-import { registeredPortfolioHeaderExtraButtons } from '~/components/Portfolio/PortfolioHeaderExtraButtons'
 import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/ExecutionDialogControls'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import packageJSON from '../package.json'
@@ -135,22 +133,6 @@ emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
     }, value)
   })
 })
-
-/**
- * 我的歷史記錄
- */
-emitter.on(
-  Events.onPortfolioHistoryPageHover,
-  registeredPortfolioHistoryHeaderExtraButtons.mount,
-)
-
-/**
- * 我的投資組合
- */
-emitter.on(
-  Events.onPortfolioPageHover,
-  registeredPortfolioHeaderExtraButtons.mount,
-)
 
 /**
  * 歡迎訊息
