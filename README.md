@@ -21,7 +21,7 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Real Trading Preview
 
-![](./trade-dashboard-real-trading-preview.gif)
+[![image loading...](./trade-dashboard-real-trading-preview.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
 ## Development
 
