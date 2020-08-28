@@ -53,6 +53,7 @@ const StyledRow = styled.div<{ closing?: boolean }>`
       return `
         filter: blur(1px);
         opacity: 0;
+        pointer-events: none;
       `
     }
   }}
