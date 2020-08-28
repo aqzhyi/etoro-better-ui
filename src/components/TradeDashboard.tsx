@@ -42,7 +42,6 @@ const StyledRow = styled.div<{ closing?: boolean }>`
   grid-template-columns: 90px 120px 250px 80px auto;
   margin: 8px;
   line-height: 32px;
-  transition-duration: 3s;
 
   :hover {
     background-color: #dbdbdbcc;
@@ -51,6 +50,7 @@ const StyledRow = styled.div<{ closing?: boolean }>`
   ${props => {
     if (props.closing) {
       return `
+        transition-duration: 3s;
         filter: blur(1px);
         opacity: 0;
         pointer-events: none;
