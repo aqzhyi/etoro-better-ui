@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import dayjs from 'dayjs'
 import { map } from 'lodash'
 import React, { useEffect } from 'react'
@@ -6,10 +6,12 @@ import { useInterval, useKey, useList, useMount } from 'react-use'
 import styled from 'styled-components'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '~/angularAPI'
+import { InstrumentIcon } from '~/components/InstrumentIcon'
 import { Kbd } from '~/components/Kbd'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
+import { RateSignalIcon } from '~/components/RateSignalIcon'
 import { TradeDashboardRefreshRateSlider } from '~/components/TradeDashboardRefreshRateSlider'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
@@ -39,7 +41,7 @@ const StyledTradeDashboard = styled.span<{
 
 const StyledRow = styled.div<{ closing?: boolean }>`
   display: grid;
-  grid-template-columns: 90px 120px 250px 80px auto;
+  grid-template-columns: 60px 130px 220px 230px auto;
   margin: 8px;
   line-height: 32px;
 
@@ -153,44 +155,43 @@ export const TradeDashboard: React.FC = props => {
           >
             <span>
               <PrimaryTooltip overlay={`ID=${position.PositionID} @ ${openAt}`}>
-                {position.Instrument.Name}
+                <InstrumentIcon instrument={position.Instrument} />
               </PrimaryTooltip>
             </span>
 
-            <span>
-              <ProfitText
-                noNegative
-                profit={
-                  (position.Profit > 0 && position.Amount) || -position.Amount
-                }
-              ></ProfitText>{' '}
-              x{position.Leverage}
-            </span>
+            <Grid container direction='column'>
+              <Grid item style={{ marginTop: -6 }}>
+                ${position.Amount} x{position.Leverage}
+              </Grid>
 
-            <span>
-              <React.Fragment>
+              <Grid
+                item
+                style={{
+                  marginTop: -10,
+                }}
+              >
                 <PrimaryTooltip
                   overlay={
                     <PrimaryTrans i18nKey='tradeDashboard_openRate'></PrimaryTrans>
                   }
                 >
-                  {position.OpenRate} {(position.IsBuy && '📈') || '📉'}
+                  <ProfitText
+                    profit={position.OpenRate}
+                    pureDollar
+                    noDollarSign
+                  ></ProfitText>
+                  <React.Fragment> </React.Fragment>
+                  {(position.IsBuy && (
+                    <PrimaryTrans i18nKey='tradeDashboard_itBuy'></PrimaryTrans>
+                  )) || (
+                    <PrimaryTrans i18nKey='tradeDashboard_itSell'></PrimaryTrans>
+                  )}
                 </PrimaryTooltip>
-              </React.Fragment>
+              </Grid>
+            </Grid>
 
-              <React.Fragment>
-                {' '}
-                @{' '}
-                <ProfitText
-                  profit={position.CurrentRate}
-                  noDollarSign
-                  pureDollar
-                ></ProfitText>
-              </React.Fragment>
-
-              <React.Fragment>
-                {' '}
-                (
+            <Grid container spacing={1}>
+              <Grid item>
                 <ProfitText
                   profit={
                     (position.IsBuy &&
@@ -199,11 +200,37 @@ export const TradeDashboard: React.FC = props => {
                   }
                   noDollarSign
                 ></ProfitText>
-                )
-              </React.Fragment>
-            </span>
+              </Grid>
 
-            <ProfitText profit={position.Profit}></ProfitText>
+              <Grid item>
+                <RateSignalIcon change={position.LastRateChange} />
+              </Grid>
+
+              <Grid item>
+                <ProfitText
+                  profit={position.CurrentRate}
+                  noDollarSign
+                  noNegative
+                  pureDollar
+                ></ProfitText>{' '}
+                {'('}
+                <ProfitText
+                  profit={position.LastRateChange}
+                  noDollarSign
+                ></ProfitText>
+                {')'}
+              </Grid>
+            </Grid>
+
+            <Grid item>
+              <ProfitText profit={position.Profit}></ProfitText>
+              {', '}
+              <ProfitText
+                profit={(position.Profit / position.Amount) * 100}
+                noDollarSign
+              ></ProfitText>
+              {'%'}
+            </Grid>
 
             <Button
               variant='outlined'

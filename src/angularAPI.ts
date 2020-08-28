@@ -38,6 +38,17 @@ export interface Instrument {
   shortName: string
   ExchangeID: number
   InstrumentID: number
+  instrumentType: {
+    InstrumentTypeID: number
+    InstrumentTypeDescription: 'Stocks' | string
+    PricesBy: 'Xignite' | string
+    Avatars: {
+      /** as CDN URL */
+      default: string
+    }
+    /** e.g. `'/discover/markets/stocks'` */
+    Url: string
+  }
   /**
     Available levers which user can to select
 
@@ -52,11 +63,11 @@ export interface Instrument {
   Name: string
   /** Avatars URLs */
   Avatars: {
-    '35x35': string
-    '50x50': string
-    '80x80': string
-    '90x90': string
-    '150x150': string
+    '35x35'?: string
+    '50x50'?: string
+    '80x80'?: string
+    '90x90'?: string
+    '150x150'?: string
     default: string
   }
   rate: InstrumentRate
@@ -91,6 +102,9 @@ export interface Position {
   Profit: number
   Leverage: number
   Instrument: Instrument
+  TakeProfitRate: number
+  /** e.g. `-0.12` as points */
+  LastRateChange: number
   /** 當前價格 */
   CurrentRate: number
   OpenDateTime: Date
