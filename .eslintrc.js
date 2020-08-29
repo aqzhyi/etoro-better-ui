@@ -20,11 +20,6 @@ module.exports = {
     project: 'tsconfig.json',
   },
   rules: {
-    // 提升可靠性，但沒有也沒關係。
-    '@typescript-eslint/no-explicit-any': 'off',
-    // 提升可靠性，但沒有也沒關係。
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    // 提升可靠性，但沒有也沒關係。
     '@typescript-eslint/require-await': 'off',
     // 適當的 unused-vars 幫助我們快速理解有哪些可用的參數
     '@typescript-eslint/no-unused-vars': 'off',
@@ -49,10 +44,21 @@ module.exports = {
       'off',
       { allowDirectConstAssertionInArrowFunctions: true },
     ],
+    // 以下開啟可提升可靠性，但暫時沒有也沒關係。盡可能開啟。
     // 由於介入他人介面，因此太多 any type，使它 warn 讓開發速度能夠快點
-    '@typescript-eslint/no-unsafe-member-access': ['warn'],
+    // @types/styled-components 有性能問題，解決之前必須 off 提升開發端性能
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34391
+    '@typescript-eslint/no-unsafe-member-access': ['off'],
     // 部份需要 as any，但還沒時間改好
-    '@typescript-eslint/no-unsafe-assignment': ['warn'],
+    // @types/styled-components 有性能問題，解決之前必須 off 提升開發端性能
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34391
+    '@typescript-eslint/no-unsafe-assignment': ['off'],
+    // @types/styled-components 有性能問題，解決之前必須 off 提升開發端性能
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34391
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
   overrides: [
     {
