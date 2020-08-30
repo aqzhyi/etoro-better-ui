@@ -19,17 +19,14 @@ export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
           <Slider
             defaultValue={rate}
             min={50}
-            max={1500}
+            max={5000}
             valueLabelDisplay='auto'
-            valueLabelFormat={value => {
-              return `${value}ms`
-            }}
             marks={[
               { value: 50, label: '50 ms' },
-              { value: 200, label: '200 ms' },
               { value: 500, label: '500 ms' },
               { value: 1000, label: '1000 ms' },
               { value: 1500, label: '1500 ms' },
+              { value: 5000, label: '5000 ms' },
             ]}
             onChangeCommitted={(event, value) => {
               if (Array.isArray(value)) {
