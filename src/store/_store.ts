@@ -20,6 +20,7 @@ import {
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import { registeredComponents } from '~/utils/registerReactComponent'
+import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
 
 const status = createReducer<{
   pingValue: number
@@ -55,10 +56,17 @@ const settings = createReducer<BetterEtoroUIConfig>(
     }),
 )
 
+const positions = createReducer<{
+  ids: number[]
+}>({ ids: [] }, (builder) => builder.addCase(setGroupPositionIds, (state, action) => {
+  state.ids = action.payload
+}))
+
 const rootReducers = combineReducers({
   display,
   settings,
   status,
+  positions,
 })
 
 export const store = configureStore({

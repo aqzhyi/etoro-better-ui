@@ -3,9 +3,10 @@ import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { debugAPI } from '~/debugAPI'
 import { emitter, Events } from '~/emitter'
-import { throttle } from 'lodash'
+import { map, throttle } from 'lodash'
 import store from '~/store/_store'
 import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDialogPrices'
+import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
@@ -13,6 +14,12 @@ let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
 
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
+
+  angularAPI.$rootScope?.$watch(() => angularAPI.$rootScope?.session.user.portfolio.manualPositions.length, (newValue) => {
+    const ids = map(angularAPI.$rootScope?.session.user.portfolio.manualPositions, data=> data.PositionID)
+
+    store.dispatch(setGroupPositionIds(ids))
+  })
 
   /**
    * On Execution-Dialog closed

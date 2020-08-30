@@ -38,6 +38,11 @@ export const ProfitText: React.FC<{
     Controls whether negative symbol should be showm or not
    */
   noNegative?: boolean
+  /**
+    @example
+    '%' // 777.77%
+   */
+  suffix?: React.ReactNode
 }> = props => {
   const isNegative = props.profit < 0
   const negativeSymbol = props.noNegative ? '' : '-'
@@ -76,6 +81,7 @@ export const ProfitText: React.FC<{
         {values[0]}
       </span>
       <span className={`${ProfitText.name}__valueSmall`}>.{values[1]}</span>
+      <span>{props.suffix}</span>
     </span>
   )
 }

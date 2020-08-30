@@ -13,6 +13,7 @@ const Box = styled.span<{
   background-position: center center;
   height: 30px;
   width: 30px;
+  outline: 1px solid #b7b7b7;
 `
 
 const Name = styled.span`
@@ -22,7 +23,8 @@ const Name = styled.span`
   font-size: 12px;
   color: #000;
   position: absolute;
-  top: 20px;
+  top: 22px;
+  left: -10px;
 `
 
 export const InstrumentIcon: React.FC<{

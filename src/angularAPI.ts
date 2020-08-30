@@ -171,6 +171,7 @@ interface EtoroRootScope extends IRootScopeService {
         positions: Partial<{
           [PositionId: string]: Position
         }>
+        getPositionById(id?: Position['PositionID']): Position | undefined
       }
     }
   }
