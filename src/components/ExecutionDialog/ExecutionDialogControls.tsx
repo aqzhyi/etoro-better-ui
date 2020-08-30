@@ -193,8 +193,6 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls: React.FC<{
   className?: string
 }> = props => {
-  const locale = usePrimaryTranslation()
-
   const dispatch = useAppDispatch()
 
   const amountView = useAmountView()

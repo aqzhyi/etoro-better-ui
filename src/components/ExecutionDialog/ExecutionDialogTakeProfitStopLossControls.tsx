@@ -85,11 +85,11 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
           }
         >
           {Math.abs((stopLossViewValue ?? 100) / lastPercentOfStopLoss) <
-            errorGapInPercents ? (
-              <SyncOutlinedIcon />
-            ) : (
-              <SyncProblemOutlinedIcon />
-            )}
+          errorGapInPercents ? (
+            <SyncOutlinedIcon />
+          ) : (
+            <SyncProblemOutlinedIcon />
+          )}
         </PrimaryTooltip>
       </StyledStopLoss>
 
@@ -105,11 +105,11 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
           }
         >
           {Math.abs((takeProfitViewValue ?? 100) / lastPercentOfTakeProfit) <
-            errorGapInPercents ? (
-              <SyncOutlinedIcon />
-            ) : (
-              <SyncProblemOutlinedIcon />
-            )}
+          errorGapInPercents ? (
+            <SyncOutlinedIcon />
+          ) : (
+            <SyncProblemOutlinedIcon />
+          )}
         </PrimaryTooltip>
       </StyledTakeProfit>
     </React.Fragment>

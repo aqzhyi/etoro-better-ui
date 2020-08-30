@@ -57,9 +57,13 @@ export const TradeDashboard: React.FC = props => {
 
   return (
     <StyledTradeDashboard open={isActive}>
-      <Grid container direction='column' style={{
-        marginBottom: 300
-      }}>
+      <Grid
+        container
+        direction='column'
+        style={{
+          marginBottom: 300,
+        }}
+      >
         <Grid item container justify='center'>
           <PrimaryTrans i18nKey='universal_extensionSupportName_text'></PrimaryTrans>
         </Grid>
@@ -71,7 +75,7 @@ export const TradeDashboard: React.FC = props => {
         </Grid>
 
         <Grid item container justify='flex-end'>
-          <PrimaryTooltip title={() => <Kbd>Esc</Kbd>}>
+          <PrimaryTooltip title={<Kbd>Esc</Kbd>}>
             <Button
               variant='outlined'
               onClick={() => {

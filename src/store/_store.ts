@@ -1,26 +1,21 @@
 import {
-  fetchStatusInfoAggregate,
-  StatusInfoAggregate,
-} from '~/actions/fetchStatusInfoAggregate'
-import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { fetchPingValue } from '~/actions/setPingValue'
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
-import {
-  BetterEtoroUIConfig,
-  storage,
-  betterEtoroUIConfigsMiddleware,
-} from '~/storage'
-import {
-  AnyAction,
   applyMiddleware,
   combineReducers,
   configureStore,
   createReducer,
 } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { createLogger } from 'redux-logger'
-import { registeredComponents } from '~/utils/registerReactComponent'
+import {
+  fetchStatusInfoAggregate,
+  StatusInfoAggregate,
+} from '~/actions/fetchStatusInfoAggregate'
+import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
+import { fetchPingValue } from '~/actions/setPingValue'
+import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import { betterEtoroUIConfigsMiddleware } from '~/middlewares/betterEtoroUIConfigsMiddleware'
+import { BetterEtoroUIConfig, storage } from '~/storage'
+import { registeredComponents } from '~/utils/registerReactComponent'
 
 const status = createReducer<{
   pingValue: number

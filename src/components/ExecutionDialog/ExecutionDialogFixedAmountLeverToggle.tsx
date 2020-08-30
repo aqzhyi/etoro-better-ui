@@ -22,6 +22,7 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
   return (
     <React.Fragment>
       <PrimaryTooltip
+        tooltipProps={{ placement: 'right' }}
         title={
           <span style={{ display: 'inline-block', width: 200 }}>
             <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
@@ -35,8 +36,8 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
                 {executionUseApplyLast ? (
                   <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
                 ) : (
-                    <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
-                  )}
+                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
+                )}
 
                 <HelpIcon
                   notionHref={
@@ -48,7 +49,7 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
             labelPlacement={props.labelPlacement}
             control={
               <Switch
-                checked={executionUseApplyLast}
+                defaultChecked={executionUseApplyLast}
                 onChange={(event, checked) => {
                   gaAPI.sendEvent(
                     GaEventId.setting_sameOrderEnabledSet,

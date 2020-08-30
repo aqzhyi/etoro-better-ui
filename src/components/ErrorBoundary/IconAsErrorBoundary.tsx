@@ -12,11 +12,14 @@ export const IconAsErrorBoundary: React.FC = props => {
         console.warn(error.message, info.componentStack)
 
         emitter.emit(Events.onUnmountUIs)
+        globalThis.setTimeout(() => {
+          emitter.emit(Events.onMountUIs)
+        }, 500)
 
         return (
           <PrimaryTooltip
             tooltipProps={{
-              placement: 'bottom'
+              placement: 'bottom',
             }}
             title={JSON.stringify(info)}
           >
