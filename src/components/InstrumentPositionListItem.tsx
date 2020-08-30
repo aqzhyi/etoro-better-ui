@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
 } from '@material-ui/core'
 import React, { Fragment } from 'react'
 import { useInterval } from 'react-use'
@@ -18,8 +18,10 @@ import { gaAPI, GaEventId } from '~/gaAPI'
 import { useInstrumentPosition } from '~/hooks/useInstrumentPosition'
 import { useAppSelector } from '~/store/_store'
 
-const StyledListItem = styled(ListItem) <{ closing?: boolean }>`
-  ${props => props.closing && `
+const StyledListItem = styled(ListItem)<{ closing?: boolean }>`
+  ${props =>
+    props.closing &&
+    `
     outline: 1px solid #bebebe;
     filter: grayscale(1);
     transform: translateX(-10vw);
@@ -44,12 +46,21 @@ const StyledListItem = styled(ListItem) <{ closing?: boolean }>`
 export const InstrumentPositionListItem: React.FC<{
   positionId?: Position['PositionID']
 }> = props => {
-  const { closing, position, update } = useInstrumentPosition(props.positionId)
-  const updateRate = useAppSelector(state => state.settings.tradeDashboardRefreshRate)
+  const { closing, setClosing, position, update } = useInstrumentPosition(
+    props.positionId,
+  )
+  const updateRate = useAppSelector(
+    state => state.settings.tradeDashboardRefreshRate,
+  )
 
   useInterval(() => {
     update()
   }, updateRate || null)
+
+  useInterval(() => {
+    // if you can't close the position, revert closing prop when update
+    setClosing(false)
+  }, props.positionId && 5000)
 
   return (
     <StyledListItem closing={closing}>

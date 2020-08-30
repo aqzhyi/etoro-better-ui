@@ -7,7 +7,9 @@ export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
 
   const getPostionById = (positionId?: Position['PositionID']) => {
     // clone deep to avoid crash from angular two way data binding cause inside react application
-    const _position = cloneDeep(angularAPI.$rootScope?.session.user.portfolio.getPositionById(positionId)) as Position
+    const _position = cloneDeep(
+      angularAPI.$rootScope?.session.user.portfolio.getPositionById(positionId),
+    ) as Position
 
     // get value from getter function
     const _positionCopy = {
@@ -25,11 +27,8 @@ export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
       PositionID: _position.PositionID,
       Profit: _position.Profit,
       TakeProfitRate: _position.TakeProfitRate,
-      isPendingClose: _position.isPendingClose
+      isPendingClose: _position.isPendingClose,
     } as Position
-
-    // if you can't close the position, revert closing prop when update
-    setClosing(false)
 
     return {
       ..._positionCopy,
@@ -42,7 +41,9 @@ export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
     }
   }
 
-  const _position = useMemo(() => getPostionById(positionId), [angularAPI.$rootScope?.session.user.portfolio.positions])
+  const _position = useMemo(() => getPostionById(positionId), [
+    angularAPI.$rootScope?.session.user.portfolio.positions,
+  ])
 
   const [position, setPosition] = useState(_position)
 
@@ -50,5 +51,5 @@ export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
     setPosition(getPostionById(_position.PositionID))
   }
 
-  return { position, closing, update }
+  return { position, closing, setClosing, update }
 }
