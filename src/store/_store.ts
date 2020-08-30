@@ -58,9 +58,11 @@ const settings = createReducer<BetterEtoroUIConfig>(
 
 const positions = createReducer<{
   ids: number[]
-}>({ ids: [] }, (builder) => builder.addCase(setGroupPositionIds, (state, action) => {
-  state.ids = action.payload
-}))
+}>({ ids: [] }, builder =>
+  builder.addCase(setGroupPositionIds, (state, action) => {
+    state.ids = action.payload
+  }),
+)
 
 const rootReducers = combineReducers({
   display,
@@ -74,21 +76,21 @@ export const store = configureStore({
   enhancers: [
     applyMiddleware(
       betterEtoroUIConfigsMiddleware,
-      createLogger({
-        collapsed: true,
-        timestamp: false,
-        diff: true,
-        predicate: (getState, action: AnyAction) => {
-          if (action.type === fetchStatusInfoAggregate.pending.type)
-            return false
-          if (action.type === fetchStatusInfoAggregate.fulfilled.type)
-            return false
-          if (action.type === fetchPingValue.pending.type) return false
-          if (action.type === fetchPingValue.fulfilled.type) return false
+      // createLogger({
+      //   collapsed: true,
+      //   timestamp: false,
+      //   diff: true,
+      //   predicate: (getState, action: AnyAction) => {
+      //     if (action.type === fetchStatusInfoAggregate.pending.type)
+      //       return false
+      //     if (action.type === fetchStatusInfoAggregate.fulfilled.type)
+      //       return false
+      //     if (action.type === fetchPingValue.pending.type) return false
+      //     if (action.type === fetchPingValue.fulfilled.type) return false
 
-          return true
-        },
-      }),
+      //     return true
+      //   },
+      // }),
     ),
   ],
 })
