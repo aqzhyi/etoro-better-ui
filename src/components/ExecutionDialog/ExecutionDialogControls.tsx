@@ -338,11 +338,11 @@ export const ExecutionDialogControls: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid item>
+        <Grid item container justify='center' style={{ width: 100 }}>
           <ExecutionDialogFixedAmountLeverToggle labelPlacement='top' />
         </Grid>
 
-        <Grid item>
+        <Grid item container justify='center' style={{ width: 100 }}>
           <ExecutionDialogFixedStopLossTakeProfitToggle labelPlacement='top' />
         </Grid>
       </Grid>
@@ -352,19 +352,19 @@ export const ExecutionDialogControls: React.FC<{
 
 const StyledFixedTipOnAmountInput = styled.span`
   position: absolute;
-  left: 537px;
+  left: 480px;
   margin-top: 10px;
   z-index: 100000;
   top: ${() => {
     const [px, pxSetter] = useState('auto')
-    const magic = 114
+    const magic = 45
 
     useTimeoutFn(() => {
       const target = String(
         $(angularAPI.selectors.dialogAmountInput).position()?.top - magic,
       )
 
-      pxSetter((target && target + 'px') || '135px')
+      pxSetter((target && target + 'px') || '195px')
     }, 1500)
 
     return px
@@ -374,7 +374,7 @@ const StyledFixedTipOnAmountInput = styled.span`
 const StyledContainer = styled.span`
   @media (min-width: 741px) {
     display: inline-block;
-    width: 220px;
+    width: 110px;
     margin: 0 auto;
     margin-bottom: 16px;
     text-align: center;
@@ -382,8 +382,11 @@ const StyledContainer = styled.span`
     /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
     z-index: 1;
     position: absolute;
-    margin-left: -175px;
+    margin-left: -110px;
+    margin-top: -60px;
     background-color: #fff;
+    outline: 1px solid #000;
+    padding: 4px;
   }
 
   @media (max-width: 740px) {

@@ -88,13 +88,13 @@ GM.addStyle(`
     }
 
     [id^=uidialog] .${withBlock(Blocks.priceBid)} {
-      left: 167px;
-      top: 14%;
+      left: 231px;
+      top: 13%;
     }
 
     [id^=uidialog] .${withBlock(Blocks.priceAsk)} {
       left: 362px;
-      top: 14%;
+      top: 13%;
     }
 
     [id^=uidialog] .${withBlock(Blocks.priceMovement)} {
