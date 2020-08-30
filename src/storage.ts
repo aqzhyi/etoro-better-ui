@@ -52,7 +52,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
-  tradeDashboardRefreshRate: 300,
+  tradeDashboardRefreshRate: 2500,
   showTradeDashboard: false,
   inviteExcitingDegree: null,
   useHotkeys: {},
