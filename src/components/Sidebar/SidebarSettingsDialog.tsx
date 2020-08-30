@@ -201,7 +201,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
             <Grid item xs={3}>
               <PrimaryTooltip
-                overlay={
+                title={
                   <PrimaryTrans
                     i18nKey='profits_fixedStopLossValueOnOrder_help'
                     values={{
@@ -250,7 +250,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
             <Grid item xs={3}>
               <PrimaryTooltip
-                overlay={
+                title={
                   <PrimaryTrans
                     i18nKey='profits_fixedTakeProfitValueOnOrder_help'
                     values={{
@@ -353,8 +353,8 @@ export const SidebarSettingsDialog: React.FC = () => {
                     value < 15 ? (
                       <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
                     ) : (
-                      String(value) + 'ms'
-                    )
+                        String(value) + 'ms'
+                      )
                   }
                   step={1}
                   min={-15}
@@ -391,7 +391,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item>
             <PrimaryTooltip
-              overlay={
+              title={
                 <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
               }
             >
@@ -401,7 +401,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item>
             <PrimaryTooltip
-              overlay={
+              title={
                 <PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>
               }
             >

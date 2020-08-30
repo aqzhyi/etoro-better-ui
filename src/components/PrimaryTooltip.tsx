@@ -1,19 +1,26 @@
-import Tooltip from 'rc-tooltip'
-import { TooltipProps } from 'rc-tooltip/lib/Tooltip'
+import { Tooltip, TooltipProps, withStyles } from '@material-ui/core'
 import React from 'react'
 
+const StyledTooltip = withStyles({
+  popper: {
+    zIndex: 10001,
+  },
+})(Tooltip)
+
 export const PrimaryTooltip: React.FC<React.PropsWithChildren<{
-  tooltipProps?: Omit<TooltipProps, 'overlay'>
-  overlay: TooltipProps['overlay']
+  tooltipProps?: Omit<TooltipProps, 'title' | 'children'>
+  title: TooltipProps['title']
 }>> = props => {
   return (
-    <Tooltip
+    <StyledTooltip
+      arrow
       placement='top'
-      overlayInnerStyle={{ maxWidth: 300 }}
+      enterDelay={0}
+      leaveDelay={150}
       {...props.tooltipProps}
-      overlay={props.overlay}
+      title={props.title}
     >
       <span>{props.children}</span>
-    </Tooltip>
+    </StyledTooltip>
   )
 }

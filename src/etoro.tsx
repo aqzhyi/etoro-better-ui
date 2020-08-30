@@ -1,4 +1,3 @@
-import 'rc-tooltip/assets/bootstrap_white.css'
 import { debugAPI } from './debugAPI'
 import { emitter, Events } from './emitter'
 import { GM } from './GM'
@@ -127,11 +126,11 @@ emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
   $('.more-info-button').trigger('click')
-  ;[500, 1000, 1500, 2000, 2500].forEach(value => {
-    globalThis.setTimeout(() => {
-      $('.more-info-button').trigger('click')
-    }, value)
-  })
+    ;[500, 1000, 1500, 2000, 2500].forEach(value => {
+      globalThis.setTimeout(() => {
+        $('.more-info-button').trigger('click')
+      }, value)
+    })
 })
 
 /**
@@ -219,16 +218,6 @@ emitter.once(Events.ready).then(function constructCSS() {
     }
     [data-etoro-automation-id="open-trades-table-body-cell-action-buy"]:after {
       content: "📈";
-    }
-  `)
-
-  /**
-   * Execution-Dialog z-index:10000, fluentUI.Dialog z-index:1000000
-   * therefore must set tooltip to 1000001
-   */
-  GM.addStyle(`
-    .rc-tooltip {
-      z-index: 1000001
     }
   `)
 })

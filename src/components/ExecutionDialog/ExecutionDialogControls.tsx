@@ -247,7 +247,7 @@ export const ExecutionDialogControls: React.FC<{
       <React.Fragment>
         <StyledFixedTipOnAmountInput>
           <PrimaryTooltip
-            overlay={
+            title={
               <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
             }
           >

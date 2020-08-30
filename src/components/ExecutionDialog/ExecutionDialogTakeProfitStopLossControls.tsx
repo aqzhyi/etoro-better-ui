@@ -75,7 +75,7 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
     <React.Fragment>
       <StyledStopLoss>
         <PrimaryTooltip
-          overlay={
+          title={
             <PrimaryTrans
               i18nKey='profits_fixedTakeProfitValueOnOrder_help'
               values={{
@@ -85,17 +85,17 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
           }
         >
           {Math.abs((stopLossViewValue ?? 100) / lastPercentOfStopLoss) <
-          errorGapInPercents ? (
-            <SyncOutlinedIcon />
-          ) : (
-            <SyncProblemOutlinedIcon />
-          )}
+            errorGapInPercents ? (
+              <SyncOutlinedIcon />
+            ) : (
+              <SyncProblemOutlinedIcon />
+            )}
         </PrimaryTooltip>
       </StyledStopLoss>
 
       <StyledTakeProfit>
         <PrimaryTooltip
-          overlay={
+          title={
             <PrimaryTrans
               i18nKey='profits_fixedTakeProfitValueOnOrder_help'
               values={{
@@ -105,11 +105,11 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
           }
         >
           {Math.abs((takeProfitViewValue ?? 100) / lastPercentOfTakeProfit) <
-          errorGapInPercents ? (
-            <SyncOutlinedIcon />
-          ) : (
-            <SyncProblemOutlinedIcon />
-          )}
+            errorGapInPercents ? (
+              <SyncOutlinedIcon />
+            ) : (
+              <SyncProblemOutlinedIcon />
+            )}
         </PrimaryTooltip>
       </StyledTakeProfit>
     </React.Fragment>

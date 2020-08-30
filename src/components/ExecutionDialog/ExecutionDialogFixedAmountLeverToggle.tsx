@@ -3,10 +3,10 @@ import {
   FormControlLabelProps,
   Switch,
 } from '@material-ui/core'
-import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { HelpIcon } from '~/components/HelpIcon'
+import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
@@ -21,9 +21,8 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
 
   return (
     <React.Fragment>
-      <Tooltip
-        placement='top'
-        overlay={
+      <PrimaryTooltip
+        title={
           <span style={{ display: 'inline-block', width: 200 }}>
             <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
           </span>
@@ -36,8 +35,8 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
                 {executionUseApplyLast ? (
                   <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
                 ) : (
-                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
-                )}
+                    <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
+                  )}
 
                 <HelpIcon
                   notionHref={
@@ -65,7 +64,7 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
             }
           ></FormControlLabel>
         </span>
-      </Tooltip>
+      </PrimaryTooltip>
     </React.Fragment>
   )
 }

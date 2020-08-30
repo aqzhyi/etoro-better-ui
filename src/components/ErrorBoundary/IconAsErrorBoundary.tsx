@@ -1,7 +1,7 @@
 import ErrorIcon from '@material-ui/icons/Error'
 import { ErrorBoundary } from 'libreact/lib/ErrorBoundary'
-import Tooltip from 'rc-tooltip'
 import React from 'react'
+import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { emitter, Events } from '~/emitter'
 
@@ -14,14 +14,14 @@ export const IconAsErrorBoundary: React.FC = props => {
         emitter.emit(Events.onUnmountUIs)
 
         return (
-          <Tooltip
-            placement='bottom'
-            overlay={JSON.stringify(info)}
-            overlayInnerStyle={{ width: 250 }}
+          <PrimaryTooltip
+            tooltipProps={{
+              placement: 'bottom'
+            }}
+            title={JSON.stringify(info)}
           >
-            <Tooltip
-              placement='top'
-              overlay={
+            <PrimaryTooltip
+              title={
                 <PrimaryTrans
                   i18nKey='universal_errorOnRender_text'
                   values={{
@@ -29,11 +29,10 @@ export const IconAsErrorBoundary: React.FC = props => {
                   }}
                 ></PrimaryTrans>
               }
-              overlayInnerStyle={{ width: 250 }}
             >
               <ErrorIcon />
-            </Tooltip>
-          </Tooltip>
+            </PrimaryTooltip>
+          </PrimaryTooltip>
         )
       }}
     >

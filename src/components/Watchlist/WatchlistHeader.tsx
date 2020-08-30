@@ -1,9 +1,9 @@
 import { Button, Grid, Hidden, TextField } from '@material-ui/core'
-import Tooltip from 'rc-tooltip'
 import React from 'react'
 import { useDebounce, useKey, useMount } from 'react-use'
 import { angularAPI } from '~/angularAPI'
 import { Kbd } from '~/components/Kbd'
+import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
@@ -79,11 +79,9 @@ export const WatchlistHeader: React.FC = () => {
       </Hidden>
 
       <Grid item>
-        <Tooltip
-          placement='bottom'
-          overlay={
-            <PrimaryTrans i18nKey='filterText_input_brief'></PrimaryTrans>
-          }
+        <PrimaryTooltip
+          tooltipProps={{ placement: 'bottom' }}
+          title={<PrimaryTrans i18nKey='filterText_input_brief'></PrimaryTrans>}
         >
           <TextField
             size='small'
@@ -122,33 +120,31 @@ export const WatchlistHeader: React.FC = () => {
             }}
             inputRef={searchBoxRef}
           ></TextField>
-        </Tooltip>
+        </PrimaryTooltip>
       </Grid>
 
       <Grid item>
-        <Tooltip
-          placement='bottom'
-          overlay={
+        <PrimaryTooltip
+          tooltipProps={{ placement: 'bottom' }}
+          title={
             <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
           }
         >
           <div>
             <WatchlistCompactSwitch />
           </div>
-        </Tooltip>
+        </PrimaryTooltip>
       </Grid>
 
       <Grid item>
-        <Tooltip
-          placement='bottom'
-          overlay={
-            <PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>
-          }
+        <PrimaryTooltip
+          tooltipProps={{ placement: 'bottom' }}
+          title={<PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>}
         >
           <div>
             <WatchlistInvestedSwitch />
           </div>
-        </Tooltip>
+        </PrimaryTooltip>
       </Grid>
     </Grid>
   )

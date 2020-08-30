@@ -23,7 +23,7 @@ export const ExecutionDialogFixedStopLossTakeProfitToggle: React.FC<{
         tooltipProps={{
           placement: 'left',
         }}
-        overlay={
+        title={
           <PrimaryTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></PrimaryTrans>
         }
       >

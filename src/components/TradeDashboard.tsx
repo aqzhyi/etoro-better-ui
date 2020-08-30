@@ -71,7 +71,7 @@ export const TradeDashboard: React.FC = props => {
         </Grid>
 
         <Grid item container justify='flex-end'>
-          <PrimaryTooltip overlay={() => <Kbd>Esc</Kbd>}>
+          <PrimaryTooltip title={() => <Kbd>Esc</Kbd>}>
             <Button
               variant='outlined'
               onClick={() => {

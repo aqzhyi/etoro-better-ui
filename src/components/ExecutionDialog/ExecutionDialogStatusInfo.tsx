@@ -1,10 +1,10 @@
 import LoopIcon from '@material-ui/icons/Loop'
-import Tooltip from 'rc-tooltip'
 import React, { useMemo, useState } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { angularAPI, Position } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
+import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { HighlightText } from '~/components/TooltipHighlightText'
@@ -64,26 +64,24 @@ export const ExecutionDialogStatusInfo = () => {
 
   return (
     <React.Fragment>
-      <Tooltip
-        placement='top'
-        overlay={() => (
+      <PrimaryTooltip
+        title={
           <PrimaryTrans
             i18nKey='profits_selectedObjective_brief'
             values={{
               name: instrumentName,
             }}
-          ></PrimaryTrans>
-        )}
+          />
+        }
       >
         <StyledBox>
           <ProfitText profit={totalProfit} /> @{' '}
           <HighlightText>{positions?.length || 0}</HighlightText>
         </StyledBox>
-      </Tooltip>
+      </PrimaryTooltip>
 
-      <Tooltip
-        placement='top'
-        overlay={() => (
+      <PrimaryTooltip
+        title={
           <span>
             Manual Trading Status{' '}
             <a
@@ -94,28 +92,26 @@ export const ExecutionDialogStatusInfo = () => {
               (Ref)
             </a>
           </span>
-        )}
+        }
       >
         <StyledBox>{labelManualTrading}</StyledBox>
-      </Tooltip>
+      </PrimaryTooltip>
 
-      <Tooltip
-        placement='top'
-        overlay={
+      <PrimaryTooltip
+        title={
           <PrimaryTrans i18nKey='status_inferringDelay_text'></PrimaryTrans>
         }
       >
         <StyledBox>{labelPingValue}</StyledBox>
-      </Tooltip>
+      </PrimaryTooltip>
 
-      <Tooltip
-        placement='top'
-        overlay={
+      <PrimaryTooltip
+        title={
           <PrimaryTrans i18nKey='profits_availableValues_text'></PrimaryTrans>
         }
       >
         <StyledBox>{availableValueLabel}</StyledBox>
-      </Tooltip>
+      </PrimaryTooltip>
     </React.Fragment>
   )
 }
