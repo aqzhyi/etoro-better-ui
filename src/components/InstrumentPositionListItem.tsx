@@ -52,10 +52,17 @@ export const InstrumentPositionListItem: React.FC<{
   const updateRate = useAppSelector(
     state => state.settings.tradeDashboardRefreshRate,
   )
+  const dashboardOpen = useAppSelector(
+    state => state.settings.showTradeDashboard,
+  )
 
   useInterval(() => {
+    if (!props.positionId) {
+      return
+    }
+
     update()
-  }, updateRate || null)
+  }, (dashboardOpen && props.positionId && updateRate) || null)
 
   useInterval(() => {
     // if you can't close the position, revert closing prop when update
