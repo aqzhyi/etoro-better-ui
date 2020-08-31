@@ -12,6 +12,7 @@ import { GM } from '~/GM'
 import { useDialogModel } from '~/hooks/useDialogModel'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
+import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled'
 
 /**
  * expected error gap
@@ -108,7 +109,9 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             ></PrimaryTrans>
           }
         >
-          {checkIsStopLossSync() ? (
+          {!enabled ? (
+            <PauseCircleFilledIcon />
+          ) : checkIsStopLossSync() ? (
             <SyncOutlinedIcon />
           ) : (
             <SyncProblemOutlinedIcon />
@@ -127,7 +130,9 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             ></PrimaryTrans>
           }
         >
-          {checkIsTakeProfitSync() ? (
+          {!enabled ? (
+            <PauseCircleFilledIcon />
+          ) : checkIsTakeProfitSync() ? (
             <SyncOutlinedIcon />
           ) : (
             <SyncProblemOutlinedIcon />
