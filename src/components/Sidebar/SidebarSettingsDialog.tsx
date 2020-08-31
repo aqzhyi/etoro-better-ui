@@ -9,18 +9,18 @@ import {
   RadioGroup,
   Slider,
   Switch,
-  TextField,
+  TextField
 } from '@material-ui/core'
 import toast from 'cogo-toast'
 import i18next from 'i18next'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { resetBetterEtoroUIConfig } from '~/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { openPromptForSetMacroAmount } from '~/actions/setMacroAmount'
 import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { SettingAmountsButton } from '~/components/SettingAmountsButton'
 import { UniversalHotkeySettings } from '~/components/UniversalControl/UniversalHotkeySettings'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
@@ -30,8 +30,6 @@ import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
 import { BetterEtoroUIConfig } from '~/storage'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
-const getArrayNumbers = (values = '200') => values.split(',').map(Number)
-
 export const SidebarSettingsDialog: React.FC = () => {
   const locale = usePrimaryTranslation()
   const dispatch = useAppDispatch()
@@ -40,14 +38,6 @@ export const SidebarSettingsDialog: React.FC = () => {
   const dialogOpen = useAppSelector(
     state => state.display.betterEtoroUISettingsDialog,
   )
-
-  const [macroAmountInput, macroAmountInputSetter] = React.useState<
-    string | undefined
-  >('')
-
-  useEffect(() => {
-    macroAmountInputSetter(settings.executionAmount.join(','))
-  }, [settings.executionAmount])
 
   return (
     <Dialog
@@ -140,37 +130,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                 <PrimaryTrans i18nKey='dialog_buttonsSetup_brief'></PrimaryTrans>
               }
               labelPlacement='top'
-              control={
-                <TextField
-                  variant='outlined'
-                  defaultValue={macroAmountInput}
-                  label={
-                    <PrimaryTrans i18nKey='dialog_buttonsSetup_help'></PrimaryTrans>
-                  }
-                  onChange={event => {
-                    macroAmountInputSetter(event.target.value)
-                  }}
-                  onKeyDown={event => {
-                    if (event.key.toLowerCase() === 'enter') {
-                      dispatch(
-                        openPromptForSetMacroAmount(
-                          getArrayNumbers(macroAmountInput),
-                        ),
-                      )
-                    }
-                  }}
-                  onBlur={event => {
-                    dispatch(
-                      openPromptForSetMacroAmount(
-                        getArrayNumbers(macroAmountInput),
-                      ),
-                    )
-                  }}
-                  style={{
-                    width: '100%',
-                  }}
-                ></TextField>
-              }
+              control={<SettingAmountsButton />}
             ></FormControlLabel>
           </Grid>
 
