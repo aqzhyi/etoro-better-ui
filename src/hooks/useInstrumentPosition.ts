@@ -1,15 +1,17 @@
 import { cloneDeep } from 'lodash'
 import { useMemo, useState } from 'react'
-import { angularAPI, Position } from '~/angularAPI'
+import { angularAPI, InstrumentPosition } from '~/angularAPI'
 
-export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
+export const useInstrumentPosition = (
+  positionId?: InstrumentPosition['PositionID'],
+) => {
   const [closing, setClosing] = useState(false)
 
-  const getPostionById = (positionId?: Position['PositionID']) => {
+  const getPostionById = (positionId?: InstrumentPosition['PositionID']) => {
     // clone deep to avoid crash from angular two way data binding cause inside react application
     const _position = cloneDeep(
       angularAPI.$rootScope?.session.user.portfolio.getPositionById(positionId),
-    ) as Position
+    ) as InstrumentPosition
 
     // get value from getter function
     const _positionCopy = {
@@ -28,7 +30,7 @@ export const useInstrumentPosition = (positionId?: Position['PositionID']) => {
       Profit: _position.Profit,
       TakeProfitRate: _position.TakeProfitRate,
       isPendingClose: _position.isPendingClose,
-    } as Position
+    } as InstrumentPosition
 
     return {
       ..._positionCopy,

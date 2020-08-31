@@ -2,7 +2,7 @@ import LoopIcon from '@material-ui/icons/Loop'
 import React, { useMemo, useState } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
-import { angularAPI, Position } from '~/angularAPI'
+import { angularAPI, InstrumentPosition } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
@@ -33,7 +33,7 @@ export const ExecutionDialogStatusInfo = () => {
   const labelPingValue =
     statusPingValue > 0 ? `${statusPingValue}ms` : <LoopIcon />
 
-  const [positions, positionsSetter] = useState<Position[]>([])
+  const [positions, positionsSetter] = useState<InstrumentPosition[]>([])
 
   useInterval(() => {
     const items = angularAPI.$rootScope?.session.user.portfolio.manualPositions?.filter(

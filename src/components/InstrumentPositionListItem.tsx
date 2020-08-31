@@ -8,7 +8,7 @@ import {
 import React, { Fragment } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
-import { Position } from '~/angularAPI'
+import { InstrumentPosition } from '~/angularAPI'
 import { InstrumentIcon } from '~/components/InstrumentIcon'
 import { InstrumentRateChangeCount } from '~/components/InstrumentRateChangeCount'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
@@ -44,7 +44,7 @@ const StyledListItem = styled(ListItem)<{ closing?: boolean }>`
 `
 
 export const InstrumentPositionListItem: React.FC<{
-  positionId?: Position['PositionID']
+  positionId?: InstrumentPosition['PositionID']
 }> = props => {
   const { closing, setClosing, position, update } = useInstrumentPosition(
     props.positionId,

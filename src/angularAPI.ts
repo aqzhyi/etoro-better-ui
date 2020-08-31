@@ -97,7 +97,7 @@ export interface PendingOrder {
 /**
  * All of Positions which you had the ordered of Stocks, ETFs, and or something else objectives, and their type definitions
  */
-export interface Position {
+export interface InstrumentPosition {
   Amount: number
   /** 倉位淨值 */
   Equity: number
@@ -170,17 +170,19 @@ interface EtoroRootScope extends IRootScopeService {
           /** e.g. `-10.458636130000016` 代表全部倉位損益 -10.45$USD */
           TotalProfit: number
           /** 當前倉位 */
-          Positions: Position[]
+          Positions: InstrumentPosition[]
         }[]
         /** 掛單倉位 */
         orders: PendingOrder[]
         /** 手動開倉倉位 */
-        manualPositions: Position[]
+        manualPositions: InstrumentPosition[]
         /** 所有開倉倉位 */
         positions: Partial<{
-          [PositionId: string]: Position
+          [PositionId: string]: InstrumentPosition
         }>
-        getPositionById(id?: Position['PositionID']): Position | undefined
+        getPositionById(
+          id?: InstrumentPosition['PositionID'],
+        ): InstrumentPosition | undefined
       }
     }
   }

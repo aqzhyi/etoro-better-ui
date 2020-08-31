@@ -1,10 +1,10 @@
 import React from 'react'
-import { Position } from '~/angularAPI'
+import { InstrumentPosition } from '~/angularAPI'
 import { ProfitText } from '~/components/ProfitText'
 
 /** 開倉位距離當前點位點數合計 */
 export const InstrumentRateChangeCount: React.FC<{
-  position?: Position
+  position?: InstrumentPosition
 }> = props => {
   if (!props.position) {
     return null

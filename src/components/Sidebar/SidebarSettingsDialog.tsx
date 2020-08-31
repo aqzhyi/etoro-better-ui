@@ -143,7 +143,7 @@ export const SidebarSettingsDialog: React.FC = () => {
               control={
                 <TextField
                   variant='outlined'
-                  value={macroAmountInput}
+                  defaultValue={macroAmountInput}
                   label={
                     <PrimaryTrans i18nKey='dialog_buttonsSetup_help'></PrimaryTrans>
                   }
@@ -353,8 +353,8 @@ export const SidebarSettingsDialog: React.FC = () => {
                     value < 15 ? (
                       <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
                     ) : (
-                        String(value) + 'ms'
-                      )
+                      String(value) + 'ms'
+                    )
                   }
                   step={1}
                   min={-15}
