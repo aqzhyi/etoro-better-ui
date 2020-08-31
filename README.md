@@ -21,13 +21,15 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Real Trading Preview
 
+[![image loading...](https://github.com/hilezir/hilezir/raw/master/trade-dashboard-preview.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
+
 [![image loading...](./trade-dashboard-real-trading-preview.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
 ## Development
 
 1. Install [Tampermonkey Extension to your Chrome, Edge](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW) or [Extension in Firefox](https://addons.mozilla.org/zh-TW/firefox/addon/tampermonkey/).
 1. One terminal session for `npm run dev`
-1. add new script that code [./tamperscript.js](https://github.com/hilezir/etoro-better-ui/blob/master/tempermonkey.js) to your tempermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
+1. add new script that code [./tamperscript.js](https://github.com/hilezir/etoro-better-ui/blob/master/tampermonkey.js) to your tampermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
 
     if you're looking for how multiple etoro-better-UI scripts to exist, visit [eToro-better-UI Switch in another build](https://www.notion.so/hilezi/eToro-better-UI-Switch-in-another-build-eb3b7842ae8e46d58d43b7bb3059b624)
 
