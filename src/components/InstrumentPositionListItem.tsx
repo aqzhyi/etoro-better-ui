@@ -19,13 +19,15 @@ import { useInstrumentPosition } from '~/hooks/useInstrumentPosition'
 import { useAppSelector } from '~/store/_store'
 
 const StyledListItem = styled(ListItem)<{ closing?: boolean }>`
-  ${props =>
-    props.closing &&
-    `
-    outline: 1px solid #bebebe;
-    filter: grayscale(1);
-    transform: translateX(-10vw);
-  `}
+  ${props => {
+    if (props.closing) {
+      return `
+        outline: 1px solid #bebebe;
+        filter: grayscale(1);
+        transform: translateX(-10vw);
+      `
+    }
+  }}
 
   :hover {
     background-color: #dbdbdbcc;
