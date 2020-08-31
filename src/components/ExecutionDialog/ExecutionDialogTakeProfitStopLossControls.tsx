@@ -1,7 +1,7 @@
 import SyncOutlinedIcon from '@material-ui/icons/SyncOutlined'
 import SyncProblemOutlinedIcon from '@material-ui/icons/SyncProblemOutlined'
-import React, { useState } from 'react'
-import { useInterval, useMount } from 'react-use'
+import React from 'react'
+import { useGetSet, useInterval } from 'react-use'
 import styled from 'styled-components'
 import { angularAPI } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
@@ -9,67 +9,91 @@ import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { emitter, Events } from '~/emitter'
 import { GM } from '~/GM'
-import { useAppDispatch, useAppSelector } from '~/store/_store'
+import { useDialogModel } from '~/hooks/useDialogModel'
+import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 
-/** 在此倍率中，屬於正常誤差範圍 */
+/**
+ * expected error gap
+ *
+ * `1.5` means 1.5%
+ */
 const errorGapInPercents = 1.5
 
 export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
   className?: string
 }> = props => {
-  const dispatch = useAppDispatch()
+  const dialog = useDialogModel()
   const enabled = useAppSelector(
     state => state.settings.stopLossAndTakeProfitUseLastPercent,
   )
 
-  const lastPercentOfStopLoss = useAppSelector(
+  const stopLossShouldBe = useAppSelector(
     state => state.settings.stopLossLastPercent,
   )
 
-  const lastPercentOfTakeProfit = useAppSelector(
+  const takeProfitShouldBe = useAppSelector(
     state => state.settings.takeProfitLastPercent,
   )
 
-  const [stopLossViewValue, stopLossViewValueSetter] = useState(
-    angularAPI.executionDialogScope?.model?.stopLoss.percentAmount,
-  )
-  const [takeProfitViewValue, takeProfitViewValueSetter] = useState(
-    angularAPI.executionDialogScope?.model?.takeProfit.percentAmount,
-  )
+  const [isStopLossFixed, setIsStopLossFixed] = useGetSet(false)
+  const [isTakeProfitFixed, setIsTakeProfitFixed] = useGetSet(false)
 
-  useInterval(() => {
-    if (!angularAPI.executionDialogScope?.model || !enabled) {
-      return
+  /**
+   * `true` means the value should be expected, and it's may in error gap
+   */
+  const checkIsSync = (value?: number, expected?: number) => {
+    if (!value || !expected) {
+      return false
     }
 
-    stopLossViewValueSetter(
-      angularAPI.executionDialogScope?.model?.stopLoss.percentAmount,
-    )
+    /**
+     * `0` means value has no gap
+     *
+     * `10` means value has 10% gap
+     */
+    const gap = Math.abs(1 - value / expected) * 100
 
-    takeProfitViewValueSetter(
-      angularAPI.executionDialogScope?.model?.takeProfit.percentAmount,
-    )
-  }, 400)
-
-  useMount(() => {
-    if (!enabled) {
-      return
-    }
-
-    lastPercentOfStopLoss && angularAPI.setDialogStopLoss(lastPercentOfStopLoss)
-
-    lastPercentOfTakeProfit &&
-      angularAPI.setDialogTakeProfit(lastPercentOfTakeProfit)
-  })
-
-  useMount(() => {
-    angularAPI.executionDialogScope?.$apply()
-  })
-
-  if (!enabled) {
-    return null
+    return errorGapInPercents > gap
   }
+
+  const checkIsStopLossSync = () =>
+    checkIsSync(dialog.model?.stopLoss, stopLossShouldBe)
+
+  const checkIsTakeProfitSync = () =>
+    checkIsSync(dialog.model?.takeProfit, takeProfitShouldBe)
+
+  useInterval(
+    () => {
+      if (!enabled || isStopLossFixed()) {
+        return
+      }
+
+      if (checkIsStopLossSync()) {
+        setIsStopLossFixed(true)
+        return
+      }
+
+      angularAPI.setDialogStopLoss(stopLossShouldBe)
+    },
+    enabled && !isStopLossFixed() ? 500 : null,
+  )
+
+  useInterval(
+    () => {
+      if (!enabled || isTakeProfitFixed()) {
+        return
+      }
+
+      if (checkIsTakeProfitSync()) {
+        setIsTakeProfitFixed(true)
+        return
+      }
+
+      angularAPI.setDialogTakeProfit(takeProfitShouldBe)
+    },
+    enabled && !isTakeProfitFixed() ? 500 : null,
+  )
 
   return (
     <React.Fragment>
@@ -79,13 +103,12 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             <PrimaryTrans
               i18nKey='profits_fixedTakeProfitValueOnOrder_help'
               values={{
-                value: lastPercentOfStopLoss,
+                value: stopLossShouldBe,
               }}
             ></PrimaryTrans>
           }
         >
-          {Math.abs((stopLossViewValue ?? 100) / lastPercentOfStopLoss) <
-          errorGapInPercents ? (
+          {checkIsStopLossSync() ? (
             <SyncOutlinedIcon />
           ) : (
             <SyncProblemOutlinedIcon />
@@ -99,13 +122,12 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
             <PrimaryTrans
               i18nKey='profits_fixedTakeProfitValueOnOrder_help'
               values={{
-                value: lastPercentOfTakeProfit,
+                value: takeProfitShouldBe,
               }}
             ></PrimaryTrans>
           }
         >
-          {Math.abs((takeProfitViewValue ?? 100) / lastPercentOfTakeProfit) <
-          errorGapInPercents ? (
+          {checkIsTakeProfitSync() ? (
             <SyncOutlinedIcon />
           ) : (
             <SyncProblemOutlinedIcon />
