@@ -56,7 +56,7 @@
   "universal_errorOnRender_text": "[better-etoro-UI 錯誤]: {{error.message}}",
   "universal_extensionName_text": "eToro better UI",
   "universal_extensionSupportName_text": "本功能由 $t(universal_extensionName_text) 提供",
-  "universal_googleAnalyticsEnabled_brief": "允許 etoro-better-ui 能夠使用並分析，介面的操作情況 (這個功能不會收集您的隱私資料)",
+  "universal_googleAnalyticsEnabled_brief": "幫助 etoro-better-ui 能夠發送匿名的程式崩潰報告，以及介面操作資訊。(這個功能不會收集您的隱私資料)",
   "universal_intervalCheckingStatus_brief": "在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能",
   "universal_lever_text": "槓桿",
   "universal_setup_text": "Better Etoro UI 設定",

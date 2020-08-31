@@ -5,6 +5,8 @@ import store from '~/store/_store'
 import { Provider } from 'react-redux'
 import { IconAsErrorBoundary } from '~/components/ErrorBoundary/IconAsErrorBoundary'
 
+export const componentContainerHTMLDataPrefix = 'data-etoro-better-ui-created'
+
 export const registeredComponents = new Map<
   string,
   {
@@ -90,7 +92,9 @@ export const registerReactComponent = <
     return registerComponent
   }
 
-  newContainerElement.attr('id', `${containerId}`)
+  newContainerElement
+    .attr('id', `${containerId}`)
+    .attr(componentContainerHTMLDataPrefix, containerId)
   options.containerClassName &&
     newContainerElement.addClass(options.containerClassName)
 

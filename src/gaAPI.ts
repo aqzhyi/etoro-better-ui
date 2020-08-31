@@ -1,7 +1,6 @@
 import { debugAPI } from '~/debugAPI'
 import store from '~/store/_store'
 import { angularAPI } from '~/angularAPI'
-import { throttle } from 'lodash'
 
 /**
  * naming rule
@@ -38,6 +37,7 @@ export enum GaEventId {
   setting_tabToBuySellEnabledSet,
   setting_takeProfitAndStopLoseEnabledSet,
   setting_inviteExcitingDegree,
+  alert_componentCrash,
 }
 
 const GA_TRACKER_NAME = 'etoroBetterUi'

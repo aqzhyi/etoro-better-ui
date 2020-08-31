@@ -56,7 +56,7 @@
   "universal_errorOnRender_text": "[better-etoro-UI ERROR]: {{error.message}}",
   "universal_extensionName_text": "eToro better UI",
   "universal_extensionSupportName_text": "Support By $t(universal_extensionName_text)",
-  "universal_googleAnalyticsEnabled_brief": "Allow etoro-better-ui can use and analyze data of user-interface (it's doesn't collect your privacy data)",
+  "universal_googleAnalyticsEnabled_brief": "Help us improve etoro-better-ui by sending crash reports and anonymous usage stats of User-Interface (it's doesn't sending privacy information)",
   "universal_intervalCheckingStatus_brief": "The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.",
   "universal_lever_text": "Lever",
   "universal_setup_text": "Better Etoro UI Setup",
