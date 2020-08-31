@@ -1,5 +1,6 @@
 import type { IRootScopeService, ILocationService } from 'angular'
 import { AnyFunction } from 'tsdef'
+import { gaAPI } from '~/gaAPI'
 
 export interface InstrumentRate {
   Ask: number
@@ -31,6 +32,14 @@ export interface InstrumentRate {
  * The Stocks, ETFs, and or something else objectives, and their type definitions
  */
 export interface Instrument {
+  MaxStopLossPercentage: number
+  MaxStopLossPercentageLeveragedBuy: number
+  MaxStopLossPercentageLeveragedSell: number
+  MaxStopLossPercentageNonLeveragedBuy: number
+  MaxStopLossPercentageNonLeveragedSell: number
+  MaxTakeProfitPercentage: number
+  Precision: number
+  PriceSource: 'eToro'
   /** e.g `'instrument-100000'` */
   uniqueId: string
   DisplayName: string
@@ -227,8 +236,10 @@ export interface ExecutionDialogScope extends IRootScopeService {
       percentAmount: number
     }
     amount: {
+      inUnitsMode: boolean
       /** Your trade dollar value on execution dialog */
       amount: number
+      amountView: number
     }
     leverages: {
       /** Index of selected lever which in list */
@@ -286,20 +297,92 @@ export const angularAPI = {
     dialogSellButton: '[data-etoro-automation-id="execution-sell-button"]',
     /** The inner content of dialog that the border whose user can see */
     dialogInnerContent: '#open-position-view',
+    /** The Button to switch tab to the panel of stop-loss input */
+    dialogStopLossSwitchTab: '[name="stopLoss"] > a',
+    /** The Button to switch tab to the panel of take-profit input */
+    dialogTakeProfitSwitchTab: '[name="takeProfit"] > a',
   } as const,
-  setDialogStopLoss: (lossPercent: number) => {
-    angularAPI.executionDialogScope?.$apply(() => {
-      if (angularAPI.executionDialogScope?.model) {
-        angularAPI.executionDialogScope.model.stopLoss.inDollarMode = true
-        angularAPI.executionDialogScope.model.stopLoss.defaultPercent = lossPercent
+  getDialogLever: () => {
+    return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
+  },
+  /**
+   * Use jQuery to click the real button
+   *
+   * The way of angular model sync doesn't work for now
+   */
+  setDialogLever: (value: number) => {
+    const dialogScope = angularAPI.executionDialogScope
+
+    if (dialogScope?.model) {
+      const tabEl = $(
+        angularAPI.selectors.dialogLeverLevelDisplayText,
+      ).parentsUntil('a')
+
+      tabEl.trigger('click')
+
+      $(`.risk-itemlevel:contains(" x${value} ")`).trigger('click')
+    }
+  },
+  getDialogAmount: () => {
+    const dialogScope = angularAPI.executionDialogScope
+
+    return dialogScope?.model?.amount.amount
+  },
+  /**
+   * Set amount value with pass number
+   *
+   * Finally, the value that will be used should respect to Min Position Number and Leverage value
+   *
+   * The way of angular model sync may cause the function Open Trade fails
+   */
+  setDialogAmount: (value: number) => {
+    const dialogScope = angularAPI.executionDialogScope
+
+    if (dialogScope?.model) {
+      const currentLever = dialogScope?.model?.leverages.selectedLeverage ?? 1
+
+      const etoroMinAmountValue =
+        dialogScope?.model?.instrument?.MinPositionAmount ?? value
+
+      const valueWillBe =
+        value * currentLever < etoroMinAmountValue ? etoroMinAmountValue : value
+
+      dialogScope.model.amount.inUnitsMode = false
+      dialogScope.model.amount.amount = valueWillBe
+      dialogScope.model.amount.amountView = valueWillBe
+
+      $(angularAPI.selectors.dialogAmountInput)
+        .val(`${valueWillBe}`)
+        .delay(50)
+        .trigger('change')
+        .delay(50)
+        .trigger('blur')
+
+      dialogScope.$apply()
+    }
+  },
+  setDialogStopLoss: (value: number) => {
+    const dialogScope = angularAPI.executionDialogScope
+
+    dialogScope?.$applyAsync(() => {
+      if (dialogScope?.model) {
+        dialogScope.model.stopLoss.inDollarMode = true
+        dialogScope.model.stopLoss.defaultPercent = value
       }
     })
+
+    dialogScope?.$apply()
   },
-  setDialogTakeProfit: (profitPercent: number) => {
-    if (angularAPI.executionDialogScope?.model) {
-      angularAPI.executionDialogScope.model.takeProfit.inDollarMode = true
-      angularAPI.executionDialogScope.model.takeProfit.defaultPercent = profitPercent
-    }
+  setDialogTakeProfit: (value: number) => {
+    const dialogScope = angularAPI.executionDialogScope
+
+    dialogScope?.$applyAsync(() => {
+      if (dialogScope?.model) {
+        dialogScope.model.takeProfit.inDollarMode = true
+        dialogScope.model.takeProfit.defaultPercent = value
+      }
+    })
+    dialogScope?.$apply()
   },
   /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
   filterPortfolioListByText: (filterText = '') => {

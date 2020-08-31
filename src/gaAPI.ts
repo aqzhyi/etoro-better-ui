@@ -1,6 +1,7 @@
 import { debugAPI } from '~/debugAPI'
 import store from '~/store/_store'
 import { angularAPI } from '~/angularAPI'
+import { throttle } from 'lodash'
 
 /**
  * naming rule
