@@ -4,6 +4,7 @@ import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { angularAPI, InstrumentPosition } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
+import { PingProbeValue } from '~/components/PingProbeValue'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
@@ -97,13 +98,9 @@ export const ExecutionDialogStatusInfo = () => {
         <StyledBox>{labelManualTrading}</StyledBox>
       </PrimaryTooltip>
 
-      <PrimaryTooltip
-        title={
-          <PrimaryTrans i18nKey='status_inferringDelay_text'></PrimaryTrans>
-        }
-      >
+      <PingProbeValue>
         <StyledBox>{labelPingValue}</StyledBox>
-      </PrimaryTooltip>
+      </PingProbeValue>
 
       <PrimaryTooltip
         title={

@@ -1,4 +1,4 @@
-import { Button, Grid, List } from '@material-ui/core'
+import { Button, Grid, List, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
 import React from 'react'
 import { useKey } from 'react-use'
@@ -7,6 +7,7 @@ import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '~/angularAPI'
 import { InstrumentPositionGroupListItem } from '~/components/InstrumentPositionGroupListItem'
 import { Kbd } from '~/components/Kbd'
+import { PingProbeValue } from '~/components/PingProbeValue'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { TradeDashboardRefreshRateSlider } from '~/components/TradeDashboardRefreshRateSlider'
@@ -74,17 +75,23 @@ export const TradeDashboard: React.FC = props => {
           </Alert>
         </Grid>
 
-        <Grid item container justify='flex-end'>
-          <PrimaryTooltip title={<Kbd>Esc</Kbd>}>
-            <Button
-              variant='outlined'
-              onClick={() => {
-                closeDashboard()
-              }}
-            >
-              <span>❌</span>
-            </Button>
-          </PrimaryTooltip>
+        <Grid item container justify='flex-end' alignItems='center' spacing={2}>
+          <Grid item>
+            <PingProbeValue></PingProbeValue>
+          </Grid>
+
+          <Grid item>
+            <PrimaryTooltip title={<Kbd>Esc</Kbd>}>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  closeDashboard()
+                }}
+              >
+                <span>❌</span>
+              </Button>
+            </PrimaryTooltip>
+          </Grid>
         </Grid>
 
         <Grid item container justify='center'>

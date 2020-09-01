@@ -35,7 +35,7 @@
   "profits_invested_text": "已投資",
   "profits_selectedObjective_brief": "開倉位當前利潤 @ {{name}}",
   "setting_resetAll_text": "重置所有設定",
-  "status_inferringDelay_text": "大概延遲",
+  "status_inferringDelay_text": "大概延遲 {{value}}ms",
   "tradeDashboard_action": "執行",
   "tradeDashboard_actionClose": "平倉",
   "tradeDashboard_amount": "金額與槓桿",
