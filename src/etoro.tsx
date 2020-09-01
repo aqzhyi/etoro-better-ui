@@ -8,7 +8,6 @@ import { showWelcomeMessage } from '~/components/UniversalControl/UniversalWelco
 import store from '~/store/_store'
 import { cleanStickReactComponents } from '~/utils/cleanStickReactComponents'
 import { renderStickReactComponents } from '~/utils/renderStickReactComponents'
-import { throttle } from 'lodash'
 import React from 'react'
 import { enableES5 } from 'immer'
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
@@ -20,6 +19,7 @@ import {
   nativeEtoroLeverSaveToStorage,
 } from '~/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import '~/i18n'
+import { angularAPI } from '~/angularAPI'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -30,15 +30,13 @@ debugAPI.universal('套件正在努力加載...', process.env.NODE_ENV)
  * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
  * 因為才能夠開始將「本腳本」部件透過 jQuery 掛載上去
  */
-$('body').on(
-  'mouseover.bootstrap',
-  '.main-app-view',
-  throttle(() => {
+$('body').on('mouseover.bootstrap', '.main-app-view', () => {
+  if (angularAPI.$rootScope?.session.locale) {
     debugAPI.universal('套件加載完成')
     $('body').off('mouseover.bootstrap')
     emitter.emit(Events.ready)
-  }, 1000),
-)
+  }
+})
 
 emitter.once(Events.ready).then(function sendVersionToAnalytics() {
   gaAPI.sendEvent(
@@ -113,11 +111,11 @@ emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
   $('.more-info-button').trigger('click')
-    ;[500, 1000, 1500, 2000, 2500].forEach(value => {
-      globalThis.setTimeout(() => {
-        $('.more-info-button').trigger('click')
-      }, value)
-    })
+  ;[500, 1000, 1500, 2000, 2500].forEach(value => {
+    globalThis.setTimeout(() => {
+      $('.more-info-button').trigger('click')
+    }, value)
+  })
 })
 
 /**
