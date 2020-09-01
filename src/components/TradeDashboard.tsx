@@ -26,7 +26,8 @@ const StyledTradeDashboard = styled.span<{
   background: #fff;
   color: #000;
   overflow: auto;
-  z-index: 50;
+  /** notifications has z-index 40 */
+  z-index: 39;
   padding: 8px;
 
   @media (max-width: 1024px) {
