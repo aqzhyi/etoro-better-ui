@@ -30,6 +30,10 @@ export const useInstrumentPosition = (
       Profit: _position.Profit,
       TakeProfitRate: _position.TakeProfitRate,
       isPendingClose: _position.isPendingClose,
+      TakeProfitAmount: _position.TakeProfitAmount,
+      TakeProfitPercent: _position.TakeProfitPercent,
+      StopLossAmount: _position.StopLossAmount,
+      StopLossPercent: _position.StopLossPercent,
     } as InstrumentPosition
 
     return {

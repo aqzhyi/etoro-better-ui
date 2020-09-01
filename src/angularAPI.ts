@@ -46,6 +46,7 @@ export interface Instrument {
   fullName: string
   shortName: string
   ExchangeID: number
+  IsActive: boolean
   InstrumentID: number
   instrumentType: {
     InstrumentTypeID: number
@@ -119,6 +120,10 @@ export interface InstrumentPosition {
   OpenDateTime: Date
   close: AnyFunction
   isPendingClose?: boolean
+  StopLossAmount: number
+  StopLossPercent: number
+  TakeProfitAmount: number
+  TakeProfitPercent: number
   getGroup(): {
     FirstOpenDate: Date | null
     /** 可用資金 */
