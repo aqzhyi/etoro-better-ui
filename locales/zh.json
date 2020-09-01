@@ -11,6 +11,7 @@
   "dialog_fixedNextOrderValue_brief": "交易視窗開啟時，自動為你設定下單金額與槓桿倍率。",
   "dialog_fixedNextOrderValue_text": "金額槓桿鎖定",
   "dialog_priceRenderRate_brife": "下單視窗的報價刷新速度（注意越低的數值代表越快的刷新速度，同時也消耗更多性能）",
+  "etoroStatus_ManualTrade_text": "交易功能狀況",
   "exchange_usedSetup_brief": "設定幣別（當前：<notable>{{text}}</notable>）",
   "filterText_clearText_text": "清除輸入",
   "filterText_input_brief": "全域使用 <kbd>T</kbd> 或輸入框中使用 <kbd>Enter</kbd> 可以開啟第一個標的之下單框。使用 <kbd>Escape</kbd> 可以清除輸入框。",

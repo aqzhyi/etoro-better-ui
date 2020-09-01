@@ -11,6 +11,7 @@
   "dialog_fixedNextOrderValue_brief": "When Trade Dialog on mount, automatic setup amount and leverage",
   "dialog_fixedNextOrderValue_text": "Amount/Lever Fixed",
   "dialog_priceRenderRate_brife": "Render rate of Ask / Bid price. (The low value is faster re-render but will consume more performance)",
+  "etoroStatus_ManualTrade_text": "Manual Trading Status",
   "exchange_usedSetup_brief": "Currency (current: <notable>{{text}}</notable>)",
   "filterText_clearText_text": "Clear Filter",
   "filterText_input_brief": "Use the <kbd>T</kbd> key on watchlist, or use <kbd>Enter</kbd> when input focus to open the first Execution Dialog. Use the <kbd>ESC</kbd> to clear the input.",

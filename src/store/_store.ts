@@ -33,6 +33,9 @@ const status = createReducer<{
       .addCase(fetchPingValue.fulfilled, (state, action) => {
         state.pingValue = action.payload
       })
+      .addCase(fetchStatusInfoAggregate.pending, (state, aciton) => {
+        state.statusCheckAggregate = {}
+      })
       .addCase(fetchStatusInfoAggregate.fulfilled, (state, action) => {
         state.statusCheckAggregate = action.payload
       }),

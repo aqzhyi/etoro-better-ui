@@ -9,6 +9,7 @@ import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { HighlightText } from '~/components/TooltipHighlightText'
+import { TradingStatusValue } from '~/components/TradingStatusValue'
 import { GM } from '~/GM'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
@@ -81,22 +82,9 @@ export const ExecutionDialogStatusInfo = () => {
         </StyledBox>
       </PrimaryTooltip>
 
-      <PrimaryTooltip
-        title={
-          <span>
-            Manual Trading Status{' '}
-            <a
-              style={{ color: 'blue' }}
-              href='https://status.etoro.com/'
-              target='_blank'
-            >
-              (Ref)
-            </a>
-          </span>
-        }
-      >
+      <TradingStatusValue asTooltip>
         <StyledBox>{labelManualTrading}</StyledBox>
-      </PrimaryTooltip>
+      </TradingStatusValue>
 
       <PingProbeValue>
         <StyledBox>{labelPingValue}</StyledBox>

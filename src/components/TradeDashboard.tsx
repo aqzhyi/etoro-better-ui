@@ -11,6 +11,7 @@ import { PingProbeValue } from '~/components/PingProbeValue'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { TradeDashboardRefreshRateSlider } from '~/components/TradeDashboardRefreshRateSlider'
+import { TradingStatusValue } from '~/components/TradingStatusValue'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 
@@ -77,6 +78,10 @@ export const TradeDashboard: React.FC = props => {
         </Grid>
 
         <Grid item container justify='flex-end' alignItems='center' spacing={2}>
+          <Grid item>
+            <TradingStatusValue></TradingStatusValue>
+          </Grid>
+
           <Grid item>
             <PingProbeValue></PingProbeValue>
           </Grid>
