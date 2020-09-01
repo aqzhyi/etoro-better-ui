@@ -18,7 +18,22 @@ import { gaAPI, GaEventId } from '~/gaAPI'
 import { useInstrumentPosition } from '~/hooks/useInstrumentPosition'
 import { useAppSelector } from '~/store/_store'
 
-const StyledListItem = styled(ListItem)<{ closing?: boolean }>`
+const StyledListItem = styled(ListItem)<{
+  closing?: boolean
+  isActive?: boolean
+}>`
+  ${props => {
+    if (!props.isActive) {
+      return `
+        filter: grayscale(1);
+
+        :hover {
+          filter: inherit;
+        }
+      `
+    }
+  }}
+
   ${props => {
     if (props.closing) {
       return `
@@ -72,7 +87,7 @@ export const InstrumentPositionListItem: React.FC<{
   }, props.positionId && 5000)
 
   return (
-    <StyledListItem closing={closing}>
+    <StyledListItem closing={closing} isActive={position.Instrument.IsActive}>
       <ListItemAvatar>
         <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
       </ListItemAvatar>

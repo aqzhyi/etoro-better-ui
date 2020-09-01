@@ -50,7 +50,9 @@ export const useInstrumentPosition = (
   const [position, setPosition] = useState(_position)
 
   const update = () => {
-    setPosition(getPostionById(_position.PositionID))
+    if (_position.Instrument.IsActive) {
+      setPosition(getPostionById(_position.PositionID))
+    }
   }
 
   return { position, closing, setClosing, update }
