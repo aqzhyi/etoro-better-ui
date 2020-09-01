@@ -16,6 +16,7 @@ import '~/components/Portfolio/ProtfolioInvestedCloseButton'
 import '~/components/ExecutionDialog/ExecutionDialogPrices'
 import '~/components/TradeDashboard'
 import '~/components/Sidebar/SdiebarTradeDashboardLink'
+import '~/App'
 import { registeredComponents } from '~/utils/registerReactComponent'
 
 export const renderStickReactComponents = () => {

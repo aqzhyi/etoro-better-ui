@@ -121,25 +121,6 @@ function _applyEventsObservers() {
     }, 50),
   )
 
-  /**
-   * Ping every interval
-   *
-   * useful in continuously status checking... etc.
-   */
-  let onPingIntervalId: ReturnType<typeof globalThis.setInterval>
-  const onPingLastIntervalMS = store.getState().settings.intervalCheckingStatus
-  store.subscribe(() => {
-    const intervalMS = store.getState().settings.intervalCheckingStatus * 1000
-
-    if (intervalMS !== onPingLastIntervalMS) {
-      globalThis.clearInterval(onPingIntervalId)
-
-      onPingIntervalId = globalThis.setInterval(() => {
-        emitter.emit(Events.onPing)
-      }, intervalMS)
-    }
-  })
-
   debugAPI.universal('extension events get ready!')
 }
 

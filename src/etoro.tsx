@@ -3,7 +3,6 @@ import { emitter, Events } from './emitter'
 import { GM } from './GM'
 import { fetchExtraCurrency } from '~/actions/fetchExtraCurrency'
 import { fetchStatusInfoAggregate } from '~/actions/fetchStatusInfoAggregate'
-import { fetchPingValue } from '~/actions/setPingValue'
 import { renderSidebarDepositButton } from '~/components/Sidebar/SidebarDepositButton'
 import { applyEventsObservers } from '~/components/UniversalControl/applyEventsObservers'
 import { showWelcomeMessage } from '~/components/UniversalControl/UniversalWelcomeMessage'
@@ -103,9 +102,6 @@ emitter.on(
 emitter.on(Events.onPing, function checkSystemStatus() {
   debugAPI.universal('checking https://status.etoro.com')
   store.dispatch(fetchStatusInfoAggregate())
-
-  debugAPI.universal('inferring delay')
-  store.dispatch(fetchPingValue())
 })
 
 /**

@@ -21,10 +21,8 @@ export type BetterEtoroUIConfig = {
     watchlistFilter?: 'F' | null
   }
   /**
-   * The second's interval expected used to checking delay ms and the
+   * The SECONDS interval expected used to checking delay ms and the
    * Manual trading working status which fetch from etoro status site.
-   *
-   * Used in Events.onPing
    */
   intervalCheckingStatus: number
   googleAnalyticsEnabled: boolean

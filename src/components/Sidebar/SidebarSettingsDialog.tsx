@@ -9,7 +9,7 @@ import {
   RadioGroup,
   Slider,
   Switch,
-  TextField
+  TextField,
 } from '@material-ui/core'
 import toast from 'cogo-toast'
 import i18next from 'i18next'
@@ -18,6 +18,7 @@ import { resetBetterEtoroUIConfig } from '~/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
+import { PingProbeHiddenSetup } from '~/components/PingProbeHiddenSetup'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { SettingAmountsButton } from '~/components/SettingAmountsButton'
@@ -263,36 +264,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           </Grid>
 
           <Grid item>
-            <FormControlLabel
-              label={
-                <PrimaryTrans i18nKey='universal_intervalCheckingStatus_brief'></PrimaryTrans>
-              }
-              labelPlacement='top'
-              control={
-                <Slider
-                  min={5}
-                  max={60 * 5}
-                  step={1}
-                  defaultValue={settings.intervalCheckingStatus}
-                  valueLabelDisplay='auto'
-                  valueLabelFormat={value => `${value}s`}
-                  onChangeCommitted={(event, value) => {
-                    if (Array.isArray(value)) {
-                      return
-                    }
-                    gaAPI.sendEvent(
-                      GaEventId.setting_intervalCheckingStatus,
-                      `interval=${value}`,
-                    )
-                    dispatch(
-                      setBetterEtoroUIConfig({
-                        intervalCheckingStatus: value,
-                      }),
-                    )
-                  }}
-                />
-              }
-            ></FormControlLabel>
+            <PingProbeHiddenSetup />
           </Grid>
 
           <Grid item container>

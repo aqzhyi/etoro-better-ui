@@ -27,6 +27,9 @@ const status = createReducer<{
   },
   builder =>
     builder
+      .addCase(fetchPingValue.pending, (state, action) => {
+        state.pingValue = 0
+      })
       .addCase(fetchPingValue.fulfilled, (state, action) => {
         state.pingValue = action.payload
       })
