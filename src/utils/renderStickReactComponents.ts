@@ -16,6 +16,7 @@ import '~/components/Portfolio/ProtfolioInvestedCloseButton'
 import '~/components/ExecutionDialog/ExecutionDialogPrices'
 import '~/components/TradeDashboard'
 import '~/components/Sidebar/SdiebarTradeDashboardLink'
+import '~/components/Key12345Probe'
 import '~/App'
 import { registeredComponents } from '~/utils/registerReactComponent'
 

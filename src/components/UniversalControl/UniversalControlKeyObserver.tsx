@@ -50,30 +50,6 @@ export const UniversalControlKeyObserver = () => {
     }
   }, [hotkeySettings])
 
-  /** 快速打開交易視窗 */
-  useKey(
-    'T',
-    event => {
-      if (isInputUsesFocusing()) return
-
-      debugAPI.keyboard.extend('T')(event.key)
-
-      if (!globalThis.location.href.includes('watchlists')) {
-        return false
-      }
-
-      // avoid open dialog twice
-      if (angularAPI.executionDialogScope?.model) {
-        return
-      }
-
-      gaAPI.sendEvent(GaEventId.watchlists_filterByTextEnterKeyClick)
-      angularAPI.openTradeDialog()
-    },
-    {},
-    [hotkeySettings],
-  )
-
   /** 交易與倉位控制面版 */
   useKey(
     'D',

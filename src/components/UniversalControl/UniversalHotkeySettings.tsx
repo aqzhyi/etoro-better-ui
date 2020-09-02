@@ -10,8 +10,31 @@ export const UniversalHotkeySettings: React.FC = props => {
 
   return (
     <React.Fragment>
-      <Grid container direction='row'>
-        <Grid container item>
+      <Grid container direction='column'>
+        <Grid item>
+          <FormControlLabel
+            label={
+              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_12345_brief'></PrimaryTrans>
+            }
+            control={
+              <Switch
+                checked={hotkeys?.key12345 === true}
+                onChange={(event, checked) => {
+                  dispatch(
+                    setBetterEtoroUIConfig({
+                      useHotkeys: {
+                        ...hotkeys,
+                        key12345: checked,
+                      },
+                    }),
+                  )
+                }}
+              ></Switch>
+            }
+          ></FormControlLabel>
+        </Grid>
+
+        <Grid item>
           <FormControlLabel
             label={
               <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_tab_brief'></PrimaryTrans>
@@ -34,7 +57,7 @@ export const UniversalHotkeySettings: React.FC = props => {
           ></FormControlLabel>
         </Grid>
 
-        <Grid container item>
+        <Grid item>
           <FormControlLabel
             label={
               <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_esc_brief'></PrimaryTrans>
@@ -57,7 +80,7 @@ export const UniversalHotkeySettings: React.FC = props => {
           ></FormControlLabel>
         </Grid>
 
-        <Grid container item>
+        <Grid item>
           <FormControlLabel
             label={
               <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_space_brief'></PrimaryTrans>
@@ -80,7 +103,7 @@ export const UniversalHotkeySettings: React.FC = props => {
           ></FormControlLabel>
         </Grid>
 
-        <Grid container item>
+        <Grid item>
           <FormControlLabel
             label={
               <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_f_brief'></PrimaryTrans>

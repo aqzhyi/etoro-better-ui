@@ -1,8 +1,4 @@
 import toast from 'cogo-toast'
-import { Middleware } from 'redux'
-import { PayloadAction } from '@reduxjs/toolkit'
-import { debugAPI } from '~/debugAPI'
-import { emitter, Events } from '~/emitter'
 
 export type BetterEtoroUIConfig = {
   /** Trade Dashboard the positions the rate of refresh profits */
@@ -11,6 +7,7 @@ export type BetterEtoroUIConfig = {
   /** 掌聲高聲歡呼之精采程度 */
   inviteExcitingDegree: number | null
   useHotkeys: {
+    key12345?: boolean
     /** The hotkey to trigger Open Trade */
     dialogOpenTrade?: ' ' | null
     /** The hotkey to trigger Buy and Sell switch */
