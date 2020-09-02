@@ -5,7 +5,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core'
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { InstrumentPosition } from '~/angularAPI'
