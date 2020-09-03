@@ -6,6 +6,7 @@ import { angularAPI } from '~/angularAPI'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
+import { KeyProbe } from '~/components/KeyProbe'
 
 export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
   const dispatch = useAppDispatch()
@@ -13,6 +14,18 @@ export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
   const amountShouldBe = useAppSelector(
     state => state.settings.executionAmountLast,
   )
+
+  const onClick = (value: number) => {
+    gaAPI.sendEvent(GaEventId.dialog_amountButtonsClick, `amount=${value}`)
+
+    angularAPI.setDialogAmount(value)
+
+    dispatch(
+      setBetterEtoroUIConfig({
+        executionAmountLast: value,
+      }),
+    )
+  }
 
   return (
     <Grid container direction='column'>
@@ -34,21 +47,25 @@ export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
                 fullWidth
                 size='small'
                 onClick={() => {
-                  gaAPI.sendEvent(
-                    GaEventId.dialog_amountButtonsClick,
-                    `amount=${value}`,
-                  )
-
-                  angularAPI.setDialogAmount(value)
-
-                  dispatch(
-                    setBetterEtoroUIConfig({
-                      executionAmountLast: value,
-                    }),
-                  )
+                  onClick(value)
                 }}
               >
-                ${value}
+                <Grid container justify='center'>
+                  <Grid item>${value}</Grid>
+
+                  <Grid item>
+                    <KeyProbe
+                      filter={String(index + 1)}
+                      command={() => {
+                        if (!angularAPI.executionDialogScope) {
+                          return
+                        }
+
+                        onClick(value)
+                      }}
+                    ></KeyProbe>
+                  </Grid>
+                </Grid>
               </Button>
             </Grid>
           )

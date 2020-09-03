@@ -2,6 +2,7 @@ import { Button, Grid } from '@material-ui/core'
 import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '~/angularAPI'
+import { KeyProbe } from '~/components/KeyProbe'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useDialogModel } from '~/hooks/useDialogModel'
@@ -14,6 +15,18 @@ export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
   const leverShouldBe = useAppSelector(
     state => state.settings.executionLeverLast,
   )
+
+  const onClick = (value: number) => {
+    gaAPI.sendEvent(GaEventId.dialog_leverButtonsClick, `lever=${value}`)
+
+    angularAPI.setDialogLever(value)
+
+    dispatch(
+      setBetterEtoroUIConfig({
+        executionLeverLast: value,
+      }),
+    )
+  }
 
   return (
     <Grid container direction='column'>
@@ -33,21 +46,23 @@ export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
                 fullWidth
                 size='small'
                 onClick={() => {
-                  gaAPI.sendEvent(
-                    GaEventId.dialog_leverButtonsClick,
-                    `lever=${value}`,
-                  )
-
-                  angularAPI.setDialogLever(value)
-
-                  dispatch(
-                    setBetterEtoroUIConfig({
-                      executionLeverLast: value,
-                    }),
-                  )
+                  onClick(value)
                 }}
               >
-                x{value}
+                <Grid container justify='center'>
+                  <Grid item>x{value}</Grid>
+
+                  <Grid item>
+                    {index + 1 <= 4 && (
+                      <KeyProbe
+                        filter={`F${index + 1}`}
+                        command={() => {
+                          onClick(value)
+                        }}
+                      ></KeyProbe>
+                    )}
+                  </Grid>
+                </Grid>
               </Button>
             </Grid>
           )
