@@ -111,6 +111,7 @@ const StyledBox = styled.span`
   line-height: 30px;
   text-align: center;
   font-size: 0.9em;
+  height: 40px;
 `
 
 export const registeredExecutionDialogStatusInfo = registerReactComponent({
