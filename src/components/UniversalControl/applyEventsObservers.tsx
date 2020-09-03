@@ -15,11 +15,17 @@ let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
 
-  angularAPI.$rootScope?.$watch(() => angularAPI.$rootScope?.session.user.portfolio.manualPositions.length, (newValue) => {
-    const ids = map(angularAPI.$rootScope?.session.user.portfolio.manualPositions, data=> data.PositionID)
+  angularAPI.$rootScope?.$watch(
+    () => angularAPI.$rootScope?.session.user.portfolio.manualPositions.length,
+    newValue => {
+      const ids = map(
+        angularAPI.$rootScope?.session.user.portfolio.manualPositions,
+        data => data.PositionID,
+      )
 
-    store.dispatch(setGroupPositionIds(ids))
-  })
+      store.dispatch(setGroupPositionIds(ids))
+    },
+  )
 
   /**
    * On Execution-Dialog closed
@@ -42,11 +48,7 @@ function _applyEventsObservers() {
   angularAPI.$rootScope?.$on('$routeChangeSuccess', angularEvent => {
     debugAPI.angular.extend('$routeChangeSuccess')(globalThis.location.pathname)
 
-    emitter.emit(Events.onUnmountUIs)
-
-    globalThis.clearTimeout(autoRenderOnRouteChangeSuccessTimerId)
-
-    autoRenderOnRouteChangeSuccessTimerId = globalThis.setTimeout(() => {
+    globalThis.setTimeout(() => {
       emitter.emit(Events.onMountUIs)
     }, 500)
   })
