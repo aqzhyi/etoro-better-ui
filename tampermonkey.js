@@ -92,17 +92,17 @@ function getBundleUrl(
   */
   const builds = {
     beta: { hash: '0.31.0-20200902', filename: 'etoro' },
-    nightly: { hash: '0.31.0-20200902', filename: 'etoro' },
+    nightly: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.31.0-20200831', filename: 'etoro' },
-    '0.31': { hash: 'v0.31.0-20200831', filename: 'etoro' },
+    0.31: { hash: 'v0.31.0-20200831', filename: 'etoro' },
     '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
-    '0.29': { hash: 'v0.29.0-20200825', filename: 'etoro' },
-    '0.28': { hash: 'v0.28.0-20200823-beta3', filename: 'etoro' },
-    '0.27': { hash: 'v0.27.0-20200730', filename: 'etoro' },
-    '0.26': { hash: 'v0.26.1-20200721', filename: 'etoro' },
-    '0.25': { hash: 'v0.25.3', filename: 'etoro' },
-    '0.24': { hash: 'v0.24.1', filename: 'etoro' },
-    '0.23': { hash: 'v0.23.1', filename: 'etoro' },
+    0.29: { hash: 'v0.29.0-20200825', filename: 'etoro' },
+    0.28: { hash: 'v0.28.0-20200823-beta3', filename: 'etoro' },
+    0.27: { hash: 'v0.27.0-20200730', filename: 'etoro' },
+    0.26: { hash: 'v0.26.1-20200721', filename: 'etoro' },
+    0.25: { hash: 'v0.25.3', filename: 'etoro' },
+    0.24: { hash: 'v0.24.1', filename: 'etoro' },
+    0.23: { hash: 'v0.23.1', filename: 'etoro' },
     dev: { hash: 'https://127.0.0.1:8087/etoro.js', filename: 'etoro' },
   }
 
