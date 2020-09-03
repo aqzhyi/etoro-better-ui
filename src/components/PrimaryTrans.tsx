@@ -1,8 +1,8 @@
 import { Kbd } from '~/components/Kbd'
 import React from 'react'
 import { Trans, TransProps } from 'react-i18next'
-import styled from 'styled-components'
 import type * as zhLocale from '../../locales/zh.json'
+import { NotableText } from '~/components/NotableText'
 
 const RiskLink: React.FC = props => (
   <a
@@ -13,11 +13,6 @@ const RiskLink: React.FC = props => (
   </a>
 )
 
-const StyledNotable = styled.span`
-  color: #58b0c8;
-  font-weight: bold;
-`
-
 export const PrimaryTrans: React.FC<
   Omit<TransProps, 'i18nKey'> & {
     i18nKey: keyof typeof zhLocale
@@ -27,7 +22,7 @@ export const PrimaryTrans: React.FC<
     <Trans
       {...props}
       components={{
-        notable: <StyledNotable></StyledNotable>,
+        notable: <NotableText></NotableText>,
         kbd: <Kbd></Kbd>,
         riskLink: <RiskLink></RiskLink>,
       }}

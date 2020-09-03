@@ -36,7 +36,7 @@
   "profits_invested_text": "Invested",
   "profits_selectedObjective_brief": "Total Profits on Target Positions @ {{name}}",
   "setting_resetAll_text": "Reset All",
-  "status_inferringDelay_text": "infer Delay {{value}}ms",
+  "status_inferringDelay_text": "infer Delay <notable>{{value}}</notable>ms",
   "tradeDashboard_action": "Actions",
   "tradeDashboard_actionClose": "Close",
   "tradeDashboard_amount": "Amount/Lever",
