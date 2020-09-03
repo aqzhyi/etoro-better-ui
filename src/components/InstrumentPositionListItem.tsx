@@ -5,7 +5,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core'
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { InstrumentPosition } from '~/angularAPI'
@@ -20,44 +20,19 @@ import { useAppSelector } from '~/store/_store'
 
 const StyledListItem = styled(ListItem)<{
   closing?: boolean
-  isActive?: boolean
+  active?: boolean
 }>`
-  ${props => {
-    if (!props.isActive) {
-      return `
-        filter: grayscale(1);
-
-        :hover {
-          filter: inherit;
-        }
-      `
-    }
-  }}
-
-  ${props => {
-    if (props.closing) {
-      return `
-        outline: 1px solid #bebebe;
-        filter: grayscale(1);
-        transform: translateX(-10vw);
-      `
-    }
-  }}
-
   :hover {
-    background-color: #dbdbdbcc;
+    background-color: #dbdbdbcc !important;
+    filter: none;
   }
 
-  ${props => {
-    if (props.closing) {
-      return `
-        transition-duration: 5s;
-        opacity: 0.85;
-        pointer-events: none;
-        transform: translateX(-100vw);
-      `
-    }
-  }}
+  filter: ${props => (props.active ? `none` : `grayscale(1)`)};
+  outline: ${props => (props.closing ? `1px solid #bebebe` : 'none')};
+  transition-duration: ${props => (props.closing ? `5s` : 'none')};
+  opacity: ${props => (props.closing ? `0.85` : 'auto')};
+  pointer-events: ${props => (props.closing ? `none` : 'auto')};
+  transform: ${props => (props.closing ? `translateX(-100vw)` : 'none')};
 `
 
 export const InstrumentPositionListItem: React.FC<{
@@ -87,7 +62,10 @@ export const InstrumentPositionListItem: React.FC<{
   }, props.positionId && 5000)
 
   return (
-    <StyledListItem closing={closing} isActive={position.Instrument.IsActive}>
+    <StyledListItem
+      closing={closing ? 'true' : undefined}
+      active={position.Instrument.IsActive ? 'true' : undefined}
+    >
       <ListItemAvatar>
         <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
       </ListItemAvatar>
