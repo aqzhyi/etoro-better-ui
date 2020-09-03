@@ -5,12 +5,12 @@ import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
-import { useDialogModel } from '~/hooks/useDialogModel'
+import { useDialogLeverAvailable } from '~/hooks/useDialogLeverAvailable'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
 export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
   const dispatch = useAppDispatch()
-  const dialog = useDialogModel()
+  const levers = useDialogLeverAvailable()
 
   const leverShouldBe = useAppSelector(
     state => state.settings.executionLeverLast,
@@ -37,7 +37,7 @@ export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
       </Grid>
 
       <Grid item container direction='column'>
-        {dialog.model?.instrument.Leverages?.map((value, index) => {
+        {levers?.map((value, index) => {
           return (
             <Grid item key={index} style={{ marginBottom: 4 }}>
               <Button
