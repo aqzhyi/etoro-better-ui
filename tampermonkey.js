@@ -46,8 +46,8 @@
 // 如果你想切換版本的使用，可以參考下面這一行程式碼
 // If you are looking for another version, please change the word to the your target
 //
-// 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
-// target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.30' | '0.29' | '0.28', etc
+// 當前以下版本可供切換：'latest' | 'beta' | 'nightly' | 'dev' | '0.32' | '0.31' | '0.30', etc
+// target version available value are: 'latest' | 'beta' | 'nightly' | 'dev' | '0.32' | '0.31' | '0.30', etc
 //
 /** @type{version} */
 const version = 'latest'
@@ -91,10 +91,11 @@ function getBundleUrl(
     }
   */
   const builds = {
-    beta: { hash: '0.31.0-20200902', filename: 'etoro' },
+    beta: { hash: 'v0.32.0-20200904', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
-    latest: { hash: 'v0.31.0-20200831', filename: 'etoro' },
-    0.31: { hash: 'v0.31.0-20200831', filename: 'etoro' },
+    latest: { hash: 'v0.32.0-20200904', filename: 'etoro' },
+    0.32: { hash: 'v0.32.0-20200904', filename: 'etoro' },
+    0.31: { hash: 'v0.31.0-20200902', filename: 'etoro' },
     '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
     0.29: { hash: 'v0.29.0-20200825', filename: 'etoro' },
     0.28: { hash: 'v0.28.0-20200823-beta3', filename: 'etoro' },
@@ -136,5 +137,5 @@ function addStylesheetTag(
 /* global globalThis */
 
 /**
-  @typedef { | 'latest' | 'beta' | 'nightly' | 'dev' | '0.31' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
+  @typedef { | 'latest' | 'beta' | 'nightly' | 'dev' | '0.32' | '0.31' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
  */

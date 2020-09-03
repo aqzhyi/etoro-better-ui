@@ -81,6 +81,8 @@ export interface Instrument {
     default: string
   }
   rate: InstrumentRate
+  /** Open the dialog that confirms to close the all trades */
+  closeAllTrades(): void
 }
 
 /**
