@@ -44,8 +44,6 @@ export enum GaEventId {
 const GA_TRACKER_NAME = 'etoroBetterUi'
 const GA_UA_ID = 'UA-60395189-2'
 
-const isProd = process.env.NODE_ENV === 'production'
-
 export const gaAPI = {
   initialize() {
     debugAPI.ga('initializing...')
@@ -68,7 +66,7 @@ export const gaAPI = {
         `${enabled && !isDemo ? '' : ', function disabled/demo, not send'}`,
     )
 
-    if (!enabled || !isProd || isDemo) {
+    if (!enabled || isDemo) {
       return
     }
 

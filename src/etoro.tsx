@@ -23,7 +23,7 @@ import { angularAPI } from '~/angularAPI'
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
 
-debugAPI.universal('套件正在努力加載...', process.env.NODE_ENV)
+debugAPI.universal('套件正在努力加載...')
 
 /**
  * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
