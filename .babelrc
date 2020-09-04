@@ -5,6 +5,7 @@
     ["@babel/preset-env"]
   ],
   "plugins": [
+    "babel-plugin-styled-components",
     [
       "babel-plugin-import",
       {
