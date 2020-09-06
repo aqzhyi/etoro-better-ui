@@ -3,8 +3,15 @@ import { angularAPI } from '~/angularAPI'
 import { KeyProbe, KeyProbeBindingTarget } from '~/components/KeyProbe'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
+import { styled } from '@material-ui/core/styles'
 
-const Key12345Probe: React.FC<{
+const Box = styled(KeyProbe)({
+  display: 'inline-block',
+  position: 'absolute',
+  transform: 'translate(0%, 0%)',
+})
+
+export const Key12345Probe: React.FC<{
   numbericKey: number
 }> = props => {
   const enabled = useAppSelector(state => state.settings.useHotkeys.key12345)
@@ -14,7 +21,7 @@ const Key12345Probe: React.FC<{
   }
 
   return (
-    <KeyProbe
+    <Box
       filter={String(props.numbericKey)}
       command={props => {
         if (!enabled) {
@@ -28,7 +35,7 @@ const Key12345Probe: React.FC<{
           props.keyTarget.trigger('click')
         }
       }}
-    ></KeyProbe>
+    ></Box>
   )
 }
 

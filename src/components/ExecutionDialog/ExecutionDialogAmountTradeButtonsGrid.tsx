@@ -49,22 +49,21 @@ export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
                 onClick={() => {
                   onClick(value)
                 }}
+                endIcon={
+                  <KeyProbe
+                    filter={String(index + 1)}
+                    command={() => {
+                      if (!angularAPI.executionDialogScope) {
+                        return
+                      }
+
+                      onClick(value)
+                    }}
+                  ></KeyProbe>
+                }
               >
                 <Grid container justify='center'>
                   <Grid item>${value}</Grid>
-
-                  <Grid item>
-                    <KeyProbe
-                      filter={String(index + 1)}
-                      command={() => {
-                        if (!angularAPI.executionDialogScope) {
-                          return
-                        }
-
-                        onClick(value)
-                      }}
-                    ></KeyProbe>
-                  </Grid>
                 </Grid>
               </Button>
             </Grid>

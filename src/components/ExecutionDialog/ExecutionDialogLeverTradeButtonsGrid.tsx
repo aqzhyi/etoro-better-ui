@@ -48,20 +48,19 @@ export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
                 onClick={() => {
                   onClick(value)
                 }}
+                endIcon={
+                  index + 1 <= 4 && (
+                    <KeyProbe
+                      filter={`F${index + 1}`}
+                      command={() => {
+                        onClick(value)
+                      }}
+                    ></KeyProbe>
+                  )
+                }
               >
                 <Grid container justify='center'>
                   <Grid item>x{value}</Grid>
-
-                  <Grid item>
-                    {index + 1 <= 4 && (
-                      <KeyProbe
-                        filter={`F${index + 1}`}
-                        command={() => {
-                          onClick(value)
-                        }}
-                      ></KeyProbe>
-                    )}
-                  </Grid>
                 </Grid>
               </Button>
             </Grid>

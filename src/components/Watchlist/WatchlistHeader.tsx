@@ -11,11 +11,6 @@ import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import styled from 'styled-components'
-
-const StyledKeyProbe = styled(KeyProbe)`
-  position: relative;
-`
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
@@ -74,7 +69,7 @@ export const WatchlistHeader: React.FC = () => {
             }
             InputProps={{
               endAdornment: (
-                <StyledKeyProbe
+                <KeyProbe
                   filter='F'
                   command={ownProps => {
                     if (!hotkeyEnabled) return
@@ -94,7 +89,7 @@ export const WatchlistHeader: React.FC = () => {
                     gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
                     targetElement.trigger('focus')
                   }}
-                ></StyledKeyProbe>
+                ></KeyProbe>
               ),
             }}
             variant='outlined'

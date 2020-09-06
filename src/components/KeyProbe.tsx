@@ -1,17 +1,12 @@
+import { makeStyles } from '@material-ui/core/styles'
 import React, { useRef, useState } from 'react'
 import { useKey, useUpdateEffect } from 'react-use'
 import { Kbd } from '~/components/Kbd'
-import styled from 'styled-components'
-import { debugAPI } from '~/debugAPI'
 import { gaAPI, GaEventId } from '~/gaAPI'
 
 export const KeyProbeBindingTarget = 'data-etoro-better-ui-Keyprobe-target'
 
-const Block = styled.span`
-  display: inline-block;
-  position: absolute;
-  transform: translate(0%, 0%);
-`
+export const useCSSKeyProbe = makeStyles({})
 
 export const KeyProbe: React.FC<{
   filter: string
@@ -19,11 +14,10 @@ export const KeyProbe: React.FC<{
     /** If `null` means handling as global hotkey */
     keyTarget: JQuery<Element> | null
   }): void
+  className?: string
 }> = props => {
-  const log = debugAPI.keyboard.extend(props.filter)
-
   /** If not handling as a global hotkey, this ref help for looking the native etoro element */
-  const selfRef = useRef<Element>()
+  const selfRef = useRef<HTMLSpanElement>(null)
 
   /** The animation to make Kbd element fancy */
   const [pressing, setPressing] = useState(false)
@@ -64,13 +58,14 @@ export const KeyProbe: React.FC<{
   )
 
   return (
-    <Block
+    <span
+      className={props.className}
       ref={selfRef}
       onClick={() => {
         setPressing(true)
       }}
     >
       <Kbd pressing={pressing}>{props.filter.toUpperCase()}</Kbd>
-    </Block>
+    </span>
   )
 }
