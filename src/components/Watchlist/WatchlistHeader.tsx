@@ -1,17 +1,21 @@
 import { Button, Grid, Hidden, TextField } from '@material-ui/core'
 import React from 'react'
-import { useDebounce, useKey, useMount } from 'react-use'
+import { useDebounce, useMount } from 'react-use'
 import { angularAPI } from '~/angularAPI'
-import { Kbd } from '~/components/Kbd'
+import { KeyProbe } from '~/components/KeyProbe'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
-import { debugAPI } from '~/debugAPI'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
+import styled from 'styled-components'
+
+const StyledKeyProbe = styled(KeyProbe)`
+  position: relative;
+`
 
 export const WatchlistHeader: React.FC = () => {
   const listCompactOn = useAppSelector(state => state.settings.listCompactOn)
@@ -37,27 +41,6 @@ export const WatchlistHeader: React.FC = () => {
     },
     1000,
     [filterText],
-  )
-
-  /** The hotkey "F" able to get focus on the input of filter */
-  useKey(
-    'F',
-    event => {
-      if (!hotkeyEnabled) return
-      if (!searchBoxRef.current) return
-      if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
-
-      const targetElement = $(searchBoxRef.current)
-
-      if (targetElement.is(':focus')) return
-
-      debugAPI.keyboard.extend('FilterText')(event.key)
-
-      gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
-      targetElement.trigger('focus')
-    },
-    { event: 'keyup' },
-    [hotkeyEnabled, searchBoxRef],
   )
 
   return (
@@ -90,7 +73,29 @@ export const WatchlistHeader: React.FC = () => {
               <PrimaryTrans i18nKey='filterText_input_help'></PrimaryTrans>
             }
             InputProps={{
-              endAdornment: <Kbd>F</Kbd>,
+              endAdornment: (
+                <StyledKeyProbe
+                  filter='F'
+                  command={ownProps => {
+                    if (!hotkeyEnabled) return
+                    if (!searchBoxRef.current) return
+
+                    // do nothing if target is handling by another global target
+                    if (ownProps.keyTarget) return
+
+                    // do nothing if target is handling by used in trade dialog
+                    if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen)
+                      return
+
+                    const targetElement = $(searchBoxRef.current)
+
+                    if (targetElement.is(':focus')) return
+
+                    gaAPI.sendEvent(GaEventId.keyboard_filterTextFocus)
+                    targetElement.trigger('focus')
+                  }}
+                ></StyledKeyProbe>
+              ),
             }}
             variant='outlined'
             value={filterText}
