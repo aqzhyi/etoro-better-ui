@@ -4,6 +4,7 @@ import {
   configureStore,
   createReducer,
 } from '@reduxjs/toolkit'
+import { uniq } from 'lodash'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {
   fetchStatusInfoAggregate,
@@ -58,11 +59,22 @@ const settings = createReducer<BetterEtoroUIConfig>(
 )
 
 const positions = createReducer<{
+  historyIds: number[]
   ids: number[]
-}>({ ids: [] }, builder =>
-  builder.addCase(setGroupPositionIds, (state, action) => {
-    state.ids = action.payload
-  }),
+}>(
+  {
+    historyIds: [],
+    ids: [],
+  },
+  builder =>
+    builder.addCase(setGroupPositionIds, (state, action) => {
+      state.historyIds = uniq([
+        ...state.historyIds,
+        ...state.ids,
+        ...action.payload,
+      ])
+      state.ids = action.payload
+    }),
 )
 
 const rootReducers = combineReducers({

@@ -20,6 +20,7 @@ import { useAppSelector } from '~/store/_store'
 
 const StyledListItem = styled(ListItem)<{
   closing?: boolean
+  closed?: boolean
   active?: boolean
 }>`
   :hover {
@@ -33,6 +34,10 @@ const StyledListItem = styled(ListItem)<{
   opacity: ${props => (props.closing ? `0.85` : 'auto')};
   pointer-events: ${props => (props.closing ? `none` : 'auto')};
   transform: ${props => (props.closing ? `translateX(-100vw)` : 'none')};
+  min-height: 60px;
+
+  background-color: ${props =>
+    props.closed ? '#dbdbdbcc !important' : 'inherit'};
 `
 
 export const InstrumentPositionListItem: React.FC<{
@@ -49,7 +54,7 @@ export const InstrumentPositionListItem: React.FC<{
   )
 
   useInterval(() => {
-    if (!props.positionId) {
+    if (!props.positionId || closed) {
       return
     }
 
@@ -59,7 +64,13 @@ export const InstrumentPositionListItem: React.FC<{
   useInterval(() => {
     // if you can't close the position, revert closing prop when update
     setClosing(false)
-  }, props.positionId && 5000)
+  }, (props.positionId && !closed && 5000) || null)
+
+  if (!position || closed) {
+    return (
+      <StyledListItem closed={closed ? 'true' : undefined}></StyledListItem>
+    )
+  }
 
   return (
     <StyledListItem

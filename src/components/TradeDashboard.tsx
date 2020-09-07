@@ -1,6 +1,6 @@
 import { Button, Grid, List, Typography } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useKey } from 'react-use'
 import styled from 'styled-components'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
@@ -38,7 +38,7 @@ const StyledTradeDashboard = styled.span<{
 `
 
 export const TradeDashboard: React.FC = props => {
-  const positions = useAppSelector(state => state.positions.ids)
+  const historyIds = useAppSelector(state => state.positions.historyIds)
   const dispatch = useAppDispatch()
   const isActive = useAppSelector(state => state.settings.showTradeDashboard)
 
@@ -106,7 +106,7 @@ export const TradeDashboard: React.FC = props => {
 
         <Grid item container>
           <List dense style={{ width: '100%' }}>
-            <InstrumentPositionGroupListItem positionIds={positions} />
+            <InstrumentPositionGroupListItem positionIds={historyIds} />
           </List>
         </Grid>
       </Grid>
