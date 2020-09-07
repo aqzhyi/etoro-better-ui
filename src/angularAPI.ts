@@ -192,6 +192,15 @@ interface EtoroRootScope extends IRootScopeService {
         ): InstrumentPosition | undefined
       }
     }
+    instrumentsFactory: {
+      getAll(): {
+        [id: number]: Instrument
+      }
+      /**
+       * e.g. `1001` returns instrument of AAPL
+       */
+      getById(id: Instrument['InstrumentID']): Instrument
+    }
   }
   layoutCtrl: { $location: ILocationService } & {
     isBannerShown: boolean
