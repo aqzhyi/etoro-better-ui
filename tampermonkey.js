@@ -12,7 +12,7 @@
 // @name:en         eToro Better UI
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.31.1
+// @version         0.32.2
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
@@ -93,8 +93,8 @@ function getBundleUrl(
   const builds = {
     beta: { hash: 'v0.32.0-20200904', filename: 'etoro' },
     nightly: { hash: 'master', filename: 'etoro' },
-    latest: { hash: 'v0.32.0-20200904', filename: 'etoro' },
-    0.32: { hash: 'v0.32.0-20200904', filename: 'etoro' },
+    latest: { hash: 'v0.32.2-20200907', filename: 'etoro' },
+    0.32: { hash: 'v0.32.2-20200907', filename: 'etoro' },
     0.31: { hash: 'v0.31.0-20200902', filename: 'etoro' },
     '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
     0.29: { hash: 'v0.29.0-20200825', filename: 'etoro' },
