@@ -24,8 +24,9 @@ const StyledListItem = styled(ListItem)<{
   active?: boolean
 }>`
   :hover {
-    background-color: #dbdbdbcc !important;
+    background-color: #d0fff2cc !important;
     filter: none;
+    outline: 1px solid #00808073;
   }
 
   filter: ${props => (props.closed || !props.active ? `grayscale(1)` : `none`)};
@@ -38,7 +39,7 @@ const StyledListItem = styled(ListItem)<{
   transform: ${props =>
     props.closed ? 'none' : props.closing ? `translateX(-100vw)` : 'none'};
   min-height: 60px;
-  background-color: ${props => (props.closed ? '#919191' : 'inherit')};
+  background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
 `
 
 export const InstrumentPositionListItem: React.FC<{
