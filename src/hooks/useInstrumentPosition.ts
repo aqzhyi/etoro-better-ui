@@ -6,13 +6,21 @@ export const useInstrumentPosition = (
   positionId?: InstrumentPosition['PositionID'],
 ) => {
   const [closing, setClosing] = useState(false)
-  const [closed, setClosed] = useState(false)
+  const [closed, setClosed] = useState<boolean>(false)
+  const [
+    historyPosition,
+    setHistoryPosition,
+  ] = useState<InstrumentPosition | null>(null)
 
   const getPostionById = (positionId?: InstrumentPosition['PositionID']) => {
     // clone deep to avoid crash from angular two way data binding cause inside react application
     const _position = cloneDeep(
       angularAPI.$rootScope?.session.user.portfolio.getPositionById(positionId),
-    ) as InstrumentPosition
+    )
+
+    if (_position) {
+      setHistoryPosition(_position)
+    }
 
     if (!_position) {
       setClosed(true)
@@ -67,8 +75,7 @@ export const useInstrumentPosition = (
 
   return {
     closed,
-    setClosed,
-    position,
+    position: position || historyPosition,
     closing,
     setClosing,
     update,

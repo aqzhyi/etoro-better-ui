@@ -28,24 +28,29 @@ const StyledListItem = styled(ListItem)<{
     filter: none;
   }
 
-  filter: ${props => (props.active ? `none` : `grayscale(1)`)};
-  outline: ${props => (props.closing ? `1px solid #bebebe` : 'none')};
-  transition-duration: ${props => (props.closing ? `5s` : 'none')};
-  opacity: ${props => (props.closing ? `0.85` : 'auto')};
-  pointer-events: ${props => (props.closing ? `none` : 'auto')};
-  transform: ${props => (props.closing ? `translateX(-100vw)` : 'none')};
+  filter: ${props => (props.closed || !props.active ? `grayscale(1)` : `none`)};
+  outline: ${props =>
+    props.closed || props.closing ? `1px solid #bebebe` : 'none'};
+  transition-duration: ${props =>
+    props.closed || props.closing ? '5s' : 'none'};
+  opacity: ${props => (props.closed || props.closing ? `0.85` : 'auto')};
+  pointer-events: ${props => (props.closed || props.closing ? `none` : 'auto')};
+  transform: ${props =>
+    props.closed ? 'none' : props.closing ? `translateX(-100vw)` : 'none'};
   min-height: 60px;
-
-  background-color: ${props =>
-    props.closed ? '#dbdbdbcc !important' : 'inherit'};
+  background-color: ${props => (props.closed ? '#919191' : 'inherit')};
 `
 
 export const InstrumentPositionListItem: React.FC<{
   positionId?: InstrumentPosition['PositionID']
 }> = props => {
-  const { closing, setClosing, position, update } = useInstrumentPosition(
-    props.positionId,
-  )
+  const {
+    closed,
+    closing,
+    setClosing,
+    position,
+    update,
+  } = useInstrumentPosition(props.positionId)
   const updateRate = useAppSelector(
     state => state.settings.tradeDashboardRefreshRate,
   )
@@ -66,14 +71,13 @@ export const InstrumentPositionListItem: React.FC<{
     setClosing(false)
   }, (props.positionId && !closed && 5000) || null)
 
-  if (!position || closed) {
-    return (
-      <StyledListItem closed={closed ? 'true' : undefined}></StyledListItem>
-    )
+  if (!position) {
+    return <StyledListItem></StyledListItem>
   }
 
   return (
     <StyledListItem
+      closed={closed ? 'true' : undefined}
       closing={closing ? 'true' : undefined}
       active={position.Instrument.IsActive ? 'true' : undefined}
     >
@@ -160,7 +164,11 @@ export const InstrumentPositionListItem: React.FC<{
             position.close()
           }}
         >
-          <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>
+          {closed ? (
+            <PrimaryTrans i18nKey='tradeDashboard_positionClosed'></PrimaryTrans>
+          ) : (
+            <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>
+          )}
         </Button>
       </ListItemSecondaryAction>
     </StyledListItem>

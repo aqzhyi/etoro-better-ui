@@ -45,6 +45,7 @@
   "tradeDashboard_itSell": "賣出",
   "tradeDashboard_openDate": "開倉時間",
   "tradeDashboard_openRate": "開倉點位",
+  "tradeDashboard_positionClosed": "已平倉",
   "tradeDashboard_profit": "收益, 趴數",
   "tradeDashboard_rates": "相差量 @ 當前點位 (跳動量)",
   "tradeDashboard_refreshRate_brief": "倉位情報的重新渲染速度；越低的數值，代表越快的刷新速率，但同時也会消耗更多的CPU使用率。",

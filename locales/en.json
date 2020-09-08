@@ -45,6 +45,7 @@
   "tradeDashboard_itSell": "Sell",
   "tradeDashboard_openDate": "Open At",
   "tradeDashboard_openRate": "Open Rate",
+  "tradeDashboard_positionClosed": "Closed",
   "tradeDashboard_profit": "Profits, as Percents",
   "tradeDashboard_rates": "Diff @ Current (Tick)",
   "tradeDashboard_refreshRate_brief": "The re-render rate of goods positions, The low setup meaning faster re-render, please note also will consume more CPU usage.",
