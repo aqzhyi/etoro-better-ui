@@ -69,29 +69,6 @@ export const UniversalControlKeyObserver = () => {
     [hotkeySettings],
   )
 
-  /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
-  useKey(
-    'Tab',
-    event => {
-      const targetElement = $('.execution-head-buttons')
-
-      if (isInputUsesFocusing()) return
-      if (!targetElement.length) return
-      if (!hotkeySettings.dialogBuySellSwitch) {
-        notifyFunctionShouldEnable()
-        return
-      }
-
-      debugAPI.keyboard.extend('TAB')(event.key)
-
-      gaAPI.sendEvent(GaEventId.keyboard_switchBuySell)
-      targetElement.find('.execution-head-button:not(.active)').trigger('click')
-      targetElement.find('.execution-head-button.active').trigger('focus')
-    },
-    {},
-    [hotkeySettings],
-  )
-
   /** 使 ESC 能夠關閉任意 Dialog */
   useKey(
     'Escape',

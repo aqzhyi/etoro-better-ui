@@ -6,6 +6,7 @@ import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
+import { KeyProbe } from '~/components/KeyProbe'
 
 export const SdiebarTradeDashboardLink: React.FC = props => {
   const dispatch = useAppDispatch()
@@ -28,7 +29,17 @@ export const SdiebarTradeDashboardLink: React.FC = props => {
         }}
       >
         <PrimaryTrans i18nKey='link_dashboard_text'></PrimaryTrans>
-        <Kbd>D</Kbd>
+        <KeyProbe
+          filter='D'
+          command={() => {
+            gaAPI.sendEvent(GaEventId.sidebar_dashboardLinkClick)
+            dispatch(
+              setBetterEtoroUIConfig({
+                showTradeDashboard: true,
+              }),
+            )
+          }}
+        ></KeyProbe>
       </SidebarMenuItem>
     </React.Fragment>
   )
