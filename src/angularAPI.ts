@@ -149,6 +149,9 @@ interface EtoroRootScope extends IRootScopeService {
     locale: 'en-gb' | 'zh-tw' | 'zh-cn'
     accountMode: 'Demo' | 'Real'
     user: {
+      portfolioFactory: {
+        isTradingConnectionAvailable: boolean
+      }
       portfolio: {
         api: '/sapi/trade-demo' | '/sapi/trade-real'
         /** 可用餘額 */
