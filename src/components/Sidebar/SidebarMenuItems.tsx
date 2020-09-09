@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
 import packageJSON from '../../../package.json'
+import { KeyProbe } from '~/components/KeyProbe'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -53,6 +54,13 @@ export const SidebarMenuItems = () => {
         }}
       >
         <PrimaryTrans i18nKey='universal_setup_text'></PrimaryTrans>
+        <KeyProbe
+          filter='S'
+          command={() => {
+            dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
+            sendEvent('button_settings_dialog')
+          }}
+        ></KeyProbe>
       </SidebarMenuItem>
       <SidebarMenuItem
         iconName='funds'
