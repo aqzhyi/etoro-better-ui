@@ -21,3 +21,8 @@ interface NodeModule {
     accept?(dep, callback)
   }
 }
+
+declare module '*.svg' {
+  const component: React.FC
+  export default component
+}
