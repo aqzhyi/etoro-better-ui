@@ -50,20 +50,24 @@ export const UniversalControlKeyObserver = () => {
     }
   }, [hotkeySettings])
 
-  /** 交易與倉位控制面版 */
+  /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
   useKey(
-    'D',
+    'Tab',
     event => {
+      const targetElement = $('.execution-head-buttons')
+
       if (isInputUsesFocusing()) return
+      if (!targetElement.length) return
+      if (!hotkeySettings.dialogBuySellSwitch) {
+        notifyFunctionShouldEnable()
+        return
+      }
 
-      debugAPI.keyboard.extend('D')(event.key)
+      debugAPI.keyboard.extend('TAB')(event.key)
 
-      gaAPI.sendEvent(GaEventId.sidebar_dashboardLinkClick)
-      dispatch(
-        setBetterEtoroUIConfig({
-          showTradeDashboard: true,
-        }),
-      )
+      gaAPI.sendEvent(GaEventId.keyboard_switchBuySell)
+      targetElement.find('.execution-head-button:not(.active)').trigger('click')
+      targetElement.find('.execution-head-button.active').trigger('focus')
     },
     {},
     [hotkeySettings],
