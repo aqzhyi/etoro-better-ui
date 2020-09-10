@@ -19,6 +19,7 @@ import {
 } from '~/components/ExecutionDialog/applyRiskAndAmountSaveToMemory'
 import '~/i18n'
 import { angularAPI } from '~/angularAPI'
+import pWaitFor from 'p-wait-for'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -26,23 +27,26 @@ globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
 debugAPI.universal('套件正在努力加載...')
 
 /**
- * 開始運作腳本的時機點是在 etoro 頁面有出現的情況，
- * 因為才能夠開始將「本腳本」部件透過 jQuery 掛載上去
+ * Bootstrap the better-etoro-ui when the angular scope is loaded
  */
-$('body').on('mouseover.bootstrap', '.main-app-view', () => {
-  if (angularAPI.$rootScope?.session.locale) {
-    debugAPI.universal('套件加載完成')
-    $('body').off('mouseover.bootstrap')
+pWaitFor(
+  () =>
+    !!globalThis.document.querySelector('.i-logo') &&
+    !!angularAPI.$rootScope?.session.locale,
+  { interval: 500 },
+)
+  .then(() => {
+    debugAPI.universal('🟢套件啟動完成')
     emitter.emit(Events.ready)
-  }
-})
 
-emitter.once(Events.ready).then(function sendVersionToAnalytics() {
-  gaAPI.sendEvent(
-    GaEventId.universal_bootstrapWithVersion,
-    `version=${packageJSON.version}`,
-  )
-})
+    gaAPI.sendEvent(
+      GaEventId.universal_bootstrapWithVersion,
+      `version=${packageJSON.version}`,
+    )
+  })
+  .catch(() => {
+    debugAPI.universal('🔴套件啟動失敗')
+  })
 
 /**
  * 以事件驅動分別在各頁面中，渲染「本腳本」的各個部件到 etoro 頁面上
