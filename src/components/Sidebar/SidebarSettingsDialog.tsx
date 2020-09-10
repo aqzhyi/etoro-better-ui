@@ -22,12 +22,14 @@ import { PingProbeHiddenSetup } from '~/components/PingProbeHiddenSetup'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { SettingAmountsButton } from '~/components/SettingAmountsButton'
+import { SettingSelectedExchange } from '~/components/SettingSelectedExchange'
 import { UniversalHotkeySettings } from '~/components/UniversalControl/UniversalHotkeySettings'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
 import { getMYR, getNTD } from '~/exchange'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
+import { AttributeFreepik } from '~/Icons/AttributeFreepik'
 import { BetterEtoroUIConfig } from '~/storage'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
@@ -285,9 +287,29 @@ export const SidebarSettingsDialog: React.FC = () => {
                     value < 15 ? (
                       <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
                     ) : (
-                      String(value) + 'ms'
+                      String(value)
                     )
                   }
+                  marks={[
+                    {
+                      label: (
+                        <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
+                      ),
+                      value: 15,
+                    },
+                    {
+                      label: '50ms',
+                      value: 50,
+                    },
+                    {
+                      label: '75ms',
+                      value: 75,
+                    },
+                    {
+                      label: '100ms',
+                      value: 100,
+                    },
+                  ]}
                   step={1}
                   min={-15}
                   max={100}
@@ -342,92 +364,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           </Grid>
 
           <Grid item>
-            <FormControlLabel
-              label={
-                <PrimaryTrans
-                  i18nKey='exchange_usedSetup_brief'
-                  values={{
-                    text: settings.selectedExchange,
-                  }}
-                ></PrimaryTrans>
-              }
-              labelPlacement={'top'}
-              control={
-                <RadioGroup
-                  value={settings.selectedExchange}
-                  onChange={async (event, value) => {
-                    const loading = toast.loading(
-                      <PrimaryTrans i18nKey='universal_doChanging_text'></PrimaryTrans>,
-                      {
-                        position: 'bottom-left',
-                      },
-                    )
-
-                    const youSelected = (value ||
-                      'NTD') as BetterEtoroUIConfig['selectedExchange']
-
-                    gaAPI.sendEvent(
-                      GaEventId.setting_currencyUseSet,
-                      `value=${youSelected}`,
-                    )
-
-                    if (youSelected === 'HIDDEN') {
-                      dispatch(
-                        setBetterEtoroUIConfig({
-                          selectedExchange: youSelected,
-                        }),
-                      )
-                    }
-
-                    if (youSelected === 'NTD') {
-                      dispatch(
-                        setBetterEtoroUIConfig({
-                          NTD: await getNTD(),
-                          selectedExchange: youSelected,
-                        }),
-                      )
-                    }
-
-                    if (youSelected === 'MYR') {
-                      dispatch(
-                        setBetterEtoroUIConfig({
-                          MYR: await getMYR(),
-                          selectedExchange: youSelected,
-                        }),
-                      )
-                    }
-
-                    toast.success(
-                      <PrimaryTrans
-                        i18nKey='universal_doChanged_text'
-                        values={{
-                          text: youSelected,
-                        }}
-                      ></PrimaryTrans>,
-                      { position: 'bottom-left' },
-                    )
-
-                    loading.hide?.()
-                  }}
-                >
-                  <FormControlLabel
-                    value='NTD'
-                    control={<Radio />}
-                    label='NTD'
-                  />
-                  <FormControlLabel
-                    value='MYR'
-                    control={<Radio />}
-                    label='MYR'
-                  />
-                  <FormControlLabel
-                    value='HIDDEN'
-                    control={<Radio />}
-                    label='HIDDEN'
-                  />
-                </RadioGroup>
-              }
-            ></FormControlLabel>
+            <SettingSelectedExchange />
           </Grid>
 
           <Grid item>
@@ -475,6 +412,10 @@ export const SidebarSettingsDialog: React.FC = () => {
                 ></Switch>
               }
             ></FormControlLabel>
+          </Grid>
+
+          <Grid item>
+            <AttributeFreepik />
           </Grid>
         </Grid>
       </DialogContent>
