@@ -8,7 +8,8 @@
     "build": "parcel build src/etoro.tsx --target browser",
     "test": "jest",
     "auto:changelog": "standard-version",
-    "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0"
+    "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0",
+    "lint:timing": "TIMING=1 eslint ./src"
   },
   "author": "lezi.chen",
   "license": "ISC",
