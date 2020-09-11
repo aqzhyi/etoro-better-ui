@@ -13,13 +13,7 @@ import { useDialogModel } from '~/hooks/useDialogModel'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled'
-
-/**
- * expected error gap
- *
- * `1.5` means 1.5%
- */
-const errorGapInPercents = 1.5
+import { checkInErrorGap } from '~/utils/checkInErrorGap'
 
 export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
   className?: string
@@ -40,29 +34,15 @@ export const ExecutionDialogTakeProfitStopLossControls: React.FC<{
   const [isStopLossFixed, setIsStopLossFixed] = useGetSet(false)
   const [isTakeProfitFixed, setIsTakeProfitFixed] = useGetSet(false)
 
-  /**
-   * `true` means the value should be expected, and it's may in error gap
-   */
-  const checkIsSync = (value?: number, expected?: number) => {
-    if (!value || !expected) {
-      return false
-    }
-
-    /**
-     * `0` means value has no gap
-     *
-     * `10` means value has 10% gap
-     */
-    const gap = Math.abs(1 - value / expected) * 100
-
-    return errorGapInPercents > gap
-  }
-
   const checkIsStopLossSync = () =>
-    checkIsSync(dialog.model?.stopLoss, stopLossShouldBe)
+    checkInErrorGap(dialog.model?.stopLoss, stopLossShouldBe, {
+      errorGapInPercents: 1.5,
+    })
 
   const checkIsTakeProfitSync = () =>
-    checkIsSync(dialog.model?.takeProfit, takeProfitShouldBe)
+    checkInErrorGap(dialog.model?.takeProfit, takeProfitShouldBe, {
+      errorGapInPercents: 1.5,
+    })
 
   useInterval(
     () => {
