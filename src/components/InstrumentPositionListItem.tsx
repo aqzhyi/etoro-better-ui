@@ -4,6 +4,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  makeStyles,
 } from '@material-ui/core'
 import React, { Fragment } from 'react'
 import { useInterval } from 'react-use'
@@ -41,6 +42,12 @@ const StyledListItem = styled(ListItem)<{
   background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
 `
 
+const useStyles = makeStyles({
+  fontSizeLarge: {
+    fontSize: '1rem',
+  },
+})
+
 export const InstrumentPositionListItem: React.FC<{
   positionId?: InstrumentPosition['PositionID']
 }> = props => {
@@ -57,6 +64,8 @@ export const InstrumentPositionListItem: React.FC<{
   const dashboardOpen = useAppSelector(
     state => state.settings.showTradeDashboard,
   )
+
+  const css = useStyles()
 
   useInterval(() => {
     if (!props.positionId || closed) {
@@ -86,6 +95,10 @@ export const InstrumentPositionListItem: React.FC<{
       </ListItemAvatar>
 
       <ListItemText
+        classes={{
+          primary: css.fontSizeLarge,
+          secondary: css.fontSizeLarge,
+        }}
         primary={
           <Fragment>
             ${position.Amount} x{position.Leverage}
@@ -107,6 +120,9 @@ export const InstrumentPositionListItem: React.FC<{
       ></ListItemText>
 
       <ListItemText
+        classes={{
+          primary: css.fontSizeLarge,
+        }}
         primary={
           <Fragment>
             <RateSignalIcon change={position.LastRateChange} />
@@ -140,6 +156,9 @@ export const InstrumentPositionListItem: React.FC<{
       ></ListItemText>
 
       <ListItemText
+        classes={{
+          primary: css.fontSizeLarge,
+        }}
         primary={
           <Fragment>
             <ProfitText
