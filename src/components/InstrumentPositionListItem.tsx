@@ -7,6 +7,7 @@ import {
   makeStyles,
 } from '@material-ui/core'
 import React, { Fragment } from 'react'
+import { useDispatch } from 'react-redux'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { InstrumentPosition } from '~/angularAPI'
@@ -16,6 +17,7 @@ import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { RateSignalIcon } from '~/components/RateSignalIcon'
 import { gaAPI, GaEventId } from '~/gaAPI'
+import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
 import { useInstrumentPosition } from '~/hooks/useInstrumentPosition'
 import { useAppSelector } from '~/store/_store'
 
@@ -35,7 +37,8 @@ const StyledListItem = styled(ListItem)<{
     props.closed || props.closing ? `1px solid #bebebe` : 'none'};
   transition-duration: ${props => (props.closing ? '2s' : 'none')};
   opacity: ${props => (props.closed || props.closing ? `0.85` : 'auto')};
-  pointer-events: ${props => (props.closed || props.closing ? `none` : 'auto')};
+  pointer-events: ${props =>
+    !props.closed && props.closing ? `none` : 'auto'};
   transform: ${props =>
     props.closed ? 'none' : props.closing ? `translateX(-100vw)` : 'none'};
   min-height: 60px;
@@ -51,6 +54,7 @@ const useStyles = makeStyles({
 export const InstrumentPositionListItem: React.FC<{
   positionId?: InstrumentPosition['PositionID']
 }> = props => {
+  const tradeDashboard = useDispatchTradeDashboardOpen()
   const {
     closed,
     closing,
@@ -91,7 +95,18 @@ export const InstrumentPositionListItem: React.FC<{
       active={position.Instrument.IsActive ? 'true' : undefined}
     >
       <ListItemAvatar>
-        <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
+        <a
+          href={
+            closed
+              ? `https://www.etoro.com/markets/${position.Instrument.Name.toLowerCase()}`
+              : `https://www.etoro.com/portfolio/${position.Instrument.Name.toLowerCase()}`
+          }
+          onClick={() => {
+            tradeDashboard.close()
+          }}
+        >
+          <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
+        </a>
       </ListItemAvatar>
 
       <ListItemText
@@ -142,6 +157,13 @@ export const InstrumentPositionListItem: React.FC<{
               profit={position.LastRateChange}
               noDollarSign
             ></ProfitText>
+
+            <span style={{ marginLeft: 4 }}>
+              <Fragment>( </Fragment>
+              {/* up/down rate count with Open Rate */}
+              <InstrumentRateChangeCount position={position} />
+              <Fragment> )</Fragment>
+            </span>
           </Fragment>
         }
       ></ListItemText>
