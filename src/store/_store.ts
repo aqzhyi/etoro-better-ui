@@ -72,8 +72,8 @@ const positions = createReducer<{
         ...state.historyIds,
         ...state.ids,
         ...action.payload,
-      ])
-      state.ids = action.payload
+      ]).sort((a, b) => b - a)
+      state.ids = action.payload.sort((a, b) => b - a)
     }),
 )
 
