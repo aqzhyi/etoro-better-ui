@@ -32,8 +32,7 @@ const StyledListItem = styled(ListItem)<{
   filter: ${props => (props.closed || !props.active ? `grayscale(1)` : `none`)};
   outline: ${props =>
     props.closed || props.closing ? `1px solid #bebebe` : 'none'};
-  transition-duration: ${props =>
-    props.closed || props.closing ? '5s' : 'none'};
+  transition-duration: ${props => (props.closing ? '2s' : 'none')};
   opacity: ${props => (props.closed || props.closing ? `0.85` : 'auto')};
   pointer-events: ${props => (props.closed || props.closing ? `none` : 'auto')};
   transform: ${props =>
