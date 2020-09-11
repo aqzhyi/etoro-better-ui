@@ -1,5 +1,5 @@
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { angularAPI } from '~/angularAPI'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { WatchlistHeader } from '~/components/Watchlist/WatchlistHeader'

@@ -3,7 +3,6 @@ import toast from 'cogo-toast'
 export type BetterEtoroUIConfig = {
   /** Trade Dashboard the positions the rate of refresh profits */
   tradeDashboardRefreshRate: number
-  showTradeDashboard: boolean
   /** 掌聲高聲歡呼之精采程度 */
   inviteExcitingDegree: number | null
   useHotkeys: {
@@ -48,7 +47,6 @@ export type BetterEtoroUIConfig = {
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   tradeDashboardRefreshRate: 2500,
-  showTradeDashboard: false,
   inviteExcitingDegree: null,
   useHotkeys: {},
   intervalCheckingStatus: 15,

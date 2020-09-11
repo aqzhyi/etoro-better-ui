@@ -12,6 +12,7 @@ import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { TradeDashboardRefreshRateSlider } from '~/components/TradeDashboardRefreshRateSlider'
 import { TradingStatusValue } from '~/components/TradingStatusValue'
+import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 
@@ -39,23 +40,15 @@ const StyledTradeDashboard = styled.span<{
 
 export const TradeDashboard: React.FC = props => {
   const historyIds = useAppSelector(state => state.positions.historyIds)
-  const dispatch = useAppDispatch()
-  const isActive = useAppSelector(state => state.settings.showTradeDashboard)
-
-  const closeDashboard = () => {
-    dispatch(
-      setBetterEtoroUIConfig({
-        showTradeDashboard: false,
-      }),
-    )
-  }
+  const isActive = useAppSelector(state => state.display.tradeDashboard)
+  const tradeDashboard = useDispatchTradeDashboardOpen()
 
   useKey('Escape', () => {
     if (angularAPI.executionDialogScope) {
       return
     }
 
-    closeDashboard()
+    tradeDashboard.close()
   })
 
   return (
@@ -91,7 +84,7 @@ export const TradeDashboard: React.FC = props => {
               <Button
                 variant='outlined'
                 onClick={() => {
-                  closeDashboard()
+                  tradeDashboard.close()
                 }}
               >
                 <span>❌</span>

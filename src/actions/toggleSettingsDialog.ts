@@ -1,5 +1,3 @@
 import { createAction } from '@reduxjs/toolkit'
 
-export const toggleSettingsDialog = createAction<boolean>(
-  'toggleSettingsDialog',
-)
+export const toggleSetupDialog = createAction<boolean>('toggleSettingsDialog')

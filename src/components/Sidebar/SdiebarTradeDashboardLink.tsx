@@ -7,24 +7,23 @@ import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
 import { KeyProbe } from '~/components/KeyProbe'
+import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
 
 export const SdiebarTradeDashboardLink: React.FC = props => {
   const dispatch = useAppDispatch()
-  const isActive = useAppSelector(state => state.settings.showTradeDashboard)
+  const tradeDashboardOpen = useAppSelector(
+    state => state.display.tradeDashboard,
+  )
+  const tradeDashboard = useDispatchTradeDashboardOpen()
 
   return (
     <React.Fragment>
       <SidebarMenuItem
         iconName='clubs-ref'
         aProps={{
-          className: (isActive && 'active') || '',
+          className: (tradeDashboardOpen && 'active') || '',
           onClick: () => {
-            gaAPI.sendEvent(GaEventId.sidebar_dashboardLinkClick)
-            dispatch(
-              setBetterEtoroUIConfig({
-                showTradeDashboard: !isActive,
-              }),
-            )
+            tradeDashboard.toggle()
           },
         }}
       >
@@ -32,12 +31,7 @@ export const SdiebarTradeDashboardLink: React.FC = props => {
         <KeyProbe
           filter='D'
           command={() => {
-            gaAPI.sendEvent(GaEventId.sidebar_dashboardLinkClick)
-            dispatch(
-              setBetterEtoroUIConfig({
-                showTradeDashboard: true,
-              }),
-            )
+            tradeDashboard.open()
           }}
         ></KeyProbe>
       </SidebarMenuItem>

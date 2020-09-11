@@ -1,4 +1,4 @@
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
 import { SidebarSettingsDialog } from '~/components/Sidebar/SidebarSettingsDialog'
@@ -48,7 +48,7 @@ export const SidebarMenuItems = () => {
         iconName='settings'
         aProps={{
           onClick: () => {
-            dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
+            dispatch(toggleSetupDialog(!display.setupDialog))
             sendEvent('button_settings_dialog')
           },
         }}
@@ -57,7 +57,7 @@ export const SidebarMenuItems = () => {
         <KeyProbe
           filter='S'
           command={() => {
-            dispatch(toggleSettingsDialog(!display.betterEtoroUISettingsDialog))
+            dispatch(toggleSetupDialog(!display.setupDialog))
             sendEvent('button_settings_dialog')
           }}
         ></KeyProbe>

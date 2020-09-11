@@ -13,7 +13,8 @@ import {
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
 import { fetchPingValue } from '~/actions/setPingValue'
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
+import { toggleTradeDashboard } from '~/actions/toggleTradeDashboard'
 import { betterEtoroUIConfigsMiddleware } from '~/middlewares/betterEtoroUIConfigsMiddleware'
 import { BetterEtoroUIConfig, storage } from '~/storage'
 import { registeredComponents } from '~/utils/registerReactComponent'
@@ -43,11 +44,21 @@ const status = createReducer<{
 )
 
 const display = createReducer<{
-  betterEtoroUISettingsDialog: boolean
-}>({ betterEtoroUISettingsDialog: false }, builder =>
-  builder.addCase(toggleSettingsDialog, (state, action) => {
-    state.betterEtoroUISettingsDialog = action.payload
-  }),
+  setupDialog: boolean
+  tradeDashboard: boolean
+}>(
+  {
+    setupDialog: false,
+    tradeDashboard: false,
+  },
+  builder =>
+    builder
+      .addCase(toggleTradeDashboard, (state, action) => {
+        state.tradeDashboard = action.payload
+      })
+      .addCase(toggleSetupDialog, (state, action) => {
+        state.setupDialog = action.payload
+      }),
 )
 
 const settings = createReducer<BetterEtoroUIConfig>(

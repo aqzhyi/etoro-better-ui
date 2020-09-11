@@ -16,7 +16,7 @@ import i18next from 'i18next'
 import React from 'react'
 import { resetBetterEtoroUIConfig } from '~/actions/resetBetterEtoroUIConfig'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { toggleSettingsDialog } from '~/actions/toggleSettingsDialog'
+import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { PingProbeHiddenSetup } from '~/components/PingProbeHiddenSetup'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
@@ -38,15 +38,13 @@ export const SidebarSettingsDialog: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const settings = useAppSelector(state => state.settings)
-  const dialogOpen = useAppSelector(
-    state => state.display.betterEtoroUISettingsDialog,
-  )
+  const dialogOpen = useAppSelector(state => state.display.setupDialog)
 
   return (
     <Dialog
       maxWidth='md'
       onClose={() => {
-        dispatch(toggleSettingsDialog(false))
+        dispatch(toggleSetupDialog(false))
       }}
       open={dialogOpen}
     >
