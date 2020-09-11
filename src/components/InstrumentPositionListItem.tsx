@@ -149,8 +149,20 @@ export const InstrumentPositionListItem: React.FC<{
       <ListItemText
         primary={
           <Fragment>
-            {/* up/down rate count with Open Rate */}
-            <InstrumentRateChangeCount position={position} />
+            <ProfitText
+              profit={position.StopLossPercent}
+              suffix='%'
+              noDollarSign
+            ></ProfitText>
+          </Fragment>
+        }
+        secondary={
+          <Fragment>
+            <ProfitText
+              profit={position.TakeProfitPercent}
+              suffix='%'
+              noDollarSign
+            ></ProfitText>
           </Fragment>
         }
       ></ListItemText>
