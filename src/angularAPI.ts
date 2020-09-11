@@ -320,13 +320,23 @@ export const angularAPI = {
     /** The inner content of dialog that the border whose user can see */
     dialogInnerContent: '#open-position-view',
     /** The Button to switch tab to the panel of stop-loss input */
-    dialogStopLossSwitchTab: '[name="stopLoss"] > a',
-    dialogStopLossInfiniteButton:
-      '[data-etoro-automation-id="execution-set-no-stop-loss-link"]',
+    dialogStopLossSwitchTab: `
+      [name="stopLoss"] > a
+      ,[data-etoro-automation-id="edit-position-tab-title-stop-loss-container"] > a
+    `,
+    dialogStopLossInfiniteButton: `
+      [data-etoro-automation-id="execution-set-no-stop-loss-link"]
+      ,[data-etoro-automation-id="edit-position-pop-up-no-stop-loss"]
+    `,
     /** The Button to switch tab to the panel of take-profit input */
-    dialogTakeProfitSwitchTab: '[name="takeProfit"] > a',
-    dialogTakeProfitInfiniteButton:
-      '[data-etoro-automation-id="execution-set-no-take-profit-link"]',
+    dialogTakeProfitSwitchTab: `
+      [name="takeProfit"] > a
+      ,[data-etoro-automation-id="edit-position-tab-title-take-profit-container"] > a
+    `,
+    dialogTakeProfitInfiniteButton: `
+      [data-etoro-automation-id="execution-set-no-take-profit-link"]
+      ,[data-etoro-automation-id="edit-position-pop-up-no-take-profit"]
+    `,
   } as const,
   getDialogLever: () => {
     return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
