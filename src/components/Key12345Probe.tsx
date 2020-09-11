@@ -56,8 +56,9 @@ for (const numbericKey of [1, 2, 3, 4, 5]) {
       const href = globalThis.location.href
       const onMarketPage = href.includes('markets')
       const onWatchlistPage = href.includes('watchlists')
+      const onInstrumentPortfolio = href.includes('portfolio/')
 
-      return !onMarketPage && !onWatchlistPage
+      return !onMarketPage && !onWatchlistPage && !onInstrumentPortfolio
     },
   })
 }
