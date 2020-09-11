@@ -35,6 +35,8 @@
   "profits_invested_brief": "Display <notable>invested</notable> only. (people and instruments)",
   "profits_invested_text": "Invested",
   "profits_selectedObjective_brief": "Total Profits on Target Positions @ {{name}}",
+  "profits_toggleSL_text": "Toggle SL",
+  "profits_toggleTP_text": "toggle TP",
   "setting_resetAll_text": "Reset All",
   "status_inferringDelay_text": "infer Delay <notable>{{value}}</notable>ms",
   "tradeDashboard_action": "Actions",

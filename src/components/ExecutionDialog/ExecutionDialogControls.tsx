@@ -11,6 +11,7 @@ import { ExecutionDialogAmountTradeButtonsGrid } from '~/components/ExecutionDia
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { ExecutionDialogFixedStopLossTakeProfitToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedStopLossTakeProfitToggle'
 import { ExecutionDialogLeverTradeButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogLeverTradeButtonsGrid'
+import { ExecutionDialogSLTPButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogSLTPButtonsGrid'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
@@ -112,6 +113,10 @@ export const ExecutionDialogControls: React.FC<{
         </Grid>
 
         <Grid item>
+          <ExecutionDialogSLTPButtonsGrid />
+        </Grid>
+
+        <Grid item>
           <ExecutionDialogLeverTradeButtonsGrid />
         </Grid>
 
@@ -151,7 +156,7 @@ const StyledFixedTipOnAmountInput = styled.span`
 const StyledContainer = styled.span`
   @media (min-width: 741px) {
     display: inline-block;
-    width: 110px;
+    width: 124px;
     margin: 0 auto;
     margin-bottom: 16px;
     text-align: center;
@@ -159,8 +164,8 @@ const StyledContainer = styled.span`
     /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
     z-index: 1;
     position: absolute;
-    margin-left: -110px;
-    margin-top: -60px;
+    margin-left: -124px;
+    margin-top: -100px;
     background-color: #fff;
     outline: 1px solid #000;
     padding: 4px;

@@ -1,4 +1,5 @@
 import type { IRootScopeService, ILocationService } from 'angular'
+import pWaitFor from 'p-wait-for'
 import { AnyFunction } from 'tsdef'
 import { gaAPI } from '~/gaAPI'
 
@@ -252,7 +253,7 @@ export interface ExecutionDialogScope extends IRootScopeService {
       dollar: number
       dollarView: number
       inDollarMode: boolean
-      isLimitLessReachable
+      isLimitLessReachable: boolean
       isNoTakeProfitSet: boolean
       percentAmount: number
     }
@@ -320,8 +321,12 @@ export const angularAPI = {
     dialogInnerContent: '#open-position-view',
     /** The Button to switch tab to the panel of stop-loss input */
     dialogStopLossSwitchTab: '[name="stopLoss"] > a',
+    dialogStopLossInfiniteButton:
+      '[data-etoro-automation-id="execution-set-no-stop-loss-link"]',
     /** The Button to switch tab to the panel of take-profit input */
     dialogTakeProfitSwitchTab: '[name="takeProfit"] > a',
+    dialogTakeProfitInfiniteButton:
+      '[data-etoro-automation-id="execution-set-no-take-profit-link"]',
   } as const,
   getDialogLever: () => {
     return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
@@ -393,6 +398,14 @@ export const angularAPI = {
     })
 
     dialogScope?.$apply()
+  },
+  toggleDialogTakeProfitInfinite: () => {
+    $(angularAPI.selectors.dialogTakeProfitSwitchTab).trigger('click')
+    $(angularAPI.selectors.dialogTakeProfitInfiniteButton).trigger('click')
+  },
+  toggleDialogStopLossInfinite: () => {
+    $(angularAPI.selectors.dialogStopLossSwitchTab).trigger('click')
+    $(angularAPI.selectors.dialogStopLossInfiniteButton).trigger('click')
   },
   setDialogTakeProfit: (value: number) => {
     const dialogScope = angularAPI.executionDialogScope
