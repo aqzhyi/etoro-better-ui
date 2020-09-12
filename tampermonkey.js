@@ -12,7 +12,7 @@
 // @name:en         eToro Better UI
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.33.0
+// @version         0.34.0
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
@@ -46,8 +46,8 @@
 // 如果你想切換版本的使用，可以參考下面這一行程式碼
 // If you are looking for another version, please change the word to the your target
 //
-// 當前以下版本可供切換：'latest' | 'nightly' | 'dev' | '0.33' | '0.32' | '0.31', etc
-// target version available value are: 'latest' | 'nightly' | 'dev' | '0.33' | '0.32' | '0.31', etc
+// 當前以下版本可供切換：'latest' | 'beta' | 'dev' | '0.33' | '0.32' | '0.31', etc
+// target version available value are: 'latest' | 'beta' | 'dev' | '0.33' | '0.32' | '0.31', etc
 //
 /** @type{version} */
 const version = 'latest'
@@ -55,7 +55,7 @@ const version = 'latest'
 // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
 
 try {
-  const url = getBundleUrl(version)
+  const url = getBuildByVersion(version)
 
   console.info('better-ui: loading...')
 
@@ -79,7 +79,7 @@ try {
   }
 }
 
-function getBundleUrl(
+function getBuildByVersion(
   /**
     @type{version}
     */
@@ -91,9 +91,9 @@ function getBundleUrl(
     }
   */
   const builds = {
-    beta: { hash: 'master', filename: 'etoro' },
-    nightly: { hash: 'master', filename: 'etoro' },
-    latest: { hash: 'v0.33.0-20200911', filename: 'etoro' },
+    beta: { hash: 'v0.34.0-20200912', filename: 'etoro' },
+    latest: { hash: 'v0.34.0-20200912', filename: 'etoro' },
+    0.34: { hash: 'v0.34.0-20200912', filename: 'etoro' },
     0.33: { hash: 'v0.33.0-20200911', filename: 'etoro' },
     0.32: { hash: 'v0.32.4-20200907', filename: 'etoro' },
     0.31: { hash: 'v0.31.0-20200902', filename: 'etoro' },
@@ -114,8 +114,7 @@ function getBundleUrl(
 
   const url = builds[targetVersion].hash.startsWith('http')
     ? builds[targetVersion].hash
-    : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/dist/etoro.js` +
-      `${targetVersion === 'nightly' ? `?time=${new Date().getTime()}` : ''}`
+    : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/dist/etoro.js`
 
   return url
 }
@@ -138,5 +137,5 @@ function addStylesheetTag(
 /* global globalThis */
 
 /**
-  @typedef { | 'latest' | 'beta' | 'nightly' | 'dev' | '0.33' | '0.32' | '0.31' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
+  @typedef { | 'latest' | 'beta' | 'dev' | '0.34' | '0.33' | '0.32' | '0.31' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
  */
