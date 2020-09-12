@@ -40,7 +40,11 @@ const StyledListItem = styled(ListItem)<{
   pointer-events: ${props =>
     !props.closed && props.closing ? `none` : 'auto'};
   transform: ${props =>
-    props.closed ? 'none' : props.closing ? `translateX(-100vw)` : 'none'};
+    props.closed
+      ? 'none'
+      : props.closing
+      ? `rotateX(360deg) matrix(1, -0.05, 0, 1, 0, 1)`
+      : 'none'};
   min-height: 60px;
   background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
 `
