@@ -69,8 +69,9 @@ export const InstrumentPositionListItem: React.FC<{
 
   const css = useStyles()
 
+  // tracing the opening market
   useInterval(() => {
-    if (!props.positionId || closed) {
+    if (!props.positionId || closed || !position?.Instrument.IsActive) {
       return
     }
 

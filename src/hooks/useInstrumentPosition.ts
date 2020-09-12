@@ -19,6 +19,8 @@ export const useInstrumentPosition = (
     )
 
     if (_position) {
+      setClosing(false)
+      setClosed(false)
       setHistoryPosition(_position)
     }
 
@@ -68,7 +70,7 @@ export const useInstrumentPosition = (
   const [position, setPosition] = useState(_position)
 
   const update = () => {
-    if (_position?.Instrument.IsActive) {
+    if (_position?.PositionID) {
       setPosition(getPostionById(_position.PositionID))
     }
   }
