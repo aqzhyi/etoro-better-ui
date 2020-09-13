@@ -1,5 +1,5 @@
 import { Button, Grid, Hidden, TextField } from '@material-ui/core'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useDebounce, useMount } from 'react-use'
 import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
@@ -18,7 +18,7 @@ export const WatchlistHeader: React.FC = () => {
     state => state.settings.showInvested,
   )
   const [filterText, filterTextSet] = React.useState<string | undefined>('')
-  const searchBoxRef = React.createRef<HTMLInputElement>()
+  const searchBoxRef = useRef<HTMLInputElement>()
   const hotkeyEnabled = useAppSelector(
     state => state.settings.useHotkeys.watchlistFilter,
   )
