@@ -3,6 +3,7 @@ import React from 'react'
 import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { gaAPI, GaEventId } from '~/gaAPI'
 
 export const ExecutionDialogSLTPButtonsGrid: React.FC<any> = props => {
   return (
@@ -12,6 +13,7 @@ export const ExecutionDialogSLTPButtonsGrid: React.FC<any> = props => {
           variant='outlined'
           onClick={() => {
             angularAPI.toggleDialogStopLossInfinite()
+            gaAPI.sendEvent(GaEventId.fn_SLModeClick)
           }}
         >
           <PrimaryTrans i18nKey='profits_toggleSL_text'></PrimaryTrans>
@@ -19,6 +21,7 @@ export const ExecutionDialogSLTPButtonsGrid: React.FC<any> = props => {
             filter='Q'
             command={() => {
               angularAPI.toggleDialogStopLossInfinite()
+              gaAPI.sendEvent(GaEventId.fn_SLModeClick)
             }}
           ></KeyProbe>
         </Button>
@@ -29,6 +32,7 @@ export const ExecutionDialogSLTPButtonsGrid: React.FC<any> = props => {
           variant='outlined'
           onClick={() => {
             angularAPI.toggleDialogTakeProfitInfinite()
+            gaAPI.sendEvent(GaEventId.fn_TPModeClick)
           }}
         >
           <PrimaryTrans i18nKey='profits_toggleTP_text'></PrimaryTrans>
@@ -36,6 +40,7 @@ export const ExecutionDialogSLTPButtonsGrid: React.FC<any> = props => {
             filter='E'
             command={() => {
               angularAPI.toggleDialogTakeProfitInfinite()
+              gaAPI.sendEvent(GaEventId.fn_TPModeClick)
             }}
           ></KeyProbe>
         </Button>

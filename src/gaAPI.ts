@@ -7,7 +7,10 @@ import { angularAPI } from '~/angularAPI'
  * e.g. {category}_{event}
  */
 export enum GaEventId {
+  fn_SLModeClick,
+  fn_TPModeClick,
   tradeDashboard_closePositionClick,
+  tradeDashboard_instrumentLinkClick,
   universal_bootstrapWithVersion,
   sidebar_extensionMenuItemClick,
   sidebar_pendingOrdersLinkClick,

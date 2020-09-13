@@ -106,6 +106,7 @@ export const InstrumentPositionListItem: React.FC<{
           }
           onClick={() => {
             tradeDashboard.close()
+            gaAPI.sendEvent(GaEventId.tradeDashboard_instrumentLinkClick)
           }}
         >
           <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
