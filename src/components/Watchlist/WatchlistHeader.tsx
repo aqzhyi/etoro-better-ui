@@ -74,6 +74,7 @@ export const WatchlistHeader: React.FC = () => {
               endAdornment: (
                 <KeyProbe
                   filter='F'
+                  event='keyup'
                   command={ownProps => {
                     if (!hotkeyEnabled) return
                     if (!searchBoxRef.current) return

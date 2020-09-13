@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import React, { useRef, useState } from 'react'
 import { useKey, useUpdateEffect } from 'react-use'
+import { UseKeyOptions } from 'react-use/lib/useKey'
 import { Kbd } from '~/components/Kbd'
 import { gaAPI, GaEventId } from '~/gaAPI'
 
@@ -10,6 +11,7 @@ export const useCSSKeyProbe = makeStyles({})
 
 export const KeyProbe: React.FC<{
   filter: string
+  event?: UseKeyOptions['event']
   command(props: {
     /** If `null` means handling as global hotkey */
     keyTarget: JQuery<Element> | null
@@ -52,7 +54,7 @@ export const KeyProbe: React.FC<{
       setPressing(true)
     },
     {
-      event: 'keydown',
+      event: props.event || 'keydown',
     },
     [props.filter, selfRef],
   )
