@@ -58,7 +58,10 @@ export const WatchlistHeader: React.FC = () => {
 
       <Grid item>
         <PrimaryTooltip
-          tooltipProps={{ placement: 'bottom' }}
+          tooltipProps={{
+            placement: 'bottom',
+            disableFocusListener: true,
+          }}
           title={<PrimaryTrans i18nKey='filterText_input_brief'></PrimaryTrans>}
         >
           <TextField
