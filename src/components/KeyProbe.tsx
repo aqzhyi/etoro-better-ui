@@ -9,6 +9,11 @@ export const KeyProbeBindingTarget = 'data-etoro-better-ui-Keyprobe-target'
 
 export const useCSSKeyProbe = makeStyles({})
 
+/**
+ * Display a kbd element to showing the hotkey which has probing on.
+ *
+ * metaKey and shiftKey is not includes.
+ */
 export const KeyProbe: React.FC<{
   filter: string
   event?: UseKeyOptions['event']
@@ -34,7 +39,11 @@ export const KeyProbe: React.FC<{
 
   /** Key handler */
   useKey(
-    event => event.key.toUpperCase() === props.filter.toUpperCase(),
+    event => {
+      if (event.metaKey) return false
+      if (event.shiftKey) return false
+      return event.key.toUpperCase() === props.filter.toUpperCase()
+    },
     () => {
       const isAnyInputFocus =
         globalThis.document.activeElement?.nodeName.toUpperCase() === 'INPUT'
