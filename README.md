@@ -19,7 +19,9 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 > requirement: [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
 
-## Real Trading Preview
+## Trading Preview
+
+[![image loading...](./NativeTradeDialog.jpg)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
 [![image loading...](https://github.com/hilezir/hilezir/raw/master/trade-dashboard-preview.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
