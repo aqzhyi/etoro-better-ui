@@ -31,9 +31,7 @@ function _applyEventsObservers() {
    * On Execution-Dialog closed
    */
   angularAPI.$rootScope?.$watch(
-    () => {
-      return angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
-    },
+    () => angularAPI.isDialogOpen,
     (newValue, oldValue) => {
       if (newValue !== oldValue && newValue === false) {
         debugAPI.angular.extend('isDialogOpen')(newValue)
@@ -79,8 +77,7 @@ function _applyEventsObservers() {
     'mouseover',
     '.uidialog-content',
     throttle(event => {
-      const isDialogOpen =
-        angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
+      const isDialogOpen = angularAPI.isDialogOpen
 
       if (!isDialogOpen) {
         emitter.emit(Events.onDialogNotFound)

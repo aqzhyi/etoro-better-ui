@@ -83,8 +83,7 @@ export const WatchlistHeader: React.FC = () => {
                     if (ownProps.keyTarget) return
 
                     // do nothing if target is handling by used in trade dialog
-                    if (angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen)
-                      return
+                    if (angularAPI.isDialogOpen) return
 
                     const targetElement = $(searchBoxRef.current)
 

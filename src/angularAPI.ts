@@ -294,6 +294,7 @@ export const angularAPI = {
       | undefined
   },
   selectors: {
+    dialogAmountTitleSection: `[data-etoro-automation-id="execution-amount-mode-left-title"]`,
     dialogAmountInputSection:
       '[data-etoro-automation-id="execution-amount-input-section"]',
     dialogAmountInput:
@@ -338,6 +339,9 @@ export const angularAPI = {
       ,[data-etoro-automation-id="edit-position-pop-up-no-take-profit"]
     `,
   } as const,
+  get isDialogOpen() {
+    return angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
+  },
   getDialogLever: () => {
     return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
   },

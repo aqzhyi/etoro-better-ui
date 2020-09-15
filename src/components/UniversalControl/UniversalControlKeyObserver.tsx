@@ -103,7 +103,7 @@ export const UniversalControlKeyObserver = () => {
 
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
-      if (!angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen) return
+      if (!angularAPI.isDialogOpen) return
       if (!hotkeySettings.dialogOpenTrade) {
         notifyFunctionShouldEnable()
         return
