@@ -9,7 +9,7 @@ import React from 'react'
 import { KeyProbe } from '~/components/KeyProbe'
 import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
 
-export const SdiebarTradeDashboardLink: React.FC = props => {
+export const SidebarTradeDashboardLink: React.FC = props => {
   const dispatch = useAppDispatch()
   const tradeDashboardOpen = useAppSelector(
     state => state.display.tradeDashboard,
@@ -40,8 +40,8 @@ export const SdiebarTradeDashboardLink: React.FC = props => {
 }
 
 registerReactComponent({
-  component: <SdiebarTradeDashboardLink></SdiebarTradeDashboardLink>,
-  containerId: SdiebarTradeDashboardLink.name,
+  component: <SidebarTradeDashboardLink></SidebarTradeDashboardLink>,
+  containerId: SidebarTradeDashboardLink.name,
   containerConstructor: container => {
     $(container).insertBefore($('.i-menu-link[href^="/watchlists"]'))
   },
