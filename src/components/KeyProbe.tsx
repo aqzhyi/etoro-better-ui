@@ -45,8 +45,9 @@ export const KeyProbe: React.FC<{
       return event.key.toUpperCase() === props.filter.toUpperCase()
     },
     () => {
-      const isAnyInputFocus =
-        globalThis.document.activeElement?.nodeName.toUpperCase() === 'INPUT'
+      const isAnyInputFocus = ['INPUT', 'TEXTAREA'].includes(
+        globalThis.document.activeElement?.nodeName.toUpperCase() as string,
+      )
 
       if (isAnyInputFocus) return
 
