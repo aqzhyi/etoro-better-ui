@@ -37,6 +37,7 @@
   "profits_selectedObjective_brief": "Total Profits on Target Positions @ {{name}}",
   "profits_toggleSL_text": "Toggle SL",
   "profits_toggleTP_text": "toggle TP",
+  "setting_demoMode_brief": "Blur your etoro ID and balance amount, useful if you want to go to live stream or demo to somebody.",
   "setting_resetAll_text": "Reset All",
   "status_inferringDelay_text": "infer Delay <notable>{{value}}</notable>ms",
   "tradeDashboard_SLTP": "(Top)SL% (Bottom)TP%",

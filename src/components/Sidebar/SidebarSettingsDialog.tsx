@@ -23,6 +23,7 @@ import { PingProbeHiddenSetup } from '~/components/PingProbeHiddenSetup'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { SettingAmountsButton } from '~/components/SettingAmountsButton'
+import { SettingDemoMode } from '~/components/SettingDemoMode'
 import { SettingSelectedExchange } from '~/components/SettingSelectedExchange'
 import { UniversalHotkeySettings } from '~/components/UniversalControl/UniversalHotkeySettings'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
@@ -326,6 +327,17 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Grid item>
             {/* <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans> */}
             Others
+          </Grid>
+
+          <Grid container item>
+            <Grid item>
+              <SettingDemoMode />
+            </Grid>
+            <Grid item>
+              <FormLabel>
+                <PrimaryTrans i18nKey='setting_demoMode_brief'></PrimaryTrans>
+              </FormLabel>
+            </Grid>
           </Grid>
 
           <Grid item>

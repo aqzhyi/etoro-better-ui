@@ -1,6 +1,8 @@
 import toast from 'cogo-toast'
 
 export type BetterEtoroUIConfig = {
+  /** if you want to show your portfolio to somebody, but not your account name */
+  demoMode: boolean
   /** Trade Dashboard the positions the rate of refresh profits */
   tradeDashboardRefreshRate: number
   /** 掌聲高聲歡呼之精采程度 */
@@ -45,6 +47,7 @@ export type BetterEtoroUIConfig = {
 }
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
+  demoMode: false,
   tradeDashboardRefreshRate: 2500,
   inviteExcitingDegree: null,
   useHotkeys: {},

@@ -19,6 +19,7 @@ import {
 import '~/i18n'
 import { angularAPI } from '~/angularAPI'
 import pWaitFor from 'p-wait-for'
+import { storage } from '~/storage'
 
 type $ = JQueryStatic
 globalThis.localStorage.setItem('debug', `${debugAPI.log.namespace}:*`)
@@ -202,3 +203,28 @@ emitter.once(Events.ready).then(function constructCSS() {
     }
   `)
 })
+
+/** demo mode, should controls by setting of etoro-better-ui */
+if (storage.findConfig().demoMode) {
+  $('body').addClass('etoro-better-ui--demo-mode')
+} else {
+  $('body').removeClass('etoro-better-ui--demo-mode')
+}
+
+GM.addStyle(`
+  body.etoro-better-ui--demo-mode .i-sidebar-user-avatar {
+    filter: blur(10px);
+  }
+
+  body.etoro-better-ui--demo-mode .i-menu-user-username {
+    filter: blur(10px);
+  }
+
+  body.etoro-better-ui--demo-mode .trading-verified-line {
+    filter: blur(10px);
+  }
+
+  body.etoro-better-ui--demo-mode et-account-balance {
+    filter: blur(10px);
+  }
+`)
