@@ -212,19 +212,15 @@ if (storage.findConfig().demoMode) {
 }
 
 GM.addStyle(`
-  body.etoro-better-ui--demo-mode .i-sidebar-user-avatar {
-    filter: blur(10px);
-  }
-
-  body.etoro-better-ui--demo-mode .i-menu-user-username {
-    filter: blur(10px);
-  }
-
-  body.etoro-better-ui--demo-mode .trading-verified-line {
-    filter: blur(10px);
-  }
-
-  body.etoro-better-ui--demo-mode et-account-balance {
+  body.etoro-better-ui--demo-mode #ExecutionDialogStatusInfo
+  ,body.etoro-better-ui--demo-mode .i-menu-user-username
+  ,body.etoro-better-ui--demo-mode .i-portfolio-table-hat-cell-value
+  ,body.etoro-better-ui--demo-mode .trading-verified-line
+  ,body.etoro-better-ui--demo-mode et-account-balance
+  ,body.etoro-better-ui--demo-mode .i-sidebar-user-avatar
+  ,body.etoro-better-ui--demo-mode et-deposit-billing-details > div
+  ,body.etoro-better-ui--demo-mode .withdraw-amount
+  {
     filter: blur(10px);
   }
 `)
