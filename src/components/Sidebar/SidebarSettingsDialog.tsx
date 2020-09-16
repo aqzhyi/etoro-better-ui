@@ -267,7 +267,7 @@ export const SidebarSettingsDialog: React.FC = () => {
               labelPlacement='top'
               control={
                 <Slider
-                  defaultValue={settings.inviteExcitingDegree ?? 0}
+                  defaultValue={settings.tradeDialogPriceRenderRate ?? 0}
                   valueLabelDisplay='auto'
                   valueLabelFormat={value =>
                     value < 15 ? (
@@ -295,10 +295,14 @@ export const SidebarSettingsDialog: React.FC = () => {
                       label: '100ms',
                       value: 100,
                     },
+                    {
+                      label: '500ms',
+                      value: 500,
+                    },
                   ]}
                   step={1}
                   min={-15}
-                  max={100}
+                  max={500}
                   onChangeCommitted={(event, value) => {
                     if (Array.isArray(value)) {
                       return
@@ -311,7 +315,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
                     dispatch(
                       setBetterEtoroUIConfig({
-                        inviteExcitingDegree: value < 15 ? null : value,
+                        tradeDialogPriceRenderRate: value < 15 ? null : value,
                       }),
                     )
                   }}

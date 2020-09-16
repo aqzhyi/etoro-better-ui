@@ -6,7 +6,7 @@ import { Slider, FormControlLabel } from '@material-ui/core'
 
 export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
   const dispatch = useAppDispatch()
-  const rate = useAppSelector(state => state.settings.tradeDashboardRefreshRate)
+  const rate = useAppSelector(state => state.settings.tradeDashboardRenderRate)
 
   return (
     <React.Fragment>
@@ -35,7 +35,7 @@ export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
 
               dispatch(
                 setBetterEtoroUIConfig({
-                  tradeDashboardRefreshRate: value,
+                  tradeDashboardRenderRate: value,
                 }),
               )
             }}

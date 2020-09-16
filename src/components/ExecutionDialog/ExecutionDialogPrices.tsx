@@ -23,7 +23,9 @@ const withBlock = (blackName: Blocks) =>
 const ExecutionDialogPrices: React.FC = () => {
   const rate = useRate()
 
-  const degree = useAppSelector(state => state.settings.inviteExcitingDegree)
+  const degree = useAppSelector(
+    state => state.settings.tradeDialogPriceRenderRate,
+  )
 
   const askValue = useMemo(() => {
     if (rate.model?.isLowLeverage) {

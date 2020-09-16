@@ -4,9 +4,8 @@ export type BetterEtoroUIConfig = {
   /** if you want to show your portfolio to somebody, but not your account name */
   demoMode: boolean
   /** Trade Dashboard the positions the rate of refresh profits */
-  tradeDashboardRefreshRate: number
-  /** 掌聲高聲歡呼之精采程度 */
-  inviteExcitingDegree: number | null
+  tradeDashboardRenderRate: number
+  tradeDialogPriceRenderRate: number | null
   useHotkeys: {
     key12345?: boolean
     /** The hotkey to trigger Open Trade */
@@ -38,7 +37,6 @@ export type BetterEtoroUIConfig = {
   executionMacroEnabledInProchart: boolean
   executionMacroEnabled: boolean
   executionAmount: number[]
-  executionLever: number[]
   executionAmountLast: number
   executionLeverLast: number
   selectedExchange: 'NTD' | 'MYR' | 'HIDDEN'
@@ -48,24 +46,30 @@ export type BetterEtoroUIConfig = {
 
 export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   demoMode: false,
-  tradeDashboardRefreshRate: 2500,
-  inviteExcitingDegree: null,
-  useHotkeys: {},
-  intervalCheckingStatus: 15,
+  tradeDashboardRenderRate: 2500,
+  tradeDialogPriceRenderRate: 500,
+  useHotkeys: {
+    key12345: true,
+    dialogBuySellSwitch: 'Tab',
+    dialogClose: 'Esc',
+    /** default to disabled, to avoid users trigger on unexpected */
+    dialogOpenTrade: null,
+    watchlistFilter: 'F',
+  },
+  intervalCheckingStatus: 30,
   googleAnalyticsEnabled: true,
-  stopLossLastPercent: 50,
-  takeProfitLastPercent: 5,
+  stopLossLastPercent: 100,
+  takeProfitLastPercent: 100,
   MYR: { buy: 0, sell: 0 },
   NTD: { buy: 0, sell: 0 },
   listCompactOn: false,
   executionMacroEnabledInProchart: false,
-  executionMacroEnabled: false,
+  executionMacroEnabled: true,
   executionAmount: [50, 100, 200, 300, 500],
-  executionLever: [1, 2, 5, 10, 20],
   executionAmountLast: 200,
   executionLeverLast: 1,
-  selectedExchange: 'HIDDEN',
-  executionUseApplyLast: false,
+  selectedExchange: 'NTD',
+  executionUseApplyLast: true,
   showInvested: false,
 }
 

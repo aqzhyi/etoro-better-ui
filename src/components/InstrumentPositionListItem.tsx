@@ -67,7 +67,7 @@ export const InstrumentPositionListItem: React.FC<{
     update,
   } = useInstrumentPosition(props.positionId)
   const updateRate = useAppSelector(
-    state => state.settings.tradeDashboardRefreshRate,
+    state => state.settings.tradeDashboardRenderRate,
   )
   const dashboardOpen = useAppSelector(state => state.display.tradeDashboard)
 
