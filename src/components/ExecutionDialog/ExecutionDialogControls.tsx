@@ -1,20 +1,17 @@
-import { Grid } from '@material-ui/core'
-import LockIcon from '@material-ui/icons/Lock'
-import LockOpenIcon from '@material-ui/icons/LockOpen'
+import { Grid, makeStyles } from '@material-ui/core'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
-import React, { useEffect, useState } from 'react'
-import { useGetSet, useInterval, useTimeoutFn } from 'react-use'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
+import { useGetSet, useInterval } from 'react-use'
 import { angularAPI } from '~/angularAPI'
 import { ExecutionDialogAmountTradeButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogAmountTradeButtonsGrid'
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
-import { ExecutionDialogFixedStopLossTakeProfitToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedStopLossTakeProfitToggle'
 import { ExecutionDialogLeverTradeButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogLeverTradeButtonsGrid'
 import { ExecutionDialogSLTPButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogSLTPButtonsGrid'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { emitter, Events } from '~/emitter'
+import { GM } from '~/GM'
 import { storage } from '~/storage'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
@@ -38,9 +35,15 @@ const showRiskAgreement = throttle(() => {
 export const ExecutionDialogControls: React.FC<{
   className?: string
 }> = props => {
+  const isDialogOpen = useAppSelector(
+    state => state.display.nativeTradeDialogOpen,
+  )
   const macroEnabled = useAppSelector(
     state => state.settings.executionMacroEnabled,
   )
+  const css = useStyled({
+    open: isDialogOpen,
+  })
   const amountLeverFixedEnabled = useAppSelector(
     state => state.settings.executionUseApplyLast,
   )
@@ -57,6 +60,7 @@ export const ExecutionDialogControls: React.FC<{
 
   useInterval(
     () => {
+      if (!isDialogOpen) return
       if (!amountLeverFixedEnabled || isAmountFixed()) {
         return
       }
@@ -69,11 +73,14 @@ export const ExecutionDialogControls: React.FC<{
         setIsAmountFixed(true)
       }
     },
-    macroEnabled && amountLeverFixedEnabled && !isAmountFixed() ? 500 : null,
+    isDialogOpen && macroEnabled && amountLeverFixedEnabled && !isAmountFixed()
+      ? 500
+      : null,
   )
 
   useInterval(
     () => {
+      if (!isDialogOpen) return
       if (!amountLeverFixedEnabled || isLeverFixed()) {
         return
       }
@@ -86,30 +93,26 @@ export const ExecutionDialogControls: React.FC<{
         setIsLeverFixed(true)
       }
     },
-    macroEnabled && amountLeverFixedEnabled && !isLeverFixed() ? 500 : null,
+    isDialogOpen && macroEnabled && amountLeverFixedEnabled && !isLeverFixed()
+      ? 500
+      : null,
   )
 
   useEffect(() => {
     showRiskAgreement()
   }, [])
 
-  return (
-    <React.Fragment>
-      <React.Fragment>
-        <StyledFixedTipOnAmountInput>
-          <PrimaryTooltip
-            title={
-              <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
-            }
-          >
-            {(amountLeverFixedEnabled && <LockIcon />) || <LockOpenIcon />}
-          </PrimaryTooltip>
-        </StyledFixedTipOnAmountInput>
-      </React.Fragment>
+  if (!isDialogOpen) return null
 
-      <Grid container direction='column'>
+  return (
+    <span className={css.root}>
+      <Grid container direction='row' justify='space-around' spacing={1}>
         <Grid item>
           <ExecutionDialogAmountTradeButtonsGrid />
+        </Grid>
+
+        <Grid item>
+          <ExecutionDialogLeverTradeButtonsGrid />
         </Grid>
 
         <Grid item>
@@ -117,74 +120,38 @@ export const ExecutionDialogControls: React.FC<{
         </Grid>
 
         <Grid item>
-          <ExecutionDialogLeverTradeButtonsGrid />
-        </Grid>
-
-        <Grid item container justify='center' style={{ width: 100 }}>
           <ExecutionDialogFixedAmountLeverToggle labelPlacement='top' />
         </Grid>
-
-        <Grid item container justify='center' style={{ width: 100 }}>
-          <ExecutionDialogFixedStopLossTakeProfitToggle labelPlacement='top' />
-        </Grid>
       </Grid>
-    </React.Fragment>
+    </span>
   )
 }
 
-const StyledFixedTipOnAmountInput = styled.span`
-  position: absolute;
-  left: 480px;
-  margin-top: 10px;
-  z-index: 100000;
-  top: ${() => {
-    const [px, pxSetter] = useState('auto')
-    const magic = 45
+const useStyled = makeStyles({
+  root: {
+    '@media(min-width: 741px)': {
+      position: 'absolute',
+      display: 'inline-block',
+      width: 300,
+      height: (props: { open: boolean }) => (props.open ? `100vh` : `auto`),
+      margin: '0 auto',
+      textAlign: 'center',
+      zIndex: 10001,
+      overflowY: 'scroll',
+      backgroundColor: 'white',
+      transitionDuration: 1000,
+    },
+    '@media(max-width: 740px)': {
+      display: 'none',
+    },
+  },
+})
 
-    useTimeoutFn(() => {
-      const target = String(
-        $(angularAPI.selectors.dialogAmountInput).position()?.top - magic,
-      )
-
-      pxSetter((target && target + 'px') || '195px')
-    }, 1500)
-
-    return px
-  }};
-`
-
-const StyledContainer = styled.span`
-  @media (min-width: 741px) {
-    display: inline-block;
-    width: 124px;
-    margin: 0 auto;
-    margin-bottom: 16px;
-    text-align: center;
-    flex: 0.9;
-    /** 避免入金按紐太 width，擋到了下單輔助介面的鼠標點擊 */
-    z-index: 1;
-    position: absolute;
-    margin-left: -124px;
-    margin-top: -100px;
-    background-color: #fff;
-    outline: 1px solid #000;
-    padding: 4px;
-  }
-
-  @media (max-width: 740px) {
-    display: none;
-  }
-`
-
-export const registeredExecutionDialogControls = registerReactComponent({
-  component: (
-    <StyledContainer>
-      <ExecutionDialogControls />
-    </StyledContainer>
-  ),
-  containerId: 'ExecutionDialogControls',
+const registeredExecutionDialogControls = registerReactComponent({
+  component: <ExecutionDialogControls />,
+  containerId: ExecutionDialogControls.name,
   containerConstructor: containerElement => {
-    $('.uidialog .execution-main').prepend(containerElement)
+    $('body').prepend(containerElement)
   },
   disabled: () => {
     if (!storage.findConfig().executionMacroEnabled) return true
@@ -194,3 +161,18 @@ export const registeredExecutionDialogControls = registerReactComponent({
     return false
   },
 })
+
+GM.addStyle(`
+  [id^=uidialog] .uidialog-content .execution {
+    /** 因為加高了視窗，為了放置額外資訊 */
+    height: 755px;
+
+    /** Align to Controls that on window left */
+    margin-top: 0;
+    left: 300px;
+    margin-left: 0;
+  }
+`)
+
+emitter.on(Events.onDialogHover, registeredExecutionDialogControls.mount)
+emitter.on(Events.onDialogNotFound, registeredExecutionDialogControls.unmount)

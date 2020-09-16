@@ -214,6 +214,12 @@ interface EtoroRootScope extends IRootScopeService {
     showFooter: boolean
     showLoginButton: boolean
     uiDialog: {
+      /**
+       * @describe
+       * Usually causes react unexpected render error
+       *
+       * @deprecated
+       */
       isDialogOpen: boolean
       isKycDialogOpen: boolean
       latestID: string
@@ -325,6 +331,9 @@ export const angularAPI = {
       [name="stopLoss"] > a
       ,[data-etoro-automation-id="edit-position-tab-title-stop-loss-container"] > a
     `,
+    dialogSLInput: `
+      [data-etoro-automation-id="execution-stop-loss-amount-input"] input
+    `,
     dialogStopLossInfiniteButton: `
       [data-etoro-automation-id="execution-set-no-stop-loss-link"]
       ,[data-etoro-automation-id="edit-position-pop-up-no-stop-loss"]
@@ -334,13 +343,20 @@ export const angularAPI = {
       [name="takeProfit"] > a
       ,[data-etoro-automation-id="edit-position-tab-title-take-profit-container"] > a
     `,
+    dialogTPInput: `
+      [data-etoro-automation-id="execution-take-profit-amount-input"] input
+    `,
     dialogTakeProfitInfiniteButton: `
       [data-etoro-automation-id="execution-set-no-take-profit-link"]
       ,[data-etoro-automation-id="edit-position-pop-up-no-take-profit"]
     `,
   } as const,
-  get isDialogOpen() {
-    return angularAPI.$rootScope?.layoutCtrl.uiDialog.isDialogOpen
+  get isNativeTradeDialogOpen(): boolean {
+    // Target is specified to trade dialog, not else dialogs
+    const isTradeDialog = !!$('.execution-main-head-price-value').length
+    const isDialogOpen = !!$('.uidialog-open').length
+
+    return (isDialogOpen && isTradeDialog) || false
   },
   getDialogLever: () => {
     return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
@@ -401,18 +417,6 @@ export const angularAPI = {
       dialogScope.$apply()
     }
   },
-  setDialogStopLoss: (value: number) => {
-    const dialogScope = angularAPI.executionDialogScope
-
-    dialogScope?.$applyAsync(() => {
-      if (dialogScope?.model) {
-        dialogScope.model.stopLoss.inDollarMode = true
-        dialogScope.model.stopLoss.defaultPercent = value
-      }
-    })
-
-    dialogScope?.$apply()
-  },
   toggleDialogTakeProfitInfinite: () => {
     $(angularAPI.selectors.dialogTakeProfitSwitchTab).trigger('click')
     $(angularAPI.selectors.dialogTakeProfitInfiniteButton).trigger('click')
@@ -421,16 +425,47 @@ export const angularAPI = {
     $(angularAPI.selectors.dialogStopLossSwitchTab).trigger('click')
     $(angularAPI.selectors.dialogStopLossInfiniteButton).trigger('click')
   },
-  setDialogTakeProfit: (value: number) => {
-    const dialogScope = angularAPI.executionDialogScope
+  setDialogStopLoss: (value: number) => {
+    $(angularAPI.selectors.dialogStopLossSwitchTab).trigger('click')
 
-    dialogScope?.$applyAsync(() => {
-      if (dialogScope?.model) {
-        dialogScope.model.takeProfit.inDollarMode = true
-        dialogScope.model.takeProfit.defaultPercent = value
-      }
-    })
-    dialogScope?.$apply()
+    if (!angularAPI.executionDialogScope?.model?.stopLoss.inDollarMode) {
+      $(
+        `
+        [data-etoro-automation-id="execution-stop-loss-rate-editing-switch-to-amount-button"]
+        ,[data-etoro-automation-id="edit-position-stop-loss-rate-right-switch-button"]
+      `,
+      ).trigger('click')
+    }
+
+    const amount = angularAPI.executionDialogScope?.model?.amount.amount
+
+    if (!amount) return
+
+    $(angularAPI.selectors.dialogSLInput)
+      .val(-(value / 100) * amount)
+      .trigger('change')
+      .trigger('blur')
+  },
+  setDialogTakeProfit: (value: number) => {
+    $(angularAPI.selectors.dialogTakeProfitSwitchTab).trigger('click')
+
+    if (!angularAPI.executionDialogScope?.model?.takeProfit.inDollarMode) {
+      $(
+        `
+        [data-etoro-automation-id="execution-take-profit-rate-editing-switch-to-amount-button"]
+        ,[data-etoro-automation-id="edit-position-take-profit-rate-right-switch-button"]
+      `,
+      ).trigger('click')
+    }
+
+    const amount = angularAPI.executionDialogScope?.model?.amount.amount
+
+    if (!amount) return
+
+    $(angularAPI.selectors.dialogTPInput)
+      .val((value / 100) * amount)
+      .trigger('change')
+      .trigger('blur')
   },
   /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
   filterPortfolioListByText: (filterText = '') => {

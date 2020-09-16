@@ -1,7 +1,6 @@
 import '~/components/ExecutionDialog/applyExecutionDialogAutoScaling'
 import '~/components/ExecutionDialog/ExecutionDialogControls'
 import '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import '~/components/ExecutionDialog/ExecutionDialogTakeProfitStopLossControls'
 import '~/components/Footer/constructContainersForFooterUnitValues'
 import '~/components/Sidebar/SidebarMenuItems'
 import '~/components/Sidebar/SidebarSettingsDialog'

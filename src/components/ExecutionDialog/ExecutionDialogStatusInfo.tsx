@@ -135,9 +135,4 @@ GM.addStyle(`
   [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
     border-right: 1px solid #cccccc;
   }
-
-  /** 因為加高了視窗，為了放置額外資訊 */
-  [id^=uidialog] .uidialog-content .execution {
-    height: 755px;
-  }
 `)

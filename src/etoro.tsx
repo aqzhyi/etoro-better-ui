@@ -10,7 +10,6 @@ import { cleanStickReactComponents } from '~/utils/cleanStickReactComponents'
 import { renderStickReactComponents } from '~/utils/renderStickReactComponents'
 import React from 'react'
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
-import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/ExecutionDialogControls'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import packageJSON from '../package.json'
 import {
@@ -98,9 +97,6 @@ emitter.on(
  */
 emitter.on(Events.onDialogHover, registeredExecutionDialogStatusInfo.mount)
 emitter.on(Events.onDialogNotFound, registeredExecutionDialogStatusInfo.unmount)
-
-emitter.on(Events.onDialogHover, registeredExecutionDialogControls.mount)
-emitter.on(Events.onDialogNotFound, registeredExecutionDialogControls.unmount)
 
 // Make execution dialog of native etoro functions able to and save values to localStorage
 emitter.once(Events.ready).then(nativeEtoroLeverSaveToStorage)

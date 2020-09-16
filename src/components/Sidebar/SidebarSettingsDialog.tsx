@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControlLabel,
+  FormLabel,
   Grid,
   Radio,
   RadioGroup,
@@ -140,26 +141,6 @@ export const SidebarSettingsDialog: React.FC = () => {
           </Grid>
 
           <Grid item container spacing={2}>
-            <Grid item xs={6}>
-              <FormControlLabel
-                label={
-                  <PrimaryTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></PrimaryTrans>
-                }
-                control={
-                  <Switch
-                    checked={settings.stopLossAndTakeProfitUseLastPercent}
-                    onChange={(event, enabled) => {
-                      dispatch(
-                        setBetterEtoroUIConfig({
-                          stopLossAndTakeProfitUseLastPercent: enabled,
-                        }),
-                      )
-                    }}
-                  ></Switch>
-                }
-              ></FormControlLabel>
-            </Grid>
-
             <Grid item xs={3}>
               <PrimaryTooltip
                 title={
@@ -256,6 +237,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                   }}
                 ></TextField>
               </PrimaryTooltip>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormLabel>
+                <PrimaryTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></PrimaryTrans>
+              </FormLabel>
             </Grid>
           </Grid>
 

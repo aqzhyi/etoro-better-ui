@@ -22,7 +22,6 @@ export type BetterEtoroUIConfig = {
    */
   intervalCheckingStatus: number
   googleAnalyticsEnabled: boolean
-  stopLossAndTakeProfitUseLastPercent: boolean
   stopLossLastPercent: number
   takeProfitLastPercent: number
   MYR: {
@@ -51,7 +50,6 @@ export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
   useHotkeys: {},
   intervalCheckingStatus: 15,
   googleAnalyticsEnabled: true,
-  stopLossAndTakeProfitUseLastPercent: false,
   stopLossLastPercent: 50,
   takeProfitLastPercent: 5,
   MYR: { buy: 0, sell: 0 },

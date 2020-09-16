@@ -1,5 +1,4 @@
 import { angularAPI } from '~/angularAPI'
-import { registeredExecutionDialogControls } from '~/components/ExecutionDialog/ExecutionDialogControls'
 import { registeredExecutionDialogStatusInfo } from '~/components/ExecutionDialog/ExecutionDialogStatusInfo'
 import { debugAPI } from '~/debugAPI'
 import { emitter, Events } from '~/emitter'
@@ -7,6 +6,7 @@ import { map, throttle } from 'lodash'
 import store from '~/store/_store'
 import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDialogPrices'
 import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
+import { syncNativeTradeDialogOpen } from '~/actions/syncFromNativeTradeDialogOpenState'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
@@ -31,8 +31,12 @@ function _applyEventsObservers() {
    * On Execution-Dialog closed
    */
   angularAPI.$rootScope?.$watch(
-    () => angularAPI.isDialogOpen,
+    () => angularAPI.isNativeTradeDialogOpen,
     (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        store.dispatch(syncNativeTradeDialogOpen(newValue))
+      }
+
       if (newValue !== oldValue && newValue === false) {
         debugAPI.angular.extend('isDialogOpen')(newValue)
         emitter.emit(Events.onDialogNotFound)
@@ -77,7 +81,7 @@ function _applyEventsObservers() {
     'mouseover',
     '.uidialog-content',
     throttle(event => {
-      const isDialogOpen = angularAPI.isDialogOpen
+      const isDialogOpen = angularAPI.isNativeTradeDialogOpen
 
       if (!isDialogOpen) {
         emitter.emit(Events.onDialogNotFound)
@@ -85,7 +89,6 @@ function _applyEventsObservers() {
       }
 
       const dialogComponentsNotReady = [
-        $(`#${registeredExecutionDialogControls.container.id}`).length > 0,
         $(`#${registeredExecutionDialogStatusInfo.container.id}`).length > 0,
         $(`#${exectionDialogPrices.container.id}`).length > 0,
       ].some(isReady => !isReady)

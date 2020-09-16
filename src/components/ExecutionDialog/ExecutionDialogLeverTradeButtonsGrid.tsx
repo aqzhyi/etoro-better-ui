@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '~/store/_store'
 
 export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
   const dispatch = useAppDispatch()
-  const levers = useDialogLeverAvailable()
+  const levers = useDialogLeverAvailable() || [1, 2, 5, 10]
 
   const leverShouldBe = useAppSelector(
     state => state.settings.executionLeverLast,
