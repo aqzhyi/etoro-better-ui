@@ -333,6 +333,7 @@ export const angularAPI = {
     `,
     dialogSLInput: `
       [data-etoro-automation-id="execution-stop-loss-amount-input"] input
+      ,[data-etoro-automation-id="edit-position-tab-title-stop-loss-container"] input
     `,
     dialogStopLossInfiniteButton: `
       [data-etoro-automation-id="execution-set-no-stop-loss-link"]
@@ -345,6 +346,7 @@ export const angularAPI = {
     `,
     dialogTPInput: `
       [data-etoro-automation-id="execution-take-profit-amount-input"] input
+      ,[data-etoro-automation-id="edit-position-take-profit-amount-input-section"] input
     `,
     dialogTakeProfitInfiniteButton: `
       [data-etoro-automation-id="execution-set-no-take-profit-link"]
