@@ -1,23 +1,19 @@
-import React from 'react'
-import { InstrumentPosition } from '~/angularAPI'
+import React, { memo } from 'react'
 import { ProfitText } from '~/components/ProfitText'
 
 /** 開倉位距離當前點位點數合計 */
 export const InstrumentRateChangeCount: React.FC<{
-  position?: InstrumentPosition
-}> = props => {
-  if (!props.position) {
-    return null
-  }
-
+  isBuy: boolean
+  current: number
+  openRate: number
+}> = memo(props => {
   return (
     <ProfitText
       profit={
-        (props.position.IsBuy &&
-          props.position.CurrentRate - props.position.OpenRate) ||
-        props.position.OpenRate - props.position.CurrentRate
+        (props.isBuy && props.current - props.openRate) ||
+        props.openRate - props.current
       }
       noDollarSign
     ></ProfitText>
   )
-}
+})

@@ -6,7 +6,7 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core'
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { useDispatch } from 'react-redux'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
@@ -57,13 +57,13 @@ const useStyles = makeStyles({
 
 export const InstrumentPositionListItem: React.FC<{
   positionId?: InstrumentPosition['PositionID']
-}> = props => {
-  const tradeDashboard = useDispatchTradeDashboardOpen()
+}> = memo(props => {
   const {
     closed,
     closing,
     setClosing,
     position,
+    instrument,
     update,
   } = useInstrumentPosition(props.positionId)
   const updateRate = useAppSelector(
@@ -98,45 +98,21 @@ export const InstrumentPositionListItem: React.FC<{
       active={position.Instrument.IsActive ? 'true' : undefined}
     >
       <ListItemAvatar>
-        <a
-          href={
-            closed
-              ? `https://www.etoro.com/markets/${position.Instrument.Name.toLowerCase()}`
-              : `https://www.etoro.com/portfolio/${position.Instrument.Name.toLowerCase()}`
-          }
-          onClick={() => {
-            tradeDashboard.close()
-            gaAPI.sendEvent(GaEventId.tradeDashboard_instrumentLinkClick)
-          }}
-        >
-          <InstrumentIcon instrument={position.Instrument}></InstrumentIcon>
-        </a>
+        {position && instrument ? (
+          <InstrumentIcon
+            avatar={
+              instrument?.Avatars['90x90'] || instrument?.Avatars.default || ''
+            }
+            amount={position.Amount}
+            isBuy={position.IsBuy}
+            leverages={position.Leverage}
+            name={instrument.Name}
+            openRate={position.OpenRate}
+          ></InstrumentIcon>
+        ) : (
+          <span />
+        )}
       </ListItemAvatar>
-
-      <ListItemText
-        classes={{
-          primary: css.fontSizeLarge,
-          secondary: css.fontSizeLarge,
-        }}
-        primary={
-          <Fragment>
-            ${position.Amount} x{position.Leverage}
-          </Fragment>
-        }
-        secondary={
-          <Fragment>
-            <ProfitText
-              profit={position.OpenRate}
-              pureDollar
-              noDollarSign
-            ></ProfitText>
-            <Fragment> </Fragment>
-            {(position.IsBuy && (
-              <PrimaryTrans i18nKey='tradeDashboard_itBuy'></PrimaryTrans>
-            )) || <PrimaryTrans i18nKey='tradeDashboard_itSell'></PrimaryTrans>}
-          </Fragment>
-        }
-      ></ListItemText>
 
       <ListItemText
         classes={{
@@ -165,7 +141,11 @@ export const InstrumentPositionListItem: React.FC<{
             <span style={{ marginLeft: 4 }}>
               <Fragment>( </Fragment>
               {/* up/down rate count with Open Rate */}
-              <InstrumentRateChangeCount position={position} />
+              <InstrumentRateChangeCount
+                current={position.CurrentRate}
+                isBuy={position.IsBuy}
+                openRate={position.OpenRate}
+              />
               <Fragment> )</Fragment>
             </span>
           </Fragment>
@@ -230,4 +210,4 @@ export const InstrumentPositionListItem: React.FC<{
       </ListItemSecondaryAction>
     </StyledListItem>
   )
-}
+})

@@ -1,7 +1,7 @@
-import { GM } from '~/GM'
-import { toCurrency } from '~/toCurrency'
-import React, { useMemo } from 'react'
+import { makeStyles } from '@material-ui/core'
 import cxx from 'classnames'
+import React, { memo, useMemo } from 'react'
+import { toCurrency } from '~/toCurrency'
 
 export const ProfitText: React.FC<{
   /**
@@ -43,9 +43,10 @@ export const ProfitText: React.FC<{
     '%' // 777.77%
    */
   suffix?: React.ReactNode
-}> = props => {
+}> = memo(props => {
   const isNegative = props.profit < 0
   const negativeSymbol = props.noNegative ? '' : '-'
+  const css = useStyled()
 
   const values = useMemo(() => {
     const value = Math.abs(props.profit)
@@ -69,41 +70,38 @@ export const ProfitText: React.FC<{
     <span
       data-testid='root'
       className={cxx({
-        [ProfitText.name]: true,
-        [`${ProfitText.name}__red`]: !props.pureDollar && isNegative,
-        [`${ProfitText.name}__green`]: !props.pureDollar && !isNegative,
-        [`${ProfitText.name}__yellow`]: props.pureDollar,
+        [css.root]: true,
+        [css.takingLoss]: !props.pureDollar && isNegative,
+        [css.takingProfit]: !props.pureDollar && !isNegative,
+        [css.asColorYellow]: props.pureDollar,
       })}
     >
       <span className={`${ProfitText.name}__dollarPrefix`}>{dollarPrefix}</span>
-      <span className={`${ProfitText.name}__valueMain`}>
+      <span className={css.mainValue}>
         {isNegative}
         {values[0]}
       </span>
-      <span className={`${ProfitText.name}__valueSmall`}>.{values[1]}</span>
+      <span className={css.secondaryValue}>.{values[1]}</span>
       <span>{props.suffix}</span>
     </span>
   )
-}
+})
 
-GM.addStyle(`
-  .${ProfitText.name} {
-    font-weight: 700;
-  }
-
-  .${ProfitText.name}__red {
-    color: #e1191d;
-  }
-
-  .${ProfitText.name}__green {
-    color: #6eaf0f;
-  }
-
-  .${ProfitText.name}__yellow {
-    color: orange;
-  }
-
-  .${ProfitText.name}__valueSmall {
-    font-size: 0.75em;
-  }
-`)
+const useStyled = makeStyles({
+  root: {
+    fontWeight: 700,
+  },
+  takingProfit: {
+    color: '#6eaf0f',
+  },
+  takingLoss: {
+    color: '#e1191d',
+  },
+  asColorYellow: {
+    color: 'orange',
+  },
+  mainValue: {},
+  secondaryValue: {
+    fontSize: '0.75em',
+  },
+})

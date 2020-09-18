@@ -77,8 +77,9 @@ export const useInstrumentPosition = (
 
   return {
     closed,
-    position: position || historyPosition,
     closing,
+    instrument: position?.Instrument || historyPosition?.Instrument,
+    position: position || historyPosition,
     setClosing,
     update,
   }

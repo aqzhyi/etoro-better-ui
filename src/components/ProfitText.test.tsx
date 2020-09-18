@@ -25,12 +25,16 @@ describe('props.profit', () => {
 
   it(`777.00 tobe green`, () => {
     render(<ProfitText profit={777}></ProfitText>)
-    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(/green/)
+    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(
+      /takingProfit/i,
+    )
   })
 
   it(`-777.00 tobe red`, () => {
     render(<ProfitText profit={-777}></ProfitText>)
-    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(/red/)
+    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(
+      /takingLoss/i,
+    )
   })
 })
 
@@ -49,7 +53,9 @@ describe(`props.noDollarSign`, () => {
 describe(`props.pureDollar`, () => {
   test('tobe yellow', () => {
     render(<ProfitText profit={777.771257325} pureDollar></ProfitText>)
-    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(/yellow/)
+    expect(screen.getByTestId('root').className.toLowerCase()).toMatch(
+      /asColorYellow/i,
+    )
   })
 })
 

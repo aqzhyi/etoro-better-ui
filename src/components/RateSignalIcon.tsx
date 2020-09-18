@@ -1,11 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const Box = styled.span`
-  display: inline-flex;
-  padding: 0 4px;
-  width: 28px;
-`
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/core'
 
 /**
   信號燈
@@ -29,14 +23,20 @@ const Box = styled.span`
 export const RateSignalIcon: React.FC<{
   /** According to the number value, negative show red, positive show green */
   change: number
-}> = props => {
-  if (props.change > 0) {
-    return <Box>🟢</Box>
-  }
+}> = memo(props => {
+  const css = useStyled()
 
-  if (props.change < 0) {
-    return <Box>🔴</Box>
-  }
+  return (
+    <span className={css.root}>
+      {props.change > 0 ? '🟢' : props.change < 0 ? '🔴' : '➖'}
+    </span>
+  )
+})
 
-  return <Box>➖</Box>
-}
+const useStyled = makeStyles({
+  root: {
+    display: 'inline-block',
+    padding: '0 4px',
+    width: 28,
+  },
+})

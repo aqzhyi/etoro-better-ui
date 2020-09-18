@@ -1,13 +1,13 @@
 import { ListItem, ListItemText } from '@material-ui/core'
 import { map } from 'lodash'
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { InstrumentPosition } from '~/angularAPI'
 import { InstrumentPositionListItem } from '~/components/InstrumentPositionListItem'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 
 export const InstrumentPositionGroupListItem: React.FC<{
   positionIds?: InstrumentPosition['PositionID'][]
-}> = props => {
+}> = memo(function InstrumentPositionGroupListItem(props) {
   return (
     <Fragment>
       <ListItem>
@@ -42,4 +42,4 @@ export const InstrumentPositionGroupListItem: React.FC<{
       })}
     </Fragment>
   )
-}
+})
