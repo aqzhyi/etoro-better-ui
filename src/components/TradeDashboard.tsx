@@ -39,6 +39,7 @@ const StyledTradeDashboard = styled.span<{
 `
 
 export const TradeDashboard: React.FC = props => {
+  const dispatch = useAppDispatch()
   const historyIds = useAppSelector(state => state.positions.historyIds)
   const isActive = useAppSelector(state => state.display.tradeDashboard)
   const tradeDashboard = useDispatchTradeDashboardOpen()

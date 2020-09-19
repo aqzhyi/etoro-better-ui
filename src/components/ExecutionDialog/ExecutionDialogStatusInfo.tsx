@@ -2,7 +2,7 @@ import LoopIcon from '@material-ui/icons/Loop'
 import React, { useMemo, useState } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
-import { angularAPI, InstrumentPosition } from '~/angularAPI'
+import { angularAPI } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PingProbeValue } from '~/components/PingProbeValue'
 import { PrimaryTooltip } from '~/components/PrimaryTooltip'
@@ -57,7 +57,7 @@ export const ExecutionDialogStatusInfo = () => {
 
   const instrumentName = useMemo(() => {
     return angularAPI.executionDialogScope?.controller?.instrument?.Name
-  }, [positions])
+  }, [])
 
   /** from etoro html element */
   const canUseValue =

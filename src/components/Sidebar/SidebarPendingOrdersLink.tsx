@@ -3,16 +3,14 @@ import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppPendingOrder } from '~/hooks/useAppPendingOrder'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 
 export const SidebarPendingOrdersLink: React.FC = props => {
   const pendingOrders = useAppPendingOrder()
 
-  const isActive = useMemo(() => {
-    return globalThis.location.pathname.includes('portfolio/orders')
-      ? 'active'
-      : ''
-  }, [globalThis.location.pathname])
+  const isActive = globalThis.location.pathname.includes('portfolio/orders')
+    ? 'active'
+    : ''
 
   useEffect(() => {
     if (isActive) {

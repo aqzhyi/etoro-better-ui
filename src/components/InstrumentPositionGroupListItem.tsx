@@ -1,7 +1,6 @@
 import { ListItem, ListItemText } from '@material-ui/core'
 import { map } from 'lodash'
 import React, { Fragment, memo } from 'react'
-import { InstrumentPosition } from '~/angularAPI'
 import { InstrumentPositionListItem } from '~/components/InstrumentPositionListItem'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 

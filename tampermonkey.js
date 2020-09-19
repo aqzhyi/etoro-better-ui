@@ -91,7 +91,7 @@ function getBuildByVersion(
     }
   */
   const builds = {
-    beta: { hash: 'v0.35.0-20200917', filename: 'etoro' },
+    beta: { hash: 'master', filename: 'etoro' },
     latest: { hash: 'v0.34.1-20200914', filename: 'etoro' },
     0.34: { hash: 'v0.34.1-20200914', filename: 'etoro' },
     0.33: { hash: 'v0.33.0-20200911', filename: 'etoro' },

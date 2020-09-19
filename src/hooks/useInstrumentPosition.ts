@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 import { useMemo, useState } from 'react'
-import { angularAPI, InstrumentPosition } from '~/angularAPI'
+import { angularAPI } from '~/angularAPI'
 
 export const useInstrumentPosition = (
   positionId?: InstrumentPosition['PositionID'],
@@ -63,9 +63,7 @@ export const useInstrumentPosition = (
     }
   }
 
-  const _position = useMemo(() => getPostionById(positionId), [
-    angularAPI.$rootScope?.session.user.portfolio.positions,
-  ])
+  const _position = useMemo(() => getPostionById(positionId), [positionId])
 
   const [position, setPosition] = useState(_position)
 

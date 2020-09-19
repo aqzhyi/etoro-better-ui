@@ -36,7 +36,7 @@ export const UniversalControlKeyObserver = () => {
         hideAfter: 5,
       },
     )
-  }, [hotkeySettings])
+  }, [])
 
   useEffect(() => {
     if (Object.values(hotkeySettings).some(data => !!data)) {

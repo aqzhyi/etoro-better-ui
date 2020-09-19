@@ -108,7 +108,7 @@ export const registerReactComponent = <
           ReactDOM.unmountComponentAtNode(targetContainerElement)
         }
 
-        resolve()
+        resolve(null)
       })
     })
   }
