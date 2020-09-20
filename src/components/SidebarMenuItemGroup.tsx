@@ -1,22 +1,22 @@
 import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
-import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
-import { SidebarSettingsDialog } from '~/components/Sidebar/SidebarSettingsDialog'
+import { AppTrans } from '~/components/AppTrans'
+import { SidebarMenuItem } from '~/components/SidebarMenuItem'
+import { SetupsDialog } from '~/components/SetupsDialog'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
-import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
+import { useAppTranslation } from '~/hooks/useAppTranslation'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
-import packageJSON from '../../../package.json'
+import packageJSON from '../../package.json'
 import { KeyProbe } from '~/components/KeyProbe'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
 }
 
-export const SidebarMenuItems = () => {
-  const locale = usePrimaryTranslation()
+export const SidebarMenuItemGroup = () => {
+  const locale = useAppTranslation()
   const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
 
@@ -34,7 +34,7 @@ export const SidebarMenuItems = () => {
     <span>
       <div {...attrsToAppend} className='i-menu-sep'>
         <span>
-          <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans>
+          <AppTrans i18nKey='universal_extensionName_text'></AppTrans>
         </span>
         <a
           href='https://github.com/hilezir/etoro-better-ui/releases'
@@ -53,7 +53,7 @@ export const SidebarMenuItems = () => {
           },
         }}
       >
-        <PrimaryTrans i18nKey='universal_setup_text'></PrimaryTrans>
+        <AppTrans i18nKey='universal_setup_text'></AppTrans>
         <KeyProbe
           filter='S'
           command={() => {
@@ -71,7 +71,7 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_donate'),
         }}
       >
-        <PrimaryTrans i18nKey='link_donation_text'></PrimaryTrans>
+        <AppTrans i18nKey='link_donation_text'></AppTrans>
       </SidebarMenuItem>
       <SidebarMenuItem
         iconName='people-ref'
@@ -93,15 +93,15 @@ export const SidebarMenuItems = () => {
           onClick: sendEvent.bind(sendEvent, 'link_website'),
         }}
       >
-        <PrimaryTrans i18nKey='link_extensionWebsite_text'></PrimaryTrans>
+        <AppTrans i18nKey='link_extensionWebsite_text'></AppTrans>
       </SidebarMenuItem>
-      <SidebarSettingsDialog></SidebarSettingsDialog>
+      <SetupsDialog></SetupsDialog>
     </span>
   )
 }
 
 export const registeredSidebarMenuItems = registerReactComponent({
-  component: <SidebarMenuItems />,
+  component: <SidebarMenuItemGroup />,
   containerId: 'SidebarMenuItems',
   containerConstructor: container => {
     $('.w-menu-main').append(container)

@@ -2,12 +2,12 @@ import { Button } from '@material-ui/core'
 import React, { useCallback } from 'react'
 import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { BetterEtoroUIConfig } from '~/storage'
 import { useAppSelector } from '~/store/_store'
 
-export const UseOwnSLTPButton: React.FC<{
+export const OwnSLTPToggle: React.FC<{
   which: keyof Pick<
     BetterEtoroUIConfig,
     'stopLossLastPercent' | 'takeProfitLastPercent'
@@ -17,9 +17,9 @@ export const UseOwnSLTPButton: React.FC<{
 
   const DisplayText = () =>
     props.which === 'stopLossLastPercent' ? (
-      <PrimaryTrans i18nKey='profits_toggleSL_text'></PrimaryTrans>
+      <AppTrans i18nKey='profits_toggleSL_text'></AppTrans>
     ) : (
-      <PrimaryTrans i18nKey='profits_toggleTP_text'></PrimaryTrans>
+      <AppTrans i18nKey='profits_toggleTP_text'></AppTrans>
     )
 
   const action = useCallback(() => {
@@ -53,14 +53,14 @@ export const UseOwnSLTPButton: React.FC<{
   )
 
   return (
-    <PrimaryTooltip
+    <AppTooltip
       title={
-        <PrimaryTrans
+        <AppTrans
           i18nKey='profits_fixedTakeProfitValueOnOrder_help'
           values={{
             value: percents,
           }}
-        ></PrimaryTrans>
+        ></AppTrans>
       }
     >
       <Button
@@ -72,6 +72,6 @@ export const UseOwnSLTPButton: React.FC<{
         <DisplayText />
         <Hotkey />
       </Button>
-    </PrimaryTooltip>
+    </AppTooltip>
   )
 }

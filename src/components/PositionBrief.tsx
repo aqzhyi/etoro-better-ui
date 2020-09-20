@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core'
 import React, { Fragment, memo } from 'react'
 import { useMount } from 'react-use'
 import { InstrumentIcon } from '~/components/InstrumentIcon'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
@@ -56,8 +56,8 @@ export const PositionBrief: React.FC<{
           ></ProfitText>
           <Fragment> </Fragment>
           {(position.value.IsBuy && (
-            <PrimaryTrans i18nKey='tradeDashboard_itBuy'></PrimaryTrans>
-          )) || <PrimaryTrans i18nKey='tradeDashboard_itSell'></PrimaryTrans>}
+            <AppTrans i18nKey='tradeDashboard_itBuy'></AppTrans>
+          )) || <AppTrans i18nKey='tradeDashboard_itSell'></AppTrans>}
         </Grid>
       </Grid>
     </Grid>

@@ -1,7 +1,7 @@
 import { FormControlLabel, Grid, Switch } from '@material-ui/core'
 import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
 export const UniversalHotkeySettings: React.FC = props => {
@@ -14,7 +14,7 @@ export const UniversalHotkeySettings: React.FC = props => {
         <Grid item>
           <FormControlLabel
             label={
-              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_12345_brief'></PrimaryTrans>
+              <AppTrans i18nKey='universal_useKeyboardHotkeys_12345_brief'></AppTrans>
             }
             control={
               <Switch
@@ -37,7 +37,7 @@ export const UniversalHotkeySettings: React.FC = props => {
         <Grid item>
           <FormControlLabel
             label={
-              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_tab_brief'></PrimaryTrans>
+              <AppTrans i18nKey='universal_useKeyboardHotkeys_tab_brief'></AppTrans>
             }
             control={
               <Switch
@@ -60,7 +60,7 @@ export const UniversalHotkeySettings: React.FC = props => {
         <Grid item>
           <FormControlLabel
             label={
-              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_esc_brief'></PrimaryTrans>
+              <AppTrans i18nKey='universal_useKeyboardHotkeys_esc_brief'></AppTrans>
             }
             control={
               <Switch
@@ -83,7 +83,7 @@ export const UniversalHotkeySettings: React.FC = props => {
         <Grid item>
           <FormControlLabel
             label={
-              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_space_brief'></PrimaryTrans>
+              <AppTrans i18nKey='universal_useKeyboardHotkeys_space_brief'></AppTrans>
             }
             control={
               <Switch
@@ -106,7 +106,7 @@ export const UniversalHotkeySettings: React.FC = props => {
         <Grid item>
           <FormControlLabel
             label={
-              <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_f_brief'></PrimaryTrans>
+              <AppTrans i18nKey='universal_useKeyboardHotkeys_f_brief'></AppTrans>
             }
             control={
               <Switch

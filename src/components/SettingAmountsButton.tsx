@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core'
 import React from 'react'
 import { openPromptForSetMacroAmount } from '~/actions/setMacroAmount'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch } from '~/store/_store'
 
@@ -22,7 +22,7 @@ export const SettingAmountsButton: React.FC = props => {
         dispatch(openPromptForSetMacroAmount())
       }}
     >
-      <PrimaryTrans i18nKey='common_buttonSetup'></PrimaryTrans>
+      <AppTrans i18nKey='common_buttonSetup'></AppTrans>
     </Button>
   )
 }

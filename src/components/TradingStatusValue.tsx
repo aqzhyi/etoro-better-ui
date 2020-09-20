@@ -1,8 +1,8 @@
 import LoopIcon from '@material-ui/icons/Loop'
 import React, { Fragment } from 'react'
 import { NotableText } from '~/components/NotableText'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { useAppSelector } from '~/store/_store'
 
 export const TradingStatusValue: React.FC<{
@@ -20,7 +20,7 @@ export const TradingStatusValue: React.FC<{
   if (!props.asTooltip) {
     return (
       <Fragment>
-        <PrimaryTrans i18nKey='etoroStatus_ManualTrade_text'></PrimaryTrans>
+        <AppTrans i18nKey='etoroStatus_ManualTrade_text'></AppTrans>
 
         {good ? (
           '👍'
@@ -46,12 +46,10 @@ export const TradingStatusValue: React.FC<{
   }
 
   return (
-    <PrimaryTooltip
-      title={
-        <PrimaryTrans i18nKey='etoroStatus_ManualTrade_text'></PrimaryTrans>
-      }
+    <AppTooltip
+      title={<AppTrans i18nKey='etoroStatus_ManualTrade_text'></AppTrans>}
     >
       {props.children}
-    </PrimaryTooltip>
+    </AppTooltip>
   )
 }

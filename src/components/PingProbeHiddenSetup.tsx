@@ -1,7 +1,7 @@
 import { FormControlLabel, Slider } from '@material-ui/core'
 import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
@@ -14,7 +14,7 @@ export const PingProbeHiddenSetup: React.FC<any> = props => {
   return (
     <FormControlLabel
       label={
-        <PrimaryTrans i18nKey='universal_intervalCheckingStatus_brief'></PrimaryTrans>
+        <AppTrans i18nKey='universal_intervalCheckingStatus_brief'></AppTrans>
       }
       labelPlacement='top'
       control={

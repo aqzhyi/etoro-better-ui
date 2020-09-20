@@ -3,7 +3,7 @@ import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { openPromptForSetMacroAmount } from '~/actions/setMacroAmount'
 import { angularAPI } from '~/angularAPI'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { KeyProbe } from '~/components/KeyProbe'
@@ -31,7 +31,7 @@ export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
     <Grid container direction='column'>
       <Grid item>
         <h2>
-          <PrimaryTrans i18nKey='universal_amount_text'></PrimaryTrans>
+          <AppTrans i18nKey='universal_amount_text'></AppTrans>
         </h2>
       </Grid>
 
@@ -82,7 +82,7 @@ export const ExecutionDialogAmountTradeButtonsGrid: React.FC = props => {
             dispatch(openPromptForSetMacroAmount())
           }}
         >
-          <PrimaryTrans i18nKey='common_buttonSetup'></PrimaryTrans>
+          <AppTrans i18nKey='common_buttonSetup'></AppTrans>
         </Button>
       </Grid>
     </Grid>

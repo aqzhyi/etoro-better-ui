@@ -3,9 +3,9 @@ import { registerReactComponent } from '~/utils/registerReactComponent'
 import { useAppSelector } from '~/store/_store'
 import { GM } from '~/GM'
 import { ProfitText } from '~/components/ProfitText'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 
-const SidebarWithdrawalExtraInfo = () => {
+const SidebarWithdrawalButton = () => {
   const selected = useAppSelector(state => state.settings.selectedExchange)
   const exchanges = {
     NTD: useAppSelector(state => state.settings.NTD),
@@ -17,17 +17,17 @@ const SidebarWithdrawalExtraInfo = () => {
   }
 
   return (
-    <PrimaryTrans
+    <AppTrans
       i18nKey='link_withdrawExtra_text'
       values={{
         value: exchanges[selected].buy,
       }}
-    ></PrimaryTrans>
+    ></AppTrans>
   )
 }
 
 const { container } = registerReactComponent({
-  component: <SidebarWithdrawalExtraInfo />,
+  component: <SidebarWithdrawalButton />,
   containerId: 'SidebarWithdrawalExtraInfo',
   containerConstructor: containerElement => {
     $('[automation-id="menu-layout-withdrawal-icon"]')

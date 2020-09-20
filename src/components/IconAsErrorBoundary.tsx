@@ -2,8 +2,8 @@ import ErrorIcon from '@material-ui/icons/Error'
 import { ErrorBoundary, IErrorBoundaryState } from 'libreact/lib/ErrorBoundary'
 import { throttle } from 'lodash'
 import React, { createRef, useEffect } from 'react'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { emitter, Events } from '~/emitter'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { componentContainerHTMLDataPrefix } from '~/utils/registerReactComponent'
@@ -44,25 +44,25 @@ const Icon: React.FC = () => {
 
 const ErrorBox: React.FC<IErrorBoundaryState> = props => {
   return (
-    <PrimaryTooltip
+    <AppTooltip
       tooltipProps={{
         placement: 'bottom',
       }}
       title={JSON.stringify(props.info)}
     >
-      <PrimaryTooltip
+      <AppTooltip
         title={
-          <PrimaryTrans
+          <AppTrans
             i18nKey='universal_errorOnRender_text'
             values={{
               error: props.error,
             }}
-          ></PrimaryTrans>
+          ></AppTrans>
         }
       >
         <Icon />
-      </PrimaryTooltip>
-    </PrimaryTooltip>
+      </AppTooltip>
+    </AppTooltip>
   )
 }
 

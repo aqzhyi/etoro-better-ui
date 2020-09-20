@@ -6,8 +6,8 @@ import { angularAPI } from '~/angularAPI'
 import { InstrumentPositionGroupListItem } from '~/components/InstrumentPositionGroupListItem'
 import { Kbd } from '~/components/Kbd'
 import { PingProbeValue } from '~/components/PingProbeValue'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { TradeDashboardRefreshRateSlider } from '~/components/TradeDashboardRefreshRateSlider'
 import { TradingStatusValue } from '~/components/TradingStatusValue'
 import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
@@ -59,12 +59,12 @@ export const TradeDashboard: React.FC = props => {
         }}
       >
         <Grid item container justify='center'>
-          <PrimaryTrans i18nKey='universal_extensionSupportName_text'></PrimaryTrans>
+          <AppTrans i18nKey='universal_extensionSupportName_text'></AppTrans>
         </Grid>
 
         <Grid item container justify='center'>
           <Alert severity='warning'>
-            <PrimaryTrans i18nKey='common_beta_brief'></PrimaryTrans>
+            <AppTrans i18nKey='common_beta_brief'></AppTrans>
           </Alert>
         </Grid>
 
@@ -78,7 +78,7 @@ export const TradeDashboard: React.FC = props => {
           </Grid>
 
           <Grid item>
-            <PrimaryTooltip title={<Kbd>Esc</Kbd>}>
+            <AppTooltip title={<Kbd>Esc</Kbd>}>
               <Button
                 variant='outlined'
                 onClick={() => {
@@ -87,7 +87,7 @@ export const TradeDashboard: React.FC = props => {
               >
                 <span>❌</span>
               </Button>
-            </PrimaryTooltip>
+            </AppTooltip>
           </Grid>
         </Grid>
 

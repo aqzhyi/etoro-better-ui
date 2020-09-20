@@ -9,7 +9,7 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import cogoToast from 'cogo-toast'
 import React, { Fragment, useState } from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { getMYR, getNTD } from '~/exchange'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { MalaysiaIcon } from '~/Icons/MalaysiaIcon'
@@ -29,12 +29,12 @@ export const SettingSelectedExchange: React.FC<any> = props => {
     <Grid container direction='column'>
       <Grid item>
         <FormLabel>
-          <PrimaryTrans
+          <AppTrans
             i18nKey='exchange_usedSetup_brief'
             values={{
               text: selectedExchange,
             }}
-          ></PrimaryTrans>
+          ></AppTrans>
         </FormLabel>
       </Grid>
 
@@ -48,7 +48,7 @@ export const SettingSelectedExchange: React.FC<any> = props => {
             value: BetterEtoroUIConfig['selectedExchange'],
           ) => {
             const loading = cogoToast.loading(
-              <PrimaryTrans i18nKey='universal_doChanging_text'></PrimaryTrans>,
+              <AppTrans i18nKey='universal_doChanging_text'></AppTrans>,
               {
                 position: 'bottom-left',
               },
@@ -90,12 +90,12 @@ export const SettingSelectedExchange: React.FC<any> = props => {
 
             cogoToast
               .success(
-                <PrimaryTrans
+                <AppTrans
                   i18nKey='universal_doChanged_text'
                   values={{
                     text: youSelected,
                   }}
-                ></PrimaryTrans>,
+                ></AppTrans>,
                 { position: 'bottom-left' },
               )
               .then(() => {

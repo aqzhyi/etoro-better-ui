@@ -1,7 +1,7 @@
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { angularAPI } from '~/angularAPI'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { WatchlistHeader } from '~/components/Watchlist/WatchlistHeader'
 import { debugAPI } from '~/debugAPI'
 import { gaAPI, GaEventId } from '~/gaAPI'
@@ -27,7 +27,7 @@ export const UniversalControlKeyObserver = () => {
 
   const notifyFunctionShouldEnable = useCallback(() => {
     cogoToast.info(
-      <PrimaryTrans i18nKey='universal_useKeyboardHotkeys_help'></PrimaryTrans>,
+      <AppTrans i18nKey='universal_useKeyboardHotkeys_help'></AppTrans>,
       // i18n.universal_useKeyboardHotkeys_help(() => {
       //   dispatch(toggleSettingsDialog(true))
       // }),

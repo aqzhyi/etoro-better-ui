@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { getRandomString } from '~/utils/getRandomString'
 import store from '~/store/_store'
 import { Provider } from 'react-redux'
-import { IconAsErrorBoundary } from '~/components/ErrorBoundary/IconAsErrorBoundary'
+import { IconAsErrorBoundary } from '~/components/IconAsErrorBoundary'
 
 export const componentContainerHTMLDataPrefix = 'data-etoro-better-ui-created'
 

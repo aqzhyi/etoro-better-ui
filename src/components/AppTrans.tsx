@@ -13,7 +13,7 @@ const RiskLink: React.FC = props => (
   </a>
 )
 
-export const PrimaryTrans: React.FC<
+export const AppTrans: React.FC<
   Omit<TransProps, 'i18nKey'> & {
     i18nKey: keyof typeof zhLocale
   }

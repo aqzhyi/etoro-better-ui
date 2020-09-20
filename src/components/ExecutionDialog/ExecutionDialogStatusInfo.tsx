@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { angularAPI } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { PingProbeValue } from '~/components/PingProbeValue'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { HighlightText } from '~/components/TooltipHighlightText'
 import { TradingStatusValue } from '~/components/TradingStatusValue'
@@ -66,9 +66,9 @@ export const ExecutionDialogStatusInfo = () => {
 
   return (
     <React.Fragment>
-      <PrimaryTooltip
+      <AppTooltip
         title={
-          <PrimaryTrans
+          <AppTrans
             i18nKey='profits_selectedObjective_brief'
             values={{
               name: instrumentName,
@@ -80,7 +80,7 @@ export const ExecutionDialogStatusInfo = () => {
           <ProfitText profit={totalProfit} /> @{' '}
           <HighlightText>{positions?.length || 0}</HighlightText>
         </StyledBox>
-      </PrimaryTooltip>
+      </AppTooltip>
 
       <TradingStatusValue asTooltip>
         <StyledBox>{labelManualTrading}</StyledBox>
@@ -90,13 +90,11 @@ export const ExecutionDialogStatusInfo = () => {
         <StyledBox>{labelPingValue}</StyledBox>
       </PingProbeValue>
 
-      <PrimaryTooltip
-        title={
-          <PrimaryTrans i18nKey='profits_availableValues_text'></PrimaryTrans>
-        }
+      <AppTooltip
+        title={<AppTrans i18nKey='profits_availableValues_text'></AppTrans>}
       >
         <StyledBox>{availableValueLabel}</StyledBox>
-      </PrimaryTooltip>
+      </AppTooltip>
     </React.Fragment>
   )
 }

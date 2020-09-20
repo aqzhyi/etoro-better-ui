@@ -1,5 +1,5 @@
-import { PrimaryTrans } from '~/components/PrimaryTrans'
-import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
+import { AppTrans } from '~/components/AppTrans'
+import { SidebarMenuItem } from '~/components/SidebarMenuItem'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppPendingOrder } from '~/hooks/useAppPendingOrder'
 import { registerReactComponent } from '~/utils/registerReactComponent'
@@ -29,12 +29,12 @@ export const SidebarPendingOrdersLink: React.FC = props => {
         },
       }}
     >
-      <PrimaryTrans
+      <AppTrans
         i18nKey='link_pendingOrders_text'
         values={{
           value: pendingOrders.value.length,
         }}
-      ></PrimaryTrans>
+      ></AppTrans>
     </SidebarMenuItem>
   )
 }

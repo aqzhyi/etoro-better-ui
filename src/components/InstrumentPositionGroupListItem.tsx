@@ -2,7 +2,7 @@ import { ListItem, ListItemText } from '@material-ui/core'
 import { map } from 'lodash'
 import React, { Fragment, memo } from 'react'
 import { InstrumentPositionListItem } from '~/components/InstrumentPositionListItem'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 
 export const InstrumentPositionGroupListItem: React.FC<{
   positionIds?: InstrumentPosition['PositionID'][]
@@ -11,29 +11,23 @@ export const InstrumentPositionGroupListItem: React.FC<{
     <Fragment>
       <ListItem>
         <ListItemText
-          primary={
-            <PrimaryTrans i18nKey='tradeDashboard_amount'></PrimaryTrans>
-          }
+          primary={<AppTrans i18nKey='tradeDashboard_amount'></AppTrans>}
         ></ListItemText>
 
         <ListItemText
-          primary={<PrimaryTrans i18nKey='tradeDashboard_rates'></PrimaryTrans>}
+          primary={<AppTrans i18nKey='tradeDashboard_rates'></AppTrans>}
         ></ListItemText>
 
         <ListItemText
-          primary={<PrimaryTrans i18nKey='tradeDashboard_SLTP'></PrimaryTrans>}
+          primary={<AppTrans i18nKey='tradeDashboard_SLTP'></AppTrans>}
         ></ListItemText>
 
         <ListItemText
-          primary={
-            <PrimaryTrans i18nKey='tradeDashboard_profit'></PrimaryTrans>
-          }
+          primary={<AppTrans i18nKey='tradeDashboard_profit'></AppTrans>}
         ></ListItemText>
 
         <ListItemText
-          primary={
-            <PrimaryTrans i18nKey='tradeDashboard_action'></PrimaryTrans>
-          }
+          primary={<AppTrans i18nKey='tradeDashboard_action'></AppTrans>}
         ></ListItemText>
       </ListItem>
       {map(props.positionIds, id => {

@@ -3,8 +3,8 @@ import React, { useRef } from 'react'
 import { useDebounce, useMount } from 'react-use'
 import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
 import { gaAPI, GaEventId } from '~/gaAPI'
@@ -51,25 +51,23 @@ export const WatchlistHeader: React.FC = () => {
               gaAPI.sendEvent(GaEventId.watchlists_filterByTextClearClick)
             }}
           >
-            <PrimaryTrans i18nKey='filterText_clearText_text'></PrimaryTrans>
+            <AppTrans i18nKey='filterText_clearText_text'></AppTrans>
           </Button>
         </Grid>
       </Hidden>
 
       <Grid item>
-        <PrimaryTooltip
+        <AppTooltip
           tooltipProps={{
             placement: 'bottom',
             disableFocusListener: true,
           }}
-          title={<PrimaryTrans i18nKey='filterText_input_brief'></PrimaryTrans>}
+          title={<AppTrans i18nKey='filterText_input_brief'></AppTrans>}
         >
           <TextField
             size='small'
             style={{ width: 120 }}
-            label={
-              <PrimaryTrans i18nKey='filterText_input_help'></PrimaryTrans>
-            }
+            label={<AppTrans i18nKey='filterText_input_help'></AppTrans>}
             InputProps={{
               endAdornment: (
                 <KeyProbe
@@ -123,31 +121,29 @@ export const WatchlistHeader: React.FC = () => {
             }}
             inputRef={searchBoxRef}
           ></TextField>
-        </PrimaryTooltip>
+        </AppTooltip>
       </Grid>
 
       <Grid item>
-        <PrimaryTooltip
+        <AppTooltip
           tooltipProps={{ placement: 'bottom' }}
-          title={
-            <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
-          }
+          title={<AppTrans i18nKey='universal_compact_brief'></AppTrans>}
         >
           <div>
             <WatchlistCompactSwitch />
           </div>
-        </PrimaryTooltip>
+        </AppTooltip>
       </Grid>
 
       <Grid item>
-        <PrimaryTooltip
+        <AppTooltip
           tooltipProps={{ placement: 'bottom' }}
-          title={<PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>}
+          title={<AppTrans i18nKey='profits_invested_brief'></AppTrans>}
         >
           <div>
             <WatchlistInvestedSwitch />
           </div>
-        </PrimaryTooltip>
+        </AppTooltip>
       </Grid>
     </Grid>
   )

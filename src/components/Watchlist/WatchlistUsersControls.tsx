@@ -4,7 +4,7 @@ import TableChartIcon from '@material-ui/icons/TableChart'
 import { stringifyUrl } from 'query-string'
 import React from 'react'
 import { useAsyncFn } from 'react-use'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { debugAPI } from '~/debugAPI'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
@@ -49,7 +49,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
         <Tooltip
           arrow
           placement='right'
-          title={<PrimaryTrans i18nKey='link_checkBalance_text'></PrimaryTrans>}
+          title={<AppTrans i18nKey='link_checkBalance_text'></AppTrans>}
         >
           <Button
             size='small'
@@ -73,7 +73,7 @@ export const WatchlistUsersControls: React.FunctionComponent<{
           <Tooltip
             arrow
             placement='right'
-            title={<PrimaryTrans i18nKey='link_portfolio_text'></PrimaryTrans>}
+            title={<AppTrans i18nKey='link_portfolio_text'></AppTrans>}
           >
             <a
               href={`/people/${props.username.toLowerCase()}/portfolio`}

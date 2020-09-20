@@ -6,7 +6,7 @@ import { emitter, Events } from '~/emitter'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import i18next from 'i18next'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 
 export const openPromptForSetMacroAmount = createAsyncThunk<
   void,
@@ -38,22 +38,22 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
     )
 
     toast.success(
-      <PrimaryTrans
+      <AppTrans
         i18nKey='universal_doChanged_text'
         values={{
           text: thunkValue.join(','),
         }}
-      ></PrimaryTrans>,
+      ></AppTrans>,
       { position: 'bottom-left' },
     )
   } else {
     toast.info(
-      <PrimaryTrans
+      <AppTrans
         i18nKey='universal_doNothing_text'
         values={{
           text: state.settings.executionAmount.join(','),
         }}
-      ></PrimaryTrans>,
+      ></AppTrans>,
       { position: 'bottom-left' },
     )
   }

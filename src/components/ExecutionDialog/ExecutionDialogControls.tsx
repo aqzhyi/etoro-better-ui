@@ -9,7 +9,7 @@ import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDia
 import { ExecutionDialogLeverTradeButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogLeverTradeButtonsGrid'
 import { ExecutionDialogSLTPButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogSLTPButtonsGrid'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { emitter, Events } from '~/emitter'
 import { GM } from '~/GM'
 import { storage } from '~/storage'
@@ -18,7 +18,7 @@ import { registerReactComponent } from '~/utils/registerReactComponent'
 
 const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
-    <PrimaryTrans i18nKey='link_riskKnown_text'></PrimaryTrans>,
+    <AppTrans i18nKey='link_riskKnown_text'></AppTrans>,
     {
       position: 'bottom-left',
       hideAfter: 8,

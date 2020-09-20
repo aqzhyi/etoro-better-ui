@@ -20,23 +20,23 @@ import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { ExecutionDialogFixedAmountLeverToggle } from '~/components/ExecutionDialog/ExecutionDialogFixedAmountLeverToggle'
 import { PingProbeHiddenSetup } from '~/components/PingProbeHiddenSetup'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { SettingAmountsButton } from '~/components/SettingAmountsButton'
 import { SettingDemoMode } from '~/components/SettingDemoMode'
 import { SettingSelectedExchange } from '~/components/SettingSelectedExchange'
-import { UniversalHotkeySettings } from '~/components/UniversalControl/UniversalHotkeySettings'
+import { UniversalHotkeySettings } from '~/components/UniversalHotkeySettings'
 import { WatchlistCompactSwitch } from '~/components/Watchlist/WatchlistCompactSwitch'
 import { WatchlistInvestedSwitch } from '~/components/Watchlist/WatchlistInvestedSwitch'
 import { getMYR, getNTD } from '~/exchange'
 import { gaAPI, GaEventId } from '~/gaAPI'
-import { usePrimaryTranslation } from '~/hooks/usePrimaryTranslation'
+import { useAppTranslation } from '~/hooks/useAppTranslation'
 import { AttributeFreepik } from '~/Icons/AttributeFreepik'
 import { BetterEtoroUIConfig } from '~/storage'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
-export const SidebarSettingsDialog: React.FC = () => {
-  const locale = usePrimaryTranslation()
+export const SetupsDialog: React.FC = () => {
+  const locale = useAppTranslation()
   const dispatch = useAppDispatch()
 
   const settings = useAppSelector(state => state.settings)
@@ -51,7 +51,7 @@ export const SidebarSettingsDialog: React.FC = () => {
       open={dialogOpen}
     >
       <DialogTitle>
-        <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans>
+        <AppTrans i18nKey='universal_extensionName_text'></AppTrans>
       </DialogTitle>
 
       <DialogContent>
@@ -68,9 +68,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item>
             <FormControlLabel
-              label={
-                <PrimaryTrans i18nKey='dialog_enabled_brief'></PrimaryTrans>
-              }
+              label={<AppTrans i18nKey='dialog_enabled_brief'></AppTrans>}
               labelPlacement='end'
               control={
                 <Switch
@@ -88,12 +86,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                     )
 
                     toast.success(
-                      <PrimaryTrans
+                      <AppTrans
                         i18nKey='universal_doChanged_text'
                         values={{
                           text: String(checked),
                         }}
-                      ></PrimaryTrans>,
+                      ></AppTrans>,
                       { position: 'bottom-left' },
                     )
                   }}
@@ -105,7 +103,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Grid item xs={12}>
             <FormControlLabel
               label={
-                <PrimaryTrans i18nKey='dialog_enabledInProchart_brief'></PrimaryTrans>
+                <AppTrans i18nKey='dialog_enabledInProchart_brief'></AppTrans>
               }
               control={
                 <Switch
@@ -129,9 +127,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item xs={12}>
             <FormControlLabel
-              label={
-                <PrimaryTrans i18nKey='dialog_buttonsSetup_brief'></PrimaryTrans>
-              }
+              label={<AppTrans i18nKey='dialog_buttonsSetup_brief'></AppTrans>}
               labelPlacement='top'
               control={<SettingAmountsButton />}
             ></FormControlLabel>
@@ -143,25 +139,25 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item container spacing={2}>
             <Grid item xs={3}>
-              <PrimaryTooltip
+              <AppTooltip
                 title={
-                  <PrimaryTrans
+                  <AppTrans
                     i18nKey='profits_fixedStopLossValueOnOrder_help'
                     values={{
                       value: settings.stopLossLastPercent,
                     }}
-                  ></PrimaryTrans>
+                  ></AppTrans>
                 }
               >
                 <TextField
                   variant='outlined'
                   label={
-                    <PrimaryTrans
+                    <AppTrans
                       i18nKey='profits_fixedStopLossValueOnOrder_brief'
                       values={{
                         value: settings.stopLossLastPercent,
                       }}
-                    ></PrimaryTrans>
+                    ></AppTrans>
                   }
                   defaultValue={String(settings.stopLossLastPercent)}
                   onBlur={event => {
@@ -172,12 +168,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                       newValue !== settings.stopLossLastPercent
                     ) {
                       toast.success(
-                        <PrimaryTrans
+                        <AppTrans
                           i18nKey='universal_doChanged_text'
                           values={{
                             text: `${newValue}%`,
                           }}
-                        ></PrimaryTrans>,
+                        ></AppTrans>,
                       )
 
                       dispatch(
@@ -188,29 +184,29 @@ export const SidebarSettingsDialog: React.FC = () => {
                     }
                   }}
                 ></TextField>
-              </PrimaryTooltip>
+              </AppTooltip>
             </Grid>
 
             <Grid item xs={3}>
-              <PrimaryTooltip
+              <AppTooltip
                 title={
-                  <PrimaryTrans
+                  <AppTrans
                     i18nKey='profits_fixedTakeProfitValueOnOrder_help'
                     values={{
                       value: settings.takeProfitLastPercent,
                     }}
-                  ></PrimaryTrans>
+                  ></AppTrans>
                 }
               >
                 <TextField
                   variant='outlined'
                   label={
-                    <PrimaryTrans
+                    <AppTrans
                       i18nKey='profits_fixedTakeProfitValueOnOrder_brief'
                       values={{
                         value: settings.takeProfitLastPercent,
                       }}
-                    ></PrimaryTrans>
+                    ></AppTrans>
                   }
                   defaultValue={String(settings.takeProfitLastPercent)}
                   onBlur={event => {
@@ -221,12 +217,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                       newValue !== settings.takeProfitLastPercent
                     ) {
                       toast.success(
-                        <PrimaryTrans
+                        <AppTrans
                           i18nKey='universal_doChanged_text'
                           values={{
                             text: `${newValue}%`,
                           }}
-                        ></PrimaryTrans>,
+                        ></AppTrans>,
                       )
 
                       dispatch(
@@ -237,12 +233,12 @@ export const SidebarSettingsDialog: React.FC = () => {
                     }
                   }}
                 ></TextField>
-              </PrimaryTooltip>
+              </AppTooltip>
             </Grid>
 
             <Grid item xs={6}>
               <FormLabel>
-                <PrimaryTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></PrimaryTrans>
+                <AppTrans i18nKey='profits_fixedStopLossTakeProfitEnabled_brief'></AppTrans>
               </FormLabel>
             </Grid>
           </Grid>
@@ -256,13 +252,13 @@ export const SidebarSettingsDialog: React.FC = () => {
           </Grid>
 
           <Grid item container>
-            <PrimaryTrans i18nKey='common_experimental_text'></PrimaryTrans>
+            <AppTrans i18nKey='common_experimental_text'></AppTrans>
           </Grid>
 
           <Grid item container>
             <FormControlLabel
               label={
-                <PrimaryTrans i18nKey='dialog_priceRenderRate_brife'></PrimaryTrans>
+                <AppTrans i18nKey='dialog_priceRenderRate_brife'></AppTrans>
               }
               labelPlacement='top'
               control={
@@ -271,7 +267,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   valueLabelDisplay='auto'
                   valueLabelFormat={value =>
                     value < 15 ? (
-                      <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
+                      <AppTrans i18nKey='common_disable_text'></AppTrans>
                     ) : (
                       String(value)
                     )
@@ -279,7 +275,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                   marks={[
                     {
                       label: (
-                        <PrimaryTrans i18nKey='common_disable_text'></PrimaryTrans>
+                        <AppTrans i18nKey='common_disable_text'></AppTrans>
                       ),
                       value: 15,
                     },
@@ -329,7 +325,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           </Grid>
 
           <Grid item>
-            {/* <PrimaryTrans i18nKey='universal_extensionName_text'></PrimaryTrans> */}
+            {/* <AppTrans i18nKey='universal_extensionName_text'></AppTrans> */}
             Others
           </Grid>
 
@@ -339,29 +335,25 @@ export const SidebarSettingsDialog: React.FC = () => {
             </Grid>
             <Grid item>
               <FormLabel>
-                <PrimaryTrans i18nKey='setting_demoMode_brief'></PrimaryTrans>
+                <AppTrans i18nKey='setting_demoMode_brief'></AppTrans>
               </FormLabel>
             </Grid>
           </Grid>
 
           <Grid item>
-            <PrimaryTooltip
-              title={
-                <PrimaryTrans i18nKey='universal_compact_brief'></PrimaryTrans>
-              }
+            <AppTooltip
+              title={<AppTrans i18nKey='universal_compact_brief'></AppTrans>}
             >
               <WatchlistCompactSwitch />
-            </PrimaryTooltip>
+            </AppTooltip>
           </Grid>
 
           <Grid item>
-            <PrimaryTooltip
-              title={
-                <PrimaryTrans i18nKey='profits_invested_brief'></PrimaryTrans>
-              }
+            <AppTooltip
+              title={<AppTrans i18nKey='profits_invested_brief'></AppTrans>}
             >
               <WatchlistInvestedSwitch />
-            </PrimaryTooltip>
+            </AppTooltip>
           </Grid>
 
           <Grid item>
@@ -370,9 +362,7 @@ export const SidebarSettingsDialog: React.FC = () => {
 
           <Grid item>
             <FormControlLabel
-              label={
-                <PrimaryTrans i18nKey='setting_resetAll_text'></PrimaryTrans>
-              }
+              label={<AppTrans i18nKey='setting_resetAll_text'></AppTrans>}
               labelPlacement={'top'}
               control={
                 <Button
@@ -389,7 +379,7 @@ export const SidebarSettingsDialog: React.FC = () => {
                     }
                   }}
                 >
-                  <PrimaryTrans i18nKey='setting_resetAll_text'></PrimaryTrans>
+                  <AppTrans i18nKey='setting_resetAll_text'></AppTrans>
                 </Button>
               }
             ></FormControlLabel>
@@ -398,7 +388,7 @@ export const SidebarSettingsDialog: React.FC = () => {
           <Grid item>
             <FormControlLabel
               label={
-                <PrimaryTrans i18nKey='universal_googleAnalyticsEnabled_brief'></PrimaryTrans>
+                <AppTrans i18nKey='universal_googleAnalyticsEnabled_brief'></AppTrans>
               }
               control={
                 <Switch

@@ -7,7 +7,7 @@ const StyledTooltip = withStyles({
   },
 })(Tooltip)
 
-export const PrimaryTooltip: React.FC<React.PropsWithChildren<{
+export const AppTooltip: React.FC<React.PropsWithChildren<{
   tooltipProps?: Omit<TooltipProps, 'title' | 'children'>
   title: TooltipProps['title']
 }>> = props => {

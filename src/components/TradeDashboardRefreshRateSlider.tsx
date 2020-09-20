@@ -1,5 +1,5 @@
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import React from 'react'
 import { Slider, FormControlLabel } from '@material-ui/core'
@@ -11,9 +11,7 @@ export const TradeDashboardRefreshRateSlider: React.FC<any> = props => {
   return (
     <React.Fragment>
       <FormControlLabel
-        label={
-          <PrimaryTrans i18nKey='tradeDashboard_refreshRate_brief'></PrimaryTrans>
-        }
+        label={<AppTrans i18nKey='tradeDashboard_refreshRate_brief'></AppTrans>}
         labelPlacement='top'
         control={
           <Slider

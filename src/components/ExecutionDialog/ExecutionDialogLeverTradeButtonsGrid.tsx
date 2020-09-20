@@ -3,7 +3,7 @@ import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '~/angularAPI'
 import { KeyProbe } from '~/components/KeyProbe'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useDialogLeverAvailable } from '~/hooks/useDialogLeverAvailable'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
@@ -32,7 +32,7 @@ export const ExecutionDialogLeverTradeButtonsGrid: React.FC = props => {
     <Grid container direction='column'>
       <Grid item>
         <h2 style={{ textAlign: 'center' }}>
-          <PrimaryTrans i18nKey='universal_lever_text'></PrimaryTrans>
+          <AppTrans i18nKey='universal_lever_text'></AppTrans>
         </h2>
       </Grid>
 

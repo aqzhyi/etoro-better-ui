@@ -1,7 +1,7 @@
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { Kbd } from '~/components/Kbd'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
-import { SidebarMenuItem } from '~/components/Sidebar/SidebarMenuItem'
+import { AppTrans } from '~/components/AppTrans'
+import { SidebarMenuItem } from '~/components/SidebarMenuItem'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
@@ -27,7 +27,7 @@ export const SidebarTradeDashboardLink: React.FC = props => {
           },
         }}
       >
-        <PrimaryTrans i18nKey='link_dashboard_text'></PrimaryTrans>
+        <AppTrans i18nKey='link_dashboard_text'></AppTrans>
         <KeyProbe
           filter='D'
           command={() => {

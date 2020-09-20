@@ -1,7 +1,9 @@
 import React, { memo } from 'react'
 import { ProfitText } from '~/components/ProfitText'
 
-/** 開倉位距離當前點位點數合計 */
+/**
+ * The count diff of between on open-rate and current-rate for user position
+ */
 export const InstrumentRateChangeCount: React.FC<{
   isBuy: boolean
   current: number

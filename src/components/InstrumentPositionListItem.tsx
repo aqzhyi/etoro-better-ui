@@ -11,7 +11,7 @@ import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { InstrumentRateChangeCount } from '~/components/InstrumentRateChangeCount'
 import { PositionBrief } from '~/components/PositionBrief'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { RateSignalIcon } from '~/components/RateSignalIcon'
 import { gaAPI, GaEventId } from '~/gaAPI'
@@ -194,9 +194,9 @@ export const InstrumentPositionListItem: React.FC<{
           }}
         >
           {position.closed === true ? (
-            <PrimaryTrans i18nKey='tradeDashboard_positionClosed'></PrimaryTrans>
+            <AppTrans i18nKey='tradeDashboard_positionClosed'></AppTrans>
           ) : (
-            <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>
+            <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
           )}
         </Button>
       </ListItemSecondaryAction>

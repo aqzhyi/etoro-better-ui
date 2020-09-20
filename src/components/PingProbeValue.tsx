@@ -1,6 +1,6 @@
 import React from 'react'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { useAppSelector } from '~/store/_store'
 
 export const PingProbeValue: React.FC<{
@@ -15,27 +15,27 @@ export const PingProbeValue: React.FC<{
 
   if (props.children) {
     return (
-      <PrimaryTooltip
+      <AppTooltip
         title={
-          <PrimaryTrans
+          <AppTrans
             i18nKey='status_inferringDelay_text'
             values={{
               value: pingValue || '***',
             }}
-          ></PrimaryTrans>
+          ></AppTrans>
         }
       >
         {props.children}
-      </PrimaryTooltip>
+      </AppTooltip>
     )
   }
 
   return (
-    <PrimaryTrans
+    <AppTrans
       i18nKey='status_inferringDelay_text'
       values={{
         value: pingValue || '---',
       }}
-    ></PrimaryTrans>
+    ></AppTrans>
   )
 }

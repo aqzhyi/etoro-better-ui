@@ -1,14 +1,14 @@
 import cogoToast from 'cogo-toast'
 import React from 'react'
 import { debugAPI } from '~/debugAPI'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTrans } from '~/components/AppTrans'
 
 /** 計算啟動時間 */
 const bootstrapStartAt = new Date()
 
 export const showWelcomeMessage = () => {
   const { hide } = cogoToast.success(
-    <PrimaryTrans i18nKey='universal_welcomeMessage_text'></PrimaryTrans>,
+    <AppTrans i18nKey='universal_welcomeMessage_text'></AppTrans>,
     {
       position: 'bottom-left',
       hideAfter: 8,

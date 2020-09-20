@@ -6,8 +6,8 @@ import {
 import React from 'react'
 import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { HelpIcon } from '~/components/HelpIcon'
-import { PrimaryTooltip } from '~/components/PrimaryTooltip'
-import { PrimaryTrans } from '~/components/PrimaryTrans'
+import { AppTooltip } from '~/components/AppTooltip'
+import { AppTrans } from '~/components/AppTrans'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 
@@ -21,11 +21,11 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
 
   return (
     <React.Fragment>
-      <PrimaryTooltip
+      <AppTooltip
         tooltipProps={{ placement: 'right' }}
         title={
           <span style={{ display: 'inline-block', width: 200 }}>
-            <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_brief'></PrimaryTrans>
+            <AppTrans i18nKey='dialog_fixedNextOrderValue_brief'></AppTrans>
           </span>
         }
       >
@@ -34,9 +34,9 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
             label={
               <React.Fragment>
                 {executionUseApplyLast ? (
-                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValue_text'></PrimaryTrans>
+                  <AppTrans i18nKey='dialog_fixedNextOrderValue_text'></AppTrans>
                 ) : (
-                  <PrimaryTrans i18nKey='dialog_fixedNextOrderValueNot_text'></PrimaryTrans>
+                  <AppTrans i18nKey='dialog_fixedNextOrderValueNot_text'></AppTrans>
                 )}
 
                 <HelpIcon
@@ -65,7 +65,7 @@ export const ExecutionDialogFixedAmountLeverToggle: React.FC<{
             }
           ></FormControlLabel>
         </span>
-      </PrimaryTooltip>
+      </AppTooltip>
     </React.Fragment>
   )
 }
