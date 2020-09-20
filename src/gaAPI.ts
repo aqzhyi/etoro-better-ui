@@ -15,7 +15,7 @@ export enum GaEventId {
   sidebar_extensionMenuItemClick,
   sidebar_pendingOrdersLinkClick,
   sidebar_dashboardLinkClick,
-  watchlists_balanceLinkClick,
+  watchlists_checkUserBalance,
   watchlists_portfolioLinkClick,
   watchlists_filterByText,
   watchlists_filterByTextClearClick,

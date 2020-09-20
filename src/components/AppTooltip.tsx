@@ -1,5 +1,5 @@
 import { Tooltip, TooltipProps, withStyles } from '@material-ui/core'
-import React from 'react'
+import React, { memo } from 'react'
 
 const StyledTooltip = withStyles({
   popper: {
@@ -10,7 +10,7 @@ const StyledTooltip = withStyles({
 export const AppTooltip: React.FC<React.PropsWithChildren<{
   tooltipProps?: Omit<TooltipProps, 'title' | 'children'>
   title: TooltipProps['title']
-}>> = props => {
+}>> = memo(function AppTooltip(props) {
   return (
     <StyledTooltip
       arrow
@@ -23,4 +23,4 @@ export const AppTooltip: React.FC<React.PropsWithChildren<{
       <span>{props.children}</span>
     </StyledTooltip>
   )
-}
+})

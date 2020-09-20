@@ -1,5 +1,5 @@
 import { Kbd } from '~/components/Kbd'
-import React from 'react'
+import React, { memo } from 'react'
 import { Trans, TransProps } from 'react-i18next'
 import type * as zhLocale from '../../locales/zh.json'
 import { NotableText } from '~/components/NotableText'
@@ -17,7 +17,7 @@ export const AppTrans: React.FC<
   Omit<TransProps, 'i18nKey'> & {
     i18nKey: keyof typeof zhLocale
   }
-> = props => {
+> = memo(function AppTrans(props) {
   return (
     <Trans
       {...props}
@@ -30,4 +30,4 @@ export const AppTrans: React.FC<
       {props.children}
     </Trans>
   )
-}
+})

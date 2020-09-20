@@ -1,78 +1,29 @@
-import { Button, Grid, Tooltip } from '@material-ui/core'
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn'
+import { Button, Grid } from '@material-ui/core'
 import TableChartIcon from '@material-ui/icons/TableChart'
-import { stringifyUrl } from 'query-string'
-import React from 'react'
-import { useAsyncFn } from 'react-use'
+import React, { memo } from 'react'
+import { AppTooltip } from '~/components/AppTooltip'
 import { AppTrans } from '~/components/AppTrans'
-import { debugAPI } from '~/debugAPI'
+import { CheckUserBalanceButton } from '~/components/Watchlist/CheckUserBalanceButton'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { GM } from '~/GM'
 
 export const WatchlistUsersControls: React.FunctionComponent<{
   username: string
   cid: string
-}> = props => {
-  const [equityState, equityQuery] = useAsyncFn(() => {
-    return GM.ajax({
-      method: 'GET',
-      url: stringifyUrl({
-        url:
-          'https://www.etoro.com/sapi/trade-data-real/live/public/portfolios',
-        query: {
-          cid: props.cid,
-        },
-      }),
-    })
-      .then(event => {
-        const model = JSON.parse(
-          /var model = (?<model>\{[\s\S]+\}),/i.exec(event.responseText)?.groups
-            ?.model || `{}`,
-        ) as {
-          /** 餘額 */
-          CreditByRealizedEquity?: number
-        }
-
-        return model.CreditByRealizedEquity?.toFixed(2)
-      })
-      .catch(error => {
-        return Promise.reject(error)
-      })
-      .finally(() => {
-        debugAPI.log(`獲取 cid=${props.cid} 的餘額`)
-      })
-  }, [])
-
+}> = memo(function WatchlistUsersControls(props) {
   return (
     <Grid container direction='row' spacing={0}>
       <Grid item>
-        <Tooltip
-          arrow
-          placement='right'
+        <AppTooltip
           title={<AppTrans i18nKey='link_checkBalance_text'></AppTrans>}
         >
-          <Button
-            size='small'
-            variant='outlined'
-            onClick={() => {
-              equityQuery()
-              gaAPI.sendEvent(GaEventId.watchlists_balanceLinkClick)
-            }}
-          >
-            {equityState.value ? (
-              `${equityState.value}%`
-            ) : (
-              <MonetizationOnIcon />
-            )}
-          </Button>
-        </Tooltip>
+          <CheckUserBalanceButton cid={props.cid} />
+        </AppTooltip>
       </Grid>
 
       {props.username && (
         <Grid item>
-          <Tooltip
-            arrow
-            placement='right'
+          <AppTooltip
             title={<AppTrans i18nKey='link_portfolio_text'></AppTrans>}
           >
             <a
@@ -85,12 +36,12 @@ export const WatchlistUsersControls: React.FunctionComponent<{
                 <TableChartIcon />
               </Button>
             </a>
-          </Tooltip>
+          </AppTooltip>
         </Grid>
       )}
     </Grid>
   )
-}
+})
 
 GM.addStyle(`
   .${WatchlistUsersControls.name} {
