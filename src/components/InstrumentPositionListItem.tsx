@@ -1,4 +1,6 @@
+import AvTimerIcon from '@material-ui/icons/AvTimer'
 import {
+  Box,
   Button,
   ListItem,
   ListItemAvatar,
@@ -18,6 +20,7 @@ import { gaAPI, GaEventId } from '~/gaAPI'
 import { useInstrument } from '~/hooks/useInstrument'
 import { usePosition } from '~/hooks/usePosition'
 import { useAppSelector } from '~/store/_store'
+import { AppTooltip } from '~/components/AppTooltip'
 
 const StyledListItem = styled(ListItem)<{
   closing?: boolean
@@ -41,7 +44,7 @@ const StyledListItem = styled(ListItem)<{
     props.closed
       ? 'none'
       : props.closing
-      ? `rotateX(360deg) matrix(1, -0.05, 0, 1, 0, 1)`
+      ? `rotateX(720deg) matrix(1,-0.01,0.4,1,0,1)`
       : 'none'};
   min-height: 60px;
   background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
@@ -101,11 +104,13 @@ export const InstrumentPositionListItem: React.FC<{
       active={instrument?.IsActive ? 'true' : undefined}
     >
       <ListItemAvatar>
-        {position && instrument ? (
-          <PositionBrief id={position.value.PositionID} />
-        ) : (
-          <span />
-        )}
+        <Box minWidth={160}>
+          {position && instrument ? (
+            <PositionBrief id={position.value.PositionID} />
+          ) : (
+            <span />
+          )}
+        </Box>
       </ListItemAvatar>
 
       <ListItemText
@@ -185,20 +190,30 @@ export const InstrumentPositionListItem: React.FC<{
       ></ListItemText>
 
       <ListItemSecondaryAction>
-        <Button
-          variant='outlined'
-          disabled={position.value.isPendingClose}
-          onClick={event => {
-            gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
-            position.close()
-          }}
-        >
-          {position.closed === true ? (
-            <AppTrans i18nKey='tradeDashboard_positionClosed'></AppTrans>
+        <Box display='flex' alignItems='flex-end'>
+          {instrument?.IsActive === false ? (
+            <AppTooltip
+              title={<AppTrans i18nKey='common_marketClose_text'></AppTrans>}
+            >
+              <AvTimerIcon />
+            </AppTooltip>
           ) : (
-            <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
+            <Button
+              variant='outlined'
+              disabled={position.value.isPendingClose}
+              onClick={event => {
+                gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
+                position.close()
+              }}
+            >
+              {position.closed === true ? (
+                <AppTrans i18nKey='tradeDashboard_positionClosed'></AppTrans>
+              ) : (
+                <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
+              )}
+            </Button>
           )}
-        </Button>
+        </Box>
       </ListItemSecondaryAction>
     </StyledListItem>
   )
