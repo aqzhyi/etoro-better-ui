@@ -1,3 +1,5 @@
+import { map } from 'lodash'
+
 export const angularAPI = {
   _$rootScope: null as RootScope | null,
   get $rootScope() {
@@ -68,6 +70,58 @@ export const angularAPI = {
       ,[data-etoro-automation-id="edit-position-pop-up-no-take-profit"]
     `,
   } as const,
+  getPositionById(positionId: InstrumentPosition['PositionID']) {
+    const data = angularAPI.$rootScope?.session.user.portfolio.getPositionById(
+      positionId,
+    )
+    return data
+      ? {
+          ...data,
+          // access etoro function
+          close: () => {
+            globalThis.setTimeout(() => {
+              data.close()
+            })
+          },
+          // getters, which can't Object.assign
+          Amount: data.Amount,
+          Leverage: data.Leverage,
+          CurrentRate: data.CurrentRate,
+          Equity: data.Equity,
+          InitialAmountInDollars: data.InitialAmountInDollars,
+          InitialUnits: data.InitialUnits,
+          Instrument: data.Instrument,
+          IsBuy: data.IsBuy,
+          LastRateChange: data.LastRateChange,
+          OpenDateTime: data.OpenDateTime,
+          OpenRate: data.OpenRate,
+          PositionID: data.PositionID,
+          Profit: data.Profit,
+          TakeProfitRate: data.TakeProfitRate,
+          isPendingClose: data.isPendingClose,
+          TakeProfitAmount: data.TakeProfitAmount,
+          TakeProfitPercent: data.TakeProfitPercent,
+          StopLossAmount: data.StopLossAmount,
+          StopLossPercent: data.StopLossPercent,
+        }
+      : null
+  },
+  getInstrumentById(instrumentId: Instrument['InstrumentID']) {
+    const data = angularAPI.$rootScope?.session.instrumentsFactory.getById(
+      instrumentId,
+    )
+    return data
+      ? {
+          ...data,
+          // trigger values within getters
+          lastPrice: data.rate.lastPrice,
+          lastAskPrice: data.rate.lastAskPrice,
+          lastAskChange: data.rate.lastAskChange,
+          lastBidChange: data.rate.lastBidChange,
+          IsActive: data.IsActive,
+        }
+      : null
+  },
   get isNativeTradeDialogOpen(): boolean {
     // Target is specified to trade dialog, not else dialogs
     const isTradeDialog = !!$('.execution-main-head-price-value').length

@@ -7,17 +7,16 @@ import {
   makeStyles,
 } from '@material-ui/core'
 import React, { Fragment, memo } from 'react'
-import { useDispatch } from 'react-redux'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
-import { InstrumentIcon } from '~/components/InstrumentIcon'
 import { InstrumentRateChangeCount } from '~/components/InstrumentRateChangeCount'
+import { PositionBrief } from '~/components/PositionBrief'
 import { PrimaryTrans } from '~/components/PrimaryTrans'
 import { ProfitText } from '~/components/ProfitText'
 import { RateSignalIcon } from '~/components/RateSignalIcon'
 import { gaAPI, GaEventId } from '~/gaAPI'
-import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboardOpen'
-import { useInstrumentPosition } from '~/hooks/useInstrumentPosition'
+import { useInstrument } from '~/hooks/useInstrument'
+import { usePosition } from '~/hooks/usePosition'
 import { useAppSelector } from '~/store/_store'
 
 const StyledListItem = styled(ListItem)<{
@@ -31,7 +30,7 @@ const StyledListItem = styled(ListItem)<{
     outline: 1px solid #00808073;
   }
 
-  filter: ${props => (props.closed || !props.active ? `grayscale(1)` : `none`)};
+  filter: ${props => (!props.active ? `grayscale(1)` : `none`)};
   outline: ${props =>
     props.closed || props.closing ? `1px solid #bebebe` : 'none'};
   transition-duration: ${props => (props.closing ? '2s' : 'none')};
@@ -46,6 +45,15 @@ const StyledListItem = styled(ListItem)<{
       : 'none'};
   min-height: 60px;
   background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
+
+  ::after {
+    content: '';
+    display: ${props => (props.closed ? 'inline-block' : 'none')};
+    width: 100%;
+    height: 0px;
+    border: 1px solid #ff00006b;
+    position: absolute;
+  }
 `
 
 const useStyles = makeStyles({
@@ -56,15 +64,9 @@ const useStyles = makeStyles({
 
 export const InstrumentPositionListItem: React.FC<{
   positionId?: InstrumentPosition['PositionID']
-}> = memo(props => {
-  const {
-    closed,
-    closing,
-    setClosing,
-    position,
-    instrument,
-    update,
-  } = useInstrumentPosition(props.positionId)
+}> = memo(function InstrumentPositionListItem(props) {
+  const position = usePosition(props.positionId ?? 0)
+  const instrument = useInstrument(position.value?.InstrumentID ?? 0)
   const updateRate = useAppSelector(
     state => state.settings.tradeDashboardRenderRate,
   )
@@ -73,41 +75,34 @@ export const InstrumentPositionListItem: React.FC<{
   const css = useStyles()
 
   // tracing the opening market
-  useInterval(() => {
-    if (!props.positionId || closed || !position?.Instrument.IsActive) {
-      return
-    }
+  useInterval(
+    () => {
+      if (
+        !props.positionId ||
+        position.closed === true ||
+        instrument?.IsActive === false
+      ) {
+        return
+      }
 
-    update()
-  }, (dashboardOpen && props.positionId && updateRate) || null)
+      position.update()
+    },
+    dashboardOpen && props.positionId ? updateRate : null,
+  )
 
-  useInterval(() => {
-    // if you can't close the position, revert closing prop when update
-    setClosing(false)
-  }, (props.positionId && !closed && 5000) || null)
-
-  if (!position) {
+  if (!position.value) {
     return <StyledListItem></StyledListItem>
   }
 
   return (
     <StyledListItem
-      closed={closed ? 'true' : undefined}
-      closing={closing ? 'true' : undefined}
-      active={position.Instrument.IsActive ? 'true' : undefined}
+      closed={position.closed === true ? 'true' : undefined}
+      closing={position.closing === true ? 'true' : undefined}
+      active={instrument?.IsActive ? 'true' : undefined}
     >
       <ListItemAvatar>
         {position && instrument ? (
-          <InstrumentIcon
-            avatar={
-              instrument?.Avatars['90x90'] || instrument?.Avatars.default || ''
-            }
-            amount={position.Amount}
-            isBuy={position.IsBuy}
-            leverages={position.Leverage}
-            name={instrument.Name}
-            openRate={position.OpenRate}
-          ></InstrumentIcon>
+          <PositionBrief id={position.value.PositionID} />
         ) : (
           <span />
         )}
@@ -119,11 +114,10 @@ export const InstrumentPositionListItem: React.FC<{
         }}
         primary={
           <Fragment>
-            <RateSignalIcon change={position.LastRateChange} />
+            <RateSignalIcon change={position.value.LastRateChange} />
 
-            {/* Open Rate */}
             <ProfitText
-              profit={position.CurrentRate}
+              profit={position.value.CurrentRate}
               noDollarSign
               noNegative
               pureDollar
@@ -131,19 +125,18 @@ export const InstrumentPositionListItem: React.FC<{
 
             <Fragment> </Fragment>
 
-            {/* Change Rate count per-tick of up/down */}
             <ProfitText
-              profit={position.LastRateChange}
+              profit={position.value.LastRateChange}
               noDollarSign
             ></ProfitText>
 
             <span style={{ marginLeft: 4 }}>
-              <Fragment>( </Fragment>
-              {/* up/down rate count with Open Rate */}
+              <Fragment>(</Fragment>
+
               <InstrumentRateChangeCount
-                current={position.CurrentRate}
-                isBuy={position.IsBuy}
-                openRate={position.OpenRate}
+                current={position.value.CurrentRate}
+                isBuy={position.value.IsBuy}
+                openRate={position.value.OpenRate}
               />
               <Fragment> )</Fragment>
             </span>
@@ -155,7 +148,7 @@ export const InstrumentPositionListItem: React.FC<{
         primary={
           <Fragment>
             <ProfitText
-              profit={position.StopLossPercent}
+              profit={position.value.StopLossPercent}
               suffix='%'
               noDollarSign
             ></ProfitText>
@@ -164,7 +157,7 @@ export const InstrumentPositionListItem: React.FC<{
         secondary={
           <Fragment>
             <ProfitText
-              profit={position.TakeProfitPercent}
+              profit={position.value.TakeProfitPercent}
               suffix='%'
               noDollarSign
             ></ProfitText>
@@ -179,14 +172,14 @@ export const InstrumentPositionListItem: React.FC<{
         primary={
           <Fragment>
             <ProfitText
-              profit={(position.Profit / position.Amount) * 100}
+              profit={(position.value.Profit / position.value.Amount) * 100}
               noDollarSign
               suffix={'%'}
             ></ProfitText>
 
             <Fragment> </Fragment>
 
-            <ProfitText profit={position.Profit}></ProfitText>
+            <ProfitText profit={position.value.Profit}></ProfitText>
           </Fragment>
         }
       ></ListItemText>
@@ -194,13 +187,13 @@ export const InstrumentPositionListItem: React.FC<{
       <ListItemSecondaryAction>
         <Button
           variant='outlined'
-          disabled={position.isPendingClose}
+          disabled={position.value.isPendingClose}
           onClick={event => {
             gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
             position.close()
           }}
         >
-          {closed ? (
+          {position.closed === true ? (
             <PrimaryTrans i18nKey='tradeDashboard_positionClosed'></PrimaryTrans>
           ) : (
             <PrimaryTrans i18nKey='tradeDashboard_actionClose'></PrimaryTrans>

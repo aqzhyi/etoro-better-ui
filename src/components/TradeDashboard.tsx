@@ -1,9 +1,7 @@
-import { Button, Grid, List, Typography } from '@material-ui/core'
+import { Button, Grid, List, styled } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useKey } from 'react-use'
-import styled from 'styled-components'
-import { setBetterEtoroUIConfig } from '~/actions/setBetterEtoroUIConfig'
 import { angularAPI } from '~/angularAPI'
 import { InstrumentPositionGroupListItem } from '~/components/InstrumentPositionGroupListItem'
 import { Kbd } from '~/components/Kbd'
@@ -16,32 +14,31 @@ import { useDispatchTradeDashboardOpen } from '~/hooks/useDispatchTradeDashboard
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 
-const StyledTradeDashboard = styled.span<{
-  open: boolean
-}>`
-  display: ${props => (!props.open && 'none') || 'block'};
-  position: fixed;
-  top: 60px;
-  left: 300px;
-  width: calc(100vw - 300px);
-  height: calc(100vh - 60px - 80px);
-  background: #fff;
-  color: #000;
-  overflow: auto;
-  /** notifications has z-index 40 */
-  z-index: 39;
-  padding: 8px;
-
-  @media (max-width: 1024px) {
-    left: 0;
-    width: 100vw;
-  }
-`
+const Panel = styled('div')({
+  transitionDuration: '0.3s',
+  transform: (props: { open: boolean }) =>
+    props.open ? '' : 'translateX(100vw)',
+  diaplay: 'block',
+  position: 'fixed',
+  top: 60,
+  left: 300,
+  width: 'calc(100vw - 300px)',
+  height: 'calc(100vh - 60px - 80px)',
+  background: '#fff',
+  color: '#000',
+  overflow: 'auto',
+  zIndex: 39,
+  padding: 8,
+  '@media (max-width: 1024px)': {
+    left: 0,
+    width: '100vw',
+  },
+})
 
 export const TradeDashboard: React.FC = props => {
   const dispatch = useAppDispatch()
   const historyIds = useAppSelector(state => state.positions.historyIds)
-  const isActive = useAppSelector(state => state.display.tradeDashboard)
+  const isOpen = useAppSelector(state => state.display.tradeDashboard)
   const tradeDashboard = useDispatchTradeDashboardOpen()
 
   useKey('Escape', () => {
@@ -53,7 +50,7 @@ export const TradeDashboard: React.FC = props => {
   })
 
   return (
-    <StyledTradeDashboard open={isActive}>
+    <Panel open={isOpen}>
       <Grid
         container
         direction='column'
@@ -104,7 +101,7 @@ export const TradeDashboard: React.FC = props => {
           </List>
         </Grid>
       </Grid>
-    </StyledTradeDashboard>
+    </Panel>
   )
 }
 

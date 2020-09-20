@@ -14,19 +14,30 @@ declare interface InstrumentPosition {
   OpenRate: number
   Profit: number
   Leverage: number
+  InitialAmountInDollars: number
+  /** e.g. `4.490951` */
+  InitialUnits: number
   Instrument: Instrument
+  InstrumentID: Instrument['InstrumentID']
   TakeProfitRate: number
   /** e.g. `-0.12` as points */
   LastRateChange: number
   /** 當前價格 */
   CurrentRate: number
   OpenDateTime: Date
+  /** e.g. `0` */
+  OrderID: number
   close: AnyFunction
   isPendingClose?: boolean
+  /** e.g. `0` */
+  ParentPositionID: number
   StopLossAmount: number
   StopLossPercent: number
+  StopLossRate: number
   TakeProfitAmount: number
   TakeProfitPercent: number
+  TakeProfitRate: number
+  getPortfolio(): Portfoilo
   getGroup(): {
     FirstOpenDate: Date | null
     /** 可用資金 */
