@@ -9,7 +9,7 @@
     "test": "jest",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0",
-    "lint:timing": "TIMING=1 eslint ./src"
+    "lint": "FULL=1 eslint ./src"
   },
   "author": "lezi.chen",
   "license": "ISC",

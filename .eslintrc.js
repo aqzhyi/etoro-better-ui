@@ -1,5 +1,26 @@
 // Consider running ESLint debug
 // npx eslint --debug /Users/pleasurazy/git/life/packages/bot/.eslintrc.js
+
+const FULL_LINT = process.env['FULL'] == 1
+
+/**
+ * My vscode is bad performance that tested in `TIMING=1 npx eslint ./src`
+ *
+ * I want to speed up my vscode, I disable these rules, and move it to the CLI.
+ */
+const toDisableSlowRules = {
+  '@typescript-eslint/no-misused-promises': 'off',
+  '@typescript-eslint/no-implied-eval': 'off',
+  '@typescript-eslint/unbound-method': 'off',
+  '@typescript-eslint/restrict-plus-operands': 'off',
+  '@typescript-eslint/restrict-template-expressions': 'off',
+  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+}
+
+const toDisableSlowExtends = [
+  'plugin:@typescript-eslint/recommended-requiring-type-checking',
+]
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
@@ -7,9 +28,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react-hooks/recommended',
     'prettier',
+    ...(!FULL_LINT ? toDisableSlowExtends : []),
   ],
   env: {
     node: true,
@@ -59,6 +80,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    ...(!FULL_LINT ? toDisableSlowRules : {}),
   },
   overrides: [
     {
