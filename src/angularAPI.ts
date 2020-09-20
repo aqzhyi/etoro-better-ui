@@ -1,5 +1,3 @@
-import { map } from 'lodash'
-
 export const angularAPI = {
   _$rootScope: null as RootScope | null,
   get $rootScope() {
