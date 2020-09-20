@@ -8,7 +8,7 @@ export const InstrumentRateChangeCount: React.FC<{
   isBuy: boolean
   current: number
   openRate: number
-}> = memo(props => {
+}> = memo(function InstrumentRateChangeCount(props) {
   return (
     <ProfitText
       profit={

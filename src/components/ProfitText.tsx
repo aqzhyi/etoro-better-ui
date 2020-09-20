@@ -43,7 +43,7 @@ export const ProfitText: React.FC<{
     '%' // 777.77%
    */
   suffix?: React.ReactNode
-}> = memo(props => {
+}> = memo(function ProfitText(props) {
   const isNegative = props.profit < 0
   const negativeSymbol = props.noNegative ? '' : '-'
   const css = useStyled()

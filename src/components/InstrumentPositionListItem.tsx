@@ -135,8 +135,8 @@ export const InstrumentPositionListItem: React.FC<{
               noDollarSign
             ></ProfitText>
 
-            <span style={{ marginLeft: 4 }}>
-              <Fragment>(</Fragment>
+            <Box display='inline-block' marginLeft={1}>
+              <Fragment>( </Fragment>
 
               <InstrumentRateChangeCount
                 current={position.value.CurrentRate}
@@ -144,7 +144,7 @@ export const InstrumentPositionListItem: React.FC<{
                 openRate={position.value.OpenRate}
               />
               <Fragment> )</Fragment>
-            </span>
+            </Box>
           </Fragment>
         }
       ></ListItemText>
