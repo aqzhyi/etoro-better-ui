@@ -80,6 +80,15 @@ export const InstrumentPositionListItem: React.FC<{
   // tracing the opening market
   useInterval(
     () => {
+      position.update()
+    },
+    position.closed === false && instrument?.IsActive === false
+      ? 30 * 1000
+      : null,
+  )
+
+  useInterval(
+    () => {
       if (
         !props.positionId ||
         position.closed === true ||
