@@ -1,6 +1,6 @@
 {
   "name": "etoro-better-ui",
-  "version": "0.35.0-20200921",
+  "version": "0.36.0-20200923.beta",
   "description": "",
   "main": "index.js",
   "scripts": {
