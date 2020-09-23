@@ -15,6 +15,8 @@ import { GM } from '~/GM'
 import { storage } from '~/storage'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
+import { ExecutionDialogTradeModeToOrderButton } from '~/components/ExecutionDialog/ExecutionDialogTradeModeToOrderButton'
+import { ExecutionDialogTradeModeToTradeButton } from '~/components/ExecutionDialog/ExecutionDialogTradeModeToTradeButton'
 
 const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
@@ -117,6 +119,16 @@ export const ExecutionDialogControls: React.FC<{
 
         <Grid item>
           <ExecutionDialogSLTPButtonsGrid />
+        </Grid>
+
+        <Grid item container direction='column' spacing={1}>
+          <Grid item>
+            <ExecutionDialogTradeModeToOrderButton />
+          </Grid>
+
+          <Grid item>
+            <ExecutionDialogTradeModeToTradeButton />
+          </Grid>
         </Grid>
 
         <Grid item>

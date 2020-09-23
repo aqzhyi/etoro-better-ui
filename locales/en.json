@@ -12,6 +12,8 @@
   "dialog_fixedNextOrderValue_brief": "When Trade Dialog on mount, automatic setup amount and leverage",
   "dialog_fixedNextOrderValue_text": "Amount/Lever Fixed",
   "dialog_priceRenderRate_brife": "Render rate of Ask / Bid price. (The low value is faster re-render but will consume more performance)",
+  "dialog_setModeToOrder_text": "Order Mode",
+  "dialog_setModeToTrade_text": "Trade Mode",
   "etoroStatus_ManualTrade_text": "Manual Trading Status",
   "exchange_usedSetup_brief": "Currency (current: <notable>{{text}}</notable>)",
   "filterText_clearText_text": "Clear Filter",

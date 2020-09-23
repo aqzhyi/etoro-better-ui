@@ -127,6 +127,25 @@ export const angularAPI = {
 
     return (isDialogOpen && isTradeDialog) || false
   },
+  setTradeModeToTrade: () => {
+    $('[data-etoro-automation-id="execution-trade-mode-drop-box"]').trigger(
+      'click',
+    )
+
+    // etoro has the three spaces in their element rendered
+    $(`
+      [data-etoro-automation-id="execution-trade-mode-switch-to-trade   "]
+      ,[data-etoro-automation-id="execution-trade-mode-switch-to-trade"]
+    `).trigger('click')
+  },
+  setTradeModeToOrder: () => {
+    $('[data-etoro-automation-id="execution-trade-mode-drop-box"]').trigger(
+      'click',
+    )
+    $(
+      '[data-etoro-automation-id="execution-trade-mode-switch-to-order"]',
+    ).trigger('click')
+  },
   getDialogLever: () => {
     return angularAPI.executionDialogScope?.model?.leverages.selectedLeverage
   },
