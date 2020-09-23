@@ -26,7 +26,7 @@
   "link_extensionWebsite_text": "Website",
   "link_pendingOrders_text": "Pending Orders (<notable>{{value}}</notable>)",
   "link_portfolio_text": "Portfolio",
-  "link_riskKnown_text": "This extension is not official. Make sure you know you have risk when using this extension.",
+  "link_riskKnown_text": "This extension is not official. Make sure you know you have risk when using this extension. <riskLink>🔎 🔗 🌐</riskLink>",
   "link_withdrawExtra_text": "($<notable>{{value}}</notable>)",
   "profits_availableValues_text": "available value",
   "profits_fixedStopLossTakeProfitEnabled_brief": "The Buttons of SL/TP, which that the amounts should apply in percents.",

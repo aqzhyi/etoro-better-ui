@@ -7,7 +7,7 @@ import { NotableText } from '~/components/NotableText'
 const RiskLink: React.FC = props => (
   <a
     target='_blank'
-    href='https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3#bce72baccea34ca09f8c3cb2077347d2'
+    href='https://www.notion.so/hilezi/eToro-better-UI-helper-enhancement-chrome-extension-plugin-4fe69cd704434ff1b82f0cd48dd219c3#3cca48e4edb24d089241bd1c851fa1ae'
   >
     {props.children}
   </a>
