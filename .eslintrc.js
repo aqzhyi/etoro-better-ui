@@ -84,7 +84,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/tampermonkey.js'],
+      files: ['**/tampermonkey.*.js'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
@@ -92,7 +92,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/tampermonkey.js'],
+      files: ['**/tampermonkey.*.js'],
       env: {
         browser: true,
       },
