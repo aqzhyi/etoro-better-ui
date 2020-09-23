@@ -30,6 +30,5 @@
     }
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
-  "include": ["src", "./*.js", "./.*.js"],
-  "files": ["tampermonkey.*.js"]
+  "include": ["src", "./*.js", "./.*.js", "./tampermonkey.*.js"]
 }
