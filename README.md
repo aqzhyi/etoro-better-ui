@@ -2,7 +2,7 @@ Better eToro UI
 ===
 [![compiler: typescript](https://img.shields.io/badge/compiler-🏗%20TypeScript%20-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![i18n: i18n-ally](https://img.shields.io/badge/i18n-🌏%20i18n--ally-default.svg?style=flat-square&colorA=334a5d&colorB=70c9c7)](https://github.com/antfu/i18n-ally)
-[![i18n: i18next](https://img.shields.io/badge/i18n-🌏%20i18next-default.svg?style=flat-square&colorA=334a5d&colorB=009789)](https://github.com/antfu/i18n-ally)
+[![i18n: i18next](https://img.shields.io/badge/i18n-🌏%20i18next-default.svg?style=flat-square&colorA=334a5d&colorB=009789)](https://www.i18next.com/)
 [![UI: react & redux](https://img.shields.io/badge/UI-🎨%20react%20&%20redux-blue.svg?style=flat-square)](https://github.com/facebook/react)
 [![style: styled-components](https://img.shields.io/badge/style-💅styled--components-orange.svg?style=flat-square&colorA=db748e&colorB=daa357)](https://github.com/styled-components/styled-components)
 [![code style: prettier](https://img.shields.io/badge/code_style-💅%20prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
