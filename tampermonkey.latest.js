@@ -12,7 +12,7 @@
 // @name:en         eToro Better UI
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.35.0
+// @version         0.36.0
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
@@ -46,27 +46,32 @@
 // 如果你想切換版本的使用，可以參考下面這一行程式碼
 // If you are looking for another version, please change the word to the your target
 //
-// 當前以下版本可供切換：'latest' | 'beta' | 'dev' | '0.33' | '0.32' | '0.31', etc
-// target version available value are: 'latest' | 'beta' | 'dev' | '0.33' | '0.32' | '0.31', etc
-//
-/** @type{version} */
-const version = 'latest'
+const version = 'v0.36.0-20200926'
+// const version = 'v0.35.0-20200921'
+// const version = 'v0.34.1-20200914'
+// const version = 'v0.33.0-20200911'
+// const version = 'v0.32.4-20200907'
+// const version = 'v0.31.0-20200902'
+// const version = 'v0.30.0-20200825'
+// const version = 'v0.29.0-20200825'
+// const version = 'v0.28.0-20200823-beta3'
+// const version = 'v0.27.0-20200730'
+// const version = 'v0.26.1-20200721'
+// const version = 'v0.25.3'
+// const version = 'v0.24.1'
+// const version = 'v0.23.1'
 //
 // 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
 
 try {
-  const url = getBuildByVersion(version)
+  const url = `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${version}/dist/etoro.js`
 
   console.info('better-ui: loading...')
-
-  addStylesheetTag({
-    url: url.replace('.js', '.css'),
-  })
 
   window['GM_xmlhttpRequest']({
     url: url,
     onload: event => {
-      console.info('better-ui: loaded with', url)
+      console.info(`better-ui: loaded with ${version}`, url)
       eval(event.responseText)
       console.info('better-ui: should up!')
     },
@@ -78,65 +83,3 @@ try {
     alert(`Error: better-ui load failed, don't know why`)
   }
 }
-
-function getBuildByVersion(
-  /**
-    @type{version}
-    */
-  targetVersion,
-) {
-  /**
-    @type{
-      Record<typeof targetVersion, { hash: string, filename: string }>
-    }
-  */
-  const builds = {
-    beta: { hash: 'master', filename: 'etoro' },
-    latest: { hash: 'v0.35.0-20200921', filename: 'etoro' },
-    0.35: { hash: 'v0.35.0-20200921', filename: 'etoro' },
-    0.34: { hash: 'v0.34.1-20200914', filename: 'etoro' },
-    0.33: { hash: 'v0.33.0-20200911', filename: 'etoro' },
-    0.32: { hash: 'v0.32.4-20200907', filename: 'etoro' },
-    0.31: { hash: 'v0.31.0-20200902', filename: 'etoro' },
-    '0.30': { hash: 'v0.30.0-20200825', filename: 'etoro' },
-    0.29: { hash: 'v0.29.0-20200825', filename: 'etoro' },
-    0.28: { hash: 'v0.28.0-20200823-beta3', filename: 'etoro' },
-    0.27: { hash: 'v0.27.0-20200730', filename: 'etoro' },
-    0.26: { hash: 'v0.26.1-20200721', filename: 'etoro' },
-    0.25: { hash: 'v0.25.3', filename: 'etoro' },
-    0.24: { hash: 'v0.24.1', filename: 'etoro' },
-    0.23: { hash: 'v0.23.1', filename: 'etoro' },
-    dev: { hash: 'https://127.0.0.1:8087/etoro.js', filename: 'etoro' },
-  }
-
-  if (!builds[targetVersion]) {
-    throw new Error('better-ui: target version not invalid')
-  }
-
-  const url = builds[targetVersion].hash.startsWith('http')
-    ? builds[targetVersion].hash
-    : `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${builds[targetVersion].hash}/dist/etoro.js`
-
-  return url
-}
-
-function addStylesheetTag(
-  /**
-    @type {{ url: string }}
-  */
-  options,
-) {
-  const head = globalThis.document.querySelector('head')
-  const link = globalThis.document.createElement('link')
-  link.href = options.url
-  link.type = 'text/css'
-  link.rel = 'stylesheet'
-
-  head?.appendChild(link)
-}
-
-/* global globalThis */
-
-/**
-  @typedef { | 'latest' | 'beta' | 'dev' | '0.35' | '0.34' | '0.33' | '0.32' | '0.31' | '0.30' | '0.29' | '0.28' | '0.27' | '0.26' | '0.25' | '0.24' | '0.23' | '0.23' } version
- */
