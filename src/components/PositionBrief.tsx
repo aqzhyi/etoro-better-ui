@@ -11,7 +11,6 @@ import { usePosition } from '~/hooks/usePosition'
 export const PositionBrief: React.FC<{
   id: InstrumentPosition['PositionID']
 }> = memo(props => {
-  const tradeDashboard = useDispatchTradeDashboardOpen()
   const position = usePosition(props.id)
 
   useMount(() => {
@@ -35,7 +34,6 @@ export const PositionBrief: React.FC<{
         <a
           href={`https://www.etoro.com/portfolio/${position.value.Instrument.Name.toLowerCase()}`}
           onClick={() => {
-            tradeDashboard.close()
             gaAPI.sendEvent(GaEventId.tradeDashboard_instrumentLinkClick)
           }}
         >

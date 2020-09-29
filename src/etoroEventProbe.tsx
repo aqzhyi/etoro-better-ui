@@ -7,6 +7,7 @@ import store from '~/store/_store'
 import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDialogPrices'
 import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
 import { syncNativeTradeDialogOpen } from '~/actions/syncFromNativeTradeDialogOpenState'
+import { toggleTradeDashboard } from '~/actions/toggleTradeDashboard'
 
 let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
   typeof globalThis['setTimeout']
@@ -49,6 +50,8 @@ function _applyEventsObservers() {
    */
   angularAPI.$rootScope?.$on('$routeChangeSuccess', angularEvent => {
     debugAPI.angular.extend('$routeChangeSuccess')(globalThis.location.pathname)
+
+    store.dispatch(toggleTradeDashboard(false))
 
     globalThis.setTimeout(() => {
       emitter.emit(Events.onMountUIs)
