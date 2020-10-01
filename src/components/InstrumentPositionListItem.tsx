@@ -2,13 +2,14 @@ import AvTimerIcon from '@material-ui/icons/AvTimer'
 import {
   Box,
   Button,
+  Divider,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
   makeStyles,
 } from '@material-ui/core'
-import React, { Fragment, memo } from 'react'
+import React, { Fragment, memo, useMemo } from 'react'
 import { useInterval } from 'react-use'
 import styled from 'styled-components'
 import { InstrumentRateChangeCount } from '~/components/InstrumentRateChangeCount'
@@ -21,6 +22,7 @@ import { useInstrument } from '~/hooks/useInstrument'
 import { usePosition } from '~/hooks/usePosition'
 import { useAppSelector } from '~/store/_store'
 import { AppTooltip } from '~/components/AppTooltip'
+import { getRateChangeCount } from '~/utils/getRateChangeCount'
 
 const StyledListItem = styled(ListItem)<{
   closing?: boolean
@@ -207,20 +209,42 @@ export const InstrumentPositionListItem: React.FC<{
               <AvTimerIcon />
             </AppTooltip>
           ) : (
-            <Button
-              variant='outlined'
-              disabled={position.value.isPendingClose}
-              onClick={event => {
-                gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
-                position.close()
-              }}
+            <AppTooltip
+              title={
+                <Fragment>
+                  <div>
+                    <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
+                    <Fragment> @ </Fragment>
+                    {position.value.CurrentRate}
+                  </div>
+                  <Divider></Divider>
+                  <div>
+                    <Fragment>(</Fragment>
+                    {getRateChangeCount(
+                      position.value.IsBuy,
+                      position.value.OpenRate,
+                      position.value.CurrentRate,
+                    )}
+                    <Fragment>)</Fragment>
+                  </div>
+                </Fragment>
+              }
             >
-              {position.closed === true ? (
-                <AppTrans i18nKey='tradeDashboard_positionClosed'></AppTrans>
-              ) : (
-                <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
-              )}
-            </Button>
+              <Button
+                variant='outlined'
+                disabled={position.value.isPendingClose}
+                onClick={event => {
+                  gaAPI.sendEvent(GaEventId.tradeDashboard_closePositionClick)
+                  position.close()
+                }}
+              >
+                {position.closed === true ? (
+                  <AppTrans i18nKey='tradeDashboard_positionClosed'></AppTrans>
+                ) : (
+                  <AppTrans i18nKey='tradeDashboard_actionClose'></AppTrans>
+                )}
+              </Button>
+            </AppTooltip>
           )}
         </Box>
       </ListItemSecondaryAction>

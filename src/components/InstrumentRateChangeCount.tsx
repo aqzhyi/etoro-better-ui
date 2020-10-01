@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { ProfitText } from '~/components/ProfitText'
+import { getRateChangeCount } from '~/utils/getRateChangeCount'
 
 /**
  * The count diff of between on open-rate and current-rate for user position
@@ -11,10 +12,7 @@ export const InstrumentRateChangeCount: React.FC<{
 }> = memo(function InstrumentRateChangeCount(props) {
   return (
     <ProfitText
-      profit={
-        (props.isBuy && props.current - props.openRate) ||
-        props.openRate - props.current
-      }
+      profit={getRateChangeCount(props.isBuy, props.openRate, props.current)}
       noDollarSign
     ></ProfitText>
   )
