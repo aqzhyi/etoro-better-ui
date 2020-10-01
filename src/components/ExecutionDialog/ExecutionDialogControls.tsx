@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core'
 import toast from 'cogo-toast'
 import { throttle } from 'lodash'
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useGetSet, useInterval } from 'react-use'
 import { angularAPI } from '~/angularAPI'
 import { ExecutionDialogAmountTradeButtonsGrid } from '~/components/ExecutionDialog/ExecutionDialogAmountTradeButtonsGrid'
@@ -17,6 +17,7 @@ import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import { ExecutionDialogTradeModeToOrderButton } from '~/components/ExecutionDialog/ExecutionDialogTradeModeToOrderButton'
 import { ExecutionDialogTradeModeToTradeButton } from '~/components/ExecutionDialog/ExecutionDialogTradeModeToTradeButton'
+import { ExecutionDialogPostions } from '~/components/ExecutionDialog/ExecutionDialogPostions'
 
 const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
@@ -108,31 +109,35 @@ export const ExecutionDialogControls: React.FC<{
 
   return (
     <span className={css.root}>
-      <Grid container direction='row' justify='space-around' spacing={1}>
-        <Grid item>
-          <ExecutionDialogAmountTradeButtonsGrid />
-        </Grid>
-
-        <Grid item>
-          <ExecutionDialogLeverTradeButtonsGrid />
-        </Grid>
-
-        <Grid item>
-          <ExecutionDialogSLTPButtonsGrid />
-        </Grid>
-
-        <Grid item container direction='column' spacing={1}>
+      <Grid item container direction='column' spacing={1}>
+        <Grid container item direction='row' justify='space-around' spacing={1}>
           <Grid item>
-            <ExecutionDialogTradeModeToOrderButton />
+            <ExecutionDialogAmountTradeButtonsGrid />
           </Grid>
 
           <Grid item>
-            <ExecutionDialogTradeModeToTradeButton />
+            <ExecutionDialogLeverTradeButtonsGrid />
           </Grid>
+
+          <Grid item>
+            <ExecutionDialogSLTPButtonsGrid />
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <ExecutionDialogTradeModeToOrderButton />
+        </Grid>
+
+        <Grid item>
+          <ExecutionDialogTradeModeToTradeButton />
         </Grid>
 
         <Grid item>
           <ExecutionDialogFixedAmountLeverToggle labelPlacement='top' />
+        </Grid>
+
+        <Grid item>
+          <ExecutionDialogPostions />
         </Grid>
       </Grid>
     </span>

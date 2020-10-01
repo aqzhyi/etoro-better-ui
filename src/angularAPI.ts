@@ -68,6 +68,20 @@ export const angularAPI = {
       ,[data-etoro-automation-id="edit-position-pop-up-no-take-profit"]
     `,
   } as const,
+  getPositionByInstrumentId(id: number): InstrumentPosition[] {
+    const list: InstrumentPosition[] = []
+
+    for (const position of angularAPI.$rootScope?.session.user.portfolio
+      .manualPositions || []) {
+      if (position.Instrument.InstrumentID === id) {
+        const scope = angularAPI.getPositionById(position.PositionID)
+
+        if (scope) list[list.length] = scope
+      }
+    }
+
+    return list
+  },
   getPositionById(positionId: InstrumentPosition['PositionID']) {
     const data = angularAPI.$rootScope?.session.user.portfolio.getPositionById(
       positionId,

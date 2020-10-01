@@ -28,6 +28,8 @@
   "link_portfolio_text": "投資組合",
   "link_riskKnown_text": "本程式非官方提供，請確保您知道使用風險 <riskLink>🔎 🔗 🌐</riskLink>",
   "link_withdrawExtra_text": "($<notable>{{value}}</notable>) 銀行買入",
+  "profits_SL_text": "止損",
+  "profits_TP_text": "止盈",
   "profits_availableValues_text": "可用餘額",
   "profits_fixedStopLossTakeProfitEnabled_brief": "按鈕「切換止損」與「切換止盈」功能的套用％數。",
   "profits_fixedStopLossValueOnOrder_brief": "「切換止損」按鈕的趴數，當前設定：{{value}}％",

@@ -71,9 +71,10 @@ declare interface RootScope extends IRootScopeService {
     uiDialog: {
       /**
        * @describe
-       * Usually causes react unexpected render error
+       * ! Usually causes react unexpected render error
        *
        * @deprecated
+       * ? Use `useAppSelector((state) => state.display.nativeTradeDialogOpen)` instead
        */
       isDialogOpen: boolean
       isKycDialogOpen: boolean
