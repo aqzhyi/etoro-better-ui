@@ -1,3 +1,5 @@
+import Big from 'big.js'
+
 /**
  * Useful to count the diff of openRate and currentRate for instrument position
  *
@@ -8,9 +10,8 @@ export const getRateChangeCount = (
   isBuy: boolean,
   openRate: number,
   currentRate: number,
-  toFixed = 2,
 ) => {
-  return (isBuy ? currentRate - openRate : openRate - currentRate).toFixed(
-    toFixed,
-  )
+  return isBuy
+    ? Number(new Big(currentRate).minus(openRate))
+    : Number(new Big(openRate).minus(currentRate))
 }
