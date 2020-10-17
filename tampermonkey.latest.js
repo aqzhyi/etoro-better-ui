@@ -8,11 +8,11 @@
 /** 更新日誌 Change Logs： https://github.com/hilezir/etoro-better-ui/releases */
 
 // ==UserScript==
-// @name            eToro Better UI
-// @name:en         eToro Better UI
+// @name            eToro Better UI v0.37
+// @name:en         eToro Better UI v0.37
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.36.0
+// @version         0.37.0
 // @author          hilezir
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
@@ -46,7 +46,8 @@
 // 如果你想切換版本的使用，可以參考下面這一行程式碼
 // If you are looking for another version, please change the word to the your target
 //
-const version = 'v0.36.0-20200926'
+const version = 'v0.37.0-20201018'
+// const version = 'v0.36.0-20200926'
 // const version = 'v0.35.0-20200921'
 // const version = 'v0.34.1-20200914'
 // const version = 'v0.33.0-20200911'
