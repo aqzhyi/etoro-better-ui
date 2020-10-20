@@ -70,6 +70,14 @@ export const TradeDashboard: React.FC = props => {
 
         <Grid item container justify='flex-end' alignItems='center' spacing={2}>
           <Grid item>
+            <a href='/portfolio/history'>
+              <Button variant='outlined'>
+                <AppTrans i18nKey='tradeDashboard_seeHistory'></AppTrans>
+              </Button>
+            </a>
+          </Grid>
+
+          <Grid item>
             <TradingStatusValue></TradingStatusValue>
           </Grid>
 

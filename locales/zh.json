@@ -54,6 +54,7 @@
   "tradeDashboard_profit": "趴數, 損益",
   "tradeDashboard_rates": "當前 @ 跳動量 (總相差)",
   "tradeDashboard_refreshRate_brief": "倉位情報的重新渲染速度；越低的數值，代表越快的刷新速率，但同時也会消耗更多的CPU使用率。",
+  "tradeDashboard_seeHistory": "查看記錄",
   "universal_amount_text": "金額",
   "universal_compact_brief": "不顯示關注列表中的無用介面（當前以開發者視角主觀認定）",
   "universal_compact_text": "緊湊",

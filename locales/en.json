@@ -54,6 +54,7 @@
   "tradeDashboard_profit": "as Percents, Profits",
   "tradeDashboard_rates": "Current @ Tick (Diff)",
   "tradeDashboard_refreshRate_brief": "The re-render rate of goods positions, The low setup meaning faster re-render, please note also will consume more CPU usage.",
+  "tradeDashboard_seeHistory": "Portfolio History",
   "universal_amount_text": "Amount",
   "universal_compact_brief": "Do NOT display unnecessary UIs (proposed by author)",
   "universal_compact_text": "Compact",
