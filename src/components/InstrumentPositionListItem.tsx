@@ -1,3 +1,4 @@
+/** @jsx jsx */ import { jsx, css } from '@emotion/react'
 import AvTimerIcon from '@material-ui/icons/AvTimer'
 import {
   Box,
@@ -11,7 +12,6 @@ import {
 } from '@material-ui/core'
 import React, { Fragment, memo, useMemo } from 'react'
 import { useInterval } from 'react-use'
-import styled from 'styled-components'
 import { InstrumentRateChangeCount } from '~/components/InstrumentRateChangeCount'
 import { PositionBrief } from '~/components/PositionBrief'
 import { AppTrans } from '~/components/AppTrans'
@@ -23,43 +23,6 @@ import { usePosition } from '~/hooks/usePosition'
 import { useAppSelector } from '~/store/_store'
 import { AppTooltip } from '~/components/AppTooltip'
 import { getRateChangeCount } from '~/utils/getRateChangeCount'
-
-const StyledListItem = styled(ListItem)<{
-  closing?: boolean
-  closed?: boolean
-  active?: boolean
-}>`
-  :hover {
-    background-color: #d0fff2cc !important;
-    filter: none;
-    outline: 1px solid #00808073;
-  }
-
-  filter: ${props => (!props.active ? `grayscale(1)` : `none`)};
-  outline: ${props =>
-    props.closed || props.closing ? `1px solid #bebebe` : 'none'};
-  transition-duration: ${props => (props.closing ? '2s' : 'none')};
-  opacity: ${props => (props.closed || props.closing ? `0.85` : 'auto')};
-  pointer-events: ${props =>
-    !props.closed && props.closing ? `none` : 'auto'};
-  transform: ${props =>
-    props.closed
-      ? 'none'
-      : props.closing
-      ? `rotateX(720deg) matrix(1,-0.01,0.4,1,0,1)`
-      : 'none'};
-  min-height: 60px;
-  background-color: ${props => (props.closed ? '#91919155' : 'inherit')};
-
-  ::after {
-    content: '';
-    display: ${props => (props.closed ? 'inline-block' : 'none')};
-    width: 100%;
-    height: 0px;
-    border: 1px solid #ff00006b;
-    position: absolute;
-  }
-`
 
 const useStyles = makeStyles({
   fontSizeLarge: {
@@ -77,7 +40,7 @@ export const InstrumentPositionListItem: React.FC<{
   )
   const dashboardOpen = useAppSelector(state => state.display.tradeDashboard)
 
-  const css = useStyles()
+  const muiCSS = useStyles()
 
   // tracing the opening market
   useInterval(
@@ -105,14 +68,44 @@ export const InstrumentPositionListItem: React.FC<{
   )
 
   if (!position.value) {
-    return <StyledListItem></StyledListItem>
+    return <ListItem></ListItem>
   }
 
   return (
-    <StyledListItem
-      closed={position.closed === true ? 'true' : undefined}
-      closing={position.closing === true ? 'true' : undefined}
-      active={instrument?.IsActive ? 'true' : undefined}
+    <ListItem
+      css={css`
+        :hover {
+          background-color: #d0fff2cc !important;
+          filter: none;
+          outline: 1px solid #00808073;
+        }
+
+        filter: ${!instrument?.IsActive ? `grayscale(1)` : `none`};
+        outline: ${position?.closed || position?.closing
+          ? `1px solid #bebebe`
+          : 'none'};
+        transition-duration: ${position.closing ? '2s' : 'none'};
+        opacity: ${position.closed || position.closing ? `0.85` : 'auto'};
+        pointer-events: ${!position.closed && position.closing
+          ? `none`
+          : 'auto'};
+        transform: ${position.closed
+          ? 'none'
+          : position.closing
+          ? `rotateX(720deg) matrix(1,-0.01,0.4,1,0,1)`
+          : 'none'};
+        min-height: 60px;
+        background-color: ${position.closed ? '#91919155' : 'inherit'};
+
+        ::after {
+          content: '';
+          display: ${position.closed ? 'inline-block' : 'none'};
+          width: 100%;
+          height: 0px;
+          border: 1px solid #ff00006b;
+          position: absolute;
+        }
+      `}
     >
       <ListItemAvatar>
         <Box minWidth={160}>
@@ -126,7 +119,7 @@ export const InstrumentPositionListItem: React.FC<{
 
       <ListItemText
         classes={{
-          primary: css.fontSizeLarge,
+          primary: muiCSS.fontSizeLarge,
         }}
         primary={
           <Fragment>
@@ -183,7 +176,7 @@ export const InstrumentPositionListItem: React.FC<{
 
       <ListItemText
         classes={{
-          primary: css.fontSizeLarge,
+          primary: muiCSS.fontSizeLarge,
         }}
         primary={
           <Fragment>
@@ -248,6 +241,6 @@ export const InstrumentPositionListItem: React.FC<{
           )}
         </Box>
       </ListItemSecondaryAction>
-    </StyledListItem>
+    </ListItem>
   )
 })

@@ -1,12 +1,12 @@
+/** @jsx jsx */ import { css, jsx } from '@emotion/react'
 import LoopIcon from '@material-ui/icons/Loop'
 import React, { useMemo, useState } from 'react'
 import { useInterval } from 'react-use'
-import styled from 'styled-components'
 import { angularAPI } from '~/angularAPI'
-import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
-import { PingProbeValue } from '~/components/PingProbeValue'
 import { AppTooltip } from '~/components/AppTooltip'
 import { AppTrans } from '~/components/AppTrans'
+import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
+import { PingProbeValue } from '~/components/PingProbeValue'
 import { ProfitText } from '~/components/ProfitText'
 import { HighlightText } from '~/components/TooltipHighlightText'
 import { TradingStatusValue } from '~/components/TradingStatusValue'
@@ -76,30 +76,30 @@ export const ExecutionDialogStatusInfo = () => {
           />
         }
       >
-        <StyledBox>
+        <span css={boxCSS}>
           <ProfitText profit={totalProfit} /> @{' '}
           <HighlightText>{positions?.length || 0}</HighlightText>
-        </StyledBox>
+        </span>
       </AppTooltip>
 
       <TradingStatusValue asTooltip>
-        <StyledBox>{labelManualTrading}</StyledBox>
+        <span css={boxCSS}>{labelManualTrading}</span>
       </TradingStatusValue>
 
       <PingProbeValue>
-        <StyledBox>{labelPingValue}</StyledBox>
+        <span css={boxCSS}>{labelPingValue}</span>
       </PingProbeValue>
 
       <AppTooltip
         title={<AppTrans i18nKey='profits_availableValues_text'></AppTrans>}
       >
-        <StyledBox>{availableValueLabel}</StyledBox>
+        <span css={boxCSS}>{availableValueLabel}</span>
       </AppTooltip>
     </React.Fragment>
   )
 }
 
-const StyledBox = styled.span`
+const boxCSS = css`
   display: inline-block;
   width: 120px;
   background-color: #e1e1e1;
