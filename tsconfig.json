@@ -27,8 +27,8 @@
     "noEmitOnError": false,
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["node_modules/@types", "src/types"]
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
-  "include": ["src", "./*.js", "./.*.js", "./tampermonkey.*.js"]
 }
