@@ -202,6 +202,17 @@ emitter.once(Events.ready).then(function constructCSS() {
       content: "📈";
     }
   `)
+
+  /** 使下單窗口背景不這麼黑，因此能看到交易窗的倉位更明顯 */
+  GM.addStyle(`
+    .uidialog-overlay {
+      background-color: #0004!important;
+    }
+
+    #open-position-view {
+      box-shadow: 2px 2px 3px #0008;
+    }
+  `)
 })
 
 /** demo mode, should controls by setting of etoro-better-ui */
