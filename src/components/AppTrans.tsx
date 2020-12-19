@@ -14,7 +14,7 @@ const RiskLink: React.FC = props => (
 )
 
 export const AppTrans: React.FC<
-  Omit<TransProps, 'i18nKey'> & {
+  Omit<TransProps<any>, 'i18nKey'> & {
     i18nKey: keyof typeof zhLocale
   }
 > = memo(function AppTrans(props) {
