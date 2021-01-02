@@ -26,3 +26,7 @@ declare module '*.svg' {
   const component: React.FC
   export default component
 }
+
+declare interface Number extends Number {
+  toNumberFixed(value: number): number
+}
