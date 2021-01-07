@@ -23,7 +23,10 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 [![image loading...](./SELL_ETORO_X100.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
-[![image loading...](./Kapture%202020-09-20%20at%2014.18.44.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
+## WHY use?
+> TLDR 🤷‍♂️
+
+[![image loading...](./foreign_exchange.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
 
 
 ## Development
