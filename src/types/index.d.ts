@@ -30,3 +30,28 @@ declare module '*.svg' {
 declare interface Number extends Number {
   toNumberFixed(value: number): number
 }
+
+/**
+ * 「React.PropsWithChildren」 的別名
+ *
+ * 並且同時具有將 emotion 的 css prop 轉換為 props.className?: string 的型別
+ *
+ * @example <caption>最簡使用</caption>
+ *   export const MyComponent = memo(function MyComponent(props: ReactProps) {
+ *     return <div className={props.className}>{props.childred}</div>
+ *   })
+ *
+ * @example <caption>加入其它客製 props</caption>
+ *   type MyProps = { foo: boolean }
+ *
+ *   export const MyComponent: ReactProps<MyProps> = memo(function MyComponent(
+ *     props,
+ *   ) {
+ *     console.info(props.foo)
+ *
+ *     return <div data-foo={props.foo}>{props.childred}</div>
+ *   })
+ */
+declare type ReactProps<
+  P extends Record<string | symbol, unknown> = import('tsdef').AnyObject
+> = React.PropsWithChildren<P>
