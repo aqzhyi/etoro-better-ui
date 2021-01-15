@@ -8,17 +8,19 @@ import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import React, { useMemo } from 'react'
 import { useInterval } from 'react-use'
+import big from 'big.js'
 
 enum Blocks {
-  root,
-  price,
-  priceAsk,
-  priceBid,
-  priceMovement,
+  root = 'root',
+  price = 'price',
+  priceAsk = 'priceAsk',
+  priceBid = 'priceBid',
+  priceMovement = 'priceMovement',
+  spread = 'spread',
 }
 
 const withBlock = (blackName: Blocks) =>
-  `hilezir-${ExecutionDialogPrices.name}__${Blocks[blackName]}`
+  `hilezir-${ExecutionDialogPrices.name}__${blackName}`
 
 const ExecutionDialogPrices: React.FC = () => {
   const rate = useRate()
@@ -52,6 +54,12 @@ const ExecutionDialogPrices: React.FC = () => {
         {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
         </span> */}
+      </span>
+
+      <span
+        className={`${withBlock(Blocks.price)} ${withBlock(Blocks.spread)}`}
+      >
+        {big(rate.value.lastPrice).minus(askValue).toPrecision(2)}
       </span>
 
       <span
@@ -97,6 +105,11 @@ GM.addStyle(`
     [id^=uidialog] .${withBlock(Blocks.priceAsk)} {
       left: 362px;
       top: 13%;
+    }
+
+    [id^=uidialog] .${withBlock(Blocks.spread)} {
+      left: 282px;
+      top: 11%;
     }
 
     [id^=uidialog] .${withBlock(Blocks.priceMovement)} {
