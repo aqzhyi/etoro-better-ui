@@ -1,10 +1,13 @@
+/** @jsx jsx */ import { jsx, css } from '@emotion/react'
 import { Grid } from '@material-ui/core'
 import React, { Fragment, memo } from 'react'
 import { useMount } from 'react-use'
 import { AppTooltip } from '~/components/AppTooltip'
 import { AppTrans } from '~/components/AppTrans'
+import { BuyText } from '~/components/BuyText'
 import { InstrumentIcon } from '~/components/InstrumentIcon'
 import { ProfitText } from '~/components/ProfitText'
+import { SellText } from '~/components/SellText'
 import { gaAPI, GaEventId } from '~/gaAPI'
 import { usePosition } from '~/hooks/usePosition'
 
@@ -61,20 +64,38 @@ export const PositionBrief: React.FC<{
             </Fragment>
           }
         >
-          <Grid item>
-            ${position.value.Amount.toFixed(2)} x{position.value.Leverage}
+          <Grid
+            item
+            css={css`
+              text-align: right;
+            `}
+          >
+            ${position.value.Amount.toFixed(0)} x{position.value.Leverage}
+            <Fragment> TP@ </Fragment>
+            {position.value.TakeProfitRate}
           </Grid>
 
-          <Grid item>
+          <Grid
+            item
+            css={css`
+              text-align: right;
+            `}
+          >
             <ProfitText
               profit={position.value.OpenRate ?? 0}
               pureDollar
               noDollarSign
             ></ProfitText>
             <Fragment> </Fragment>
-            {(position.value.IsBuy && (
-              <AppTrans i18nKey='tradeDashboard_itBuy'></AppTrans>
-            )) || <AppTrans i18nKey='tradeDashboard_itSell'></AppTrans>}
+
+            <Fragment>
+              {position.value.IsBuy ? <BuyText /> : <SellText />}
+            </Fragment>
+
+            <Fragment>
+              <Fragment> SL@ </Fragment>
+              {position.value.StopLossRate}
+            </Fragment>
           </Grid>
         </AppTooltip>
       </Grid>
