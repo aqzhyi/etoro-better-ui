@@ -44,7 +44,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
           text: thunkValue.join(','),
         }}
       ></AppTrans>,
-      { position: 'bottom-left' },
+      { position: 'top-right' },
     )
   } else {
     toast.info(
@@ -54,7 +54,7 @@ export const openPromptForSetMacroAmount = createAsyncThunk<
           text: state.settings.executionAmount.join(','),
         }}
       ></AppTrans>,
-      { position: 'bottom-left' },
+      { position: 'top-right' },
     )
   }
 

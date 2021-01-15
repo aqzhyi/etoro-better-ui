@@ -50,7 +50,7 @@ export const SettingSelectedExchange: React.FC<any> = props => {
             const loading = cogoToast.loading(
               <AppTrans i18nKey='universal_doChanging_text'></AppTrans>,
               {
-                position: 'bottom-left',
+                position: 'top-right',
               },
             )
 
@@ -96,7 +96,7 @@ export const SettingSelectedExchange: React.FC<any> = props => {
                     text: youSelected,
                   }}
                 ></AppTrans>,
-                { position: 'bottom-left' },
+                { position: 'top-right' },
               )
               .then(() => {
                 setYourSelected(value)

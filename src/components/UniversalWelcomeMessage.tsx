@@ -10,7 +10,7 @@ export const showWelcomeMessage = () => {
   const { hide } = cogoToast.success(
     <AppTrans i18nKey='universal_welcomeMessage_text'></AppTrans>,
     {
-      position: 'bottom-left',
+      position: 'top-right',
       hideAfter: 8,
       onClick: () => {
         hide?.()

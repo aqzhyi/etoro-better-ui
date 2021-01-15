@@ -92,7 +92,7 @@ export const SetupsDialog: React.FC = () => {
                           text: String(checked),
                         }}
                       ></AppTrans>,
-                      { position: 'bottom-left' },
+                      { position: 'top-right' },
                     )
                   }}
                 ></Switch>

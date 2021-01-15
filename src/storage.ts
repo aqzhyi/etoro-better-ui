@@ -91,7 +91,7 @@ export const storage = {
     } catch (error) {
       error instanceof Error &&
         toast.error(error.message, {
-          position: 'bottom-left',
+          position: 'top-right',
         })
       return DEFAULT_CONFIG
     }
@@ -108,14 +108,12 @@ export const storage = {
         'etoro_better_ui_execution_macro_enabled',
       )
       globalThis.localStorage.removeItem('selected_exchange')
-      //
-
       globalThis.localStorage.setItem(CONFIG_STORAGE_KEY, _config)
       return true
     } catch (error) {
       error instanceof Error &&
         toast.error(error.message, {
-          position: 'bottom-left',
+          position: 'top-right',
         })
       return false
     }
