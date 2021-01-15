@@ -32,7 +32,7 @@ export const UniversalControlKeyObserver = () => {
       //   dispatch(toggleSettingsDialog(true))
       // }),
       {
-        position: 'bottom-left',
+        position: 'top-right',
         hideAfter: 5,
       },
     )

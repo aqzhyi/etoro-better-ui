@@ -23,7 +23,7 @@ const showRiskAgreement = throttle(() => {
   const { hide } = toast.warn(
     <AppTrans i18nKey='link_riskKnown_text'></AppTrans>,
     {
-      position: 'bottom-left',
+      position: 'top-right',
       hideAfter: 8,
       onClick: () => {
         hide?.()
