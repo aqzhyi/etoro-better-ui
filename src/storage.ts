@@ -1,7 +1,7 @@
 import toast from 'cogo-toast'
 
 export type BetterEtoroUIConfig = {
-  /** if you want to show your portfolio to somebody, but not your account name */
+  /** If you want to show your portfolio to somebody, but not your account name */
   demoMode: boolean
   /** Trade Dashboard the positions the rate of refresh profits */
   tradeDashboardRenderRate: number
@@ -18,8 +18,8 @@ export type BetterEtoroUIConfig = {
     watchlistFilter?: 'F' | null
   }
   /**
-   * The SECONDS interval expected used to checking delay ms and the
-   * Manual trading working status which fetch from etoro status site.
+   * The SECONDS interval expected used to checking delay ms and the Manual
+   * trading working status which fetch from etoro status site.
    */
   intervalCheckingStatus: number
   googleAnalyticsEnabled: boolean
@@ -52,7 +52,7 @@ export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
     key12345: true,
     dialogBuySellSwitch: 'Tab',
     dialogClose: 'Esc',
-    /** default to disabled, to avoid users trigger on unexpected */
+    /** Default to disabled, to avoid users trigger on unexpected */
     dialogOpenTrade: null,
     watchlistFilter: 'F',
   },
