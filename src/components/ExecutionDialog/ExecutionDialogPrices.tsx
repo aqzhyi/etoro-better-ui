@@ -1,3 +1,4 @@
+/** @jsx jsx */ import { jsx, css } from '@emotion/react'
 import { angularAPI } from '~/angularAPI'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
 import { ProfitText } from '~/components/ProfitText'
@@ -18,9 +19,6 @@ enum Blocks {
   priceMovement = 'priceMovement',
   spread = 'spread',
 }
-
-const withBlock = (blackName: Blocks) =>
-  `hilezir-${ExecutionDialogPrices.name}__${blackName}`
 
 const ExecutionDialogPrices: React.FC = () => {
   const rate = useRate()
@@ -46,37 +44,31 @@ const ExecutionDialogPrices: React.FC = () => {
   }
 
   return (
-    <React.Fragment>
-      <span
-        className={`${withBlock(Blocks.price)} ${withBlock(Blocks.priceBid)}`}
-      >
+    <span css={rootCSS}>
+      <span css={bidCSS}>
         <ProfitText profit={rate.value.lastPrice} pureDollar noDollarSign />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
         </span> */}
       </span>
 
-      <span
-        className={`${withBlock(Blocks.price)} ${withBlock(Blocks.spread)}`}
-      >
+      <span css={spreadCSS}>
         {big(rate.value.lastPrice).minus(askValue).toPrecision(2)}
       </span>
 
-      <span
-        className={`${withBlock(Blocks.price)} ${withBlock(Blocks.priceAsk)}`}
-      >
+      <span css={askCSS}>
         <ProfitText profit={askValue} pureDollar noDollarSign />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
         </span> */}
       </span>
-    </React.Fragment>
+    </span>
   )
 }
 
 export const exectionDialogPrices = registerReactComponent({
   component: <ExecutionDialogPrices />,
-  containerId: withBlock(Blocks.root),
+  containerId: 'ExecutionDialogPrices',
   containerConstructor: renderContainer => {
     $(angularAPI.selectors.dialogInnerContent).append(renderContainer)
   },
@@ -89,41 +81,37 @@ export const exectionDialogPrices = registerReactComponent({
 emitter.on(Events.onDialogHover, exectionDialogPrices.mount)
 emitter.on(Events.onDialogNotFound, exectionDialogPrices.unmount)
 
-GM.addStyle(`
-  @media (min-width:741px) {
-    [id^=uidialog] .${withBlock(Blocks.price)} {
-      position: absolute;
-      text-shadow: 1px 1px 1px #000000;
-      font-size: 22px;
-    }
-
-    [id^=uidialog] .${withBlock(Blocks.priceBid)} {
-      left: 231px;
-      top: 13%;
-    }
-
-    [id^=uidialog] .${withBlock(Blocks.priceAsk)} {
-      left: 362px;
-      top: 13%;
-    }
-
-    [id^=uidialog] .${withBlock(Blocks.spread)} {
-      left: 282px;
-      top: 11%;
-    }
-
-    [id^=uidialog] .${withBlock(Blocks.priceMovement)} {
-      font-size: 0.8em;
-      margin-left: 8px;
-    }
-
-    [id^=uidialog] #${withBlock(Blocks.root)} {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-    }
+const rootCSS = css`
+  @media (min-width: 741px) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
   }
-`)
+`
+
+const priceCSS = css`
+  position: absolute;
+  text-shadow: 1px 1px 1px #000000;
+  font-size: 22px;
+`
+
+const bidCSS = css`
+  ${priceCSS};
+  left: 231px;
+  top: 13%;
+`
+
+const askCSS = css`
+  ${priceCSS};
+  left: 362px;
+  top: 13%;
+`
+
+const spreadCSS = css`
+  ${priceCSS};
+  left: 282px;
+  top: 11%;
+`
