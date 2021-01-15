@@ -1,3 +1,457 @@
+# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.37.0-20201002.beta...v0.37.0-20201018) (2020-10-17)
+
+
+
+# [0.37.0-20201002.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.37.0-20201001.beta...v0.37.0-20201002.beta) (2020-10-02)
+
+
+### Features
+
+* **TradeDashboard:** the button of close, will show the good information for the position ([67de5fc](https://github.com/hilezir/etoro-better-ui/commit/67de5fc1f256d04e472e8271dc4dc5e07480ebda))
+
+
+
+# [0.37.0-20201001.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.36.0-20200926...v0.37.0-20201001.beta) (2020-10-01)
+
+
+### Bug Fixes
+
+* **TradeDashboard:** on evert route has changes, should close the dashboard, better UX ([9d7b76c](https://github.com/hilezir/etoro-better-ui/commit/9d7b76cf5f3adf81f6b7abb3f5b2f961f91793aa))
+
+
+### Features
+
+* **TradeDialog:** add the brief of positions for your current instrument trade, TP and SL also shown ([57f3bba](https://github.com/hilezir/etoro-better-ui/commit/57f3bbac36c0612ec9754c76568823c6c8131479))
+
+
+
+# [0.36.0-20200926](https://github.com/hilezir/etoro-better-ui/compare/v0.36.0-20200923.beta...v0.36.0-20200926) (2020-09-26)
+
+
+
+# [0.36.0-20200923.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.35.0-20200921...v0.36.0-20200923.beta) (2020-09-23)
+
+
+### Bug Fixes
+
+* **TradeDashboard:** missing marker re-open subscrition ([4193740](https://github.com/hilezir/etoro-better-ui/commit/419374054c595cf4eec9e72507194b2d28a2fe32))
+
+
+### Features
+
+* **TradeDialog:** the hotkey F and T can set the trade mode to the "Order" and "Trade" ([5dfd6d7](https://github.com/hilezir/etoro-better-ui/commit/5dfd6d72d69cdddde869e3f2ff5484bc5ef05aa4))
+
+
+
+# [0.35.0-20200921](https://github.com/hilezir/etoro-better-ui/compare/v0.35.0-20200917...v0.35.0-20200921) (2020-09-20)
+
+
+### Features
+
+* **defaultSetup:** refactor code, changes defaults, to enabled useful setups by defaults ([9e08c7a](https://github.com/hilezir/etoro-better-ui/commit/9e08c7abb52f6c810f926940cb0084a12394aafd))
+* **TradeDashboard:** better UI, better performance for update positions details ([ec3d89b](https://github.com/hilezir/etoro-better-ui/commit/ec3d89b5c6dfecbb887cf7cdb10a79e338bed2ed))
+* **TradeDashboard:** if market is close, an icon to show to user, hide close button ([81c8614](https://github.com/hilezir/etoro-better-ui/commit/81c8614785c3440105fa365903ffe56a1ad1d495))
+
+
+
+# [0.35.0-20200917](https://github.com/hilezir/etoro-better-ui/compare/v0.34.1-20200914...v0.35.0-20200917) (2020-09-16)
+
+
+### Bug Fixes
+
+* **hotkey:** when user intend to post or reply to somebody, which is users are focusing on a textarea or input ([c053681](https://github.com/hilezir/etoro-better-ui/commit/c0536811de2bd585739f99bb9d2be9ff67989849))
+
+
+### Features
+
+* **demoMode:** blur your etoro ID and balance amount, useful if you want to go to live stream or demo to somebody ([58f0cc6](https://github.com/hilezir/etoro-better-ui/commit/58f0cc6b2032b4563ace2c4451d76af7d20aafe3))
+* **TradeDialog:** avoid TP/SL causes crashes, which means the function of toggle TP/SL has re-design ([3198e64](https://github.com/hilezir/etoro-better-ui/commit/3198e6404f6ad04254a49dbfd794f6d0bf1aa178))
+
+
+
+## [0.34.1-20200914](https://github.com/hilezir/etoro-better-ui/compare/v0.34.0-20200912...v0.34.1-20200914) (2020-09-13)
+
+
+### Bug Fixes
+
+* **WatchlistHeader:** unexpected hotkey F can't trigger focus for filter input ([f83867e](https://github.com/hilezir/etoro-better-ui/commit/f83867edbfce76a16ad087ebe04921dc2ccd1c71))
+
+
+
+# [0.34.0-20200912](https://github.com/hilezir/etoro-better-ui/compare/v0.33.0-20200911...v0.34.0-20200912) (2020-09-12)
+
+
+### Features
+
+* **Key12345:** also enable hotkey in page of portfolio/{NAME} ([8ed9b00](https://github.com/hilezir/etoro-better-ui/commit/8ed9b00e9cbbcb35ac02675e7a5a104664d8a4e0))
+* **NativeTradeDialog:** hotkeys Q and E can use in the position editing dialog ([cd1fba4](https://github.com/hilezir/etoro-better-ui/commit/cd1fba4ffca4aaa1c7da80e0c44f2f817352d442))
+
+
+
+# [0.33.0-20200911](https://github.com/hilezir/etoro-better-ui/compare/v0.32.4-20200907...v0.33.0-20200911) (2020-09-11)
+
+
+### Features
+
+* **NativeTradeDialog:** hotkeys Q and E can use to switching for the no SL and no TP so on ([5bd8fd8](https://github.com/hilezir/etoro-better-ui/commit/5bd8fd8a4499a4c022c274ac30aceb7092dd693b))
+* **Settings:** users can use global hotkey "S" to open settings dialog of etoro-better-ui ([de387aa](https://github.com/hilezir/etoro-better-ui/commit/de387aa29bf06fb8492b8fb4e339db90349b77c4))
+* **TradeDashboard:** bigger font size ([9643ead](https://github.com/hilezir/etoro-better-ui/commit/9643eadaabfa2199c4b75cfbb0e8d4b8a0d99a28))
+* **TradeDashboard:** click the ICON, you can redirect to page for portfolio and the page for markets ([078d035](https://github.com/hilezir/etoro-better-ui/commit/078d035d3b81b850ecbdad3432b22401ac11632d))
+* **TradeDashboard:** revert to the version which Headers should display ([cf785f5](https://github.com/hilezir/etoro-better-ui/commit/cf785f5afae9f0bc67489b86912ad77b9a98fe1c))
+* **TradeDashboard:** show the information for SL/TP display in percents ([ac3a759](https://github.com/hilezir/etoro-better-ui/commit/ac3a7597b8d4add5db92250397d57075fddf8078))
+* **TradeDashboard:** the button for close position, make UI response faster ([127e5f9](https://github.com/hilezir/etoro-better-ui/commit/127e5f9b922608b63de4d6d8df8807ded6008b9d))
+* **TradeDashboard:** your new positions always on top ([ac95097](https://github.com/hilezir/etoro-better-ui/commit/ac95097f749d473275280ec8fcf7c4e68f9e4f30))
+
+
+
+## [0.32.4-20200907](https://github.com/hilezir/etoro-better-ui/compare/v0.32.2-20200907...v0.32.4-20200907) (2020-09-08)
+
+
+### Features
+
+* **TradeDashboard:** closing positions should not change the layout of the position, improve users closing speed without mistakenly clicks ([f27254a](https://github.com/hilezir/etoro-better-ui/commit/f27254a8a34c7d7f1a88f34badb342c977c4450b))
+
+
+
+## [0.32.2-20200907](https://github.com/hilezir/etoro-better-ui/compare/v0.32.1-20200907...v0.32.2-20200907) (2020-09-07)
+
+
+
+## [0.32.1-20200907](https://github.com/hilezir/etoro-better-ui/compare/v0.32.0-20200904...v0.32.1-20200907) (2020-09-07)
+
+
+### Bug Fixes
+
+* **WatchlistFilter:** avoid F key unexpected to focus input when user typing in the input on the head nav ([68ab97e](https://github.com/hilezir/etoro-better-ui/commit/68ab97e92e861c3a77b1d8f0b215bb80fb930407))
+
+
+
+# [0.32.0-20200904](https://github.com/hilezir/etoro-better-ui/compare/v0.31.0-20200902...v0.32.0-20200904) (2020-09-03)
+
+
+### Bug Fixes
+
+* **NativeTradeDialog:** render the lever buttons with better performance on etoro trade dialog ([ea27574](https://github.com/hilezir/etoro-better-ui/commit/ea27574f1d28e537dd536b205a66e1c01723bb02))
+
+
+### Features
+
+* **infra:** the hotkeys 1,2,3,4,5 let you open the trade dialog quickly, defaults disable ([4c41ba2](https://github.com/hilezir/etoro-better-ui/commit/4c41ba26beae9294ad47dacdaf943a79c0526030))
+* **NativeTradeDialog:** hotkeys 1~5 and F1~F4 to set up amount or leverage quickly ([19e8ea6](https://github.com/hilezir/etoro-better-ui/commit/19e8ea662df5e443c2c11bb7532581545901be6e))
+
+
+
+# [0.31.0-20200902](https://github.com/hilezir/etoro-better-ui/compare/v0.31.0-20200831...v0.31.0-20200902) (2020-09-01)
+
+
+### Bug Fixes
+
+* **TradeDashboard:** you can see the notification list when dashboard is open ([8a9df3d](https://github.com/hilezir/etoro-better-ui/commit/8a9df3d537f867cf89fbad769b3ec1e9454889f3))
+
+
+### Features
+
+* **TradeDashboard:** inferring delay now display ([233dc5e](https://github.com/hilezir/etoro-better-ui/commit/233dc5ebbe67b0c6e7c0207b2f64e13b65205167))
+* **TradeDashboard:** paint instruments with the grayscale when is not able to trade (e.g. market closed) ([7342a51](https://github.com/hilezir/etoro-better-ui/commit/7342a5173f87c9d3e300b342efd759701e2fd24b))
+* **TradeDashboard:** you can see "Manual trading - Real" status on dashboard ([f8f347e](https://github.com/hilezir/etoro-better-ui/commit/f8f347e5d3db61c51d0126d217c4c719bb98f9df))
+
+
+
+# [0.31.0-20200831](https://github.com/hilezir/etoro-better-ui/compare/v0.31.0-20200830.beta...v0.31.0-20200831) (2020-08-31)
+
+
+
+# [0.31.0-20200830.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.30.0-20200825...v0.31.0-20200830.beta) (2020-08-30)
+
+
+### Features
+
+* **TradeDashboard:** improve functionality, performance, and avoid crash when closing positions quickly ([d9783a2](https://github.com/hilezir/etoro-better-ui/commit/d9783a210319821bd29b9d22fcfa3b27d9dc647d))
+* new UI layout, the material-ui, retire the fluent-ui ([d295048](https://github.com/hilezir/etoro-better-ui/commit/d295048307381bd6b7b9cf1ba62223047b1ab4fb))
+* remove Filter Function in portfolio and history, since no user have used it ([fdb53ad](https://github.com/hilezir/etoro-better-ui/commit/fdb53ad5fc9d0cc26dc74c5ef84ff671264b4561))
+* Trade Dashboard, now has a slider, so you can adjust the re-render speed rate ([0b31e9d](https://github.com/hilezir/etoro-better-ui/commit/0b31e9d549ab23e176b62ae8ecf0de7d0c58e506))
+
+
+
+# [0.30.0-20200825](https://github.com/hilezir/etoro-better-ui/compare/v0.29.0-20200825...v0.30.0-20200825) (2020-08-25)
+
+
+### Features
+
+* hotkey T when on watchlist page, able to open the trade dialog that on first, useful when you are filtering goods ([23785e3](https://github.com/hilezir/etoro-better-ui/commit/23785e3eae36376c8ea82245735fcc64e839848d))
+
+
+
+# [0.29.0-20200825](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200823...v0.29.0-20200825) (2020-08-25)
+
+
+### Features
+
+* highlight Trade Buttons that one you selected ([1e4cb36](https://github.com/hilezir/etoro-better-ui/commit/1e4cb369fb84f1d18cee1e666de5e4827e083efc))
+* hotkey D can open Trade Dashboard view ([5283f1e](https://github.com/hilezir/etoro-better-ui/commit/5283f1e8c8acef28b2dbe330dca7b9a6bd14cb80))
+* the function of Amount Fixed should accept with the lever, for example, 200x5, 500x2, etc. when the min position is 1000 ([cf32922](https://github.com/hilezir/etoro-better-ui/commit/cf3292248cb157445c1c28f0bd3da03296ace5c9))
+* Trade Dashboard, response when use click close ([2b6803b](https://github.com/hilezir/etoro-better-ui/commit/2b6803b231685e6a4df8baf1b64851e1dcd8a2ea))
+
+
+
+# [0.28.0-20200823](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200823-beta3...v0.28.0-20200823) (2020-08-23)
+
+
+
+# [0.28.0-20200823-beta3](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200823-beta2...v0.28.0-20200823-beta3) (2020-08-23)
+
+
+### Features
+
+* Trade Dashboard, early access ([1861de2](https://github.com/hilezir/etoro-better-ui/commit/1861de28c7240c6d73ff35d64098067b7aee270a))
+
+
+
+# [0.28.0-20200822-beta](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200820-beta...v0.28.0-20200822-beta) (2020-08-21)
+
+
+
+# [0.28.0-20200820-beta](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200807-beta...v0.28.0-20200820-beta) (2020-08-19)
+
+
+### Bug Fixes
+
+* cause an unexpected overriding in subscription of ping interval ([6270c62](https://github.com/hilezir/etoro-better-ui/commit/6270c6294ea6b4cbedd11a62df9fd84dac623f81))
+* sometimes the fixed amount and leverages (if it Fixed enabled) couldn't apply correctly when each the dialog open ([ac84c96](https://github.com/hilezir/etoro-better-ui/commit/ac84c962f51f025b37db1b349184d154c7308b35))
+* the trade dialog features cause other layout broken in "app/procharts" ([d0d5e60](https://github.com/hilezir/etoro-better-ui/commit/d0d5e60139da60b3a860f2833ddcb6dbe4732a4b))
+* UI layout unexpected tiny moved on ExecutionDialogStatusInfo, [#5](https://github.com/hilezir/etoro-better-ui/issues/5) ([2fd1a9a](https://github.com/hilezir/etoro-better-ui/commit/2fd1a9af8cfb9e4a75025b6fb20b2de9f0fc0aa7))
+
+
+### Features
+
+* amount steppers and lever buttons on etoro native should work fine together when Amount/Lever Fixed enable ([2e76a5f](https://github.com/hilezir/etoro-better-ui/commit/2e76a5f6a1a090e3d24dfa7aea309fe7cbdcc220))
+* more conspicuous with Buy and Sell Buttons ([45954a9](https://github.com/hilezir/etoro-better-ui/commit/45954a995c5300121d2dd18591667df932010199))
+* the compact switch, now show chart, hide rate changes ([046ebbc](https://github.com/hilezir/etoro-better-ui/commit/046ebbcad303481efee61a424a529eab62269b52))
+* when Trade Execution-Dialog on mount, it's applying percent of Stop-Loss and TakeProfit ([1329f8a](https://github.com/hilezir/etoro-better-ui/commit/1329f8aeccad19e16132e1b4f3f681ebb0c25e76))
+
+
+
+# [0.28.0-20200807-beta](https://github.com/hilezir/etoro-better-ui/compare/v0.28.0-20200805-beta...v0.28.0-20200807-beta) (2020-08-07)
+
+
+### Bug Fixes
+
+* lever can't memorize correctly ([504b111](https://github.com/hilezir/etoro-better-ui/commit/504b111f165ba00aea2ba54d3daaf567c9ec3ab1))
+* the amount and lever with automatic apply on the dialog with such as TLT, VTI, SQQQ, and QQQ doesn't work ([937544a](https://github.com/hilezir/etoro-better-ui/commit/937544adc7e7ebd9115359d2160fb7ba76d7293e))
+* the stepper on the side of input that now memorizes the input values ([fb60924](https://github.com/hilezir/etoro-better-ui/commit/fb609240badd5def1ec2ac2d56c9452200e9000c))
+* too many auto-click on "see more", will cause the next query to get rejected ([7a93677](https://github.com/hilezir/etoro-better-ui/commit/7a936770eef9dfc4450b19c0a327ea2811617690))
+
+
+### Features
+
+* price of Buy and Sell on dialog, display on buttons, re-render faster on each 50ms ([ff19dae](https://github.com/hilezir/etoro-better-ui/commit/ff19daefad97a7ebe8f6b1c5490bbfbff3795691))
+
+
+
+# [0.28.0-20200805-beta](https://github.com/hilezir/etoro-better-ui/compare/v0.27.0-20200730...v0.28.0-20200805-beta) (2020-08-05)
+
+
+### Bug Fixes
+
+* dialog sometime didn't apply fixed amount/lever, improve it ([452017f](https://github.com/hilezir/etoro-better-ui/commit/452017f670a47e68eddf916ddd2fde2bfe42a66d))
+* ExecutionDialogStatus error on render, can't read Name of instrument is undefined ([2fcf53f](https://github.com/hilezir/etoro-better-ui/commit/2fcf53fce0751433dfdaf136d6715ececec94098))
+* positions profits on dialog, throw read of undefined ([a434709](https://github.com/hilezir/etoro-better-ui/commit/a434709201842ca7e991111d57fc44994c6e96e4))
+* when dialog use TAB key, don't switch when users are focus on inputting the amount ([a446d40](https://github.com/hilezir/etoro-better-ui/commit/a446d40843dd2faa35c691b7804873d989427a53))
+
+
+### Features
+
+* hotkeys can set up with separate. After this version update, all hotkeys have reset in the disabled. Please enable it in settings. ([0ddf037](https://github.com/hilezir/etoro-better-ui/commit/0ddf0379f253fe8baa446c79ba269c761ea27ccb))
+* if hotkeys enabled, tooltips shown on the targets. and prevent trigger hotkey when users focus on inputs. ([655012f](https://github.com/hilezir/etoro-better-ui/commit/655012f7aa03bed36948cbc957a3285f185023cc))
+* the hotkey "F" on Page Watchlist will trigger focus on the filter input ([0cbd89a](https://github.com/hilezir/etoro-better-ui/commit/0cbd89a1233bc871a41f7f27f6b9c14dca1a70d9))
+* the hotkey Space key to trigger "Open Trade" button ([f3302b3](https://github.com/hilezir/etoro-better-ui/commit/f3302b33de061571be358c2b7b73861985f3d4a1))
+
+
+
+# [0.27.0-20200730](https://github.com/hilezir/etoro-better-ui/compare/v0.26.1-20200721...v0.27.0-20200730) (2020-07-30)
+
+
+### Features
+
+* a link on the sidebar can go to Pending-Orders quickly, and orders count has presented ([bc7c2de](https://github.com/hilezir/etoro-better-ui/commit/bc7c2de50db3a85d83e0dd65885b2a5f16c09d52))
+* dialog add new status shown the position total amount profits ([17bdd06](https://github.com/hilezir/etoro-better-ui/commit/17bdd06fa5e9d04ff90107ead638364f0d5c534c))
+
+
+
+## [0.26.1-20200721](https://github.com/hilezir/etoro-better-ui/compare/v0.26.0-20200721...v0.26.1-20200721) (2020-07-20)
+
+
+
+# [0.26.0-20200721](https://github.com/hilezir/etoro-better-ui/compare/v0.25.3...v0.26.0-20200721) (2020-07-20)
+
+
+### Features
+
+* an interval value setting for inferring delay and trading system status checking ([3933da9](https://github.com/hilezir/etoro-better-ui/commit/3933da9d1eb21d798677a446937ccb4caa51836b))
+
+
+
+## [0.25.3](https://github.com/hilezir/etoro-better-ui/compare/v0.25.2...v0.25.3) (2020-07-15)
+
+
+
+## [0.25.2](https://github.com/hilezir/etoro-better-ui/compare/v0.25.1...v0.25.2) (2020-07-15)
+
+
+
+## [0.25.1](https://github.com/hilezir/etoro-better-ui/compare/v0.25.0...v0.25.1) (2020-07-12)
+
+
+
+# [0.25.0](https://github.com/hilezir/etoro-better-ui/compare/v0.24.1...v0.25.0) (2020-07-12)
+
+
+
+## [0.24.1](https://github.com/hilezir/etoro-better-ui/compare/v0.24.0...v0.24.1) (2020-07-06)
+
+
+
+# [0.24.0](https://github.com/hilezir/etoro-better-ui/compare/v0.23.0...v0.24.0) (2020-07-05)
+
+
+### Bug Fixes
+
+* Execution-Dialog "Manual Trading" Status ([b8425d5](https://github.com/hilezir/etoro-better-ui/commit/b8425d5e3022fefd50c6599d5bdefa46d1f43c9d))
+
+
+### Features
+
+* automatically apply last Take-Profit and Stop-Loss percent on Execution-Dialog ([67a5ad4](https://github.com/hilezir/etoro-better-ui/commit/67a5ad456959dd88122fe2a3be994defb4708008))
+
+
+
+# [0.23.0](https://github.com/hilezir/etoro-better-ui/compare/v0.22.1...v0.23.0) (2020-07-05)
+
+
+### Features
+
+* tip for bank buy exchange rate, at sidebar withdrawal button ([6e62e02](https://github.com/hilezir/etoro-better-ui/commit/6e62e02040f8e87f073480f016d3a8d1347e1017))
+* 下單視窗會在螢幕高度不夠時，自動縮小，當你的螢幕高度過小時，應該會很適合 ([f7919aa](https://github.com/hilezir/etoro-better-ui/commit/f7919aa141a5339d7c6110bc89ebbeb3bfe87804))
+* 套件設定新增一個「重置設定」按鈕 ([4aaee7a](https://github.com/hilezir/etoro-better-ui/commit/4aaee7a79438542dd1600810a448a7712e5427f8))
+* 關注列表上的篩選框，使 Escape 鍵也能夠清除文字 ([816cc6c](https://github.com/hilezir/etoro-better-ui/commit/816cc6c3519ad1b232f44508b03f8d53ac4e5a28))
+
+
+
+## [0.22.1](https://github.com/hilezir/etoro-better-ui/compare/v0.22.0...v0.22.1) (2020-06-26)
+
+
+### Bug Fixes
+
+* 修復，意外使底部的額外幣種無法更新 ([e7cb89e](https://github.com/hilezir/etoro-better-ui/commit/e7cb89e0c23350a1fb070b08fd4055c7eecdc960))
+
+
+
+# [0.22.0](https://github.com/hilezir/etoro-better-ui/compare/v0.21.0...v0.22.0) (2020-06-26)
+
+
+### Bug Fixes
+
+* 修正停用下單巨集時，介面歪掉的問題 ([2166d71](https://github.com/hilezir/etoro-better-ui/commit/2166d71e0320628e11d114b52c0a641ededecfa0))
+
+
+### Features
+
+* add option able to select USD and hidden extra currency, useful for USD native users ([4f91583](https://github.com/hilezir/etoro-better-ui/commit/4f91583b627964dd383d8b9fd92ea5cad6812cf0))
+
+
+
+# [0.21.0](https://github.com/hilezir/etoro-better-ui/compare/v0.20.3...v0.21.0) (2020-06-26)
+
+
+
+## [0.20.3](https://github.com/hilezir/etoro-better-ui/compare/v0.20.2...v0.20.3) (2020-06-24)
+
+
+### Bug Fixes
+
+* 修復設定窗的金額組，意外無法輸入的問題 ([780cb80](https://github.com/hilezir/etoro-better-ui/commit/780cb806bcc2a0c41d1e53de9ca26eadc6bb60e5))
+
+
+
+## [0.20.2](https://github.com/hilezir/etoro-better-ui/compare/v0.20.1...v0.20.2) (2020-06-24)
+
+
+
+## [0.20.1](https://github.com/hilezir/etoro-better-ui/compare/v0.20.0...v0.20.1) (2020-06-24)
+
+
+
+# [0.20.0](https://github.com/hilezir/etoro-better-ui/compare/v0.19.0...v0.20.0) (2020-06-24)
+
+
+### Features
+
+* 「全部平倉」現在會自動打勾我要平掉所有倉位 ([77bdbdd](https://github.com/hilezir/etoro-better-ui/commit/77bdbdd0cd56490e83f4d47bc77844ce08afa52a))
+* 「看更多」按鈕，現在會自動連點十次，加快你瀏覽的速度 ([61d048a](https://github.com/hilezir/etoro-better-ui/commit/61d048a1adf16b957236f86369a1f3c8e8c944be))
+
+
+
+# [0.19.0](https://github.com/hilezir/etoro-better-ui/compare/v0.18.1...v0.19.0) (2020-06-24)
+
+
+### Features
+
+* 使 ESC 鍵按下能夠關閉下單視窗 ([4c0068c](https://github.com/hilezir/etoro-better-ui/commit/4c0068cf2ae48f9ecbff9e2d11bb2f612a050b66))
+* 關注列表的文字篩選器，新增一個按鈕清除已輸入的文字 ([3df13ff](https://github.com/hilezir/etoro-better-ui/commit/3df13ff6b481fb19db5e107abcaba162f81dd8ae))
+
+
+
+## [0.18.1](https://github.com/hilezir/etoro-better-ui/compare/v0.18.0...v0.18.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* 解決意外解綁關鍵的鼠標事件，造成介面不渲染的問題 ([b0ee2ec](https://github.com/hilezir/etoro-better-ui/commit/b0ee2ec122de7bd0c8e667bad2e0c23c272e88cb))
+
+
+
+# [0.18.0](https://github.com/hilezir/etoro-better-ui/compare/v0.17.1...v0.18.0) (2020-06-22)
+
+
+### Features
+
+* 重新設計下單視窗，提供「status.etoro.com 下單狀態」「推測延遲」「可用餘額」 ([73afc63](https://github.com/hilezir/etoro-better-ui/commit/73afc63ee76495613bddd75111bc6400cd91fcf6))
+
+
+
+## [0.17.1](https://github.com/hilezir/etoro-better-ui/compare/v0.17.0...v0.17.1) (2020-06-21)
+
+
+### Bug Fixes
+
+* 修正 Tab 鍵切換買賣之設定介面邏輯錯誤，造成設定項不起實際作用的問題 ([d46dc4d](https://github.com/hilezir/etoro-better-ui/commit/d46dc4d7719c3ace8b92f4fccd560bead620c6d5))
+
+
+
+# [0.17.0](https://github.com/hilezir/etoro-better-ui/compare/v0.16.0...v0.17.0) (2020-06-21)
+
+
+### Bug Fixes
+
+* 下單視窗開啟時，處理風險小提示會擋住「賣出」及「買入」的視覺問題 ([08e926c](https://github.com/hilezir/etoro-better-ui/commit/08e926ca68fa669d6a2fbd292f214350b8c9621c))
+
+
+### Features
+
+* 使用 Tab 鍵來快速切換下單視窗的「買入」及「賣出」狀態（含設定選項） ([495dd84](https://github.com/hilezir/etoro-better-ui/commit/495dd847a27f02f89f34696a5e289efe71747d0c))
+* 每當展開下單視窗時，提示當前可用餘額 ([7d0c376](https://github.com/hilezir/etoro-better-ui/commit/7d0c3767c25ecfa027a39a49f11e0b2fd00c7f0a))
+
+
+
+# [0.16.0](https://github.com/hilezir/etoro-better-ui/compare/v0.15.0...v0.16.0) (2020-06-19)
+
+
+### Features
+
+* 鎖定槓桿的功能，就算用戶點擊內建 etoro 槓桿也會有效記錄 ([2c44ccd](https://github.com/hilezir/etoro-better-ui/commit/2c44ccdb410fed5295f242236dde804ec402db19))
+
+
+
 # [0.15.0](https://github.com/hilezir/etoro-better-ui/compare/v0.14.0...v0.15.0) (2020-06-19)
 
 
