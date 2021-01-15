@@ -11,7 +11,7 @@ export const registeredComponents = new Map<
   string,
   {
     mount: () => void
-    unmount: () => Promise<unknown>
+    unmount: () => Promise<any>
     container: HTMLElement
   }
 >()
