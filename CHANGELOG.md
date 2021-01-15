@@ -1,3 +1,19 @@
+# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210116.beta...v0.37.0-20201018) (2021-01-15)
+
+
+
+# [0.38.0-20210116.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.37.0-20201018...v0.38.0-20210116.beta) (2021-01-15)
+
+
+### Features
+
+* notifications; now show on top-right, was bottom-left, so the value of balance are clear ([ec810c7](https://github.com/hilezir/etoro-better-ui/commit/ec810c7034f0630edb70539c483d3be8db91e360))
+* TradeDialog; add value of spread for each instrument ([798d281](https://github.com/hilezir/etoro-better-ui/commit/798d28168b909c84b70545c1abf38e5d430ff8c3))
+* **TradeDashboard:** add the Link, can redirect to the page of portfolio of etoro ([97cee94](https://github.com/hilezir/etoro-better-ui/commit/97cee94f0d13e059e9fcf184dfbec198c974cfe7))
+* **TradeDialog:** background no longer colour deep, so you can see your positions clearly on TradeDashboard when TradeDialog is open ([3157655](https://github.com/hilezir/etoro-better-ui/commit/3157655b9acb937c32c6854bc3f0a8cdadd5b925))
+
+
+
 # [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.37.0-20201002.beta...v0.37.0-20201018) (2020-10-17)
 
 
