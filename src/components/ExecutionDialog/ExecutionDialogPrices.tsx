@@ -114,4 +114,5 @@ const spreadCSS = css`
   ${priceCSS};
   left: 282px;
   top: 11%;
+  color: #a3ff00;
 `
