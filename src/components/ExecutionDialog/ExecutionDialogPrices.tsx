@@ -46,7 +46,12 @@ const ExecutionDialogPrices: React.FC = () => {
   return (
     <span css={rootCSS}>
       <span css={bidCSS}>
-        <ProfitText profit={rate.value.lastPrice} pureDollar noDollarSign />
+        <ProfitText
+          profit={rate.value.lastPrice}
+          pureDollar
+          noDollarSign
+          precision={rate.model?.instrument?.Precision}
+        />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
         </span> */}
@@ -57,7 +62,12 @@ const ExecutionDialogPrices: React.FC = () => {
       </span>
 
       <span css={askCSS}>
-        <ProfitText profit={askValue} pureDollar noDollarSign />
+        <ProfitText
+          profit={askValue}
+          pureDollar
+          noDollarSign
+          precision={rate.model?.instrument?.Precision}
+        />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
         </span> */}

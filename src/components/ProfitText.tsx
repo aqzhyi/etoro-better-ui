@@ -5,44 +5,44 @@ import { toCurrency } from '~/toCurrency'
 
 export const ProfitText: React.FC<{
   /**
-    This prop allows be a negative number
-
-    @example
-    777.771257325 // $777.77
-
-    @example
-    -777.771257325 // -$777.77
-  */
+   * This prop allows be a negative number
+   *
+   * @example
+   *   777.771257325 // $777.77
+   *
+   * @example
+   *   ;-777.771257325 // -$777.77
+   */
   profit: number
   /**
-    Define component present for either as Pure Dollar Display
-
-    @example
-    false | undefined // present as green or red
-
-    @example
-    true // present as yellow
-  */
+   * Define component present for either as Pure Dollar Display
+   *
+   * @example
+   *   false | undefined // present as green or red
+   *
+   * @example
+   *   true // present as yellow
+   */
   pureDollar?: boolean
   /**
-    Define component present a Dollar Sign as a prefix
-
-    @example
-    false // 777.77
-
-    @example
-    true // $777.77
+   * Define component present a Dollar Sign as a prefix
+   *
+   * @example
+   *   false // 777.77
+   *
+   * @example
+   *   true // $777.77
    */
   noDollarSign?: boolean
-  /**
-    Controls whether negative symbol should be showm or not
-   */
+  /** Controls whether negative symbol should be showm or not */
   noNegative?: boolean
   /**
-    @example
-    '%' // 777.77%
+   * @example
+   *   '%' // 777.77%
    */
   suffix?: React.ReactNode
+  /** Precision for value, defaults `2` */
+  precision?: number
 }> = memo(function ProfitText(props) {
   const isNegative = props.profit < 0
   const negativeSymbol = props.noNegative ? '' : '-'
@@ -51,7 +51,7 @@ export const ProfitText: React.FC<{
   const values = useMemo(() => {
     const value = Math.abs(props.profit)
 
-    const defaultsToFixedLength = 2
+    const defaultsToFixedLength = props.precision || 2
 
     return toCurrency(Number(value), {
       toFixedLength: defaultsToFixedLength,
