@@ -26,7 +26,7 @@ export const angularAPI = {
     `,
     /** The display price value, the value displaying according to BUY and SELL mode */
     dialogPriceDisplayValue: '.execution-main-head-price-value',
-    /** e.g. `'X5'` */
+    /** E.g. `'X5'` */
     dialogLeverLevelDisplayText:
       '[data-etoro-automation-id="execution-leverage-tab-title-value"]',
     /** The button on the dialog that trigger switch to the amount */
@@ -40,7 +40,7 @@ export const angularAPI = {
     /** The button on the dialog header that trigger switch to the Sell mode */
     dialogSellButton: '[data-etoro-automation-id="execution-sell-button"]',
     /** The inner content of dialog that the border whose user can see */
-    dialogInnerContent: '#open-position-view',
+    dialogInnerContent: '.uidialog-content',
     /** The Button to switch tab to the panel of stop-loss input */
     dialogStopLossSwitchTab: `
       [name="stopLoss"] > a
@@ -189,7 +189,8 @@ export const angularAPI = {
   /**
    * Set amount value with pass number
    *
-   * Finally, the value that will be used should respect to Min Position Number and Leverage value
+   * Finally, the value that will be used should respect to Min Position Number
+   * and Leverage value
    *
    * The way of angular model sync may cause the function Open Trade fails
    */
@@ -269,7 +270,10 @@ export const angularAPI = {
       .trigger('change')
       .trigger('blur')
   },
-  /** Expected effecting with list history and Portfolio also including people's history and Portfolio */
+  /**
+   * Expected effecting with list history and Portfolio also including people's
+   * history and Portfolio
+   */
   filterPortfolioListByText: (filterText = '') => {
     if (filterText) {
       $('.ui-table-row').hide()
@@ -345,7 +349,10 @@ export const angularAPI = {
   /** 打開關注列表的第一個商品的交易視窗，適用於「關注列表的過濾功能」 */
   openTradeDialog: () => {
     $('[automation-id="buy-sell-button-container-buy"]:visible')
-      /** the user may enable the "One-Click Trade", so there to avoid the hit on the mistake */
+      /**
+       * The user may enable the "One-Click Trade", so there to avoid the hit
+       * on the mistake
+       */
       .not('.one-click')
       .eq(0)
       .trigger('click')

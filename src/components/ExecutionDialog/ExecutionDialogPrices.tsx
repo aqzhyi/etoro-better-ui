@@ -27,6 +27,7 @@ const ExecutionDialogPrices: React.FC = () => {
     state => state.settings.tradeDialogPriceRenderRate,
   )
 
+  /** Price of close the position of sell put */
   const askValue = useMemo(() => {
     if (rate.model?.isLowLeverage) {
       return rate.value?.AskDiscounted ?? 0
@@ -35,6 +36,9 @@ const ExecutionDialogPrices: React.FC = () => {
     return rate.value?.lastAskPrice ?? 0
   }, [rate])
 
+  /** Price of close the position of buy call */
+  const bidValue = rate.value?.lastPrice || 0
+
   useInterval(() => {
     rate.updateValue()
   }, degree)
@@ -42,6 +46,17 @@ const ExecutionDialogPrices: React.FC = () => {
   if (!rate.value || !degree) {
     return null
   }
+
+  const spread = big(askValue).minus(bidValue)
+
+  const farOfTP = big(rate.model?.takeProfit.amount || 0)
+    .minus(bidValue)
+    .abs()
+    .plus(spread)
+
+  const farOfSL = big(rate.model?.stopLoss.amount || 0)
+    .minus(bidValue)
+    .abs()
 
   return (
     <span css={rootCSS}>
@@ -57,9 +72,7 @@ const ExecutionDialogPrices: React.FC = () => {
         </span> */}
       </span>
 
-      <span css={spreadCSS}>
-        {big(rate.value.lastPrice).minus(askValue).toPrecision(2)}
-      </span>
+      <span css={spreadCSS}>{spread.toPrecision(2)}</span>
 
       <span css={askCSS}>
         <ProfitText
@@ -72,6 +85,32 @@ const ExecutionDialogPrices: React.FC = () => {
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
         </span> */}
       </span>
+
+      <span
+        css={css`
+          position: absolute;
+          left: 51px;
+          top: 400px;
+          width: 180px;
+          display: inline-block;
+          text-align: center;
+        `}
+      >
+        {farOfSL.toPrecision()}
+      </span>
+
+      <span
+        css={css`
+          position: absolute;
+          left: 410px;
+          top: 400px;
+          width: 180px;
+          display: inline-block;
+          text-align: center;
+        `}
+      >
+        {farOfTP.toPrecision()}
+      </span>
     </span>
   )
 }
@@ -80,7 +119,9 @@ export const exectionDialogPrices = registerReactComponent({
   component: <ExecutionDialogPrices />,
   containerId: 'ExecutionDialogPrices',
   containerConstructor: renderContainer => {
-    $(angularAPI.selectors.dialogInnerContent).append(renderContainer)
+    $(angularAPI.selectors.dialogInnerContent)
+      .find('.execution.edit')
+      .append(renderContainer)
   },
   disabled: () => {
     if (isDisabledInProchart()) return true
