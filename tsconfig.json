@@ -31,5 +31,5 @@
     },
     "typeRoots": ["node_modules/@types", "src/types"]
   },
-  "exclude": ["**/__tests__", "**/*.{spec,test}.tsx", "coverages"]
+  "exclude": ["**/__tests__", "**/*.{spec,test}.tsx", "coverage", "dist"]
 }
