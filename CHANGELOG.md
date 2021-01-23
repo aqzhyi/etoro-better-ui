@@ -1,4 +1,15 @@
-# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210116.beta...v0.37.0-20201018) (2021-01-15)
+# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210116.beta...v0.37.0-20201018) (2021-01-23)
+
+
+### Bug Fixes
+
+* **TradeDialog:** add missing precision of FX ([42def12](https://github.com/hilezir/etoro-better-ui/commit/42def128e67644bdbd2299030aa1791951cc57b6))
+
+
+### Features
+
+* **TradeDialog:** now will show the point count for the TP and SL ([149b4f4](https://github.com/hilezir/etoro-better-ui/commit/149b4f46e4e73a12f31bd32165a999960594fd51))
+* **Trading:** sometimes the etoro not able to open the TradeDialog, add this indicators, so people can be know that system has been connected ([aa36feb](https://github.com/hilezir/etoro-better-ui/commit/aa36feb4b147cf119d22cb60023cdb86b5601ca1))
 
 
 
