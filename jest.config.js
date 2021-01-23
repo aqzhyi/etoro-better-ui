@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const { jestPreset } = require('ts-jest')
+const { createJestPreset } = require('ts-jest')
 
 module.exports = {
   // The root of your source code, typically /src
@@ -9,7 +9,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   transform: {
     /** 👇 { '^.+\\.tsx?$': 'ts-jest' } */
-    ...jestPreset.transform,
+    ...createJestPreset({ allowJs: true }).transform,
     /** 👇 make babel-plugins works on jest */
     '^.+\\.tsx?$': 'babel-jest',
   },
