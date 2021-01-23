@@ -155,9 +155,9 @@ GM.addStyle(`
     color: #ffffff;
   }
 
-  .${KEYBOARD_DISABLED_CLASSNAME} #${WatchlistHeader.name} .ms-TextField:before { opacity: 0.3; }
-  .${KEYBOARD_ENABLED_CLASSNAME} #${WatchlistHeader.name} .ms-TextField:before,
-  .${KEYBOARD_DISABLED_CLASSNAME} #${WatchlistHeader.name} .ms-TextField:before {
+  .${KEYBOARD_DISABLED_CLASSNAME} [id="${WatchlistHeader.name}"] .ms-TextField:before { opacity: 0.3; }
+  .${KEYBOARD_ENABLED_CLASSNAME} [id="${WatchlistHeader.name}"] .ms-TextField:before,
+  .${KEYBOARD_DISABLED_CLASSNAME} [id="${WatchlistHeader.name}"] .ms-TextField:before {
     content: '( F )';
     transform: translate(110px, 3px);
     position: fixed;

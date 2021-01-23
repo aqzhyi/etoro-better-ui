@@ -20,7 +20,7 @@ export const ExecutionDialogStatusInfo = () => {
   /** 推測延遲 */
   const statusPingValue = useAppSelector(state => state.status.pingValue)
 
-  /** status.etoro.com 目前服務狀況 */
+  /** Status.etoro.com 目前服務狀況 */
   const labelManualTrading =
     statusInfo['Manual trading - Real']?.status === 'Operational' ? (
       '👍'
@@ -59,7 +59,7 @@ export const ExecutionDialogStatusInfo = () => {
     return angularAPI.executionDialogScope?.controller?.instrument?.Name
   }, [])
 
-  /** from etoro html element */
+  /** From etoro html element */
   const canUseValue =
     angularAPI.$rootScope?.session.user.portfolio.availibleToTrade || 0
   const availableValueLabel = `$${canUseValue.toFixed(2)}`
@@ -126,11 +126,11 @@ export const registeredExecutionDialogStatusInfo = registerReactComponent({
 })
 
 GM.addStyle(`
-  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} {
+  [id^=uidialog] [id="${registeredExecutionDialogStatusInfo.container.id}"] {
     display: flex;
   }
 
-  [id^=uidialog] #${registeredExecutionDialogStatusInfo.container.id} .bp3-popover-target {
+  [id^=uidialog] [id="${registeredExecutionDialogStatusInfo.container.id}"] .bp3-popover-target {
     border-right: 1px solid #cccccc;
   }
 `)

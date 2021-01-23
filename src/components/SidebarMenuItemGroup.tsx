@@ -1,3 +1,4 @@
+/** @jsx jsx */ import { jsx, css } from '@emotion/react'
 import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { AppTrans } from '~/components/AppTrans'
 import { SidebarMenuItem } from '~/components/SidebarMenuItem'
@@ -20,9 +21,7 @@ export const SidebarMenuItemGroup = () => {
   const display = useAppSelector(state => state.display)
   const dispatch = useAppDispatch()
 
-  /**
-   * etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式
-   */
+  /** Etoro 左側欄樣式為動態產生名稱，沒有此變量，則無法正確呈現 CSS 樣式 */
   const dynamicStyleClassName =
     Array.from($('.w-menu').get(0).attributes).find(value =>
       value.name.includes('_ngcontent'),
@@ -31,7 +30,13 @@ export const SidebarMenuItemGroup = () => {
   const attrsToAppend = { [dynamicStyleClassName]: '' }
 
   return (
-    <span>
+    <span
+      css={css`
+        a {
+          color: #d1d3e0;
+        }
+      `}
+    >
       <div {...attrsToAppend} className='i-menu-sep'>
         <span>
           <AppTrans i18nKey='universal_extensionName_text'></AppTrans>
@@ -107,9 +112,3 @@ export const registeredSidebarMenuItems = registerReactComponent({
     $('.w-menu-main').append(container)
   },
 })
-
-GM.addStyle(`
-  #${registeredSidebarMenuItems.container.id} a {
-    color: #d1d3e0;
-  }
-`)

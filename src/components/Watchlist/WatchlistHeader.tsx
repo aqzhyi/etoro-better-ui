@@ -1,3 +1,4 @@
+/** @jsx jsx */ import { jsx, css } from '@emotion/react'
 import { Button, Grid, Hidden, TextField } from '@material-ui/core'
 import React, { useRef } from 'react'
 import { useDebounce, useMount } from 'react-use'
@@ -39,7 +40,14 @@ export const WatchlistHeader: React.FC = () => {
   )
 
   return (
-    <Grid container direction='row' spacing={2}>
+    <Grid
+      container
+      direction='row'
+      spacing={2}
+      css={css`
+        margin-top: 18px;
+      `}
+    >
       <Hidden mdDown>
         <Grid item>
           <Button
@@ -156,9 +164,3 @@ export const registeredWatchlistHeader = registerReactComponent({
     $('.watchlist-header .watch-list-buttons').prepend(containerElement)
   },
 })
-
-GM.addStyle(`
-  #${registeredWatchlistHeader.container.id} {
-    margin-top: 18px;
-  }
-`)

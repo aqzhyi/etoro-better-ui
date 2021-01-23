@@ -17,52 +17,48 @@ export const registeredComponents = new Map<
 >()
 
 /**
-  Aims to stick React-Components to Angular UIs, automatically
-
-  ❗️IMPORTANT: after you call this function, also you should import it on file at @utils/renderStickReactComponents
-
-  ```ts
-    // ~/components/MyComponent.tsx
-    registerReactComponent({
-      component: <MyComponent />,
-      containerId: MyComponent.name,
-      containerConstructor: componentContainer => {
-        $('.i-menu-link[href^="/feed"]').prepend(componentContainer)
-      },
-    })
-  ```
-
-  ```ts
-    // ~/utils/renderStickReactComponents.ts
-    import '~/components/MyComponent'
-  ```
+ * Aims to stick React-Components to Angular UIs, automatically
+ *
+ * ❗️IMPORTANT: after you call this function, also you should import it on file
+ * at @utils/renderStickReactComponents
+ *
+ * @example <caption>Basic</caption>
+ *   // ~/components/MyComponent.tsx
+ *   egisterReactComponent({
+ *     component: <MyComponent />,
+ *     containerId: MyComponent.name,
+ *     containerConstructor: componentContainer => {
+ *       $('.i-menu-link[href^="/feed"]').prepend(componentContainer)
+ *     },
+ *   })
+ *
+ *   // ~/utils/renderStickReactComponents.ts
+ *   import '~/components/MyComponent'
  */
 export const registerReactComponent = <
   Component extends React.FC<Parameters<Component>[0]>
 >(options: {
   /**
-   * required, the component to ReactDOM.render()
+   * Required, the component to ReactDOM.render()
    *
    * Do NOT pass <Provider store={store} />, this function will do it.
    *
    * @example
-   *  component: (
-   *    <ExecutionDialogStatusInfo />
-   *  )
+   *   component: <ExecutionDialogStatusInfo />
    */
   component: JSX.Element
-  /** e.g. `'umjisp19neq' or 'SomeComponentUniqueId'` */
+  /** E.g. `'umjisp19neq' or 'SomeComponentUniqueId'` */
   containerId: string
   containerClassName?: string
-  /** defaults `'span'`, the container element tag that for ReactDOM.render(). */
+  /** Defaults `'span'`, the container element tag that for ReactDOM.render(). */
   containerTag?: string
   /**
    * @example
-   *  // ReactDOM.render(component, document.querySelector(`#{containerElement.id}`))
+   *   // ReactDOM.render(component, document.querySelector(`#{containerElement.id}`))
    *
-   *  containerConstructor((containerElement) => {
-   *    jQuery(containerElement).addClass('colorful').insertAfter('body')
-   *  })
+   *   containerConstructor(containerElement => {
+   *     jQuery(containerElement).addClass('colorful').insertAfter('body')
+   *   })
    */
   containerConstructor: (
     /** The container is React Root, which is ReactDOM.render were to render */
@@ -77,9 +73,9 @@ export const registerReactComponent = <
   const newContainerElement = $(`<${containerTag}>`)
 
   const checkContainerExists = () =>
-    options.containerId ? $(`#${options.containerId}`).length > 0 : false
+    options.containerId ? $(`[id="${options.containerId}"]`).length > 0 : false
 
-  const existsContainerElement = $(`#${options.containerId}`)
+  const existsContainerElement = $(`[id="${options.containerId}"]`)
 
   const targetContainerElement =
     existsContainerElement?.get(0) || newContainerElement.get(0)

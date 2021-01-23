@@ -28,9 +28,7 @@ function _applyEventsObservers() {
     },
   )
 
-  /**
-   * On Execution-Dialog closed
-   */
+  /** On Execution-Dialog closed */
   angularAPI.$rootScope?.$watch(
     () => angularAPI.isNativeTradeDialogOpen,
     (newValue, oldValue) => {
@@ -45,9 +43,7 @@ function _applyEventsObservers() {
     },
   )
 
-  /**
-   * Angular.on $routeChangeSuccess
-   */
+  /** Angular.on $routeChangeSuccess */
   angularAPI.$rootScope?.$on('$routeChangeSuccess', angularEvent => {
     debugAPI.angular.extend('$routeChangeSuccess')(globalThis.location.pathname)
 
@@ -61,11 +57,11 @@ function _applyEventsObservers() {
   /**
    * Make sure whole extension UI renders
    *
-   * useful if components unexpected missing renders
-   * for example, angular route changes will remove containers (which is React-Components),
-   * re-renders ASAP is provider better UX
+   * Useful if components unexpected missing renders for example, angular route
+   * changes will remove containers (which is React-Components), re-renders
+   * ASAP is provider better UX
    *
-   * balance with performance (via throttle)
+   * Balance with performance (via throttle)
    */
   $('body').on(
     'mouseover',
@@ -78,7 +74,7 @@ function _applyEventsObservers() {
   /**
    * Make sure Execution-Dialog extension UI renders
    *
-   * balance with performance (via throttle)
+   * Balance with performance (via throttle)
    */
   $('body').on(
     'mouseover',
@@ -92,8 +88,9 @@ function _applyEventsObservers() {
       }
 
       const dialogComponentsNotReady = [
-        $(`#${registeredExecutionDialogStatusInfo.container.id}`).length > 0,
-        $(`#${exectionDialogPrices.container.id}`).length > 0,
+        $(`[id="${registeredExecutionDialogStatusInfo.container.id}"]`).length >
+          0,
+        $(`[id="${exectionDialogPrices.container.id}"]`).length > 0,
       ].some(isReady => !isReady)
 
       if (isDialogOpen && dialogComponentsNotReady) {
@@ -105,7 +102,7 @@ function _applyEventsObservers() {
   /**
    * "I want to close all positions" the dialog get display
    *
-   * balance with performance (via throttle)
+   * Balance with performance (via throttle)
    */
   $('body').on(
     'mouseover',
@@ -115,9 +112,7 @@ function _applyEventsObservers() {
     }, 1000),
   )
 
-  /**
-   * "More Button"(s) on hover
-   */
+  /** "More Button"(s) on hover */
   $('body').on(
     'mouseover',
     '.more-info-button',

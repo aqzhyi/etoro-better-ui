@@ -33,12 +33,9 @@ const { container } = registerReactComponent({
     $('[automation-id="menu-layout-withdrawal-icon"]')
       .parent()
       .append(containerElement)
+      .css({
+        'font-size': '14px',
+        'text-shadow': '1px 1px 1px #303030',
+      })
   },
 })
-
-GM.addStyle(`
-  #${container.id} {
-    font-size: 14px;
-    text-shadow: 1px 1px 1px #303030;
-  }
-`)
