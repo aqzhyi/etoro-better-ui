@@ -20,7 +20,7 @@ const findAndRegister = () => {
         .html()
 
       /**
-       * tests https://regexr.com/52ft5
+       * Tests https://regexr.com/52ft5
        *
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726/3.jpg
        * [PASS] https://etoro-cdn.etorostatic.com/avatars/150X150/1724726.jpg
@@ -67,10 +67,10 @@ export const WatchlistFindAndRegister = () => {
   return <React.Fragment></React.Fragment>
 }
 
-registerReactComponent({
-  component: <WatchlistFindAndRegister />,
-  containerId: WatchlistFindAndRegister.name,
-  containerConstructor: containerElement => {
-    $(`[automation-id="watchlist-list-header-people"]`).append(containerElement)
-  },
-})
+// registerReactComponent({
+//   component: <WatchlistFindAndRegister />,
+//   containerId: WatchlistFindAndRegister.name,
+//   containerConstructor: containerElement => {
+//     $(`[automation-id="watchlist-list-header-people"]`).append(containerElement)
+//   },
+// })
