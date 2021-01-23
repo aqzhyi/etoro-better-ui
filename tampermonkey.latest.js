@@ -77,7 +77,12 @@ function loadScript(
 ) {
   return new Promise((resolve, reject) => {
     window['GM_xmlhttpRequest']({
-      url: url + `?${new Date().getTime()}`,
+      url: url,
+      headers: {
+        'Cache-Control': 'max-age=3600',
+      },
+      /** Revalidate maybe cached content */
+      revalidate: true,
       onload: event => {
         console.info('🟠 etoro-better-ui... almost done...')
         eval(event.responseText)
