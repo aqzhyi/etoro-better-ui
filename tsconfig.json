@@ -23,6 +23,7 @@
     "strict": true,
     "target": "ESNext",
     "allowJs": true,
+    "checkJs": true,
     "sourceMap": true,
     "noEmitOnError": false,
     "paths": {

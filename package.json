@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --progress -w --mode development",
-    "server": "npx http-server -p 9000",
+    "server": "npx http-server -p 9000 dist",
     "build": "webpack --progress --mode production",
     "test": "jest",
     "auto:changelog": "standard-version",

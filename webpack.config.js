@@ -4,13 +4,10 @@ const path = require('path')
 // @ts-check
 /** @type {import('webpack').Configuration} */
 const config = {
-  entry: './src/etoro',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, ''),
-    compress: true,
-    port: 9000,
+  entry: {
+    'etoro-better-ui.latest': './src/etoro',
   },
+  devtool: 'inline-source-map',
   resolve: {
     alias: {
       '~': path.resolve(__dirname, 'src'),
@@ -18,7 +15,7 @@ const config = {
     extensions: ['.js', '.ts', '.tsx'],
   },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {

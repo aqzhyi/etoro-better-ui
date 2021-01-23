@@ -12,12 +12,12 @@
  */
 
 // ==UserScript==
-// @name            eToro Better UI 雲端自動更新版
-// @name:en         eToro Better UI in Cloud
+// @name            eToro Better UI 當沖外掛
+// @name:en         eToro Better UI Trading Plugin
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
 // @version         0.37.0
-// @author          hilezir
+// @author          https://www.etoro.com/people/aqzhyi
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
 // @match           https://*.etoro.com/*
@@ -30,46 +30,65 @@
 // @noframes
 // @namespace       http://tampermonkey.net/
 
-///////////////////** 開源程式碼庫 */
+///////////////////** 甜豬的雲端（developer site） */
+// @connect         etoro-plugins.netlify.app
+
+///////////////////** 開源程式碼庫（open sources hosting） */
 // @connect         cdn.jsdelivr.net
 // @connect         cdnjs.cloudflare.com
 
-///////////////////** 台灣臺灣銀行 */
+///////////////////** 台灣臺灣銀行（Taiwan Bank） */
 // @connect         bot.com.tw
 
-///////////////////** 馬國大眾銀行 */
+///////////////////** 馬國大眾銀行（PBE Bank） */
 // @connect         www.pbebank.com
 
-///////////////////** 本地開發專用 */
+///////////////////** 本地開發專用（for the plugin development） */
 // @connect         127.0.0.1
 // @connect         localhost
 // ==/UserScript==
 
 // @ts-check
 
-// 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-// 如果你想切換版本的使用，可以參考下面這一行程式碼
-// If you are looking for another version, please change the word to the your target
-// 🇹🇼🇹🇼🇹🇼🇹🇼🇹🇼
-
 try {
-  // const url = `https://cdn.jsdelivr.net/gh/hilezir/etoro-better-ui@${version}/dist/etoro.js`
-  const url = `http://127.0.0.1:9000/dist/index.js`
+  const urlOfCloud = `https://etoro-plugins.netlify.app/etoro-better-ui.latest.js`
+  const url = `http://127.0.0.1:9000/etoro-better-ui.latest.js`
 
-  console.info('🔴 better-ui... loading...')
+  console.info('🟡 etoro-better-ui... loading...')
 
-  window['GM_xmlhttpRequest']({
-    url: url + `?${new Date().getTime()}`,
-    onload: event => {
-      console.info('🟡 better-ui... almost done...')
-      eval(event.responseText)
-      console.info('🟢 better-ui... has been loaded...')
-    },
+  const messageOfUnknownError = `🔴 ERROR: etoro-better-ui has been failed to loaded.`
+
+  loadScript(url).catch(() => {
+    if (url.includes('127.0.0.1') || url.includes('localhost')) {
+      return loadScript(urlOfCloud)
+    }
   })
 } catch (error) {
-  if (error && error.message) {
+  if (error instanceof Error) {
     alert(error.message)
   } else {
-    alert(`Error: better-ui load failed, don't know why`)
+    alert(`ERROR: etoro-better-ui has been failed to loaded.`)
   }
+}
+
+function loadScript(
+  /** @type {string} */
+  url,
+) {
+  return new Promise((resolve, reject) => {
+    window['GM_xmlhttpRequest']({
+      url: url + `?${new Date().getTime()}`,
+      onload: event => {
+        console.info('🟠 etoro-better-ui... almost done...')
+        eval(event.responseText)
+        console.info('🟢 etoro-better-ui... has been loaded...')
+        resolve(true)
+      },
+      onerror: error => {
+        reject(
+          new Error('🔴 ERROR: etoro-better-ui has been failed to loaded.'),
+        )
+      },
+    })
+  })
 }
