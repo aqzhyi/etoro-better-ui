@@ -48,7 +48,8 @@ export const SetupsDialog: React.FC = () => {
       onClose={() => {
         dispatch(toggleSetupDialog(false))
       }}
-      open={dialogOpen}
+      hidden={!dialogOpen}
+      open
     >
       <DialogTitle>
         <AppTrans i18nKey='universal_extensionName_text'></AppTrans>
