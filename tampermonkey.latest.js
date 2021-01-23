@@ -52,17 +52,19 @@
 
 try {
   const urlOfCloud = `https://etoro-plugins.netlify.app/etoro-better-ui.latest.js`
-  const url = `http://127.0.0.1:9000/etoro-better-ui.latest.js`
+  const urlOfDev = `http://127.0.0.1:9000/etoro-better-ui.latest.js`
 
   console.info('🟡 etoro-better-ui... loading...')
 
   const messageOfUnknownError = `🔴 ERROR: etoro-better-ui has been failed to loaded.`
 
-  loadScript(url).catch(() => {
-    if (url.includes('127.0.0.1') || url.includes('localhost')) {
+  loadScript(urlOfDev)
+    .then(() => {
+      console.info(`💚 正在啟動本地開發版`)
+    })
+    .catch(() => {
       return loadScript(urlOfCloud)
-    }
-  })
+    })
 } catch (error) {
   if (error instanceof Error) {
     alert(error.message)
@@ -75,12 +77,17 @@ function loadScript(
   /** @type {string} */
   url,
 ) {
+  const __DEV__ = url.includes('127.0.0.1') || url.includes('localhost')
+
   return new Promise((resolve, reject) => {
     window['GM_xmlhttpRequest']({
       url: url,
-      headers: {
-        'Cache-Control': 'max-age=3600',
-      },
+      nocache: __DEV__ ? true : undefined,
+      headers: __DEV__
+        ? undefined
+        : {
+            'Cache-Control': 'max-age=3600',
+          },
       /** Revalidate maybe cached content */
       revalidate: true,
       onload: event => {
