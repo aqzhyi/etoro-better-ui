@@ -252,7 +252,7 @@ export const SetupsDialog: React.FC = () => {
           </Grid>
 
           <Grid item container>
-            <AppTrans i18nKey='common_experimental_text'></AppTrans>
+            <AppTrans i18nKey='bidask'></AppTrans>
           </Grid>
 
           <Grid item container>

@@ -1,9 +1,8 @@
 {
-  "isTradingConnectionAvailable": "Trading System Connecting...",
+  "bidask": "Prices for Ask and Bid",
   "common_beta_brief": "Note: This feature is in the early experimental stage. If you are interested in this feature, recommended having tried in the virtual mode before trying real trading.",
   "common_buttonSetup": "Setup",
   "common_disable_text": "Disable",
-  "common_experimental_text": "Experimental",
   "common_marketClose_text": "Market Close",
   "dialog_buttonsSetup_brief": "Fill value of <notable>Trade Order</notable> on the investment by one click on <notable>Trading Buttons</notable>, and number has to split by comma. e.g. 100,200,300,500,1000. Use the Enter key to save.",
   "dialog_buttonsSetup_help": "e.g. 50,200,500,1000",
@@ -20,6 +19,7 @@
   "filterText_clearText_text": "Clear Filter",
   "filterText_input_brief": "Use <kbd>Enter</kbd> when input focus to open the first Execution Dialog. Use the <kbd>ESC</kbd> to clear the input.",
   "filterText_input_help": "Filter...",
+  "isTradingConnectionAvailable": "Trading System Connecting...",
   "link_checkBalance_text": "balance",
   "link_dashboard_text": "Trades Dashboard",
   "link_deposit_text": "（$<notable>{{value}}</notable>）Sell",

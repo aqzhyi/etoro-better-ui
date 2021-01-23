@@ -1,9 +1,8 @@
 {
-  "isTradingConnectionAvailable": "交易系統連線中...",
+  "bidask": "賣價與買價",
   "common_beta_brief": "注意：這個功能處於早期實驗階段，如有興趣使用\b，建議於虛擬模式中測試後再嘗試於真實交易。",
   "common_buttonSetup": "設定",
   "common_disable_text": "停用",
-  "common_experimental_text": "實驗性",
   "common_marketClose_text": "休市",
   "dialog_buttonsSetup_brief": "下單輔助按鈕之金額設定（請用逗號隔開數字）e.g. 100,200,300,500,1000。",
   "dialog_buttonsSetup_help": "範本 50,200,500,1000",
@@ -20,6 +19,7 @@
   "filterText_clearText_text": "清除輸入",
   "filterText_input_brief": "在輸入框中使用 <kbd>Enter</kbd> 可以開啟第一個標的之下單框。使用 <kbd>Escape</kbd> 可以清除輸入框。",
   "filterText_input_help": "過濾...",
+  "isTradingConnectionAvailable": "交易系統連線中...",
   "link_checkBalance_text": "餘額",
   "link_dashboard_text": "倉位與下單",
   "link_deposit_text": "（$<notable>{{value}}</notable>）銀行賣出",
