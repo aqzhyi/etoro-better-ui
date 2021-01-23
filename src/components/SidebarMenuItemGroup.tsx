@@ -11,6 +11,8 @@ import { registerReactComponent } from '~/utils/registerReactComponent'
 import React from 'react'
 import packageJSON from '../../package.json'
 import { KeyProbe } from '~/components/KeyProbe'
+import { SidebarPendingOrdersLink } from '~/components/SidebarPendingOrdersLink'
+import { SidebarTradeDashboardLink } from '~/components/SidebarTradeDashboardLink'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -48,6 +50,10 @@ export const SidebarMenuItemGroup = () => {
           {packageJSON.version}
         </a>
       </div>
+
+      <SidebarTradeDashboardLink />
+
+      <SidebarPendingOrdersLink />
 
       <SidebarMenuItem
         iconName='settings'
@@ -109,6 +115,6 @@ export const registeredSidebarMenuItems = registerReactComponent({
   component: <SidebarMenuItemGroup />,
   containerId: 'SidebarMenuItems',
   containerConstructor: container => {
-    $('.w-menu-main').append(container)
+    $('.i-menu-user').after(container)
   },
 })

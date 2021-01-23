@@ -38,11 +38,3 @@ export const SidebarTradeDashboardLink: React.FC = props => {
     </React.Fragment>
   )
 }
-
-registerReactComponent({
-  component: <SidebarTradeDashboardLink></SidebarTradeDashboardLink>,
-  containerId: SidebarTradeDashboardLink.name,
-  containerConstructor: container => {
-    $(container).insertBefore($('.i-menu-link[href^="/watchlists"]'))
-  },
-})

@@ -38,11 +38,3 @@ export const SidebarPendingOrdersLink: React.FC = props => {
     </SidebarMenuItem>
   )
 }
-
-registerReactComponent({
-  component: <SidebarPendingOrdersLink />,
-  containerId: SidebarPendingOrdersLink.name,
-  containerConstructor: reactContainer => {
-    $(reactContainer).insertBefore($('.i-menu-link[href^="/feed"]'))
-  },
-})

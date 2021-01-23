@@ -68,7 +68,7 @@
   "universal_googleAnalyticsEnabled_brief": "幫助 etoro-better-ui 能夠發送匿名的程式崩潰報告，以及介面操作資訊。(這個功能不會收集您的隱私資料)",
   "universal_intervalCheckingStatus_brief": "在下單視窗上方的「推估延遲狀態」與「交易系統運作狀況」，設定每隔 N 秒重新整理；越短的檢查時間，會消耗更多的性能",
   "universal_lever_text": "槓桿",
-  "universal_setup_text": "Better Etoro UI 設定",
+  "universal_setup_text": "設定",
   "universal_useKeyboardHotkeys_12345_brief": "熱鍵 <kbd>1</kbd> 到 <kbd>5</kbd> 打開商品交易視窗。",
   "universal_useKeyboardHotkeys_esc_brief": "熱鍵 <kbd>ESC</kbd> 可以關閉視窗。",
   "universal_useKeyboardHotkeys_f_brief": "熱鍵 <kbd>F</kbd> 可以進行篩選清單。",

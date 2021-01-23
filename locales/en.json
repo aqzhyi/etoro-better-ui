@@ -68,7 +68,7 @@
   "universal_googleAnalyticsEnabled_brief": "Help us improve etoro-better-ui by sending crash reports and anonymous usage stats of User-Interface (it's doesn't sending privacy information)",
   "universal_intervalCheckingStatus_brief": "The status bar that including inferring delay and Trading Working Status on top of Execution Dialog, setting value as an interval to checking every N second. The short interval range would be consuming more CPU usage.",
   "universal_lever_text": "Lever",
-  "universal_setup_text": "Better Etoro UI Setup",
+  "universal_setup_text": "Setup",
   "universal_useKeyboardHotkeys_12345_brief": "The Hotkeys following key <kbd>1</kbd> to <kbd>5</kbd> to trigger Trade Dialog to open.",
   "universal_useKeyboardHotkeys_esc_brief": "The Hotkey <kbd>ESC</kbd> to close Dialogs.",
   "universal_useKeyboardHotkeys_f_brief": "The Hotkey <kbd>F</kbd> to get focus on filter input.",
