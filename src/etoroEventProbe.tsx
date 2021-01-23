@@ -14,13 +14,25 @@ import React from 'react'
 
 let isTradingConnectionAvailable = false
 
-const showLoadingTip = () =>
-  cogoToast.loading(<AppTrans i18nKey='isTradingConnectionAvailable' />, {
-    hideAfter: 100000,
-  })
+const showLoadingTip = () => {
+  const loading = cogoToast.loading(
+    <AppTrans i18nKey='isTradingConnectionAvailable' />,
+    {
+      hideAfter: 100000,
+      onClick: () => {
+        loading.hide?.()
+      },
+    },
+  )
+
+  return loading
+}
 
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
+  const isTradingSystemLoaded =
+    angularAPI.$rootScope?.session.user.portfolioFactory
+      .isTradingConnectionAvailable
 
   angularAPI.$rootScope?.$watch(
     () => angularAPI.$rootScope?.session.user.portfolio.manualPositions.length,
@@ -34,7 +46,7 @@ function _applyEventsObservers() {
     },
   )
 
-  let loadingTip = showLoadingTip()
+  let loadingTip = !isTradingSystemLoaded ? showLoadingTip() : undefined
 
   angularAPI.$rootScope?.$watch(
     () =>
@@ -48,7 +60,7 @@ function _applyEventsObservers() {
       isTradingConnectionAvailable = newValue || false
 
       if (isTradingConnectionAvailable === true) {
-        loadingTip.hide?.()
+        loadingTip?.hide?.()
       } else {
         loadingTip = showLoadingTip()
       }
