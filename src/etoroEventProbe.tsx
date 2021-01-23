@@ -8,10 +8,16 @@ import { exectionDialogPrices } from '~/components/ExecutionDialog/ExecutionDial
 import { setGroupPositionIds } from '~/actions/setGroupPositionIds'
 import { syncNativeTradeDialogOpen } from '~/actions/syncFromNativeTradeDialogOpenState'
 import { toggleTradeDashboard } from '~/actions/toggleTradeDashboard'
+import cogoToast from 'cogo-toast'
+import { AppTrans } from '~/components/AppTrans'
+import React from 'react'
 
-let autoRenderOnRouteChangeSuccessTimerId: ReturnType<
-  typeof globalThis['setTimeout']
->
+let isTradingConnectionAvailable = false
+
+const showLoadingTip = () =>
+  cogoToast.loading(<AppTrans i18nKey='isTradingConnectionAvailable' />, {
+    hideAfter: 100000,
+  })
 
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
@@ -25,6 +31,27 @@ function _applyEventsObservers() {
       )
 
       store.dispatch(setGroupPositionIds(ids))
+    },
+  )
+
+  let loadingTip = showLoadingTip()
+
+  angularAPI.$rootScope?.$watch(
+    () =>
+      angularAPI.$rootScope?.session.user.portfolioFactory
+        .isTradingConnectionAvailable,
+    (newValue, oldValue) => {
+      if (newValue === oldValue) {
+        return
+      }
+
+      isTradingConnectionAvailable = newValue || false
+
+      if (isTradingConnectionAvailable === true) {
+        loadingTip.hide?.()
+      } else {
+        loadingTip = showLoadingTip()
+      }
     },
   )
 

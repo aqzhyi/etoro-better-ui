@@ -1,4 +1,5 @@
 {
+  "isTradingConnectionAvailable": "Trading System Connecting...",
   "common_beta_brief": "Note: This feature is in the early experimental stage. If you are interested in this feature, recommended having tried in the virtual mode before trying real trading.",
   "common_buttonSetup": "Setup",
   "common_disable_text": "Disable",
