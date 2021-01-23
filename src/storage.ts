@@ -52,8 +52,7 @@ export const DEFAULT_CONFIG: BetterEtoroUIConfig = {
     key12345: true,
     dialogBuySellSwitch: 'Tab',
     dialogClose: 'Esc',
-    /** Default to disabled, to avoid users trigger on unexpected */
-    dialogOpenTrade: null,
+    dialogOpenTrade: ' ',
     watchlistFilter: 'F',
   },
   intervalCheckingStatus: 30,
