@@ -1,4 +1,25 @@
-# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210116.beta...v0.37.0-20201018) (2021-01-23)
+# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210123.beta...v0.37.0-20201018) (2021-01-23)
+
+
+### Bug Fixes
+
+* **SetupDialog:** faster to open ([66949a3](https://github.com/hilezir/etoro-better-ui/commit/66949a39af7dece1b5dcc6994e76a66072a8d5e8))
+* **TradingSystemConnection:** add check the status of network ([d5aaa49](https://github.com/hilezir/etoro-better-ui/commit/d5aaa490d43acbe4bb8146e1abf77183f5658e5d))
+* re-org the word for "experimental" to "bidask" ([496e675](https://github.com/hilezir/etoro-better-ui/commit/496e6756c11b521c363aa533764008ef6072dd6c))
+* reduce the bundled size ([9c4a4b9](https://github.com/hilezir/etoro-better-ui/commit/9c4a4b988c403c529cdd1e753bd05ad367761fd0))
+* sidebar items in etoro-better-ui, now elevate to the first class in etoro menu, since the newer always doesn't find the setup ([a65f086](https://github.com/hilezir/etoro-better-ui/commit/a65f0862bef27e6a7f235bbfe0d79ed3b9db3844))
+* the hotkey "space" now defaults to enabled ([899c6b7](https://github.com/hilezir/etoro-better-ui/commit/899c6b7ea070081a207230f3985b003440c8479a))
+* watch list no longer provider extra buttons, since it's seems bugs when route changed ([7b5e4ae](https://github.com/hilezir/etoro-better-ui/commit/7b5e4ae943807d7ec44264108af6c74af85c081f))
+* **Trading:** fix the indicator of the Trading System Connection, since when script of etoro-better-ui load slowly, it will not be work correctly ([0f9d032](https://github.com/hilezir/etoro-better-ui/commit/0f9d032c87ade01c5b629957c409b3535e6710e9))
+
+
+### Features
+
+* see more button, now auto click only for once ([55d7fda](https://github.com/hilezir/etoro-better-ui/commit/55d7fda89bf3dc7e614799885dabcc1334a9aeb3))
+
+
+
+# [0.38.0-20210123.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210116.beta...v0.38.0-20210123.beta) (2021-01-23)
 
 
 ### Bug Fixes
