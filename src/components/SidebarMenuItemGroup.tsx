@@ -115,6 +115,6 @@ export const registeredSidebarMenuItems = registerReactComponent({
   component: <SidebarMenuItemGroup />,
   containerId: 'SidebarMenuItems',
   containerConstructor: container => {
-    $('.i-menu-user').after(container)
+    $('.i-menu-link[href="/feed"]').after(container)
   },
 })
