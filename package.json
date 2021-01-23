@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --progress -w --mode development",
     "server": "npx http-server -p 9000 dist",
-    "build": "webpack --progress --mode production",
+    "build": "NODE_ENV=production webpack --progress --mode production",
     "test": "jest",
     "auto:changelog": "standard-version",
     "changelog": "npx conventional-changelog-cli -i CHANGELOG.md -p angular -s -r 0",

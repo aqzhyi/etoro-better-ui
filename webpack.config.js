@@ -7,7 +7,10 @@ const config = {
   entry: {
     'etoro-better-ui.latest': './src/etoro',
   },
-  devtool: 'inline-source-map',
+  devtool:
+    process.env.NODE_ENV === 'production'
+      ? undefined
+      : 'eval-cheap-module-source-map',
   resolve: {
     alias: {
       '~': path.resolve(__dirname, 'src'),
