@@ -14,6 +14,16 @@ export const angularAPI = {
       | TradeDialogScope
       | undefined
   },
+  getRootScope() {
+    const $rootScope = (($('body').scope?.() as unknown) ||
+      null) as RootScope | null
+
+    return $rootScope
+  },
+  getTradingConnectionAvailable() {
+    return this.getRootScope()?.session.user.portfolioFactory
+      .isTradingConnectionAvailable
+  },
   selectors: {
     dialogAmountTitleSection: `[data-etoro-automation-id="execution-amount-mode-left-title"]`,
     dialogAmountInputSection:

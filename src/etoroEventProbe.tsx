@@ -12,8 +12,6 @@ import cogoToast from 'cogo-toast'
 import { AppTrans } from '~/components/AppTrans'
 import React from 'react'
 
-let isTradingConnectionAvailable = false
-
 const showLoadingTip = () => {
   const loading = cogoToast.loading(
     <AppTrans i18nKey='isTradingConnectionAvailable' />,
@@ -30,10 +28,6 @@ const showLoadingTip = () => {
 
 function _applyEventsObservers() {
   $('body').off('mouseover.bootstrap')
-  const isTradingSystemLoaded =
-    angularAPI.$rootScope?.session.user.portfolioFactory
-      .isTradingConnectionAvailable
-
   angularAPI.$rootScope?.$watch(
     () => angularAPI.$rootScope?.session.user.portfolio.manualPositions.length,
     newValue => {
@@ -46,25 +40,25 @@ function _applyEventsObservers() {
     },
   )
 
-  let loadingTip = !isTradingSystemLoaded ? showLoadingTip() : undefined
+  let loadingTip = !angularAPI.getTradingConnectionAvailable()
+    ? showLoadingTip()
+    : undefined
 
-  angularAPI.$rootScope?.$watch(
-    () =>
-      angularAPI.$rootScope?.session.user.portfolioFactory
-        .isTradingConnectionAvailable,
-    (newValue, oldValue) => {
-      if (newValue === oldValue) {
-        return
-      }
+  globalThis.setInterval(
+    (function checkTradingSystemConnection() {
+      const isOnline =
+        angularAPI.getTradingConnectionAvailable() && navigator.onLine
 
-      isTradingConnectionAvailable = newValue || false
-
-      if (isTradingConnectionAvailable === true) {
+      if (isOnline === true) {
         loadingTip?.hide?.()
       } else {
+        loadingTip?.hide?.()
         loadingTip = showLoadingTip()
       }
-    },
+
+      return checkTradingSystemConnection
+    })(),
+    5000,
   )
 
   /** On Execution-Dialog closed */
