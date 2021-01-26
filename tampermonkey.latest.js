@@ -5,10 +5,14 @@
  * with a new version, and make sure you have tried it in virtual mode before
  * real trading.
  *
- * Changelog: https://github.com/hilezir/etoro-better-ui/releases
+ * Changelog:
+ *   https://github.com/hilezir/etoro-better-ui/releases
  *
  * Website:
- * https://www.notion.so/hilezi/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3
+ *   https://www.notion.so/hilezi/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3
+ *
+ * Donation:
+ *   https://www.notion.so/hilezi/Free-and-Donations-ab484fc786bf44f8b19a017fdbe4a698
  */
 
 // ==UserScript==
@@ -16,7 +20,7 @@
 // @name:en         eToro Better UI Trading Plugin
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.37.0
+// @version         0.38.0
 // @author          https://www.etoro.com/people/aqzhyi
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
