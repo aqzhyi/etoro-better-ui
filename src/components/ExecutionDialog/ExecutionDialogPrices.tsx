@@ -120,7 +120,7 @@ export const exectionDialogPrices = registerReactComponent({
   containerId: 'ExecutionDialogPrices',
   containerConstructor: renderContainer => {
     $(angularAPI.selectors.dialogInnerContent)
-      .find('.execution.edit')
+      .find('.execution.edit, #open-position-view')
       .append(renderContainer)
   },
   disabled: () => {
