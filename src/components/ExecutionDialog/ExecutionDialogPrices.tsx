@@ -39,6 +39,8 @@ const ExecutionDialogPrices: React.FC = () => {
   /** Price of close the position of buy call */
   const bidValue = rate.value?.lastPrice || 0
 
+  const Precision = rate.model?.instrument?.Precision ?? 0
+
   useInterval(() => {
     rate.updateValue()
   }, degree)
@@ -65,7 +67,7 @@ const ExecutionDialogPrices: React.FC = () => {
           profit={rate.value.lastPrice}
           pureDollar
           noDollarSign
-          precision={rate.model?.instrument?.Precision}
+          precision={Precision}
         />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
@@ -79,7 +81,7 @@ const ExecutionDialogPrices: React.FC = () => {
           profit={askValue}
           pureDollar
           noDollarSign
-          precision={rate.model?.instrument?.Precision}
+          precision={Precision}
         />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
