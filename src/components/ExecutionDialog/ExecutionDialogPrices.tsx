@@ -10,6 +10,7 @@ import { registerReactComponent } from '~/utils/registerReactComponent'
 import React, { useMemo } from 'react'
 import { useInterval } from 'react-use'
 import big from 'big.js'
+import { ChangePoints } from '~/components/ChangePoints'
 
 enum Blocks {
   root = 'root',
@@ -74,7 +75,9 @@ const ExecutionDialogPrices: React.FC = () => {
         </span> */}
       </span>
 
-      <span css={spreadCSS}>{spread.toPrecision(2)}</span>
+      <span css={spreadCSS}>
+        <ChangePoints value={spread.toNumber()} />
+      </span>
 
       <span css={askCSS}>
         <ProfitText
@@ -98,7 +101,7 @@ const ExecutionDialogPrices: React.FC = () => {
           text-align: center;
         `}
       >
-        {farOfSL.toPrecision()}
+        <ChangePoints value={farOfSL.toNumber()} />
       </span>
 
       <span
@@ -111,7 +114,7 @@ const ExecutionDialogPrices: React.FC = () => {
           text-align: center;
         `}
       >
-        {farOfTP.toPrecision()}
+        <ChangePoints value={farOfTP.toNumber()} />
       </span>
     </span>
   )
@@ -165,7 +168,11 @@ const askCSS = css`
 
 const spreadCSS = css`
   ${priceCSS};
-  left: 282px;
-  top: 11%;
-  color: #a3ff00;
+  top: 98px;
+  display: block;
+  width: 100%;
+  left: auto;
+  text-align: center;
+  color: #000000;
+  text-shadow: 1px 1px 0px white, -1px -1px 0px white;
 `
