@@ -1,4 +1,16 @@
-# [0.37.0-20201018](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210123.beta...v0.37.0-20201018) (2021-01-23)
+# [0.38.0-20210127](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210124.beta...v0.38.0-20210127) (2021-01-26)
+
+
+### Bug Fixes
+
+* **Sidebar:** move down one level for the items of etoro-better-ui ([897683e](https://github.com/hilezir/etoro-better-ui/commit/897683eb47fce1c4b41af3ee369b95168b30cda4))
+* **TradeDialog:** it show the prices when open OpenPositionDialog and EditPositionDialog ([b35c566](https://github.com/hilezir/etoro-better-ui/commit/b35c56649257bdcbe50eac23ac233efc4ff987b7))
+* **TradeDialog:** now show the changes points, not the value of number of subtraction, it align to etoro ([9e8d1d8](https://github.com/hilezir/etoro-better-ui/commit/9e8d1d8172d39a8ef0a2cb05a93b03c0150be7fe))
+* deps packages has been upgraded ([b7f2b32](https://github.com/hilezir/etoro-better-ui/commit/b7f2b325350038e5fad7d92f58146ec03f1ac904))
+
+
+
+# [0.38.0-20210124.beta](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210123.beta...v0.38.0-20210124.beta) (2021-01-23)
 
 
 ### Bug Fixes
