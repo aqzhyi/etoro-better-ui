@@ -21,7 +21,7 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Trading Preview
 
-[![image loading...](./SELL_ETORO_X100.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lOwRyrGncn0/0.jpg)](https://youtu.be/lOwRyrGncn0?t=16582)
 
 ## WHY use?
 > TLDR 🤷‍♂️
