@@ -7,7 +7,7 @@ import { GM } from '~/GM'
 import { useRate } from '~/hooks/useRate'
 import { useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import React, { useMemo } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import { useInterval } from 'react-use'
 import big from 'big.js'
 import { ChangePoints } from '~/components/ChangePoints'
@@ -23,6 +23,10 @@ enum Blocks {
 
 const ExecutionDialogPrices: React.FC = () => {
   const rate = useRate()
+
+  const position = rate.model?.position
+
+  const openRate = position?.OpenRate || rate.model?.orderModeCurrentRate || 0
 
   const degree = useAppSelector(
     state => state.settings.tradeDialogPriceRenderRate,
@@ -59,6 +63,10 @@ const ExecutionDialogPrices: React.FC = () => {
 
   const farOfSL = big(rate.model?.stopLoss.amount || 0)
     .minus(bidValue)
+    .abs()
+
+  const winOfTP = big(rate.model?.takeProfit.amount || 0)
+    .minus(openRate)
     .abs()
 
   return (
@@ -115,6 +123,15 @@ const ExecutionDialogPrices: React.FC = () => {
         `}
       >
         <ChangePoints value={farOfTP.toNumber()} />
+        <span
+          css={css`
+            color: #6eaf0f;
+          `}
+        >
+          {' {win '}
+          <ChangePoints value={winOfTP.toNumber()} />
+          {'}'}
+        </span>
       </span>
     </span>
   )

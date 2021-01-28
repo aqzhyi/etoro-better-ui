@@ -1,14 +1,15 @@
 declare interface TradeDialogScope extends IRootScopeService {
   /**
-    in case such as https://www.etoro.com/app/procharts, didn't has the property `controller`
+   * In case such as https://www.etoro.com/app/procharts, didn't has the
+   * property `controller`
    */
   controller?: {
     instrument?: Instrument
   }
-  /**
-    in case such as https://www.etoro.com/app/procharts, didn't has the property `model`
-   */
+  /** In case such as https://www.etoro.com/app/procharts, didn't has the property `model` */
   model?: {
+    orderModeCurrentRate?: number
+    isBuy: boolean
     isCFD: boolean
     /** Will lead the price different */
     isLowLeverage: boolean
@@ -49,6 +50,7 @@ declare interface TradeDialogScope extends IRootScopeService {
       selectedLeverage: number
     }
     instrument?: Instrument
+    position: InstrumentPosition | null
   }
   /** 開倉下單 */
   openOrder(): unknown
