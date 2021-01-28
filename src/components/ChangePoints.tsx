@@ -1,3 +1,4 @@
+import Big from 'big.js'
 import * as React from 'react'
 import { memo } from 'react'
 
@@ -7,7 +8,7 @@ export const ChangePoints = memo<
     className?: string
   }>
 >(function ChangePoints(props) {
-  const value = (1 + props.value * 1000000 - 1) / 10
+  const value = Big(1).plus(Big(props.value).times(1000000)).minus(1).div(10)
 
-  return <span className={props.className}>{value}</span>
+  return <span className={props.className}>{value.toNumber()}</span>
 })
