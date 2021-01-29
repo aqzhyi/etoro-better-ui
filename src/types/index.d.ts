@@ -55,3 +55,5 @@ declare interface Number extends Number {
 declare type ReactProps<
   P extends Record<string | symbol, unknown> = import('tsdef').AnyObject
 > = React.PropsWithChildren<P>
+
+declare type ParametersHead<T> = Parameters<T>[0]
