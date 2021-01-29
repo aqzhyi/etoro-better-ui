@@ -1,3 +1,19 @@
+# [0.39.0-20210129](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210127...v0.39.0-20210129) (2021-01-29)
+
+
+### Bug Fixes
+
+* **TradeDialog:** fix unexpected float points rendering ([5c00c13](https://github.com/hilezir/etoro-better-ui/commit/5c00c131cab108a44295009ce7c923e886543801))
+
+
+### Features
+
+* **PositionCloseDialog:** space able to trigger the button of close position ([b0f5edf](https://github.com/hilezir/etoro-better-ui/commit/b0f5edfe65465dc84328bc4ad55b959ae1759b99))
+* **TradeDialog:** add points of far to lost ([9be527a](https://github.com/hilezir/etoro-better-ui/commit/9be527a0fa8404d9263178e86a7a26477893dac1))
+* **TradeDialog:** also show the value of points which your TP for win ([358ed0f](https://github.com/hilezir/etoro-better-ui/commit/358ed0f3325fa4bd635843a6c74f272933f96468))
+
+
+
 # [0.38.0-20210127](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210124.beta...v0.38.0-20210127) (2021-01-26)
 
 
