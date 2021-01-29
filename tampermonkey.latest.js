@@ -20,7 +20,7 @@
 // @name:en         eToro Better UI Trading Plugin
 // @description     本套件不提供「自動程式交易」的功能，本套件的核心思想是在盡可能不破壞 eToro 的介面上，介入提升用戶體驗。因此你仍然應該由自己作主下單交易。100% 開源程式碼，免費安裝並使用。
 // @description:en  An extension in order to improve Better UI/UX on the eToro system. 100% Open Source on Github can be inspected or verify, no worries.
-// @version         0.38.0
+// @version         0.39.0
 // @author          https://www.etoro.com/people/aqzhyi
 // @grant           GM_xmlhttpRequest
 // @grant           GM_addStyle
