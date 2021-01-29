@@ -69,6 +69,10 @@ const ExecutionDialogPrices: React.FC = () => {
     .minus(openRate)
     .abs()
 
+  const loseOfSL = big(rate.model?.stopLoss.amount || 0)
+    .minus(openRate)
+    .abs()
+
   return (
     <span css={rootCSS}>
       <span css={bidCSS}>
@@ -110,6 +114,16 @@ const ExecutionDialogPrices: React.FC = () => {
         `}
       >
         <ChangePoints value={farOfSL.toNumber()} />
+        <span> far</span>
+        <span
+          css={css`
+            color: #e1191d;
+          `}
+        >
+          {' {to lose '}
+          <ChangePoints value={loseOfSL.toNumber()} />
+          {'}'}
+        </span>
       </span>
 
       <span
@@ -123,12 +137,13 @@ const ExecutionDialogPrices: React.FC = () => {
         `}
       >
         <ChangePoints value={farOfTP.toNumber()} />
+        <span> far</span>
         <span
           css={css`
             color: #6eaf0f;
           `}
         >
-          {' {win '}
+          {' {to win '}
           <ChangePoints value={winOfTP.toNumber()} />
           {'}'}
         </span>
