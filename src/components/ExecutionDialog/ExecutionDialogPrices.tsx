@@ -200,11 +200,12 @@ const askCSS = css`
 
 const spreadCSS = css`
   ${priceCSS};
-  top: 98px;
+  z-index: 1000;
+  top: 74px;
   display: block;
   width: 100%;
   left: auto;
   text-align: center;
-  color: #000000;
-  text-shadow: 1px 1px 0px white, -1px -1px 0px white;
+  color: #fff;
+  text-shadow: 1px 1px 0px black, -1px -1px 0px black;
 `
