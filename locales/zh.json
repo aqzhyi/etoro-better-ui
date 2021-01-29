@@ -73,7 +73,7 @@
   "universal_useKeyboardHotkeys_esc_brief": "熱鍵 <kbd>ESC</kbd> 可以關閉視窗。",
   "universal_useKeyboardHotkeys_f_brief": "熱鍵 <kbd>F</kbd> 可以進行篩選清單。",
   "universal_useKeyboardHotkeys_help": "您尚未開啟「熱鍵」系統，現在前往開啟？",
-  "universal_useKeyboardHotkeys_space_brief": "熱鍵 <kbd>空白鍵</kbd> 觸發下單開倉。",
+  "universal_useKeyboardHotkeys_space_brief": "熱鍵 <kbd>空白鍵</kbd> 會觸發下單開倉按紐，另外也作用於關閉倉位按紐。",
   "universal_useKeyboardHotkeys_tab_brief": "熱鍵 <kbd>TAB</kbd> 切換「賣出」或「買入」。",
   "universal_welcomeMessage_text": "<notable>強烈建議您</notable>：先行開啟虛擬交易之後，再執行安裝，或更新版本；並在虛擬交易中，嘗試之後再應用於真實交易之上。"
 }

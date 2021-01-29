@@ -73,7 +73,7 @@
   "universal_useKeyboardHotkeys_esc_brief": "The Hotkey <kbd>ESC</kbd> to close Dialogs.",
   "universal_useKeyboardHotkeys_f_brief": "The Hotkey <kbd>F</kbd> to get focus on filter input.",
   "universal_useKeyboardHotkeys_help": "You have not enabled the hotkey listeners, do you want to get it to enable?",
-  "universal_useKeyboardHotkeys_space_brief": "The Hotkey <kbd>Space</kbd> to trigger \"Open Trade\" immediately.",
+  "universal_useKeyboardHotkeys_space_brief": "The Hotkey <kbd>Space</kbd> to trigger the \"Open Trade\" immediately, And also \"Close Position\" if it display.",
   "universal_useKeyboardHotkeys_tab_brief": "The Hotkey <kbd>TAB</kbd> to switch BUY or SELL.",
   "universal_welcomeMessage_text": "<notable>Strong Recommended</notable>: Turn on the virtual mode at first, and install or update with a new version, and make sure you have tried it in virtual mode before real trading."
 }

@@ -148,8 +148,11 @@ export const angularAPI = {
     // Target is specified to trade dialog, not else dialogs
     const isTradeDialog = !!$('.execution-main-head-price-value').length
     const isDialogOpen = !!$('.uidialog-open').length
+    const isPositionCloseDialogOpen = !!$(
+      '[data-etoro-automation-id="close-position-table"]',
+    ).length
 
-    return (isDialogOpen && isTradeDialog) || false
+    return (isDialogOpen && isTradeDialog) || isPositionCloseDialogOpen || false
   },
   setTradeModeToTrade: () => {
     $('[data-etoro-automation-id="execution-trade-mode-drop-box"]').trigger(

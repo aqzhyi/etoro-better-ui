@@ -99,7 +99,9 @@ export const UniversalControlKeyObserver = () => {
   useKey(
     ' ',
     event => {
-      const targetElement = $(`.execution-button`)
+      const targetElement = $(
+        `.execution-button, [data-etoro-automation-id="close-position-close-button"]`,
+      )
 
       if (isInputUsesFocusing()) return
       if (!targetElement.length) return
@@ -171,6 +173,16 @@ GM.addStyle(`
   .${KEYBOARD_DISABLED_CLASSNAME} .execution-button:before { opacity: 0.3; }
   .${KEYBOARD_ENABLED_CLASSNAME} .execution-button:before,
   .${KEYBOARD_DISABLED_CLASSNAME} .execution-button:before {
+    content: '( Space )';
+    transform: translate(0px, -20px);
+    position: fixed;
+    display: inline-block;
+    text-shadow: 1px 1px 1px black;
+    font-size: 12px;
+    color: #ffffff;
+  }
+
+  .${KEYBOARD_ENABLED_CLASSNAME} [data-etoro-automation-id="close-position-close-button"]:before {
     content: '( Space )';
     transform: translate(0px, -20px);
     position: fixed;
