@@ -90,7 +90,7 @@ function loadScript(
       headers: __DEV__
         ? undefined
         : {
-            'Cache-Control': 'max-age=3600',
+            'Cache-Control': 'max-age=720',
           },
       /** Revalidate maybe cached content */
       revalidate: true,
