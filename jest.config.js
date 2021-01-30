@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+// @ts-check
 const path = require('path')
-const { createJestPreset } = require('ts-jest')
+const { createJestPreset } = require('ts-jest/utils')
 
-module.exports = {
+/** @type {import('@jest/types/build/Config').InitialOptions} */
+const jestConfig = {
   // The root of your source code, typically /src
   // `<rootDir>` is a token Jest substitutes
   roots: ['<rootDir>/src'],
@@ -29,3 +31,5 @@ module.exports = {
   ],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 }
+
+module.exports = jestConfig
