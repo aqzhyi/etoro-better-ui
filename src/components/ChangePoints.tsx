@@ -17,7 +17,9 @@ export const ChangePoints = memo<
   const precision = props.precision ?? valueAsString?.[1]?.length ?? 0
 
   const value = Big(
-    Number(`${valueAsString[0]}${valueAsString[1].padEnd(precision, '0')}`),
+    Number(
+      `${valueAsString[0]}${valueAsString[1]?.padEnd(precision, '0') || ''}`,
+    ),
   )
 
   return <span className={props.className}>{value.toNumber()}</span>
