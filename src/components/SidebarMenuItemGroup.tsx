@@ -34,7 +34,7 @@ const showLatelyHistory = () => {
     .then(data => {
       const popup = cogoToast.success(
         <div>
-          {data.length
+          {!data.length
             ? 'N/A'
             : data.slice(0, 5).map(datum => (
                 <div
