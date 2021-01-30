@@ -1,3 +1,23 @@
+# [0.40.0-20210131](https://github.com/hilezir/etoro-better-ui/compare/v0.39.0-20210129...v0.40.0-20210131) (2021-01-30)
+
+
+### Bug Fixes
+
+* **npm:** upgrade all of deps ([519eb63](https://github.com/hilezir/etoro-better-ui/commit/519eb63a7dadcb7633056e7433071980786fec5f))
+* **tampermonkey:** cache-control down to 5mins (was 1hour) ([894733c](https://github.com/hilezir/etoro-better-ui/commit/894733cdee1c7075761209e89ea86c735ad9b600))
+* **tests:** check on git push ([f2a348d](https://github.com/hilezir/etoro-better-ui/commit/f2a348d2cad9aefb5c0233723f898a6c5ee45ee7))
+* **tests:** upgrade node version, make jest working ([0eda5c6](https://github.com/hilezir/etoro-better-ui/commit/0eda5c6bd31c4e0fbbefe1d540ba4c5cea3d8e80))
+* **TradeDialog:** again, fix the missing 0 on FX ([26ee819](https://github.com/hilezir/etoro-better-ui/commit/26ee819d4fdbb38889cce8c7d685570fb5cd91ae))
+* **TradeDialog:** move UI position of spread points, so it not overlap the prices ([d32a92b](https://github.com/hilezir/etoro-better-ui/commit/d32a92b1afa0d0b38fd3bf9cdbde6098292e9e8e))
+* **TradeDialog:** wrong value of change points on stocks, BTC, ETF, etc (was working on FX only) ([0be6ccd](https://github.com/hilezir/etoro-better-ui/commit/0be6ccd17a8b51d8ad6b598363eaa93dbbbaafca))
+
+
+### Features
+
+* **history:** the hotkey "H" to show the history of positions of lately closed ([85efcfc](https://github.com/hilezir/etoro-better-ui/commit/85efcfc3e09153442e48fdd855f3a8713761a7ee))
+
+
+
 # [0.39.0-20210129](https://github.com/hilezir/etoro-better-ui/compare/v0.38.0-20210127...v0.39.0-20210129) (2021-01-29)
 
 
