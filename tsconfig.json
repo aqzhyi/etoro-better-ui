@@ -29,7 +29,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "typeRoots": ["node_modules/@types", "src/types"]
+    "typeRoots": ["node_modules/@types", "src/types", "src/etoroTypes"]
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx", "coverage", "dist"]
 }

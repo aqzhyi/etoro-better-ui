@@ -1,4 +1,6 @@
 {
+  "loading": "載入中",
+  "showLatelyTradeHistory": "顯示平倉損益",
   "bidask": "賣價與買價",
   "common_beta_brief": "注意：這個功能處於早期實驗階段，如有興趣使用\b，建議於虛擬模式中測試後再嘗試於真實交易。",
   "common_buttonSetup": "設定",

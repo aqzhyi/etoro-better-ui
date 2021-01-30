@@ -1,21 +1,80 @@
-/** @jsx jsx */ import { jsx, css } from '@emotion/react'
+/** @jsx jsx */ import { css, jsx } from '@emotion/react'
+import React from 'react'
+import cogoToast from 'cogo-toast'
+import dayjs from 'dayjs'
 import { toggleSetupDialog } from '~/actions/toggleSettingsDialog'
 import { AppTrans } from '~/components/AppTrans'
-import { SidebarMenuItem } from '~/components/SidebarMenuItem'
+import { BuyText } from '~/components/BuyText'
+import { InstrumentIcon } from '~/components/InstrumentIcon'
+import { KeyProbe } from '~/components/KeyProbe'
+import { ProfitText } from '~/components/ProfitText'
+import { SellText } from '~/components/SellText'
 import { SetupsDialog } from '~/components/SetupsDialog'
+import { SidebarMenuItem } from '~/components/SidebarMenuItem'
+import { SidebarPendingOrdersLink } from '~/components/SidebarPendingOrdersLink'
+import { SidebarTradeDashboardLink } from '~/components/SidebarTradeDashboardLink'
+import { etoroAPI } from '~/etoroAPI'
 import { gaAPI, GaEventId } from '~/gaAPI'
-import { GM } from '~/GM'
 import { useAppTranslation } from '~/hooks/useAppTranslation'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
-import React from 'react'
 import packageJSON from '../../package.json'
-import { KeyProbe } from '~/components/KeyProbe'
-import { SidebarPendingOrdersLink } from '~/components/SidebarPendingOrdersLink'
-import { SidebarTradeDashboardLink } from '~/components/SidebarTradeDashboardLink'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
+}
+
+const showLatelyHistory = () => {
+  const loading = cogoToast.loading(<AppTrans i18nKey='loading'></AppTrans>, {
+    position: 'bottom-center',
+  })
+
+  etoroAPI
+    .getHistory()
+    .then(data => {
+      const popup = cogoToast.success(
+        <div>
+          {data.length
+            ? 'N/A'
+            : data.slice(0, 5).map(datum => (
+                <div
+                  key={datum.PositionID}
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                    margin: 8px 0;
+
+                    & > span {
+                      margin: 0 8px;
+                    }
+                  `}
+                >
+                  <span>
+                    <InstrumentIcon id={datum.InstrumentID} />
+                  </span>
+                  <span>{datum.IsBuy ? <BuyText /> : <SellText />}</span>
+                  <span>
+                    <ProfitText profit={datum.NetProfit} />
+                  </span>
+                  <span>
+                    {dayjs(datum.CloseDateTime).format('MM/DD HH:mm:ss')}
+                  </span>
+                </div>
+              ))}
+        </div>,
+        {
+          position: 'bottom-center',
+          hideAfter: 5,
+          onClick: () => popup.hide?.(),
+        },
+      )
+    })
+    .catch(error => {
+      cogoToast.error('ERROR', { position: 'bottom-center' })
+    })
+    .finally(() => {
+      loading.hide?.()
+    })
 }
 
 export const SidebarMenuItemGroup = () => {
@@ -56,6 +115,16 @@ export const SidebarMenuItemGroup = () => {
       <SidebarPendingOrdersLink />
 
       <SidebarMenuItem
+        iconName='withdrawal'
+        aProps={{
+          onClick: showLatelyHistory,
+        }}
+      >
+        <AppTrans i18nKey='showLatelyTradeHistory'></AppTrans>
+        <KeyProbe filter='H' command={showLatelyHistory}></KeyProbe>
+      </SidebarMenuItem>
+
+      <SidebarMenuItem
         iconName='settings'
         aProps={{
           onClick: () => {
@@ -73,6 +142,7 @@ export const SidebarMenuItemGroup = () => {
           }}
         ></KeyProbe>
       </SidebarMenuItem>
+
       <SidebarMenuItem
         iconName='funds'
         aProps={{
