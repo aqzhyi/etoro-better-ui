@@ -32,9 +32,7 @@ const showRiskAgreement = throttle(() => {
   )
 }, 30000)
 
-/**
- * 下單輔助巨集
- */
+/** 下單輔助巨集 */
 export const ExecutionDialogControls: React.FC<{
   className?: string
 }> = props => {
@@ -77,7 +75,7 @@ export const ExecutionDialogControls: React.FC<{
       }
     },
     isDialogOpen && macroEnabled && amountLeverFixedEnabled && !isAmountFixed()
-      ? 500
+      ? 300
       : null,
   )
 

@@ -195,9 +195,17 @@ export const angularAPI = {
     }
   },
   getDialogAmount: () => {
-    const dialogScope = angularAPI.executionDialogScope
+    const amount = Number(
+      ($(angularAPI.selectors.dialogAmountInput).val() as string)
+        .replace(/\$/gi, '')
+        .replace(/\..*/gi, ''),
+    )
 
-    return dialogScope?.model?.amount.amount
+    if (isNaN(amount)) {
+      return NaN
+    }
+
+    return amount
   },
   /**
    * Set amount value with pass number
