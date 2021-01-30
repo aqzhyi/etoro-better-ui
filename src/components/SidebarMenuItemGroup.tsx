@@ -154,6 +154,7 @@ export const SidebarMenuItemGroup = () => {
       >
         <AppTrans i18nKey='link_donation_text'></AppTrans>
       </SidebarMenuItem>
+
       <SidebarMenuItem
         iconName='people-ref'
         aProps={{
@@ -166,6 +167,7 @@ export const SidebarMenuItemGroup = () => {
       >
         Telegram
       </SidebarMenuItem>
+
       <SidebarMenuItem
         iconName='news'
         aProps={{
@@ -176,6 +178,18 @@ export const SidebarMenuItemGroup = () => {
       >
         <AppTrans i18nKey='link_extensionWebsite_text'></AppTrans>
       </SidebarMenuItem>
+
+      <SidebarMenuItem
+        iconName='news'
+        aProps={{
+          target: '_blank',
+          href: 'https://youtu.be/lOwRyrGncn0?t=16829',
+          onClick: sendEvent.bind(sendEvent, 'plugin_video_show'),
+        }}
+      >
+        <AppTrans i18nKey='pluginVideoShow'></AppTrans>
+      </SidebarMenuItem>
+
       <SetupsDialog></SetupsDialog>
     </span>
   )
