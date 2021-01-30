@@ -3,8 +3,14 @@
   "version": "0.39.0-20210129",
   "description": "",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run check"
+    }
+  },
   "scripts": {
     "dev": "webpack --progress -w --mode development",
+    "check": "npm test --coverage && eslint --config .eslintrc.js ./src",
     "server": "npx http-server -p 9000 dist",
     "build": "NODE_ENV=production webpack --progress --mode production",
     "test": "jest",
@@ -50,6 +56,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.8",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.2.1",
     "prettier-plugin-jsdoc": "^0.3.8",
