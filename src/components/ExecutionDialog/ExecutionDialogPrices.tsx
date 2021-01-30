@@ -11,6 +11,7 @@ import React, { Fragment, useMemo } from 'react'
 import { useInterval } from 'react-use'
 import big from 'big.js'
 import { ChangePoints } from '~/components/ChangePoints'
+import { getChangePoints } from '~/utils/getChangePoints'
 
 enum Blocks {
   root = 'root',
@@ -73,6 +74,14 @@ const ExecutionDialogPrices: React.FC = () => {
     .minus(openRate)
     .abs()
 
+  const winPerPoint = big(rate.model?.takeProfit.dollar || 0).div(
+    getChangePoints(farOfTP.toNumber(), precision),
+  )
+
+  const losePerPoint = big(rate.model?.stopLoss.dollar || 0).div(
+    getChangePoints(farOfSL.toNumber(), precision),
+  )
+
   return (
     <span css={rootCSS}>
       <span css={bidCSS}>
@@ -117,13 +126,25 @@ const ExecutionDialogPrices: React.FC = () => {
           <ChangePoints value={farOfSL.toNumber()} precision={precision} />
           <span> far</span>
         </div>
-        <div
-          css={css`
-            color: #e1191d;
-          `}
-        >
+
+        <div>
           {' {to lose '}
-          <ChangePoints value={loseOfSL.toNumber()} precision={precision} />
+          <span
+            css={css`
+              color: #e1191d;
+            `}
+          >
+            <ChangePoints value={loseOfSL.toNumber()} precision={precision} />
+          </span>
+          {'}'}
+        </div>
+
+        <div>
+          {' {per '}
+          <ProfitText
+            profit={losePerPoint.toNumber()}
+            precision={precision + 2}
+          />
           {'}'}
         </div>
       </span>
@@ -142,13 +163,25 @@ const ExecutionDialogPrices: React.FC = () => {
           <ChangePoints value={farOfTP.toNumber()} precision={precision} />
           <span> far</span>
         </div>
-        <div
-          css={css`
-            color: #6eaf0f;
-          `}
-        >
+
+        <div>
           {' {to win '}
-          <ChangePoints value={winOfTP.toNumber()} precision={precision} />
+          <span
+            css={css`
+              color: #6eaf0f;
+            `}
+          >
+            <ChangePoints value={winOfTP.toNumber()} precision={precision} />
+          </span>
+          {'}'}
+        </div>
+
+        <div>
+          {' {per '}
+          <ProfitText
+            profit={winPerPoint.toNumber()}
+            precision={precision + 2}
+          />
           {'}'}
         </div>
       </span>
