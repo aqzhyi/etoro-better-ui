@@ -6,6 +6,7 @@ export const ChangePoints = memo<
   React.PropsWithChildren<{
     value: number
     className?: string
+    precision?: number
   }>
 >(function ChangePoints(props) {
   if (props.value === 0) {
@@ -13,19 +14,11 @@ export const ChangePoints = memo<
   }
 
   const valueAsString = props.value.toString().split('.')
-  const precision = valueAsString?.[1]?.length ?? 0
-  const integerValue = Number(valueAsString[0])
-  const withPrecision = Big(10).pow(precision - 1)
+  const precision = props.precision ?? valueAsString?.[1]?.length ?? 0
 
-  const value =
-    integerValue >= 1
-      ? Big(Number(valueAsString[0]))
-      : Big(Number(`${valueAsString[0]}${valueAsString[1]}`))
+  const value = Big(
+    Number(`${valueAsString[0]}${valueAsString[1].padEnd(precision, '0')}`),
+  )
 
-  const changePoints =
-    integerValue >= 1
-      ? value
-      : Big(1).plus(value.times(withPrecision)).minus(1).div(withPrecision)
-
-  return <span className={props.className}>{changePoints.toNumber()}</span>
+  return <span className={props.className}>{value.toNumber()}</span>
 })

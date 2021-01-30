@@ -44,7 +44,7 @@ const ExecutionDialogPrices: React.FC = () => {
   /** Price of close the position of buy call */
   const bidValue = rate.value?.lastPrice || 0
 
-  const Precision = rate.model?.instrument?.Precision ?? 0
+  const precision = rate.model?.instrument?.Precision ?? 0
 
   useInterval(() => {
     rate.updateValue()
@@ -80,7 +80,7 @@ const ExecutionDialogPrices: React.FC = () => {
           profit={rate.value.lastPrice}
           pureDollar
           noDollarSign
-          precision={Precision}
+          precision={precision}
         />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           {<ProfitText profit={rate.value.lastBidChange} noDollarSign />}
@@ -88,7 +88,7 @@ const ExecutionDialogPrices: React.FC = () => {
       </span>
 
       <span css={spreadCSS}>
-        <ChangePoints value={spread.toNumber()} />
+        <ChangePoints value={spread.toNumber()} precision={precision} />
       </span>
 
       <span css={askCSS}>
@@ -96,7 +96,7 @@ const ExecutionDialogPrices: React.FC = () => {
           profit={askValue}
           pureDollar
           noDollarSign
-          precision={Precision}
+          precision={precision}
         />
         {/* <span className={withBlock(Blocks.priceMovement)}>
           <ProfitText profit={rate.value.lastAskChange} noDollarSign />
@@ -106,47 +106,51 @@ const ExecutionDialogPrices: React.FC = () => {
       <span
         css={css`
           position: absolute;
-          left: 51px;
-          top: 400px;
+          left: 0;
+          top: 55%;
           width: 180px;
           display: inline-block;
-          text-align: center;
+          text-align: left;
         `}
       >
-        <ChangePoints value={farOfSL.toNumber()} />
-        <span> far</span>
-        <span
+        <div>
+          <ChangePoints value={farOfSL.toNumber()} precision={precision} />
+          <span> far</span>
+        </div>
+        <div
           css={css`
             color: #e1191d;
           `}
         >
           {' {to lose '}
-          <ChangePoints value={loseOfSL.toNumber()} />
+          <ChangePoints value={loseOfSL.toNumber()} precision={precision} />
           {'}'}
-        </span>
+        </div>
       </span>
 
       <span
         css={css`
           position: absolute;
-          left: 410px;
-          top: 400px;
+          right: 0;
+          top: 55%;
           width: 180px;
           display: inline-block;
-          text-align: center;
+          text-align: right;
         `}
       >
-        <ChangePoints value={farOfTP.toNumber()} />
-        <span> far</span>
-        <span
+        <div>
+          <ChangePoints value={farOfTP.toNumber()} precision={precision} />
+          <span> far</span>
+        </div>
+        <div
           css={css`
             color: #6eaf0f;
           `}
         >
           {' {to win '}
-          <ChangePoints value={winOfTP.toNumber()} />
+          <ChangePoints value={winOfTP.toNumber()} precision={precision} />
           {'}'}
-        </span>
+        </div>
       </span>
     </span>
   )
