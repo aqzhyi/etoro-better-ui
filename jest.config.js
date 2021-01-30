@@ -26,8 +26,8 @@ const jestConfig = {
   // extended assertions to Jest
   setupFilesAfterEnv: [
     // '@testing-library/react/cleanup-after-each',
-    // '@testing-library/jest-dom',
-    // '@testing-library/jest-dom/extend-expect',
+    '@testing-library/jest-dom',
+    '@testing-library/jest-dom/extend-expect',
   ],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
 }
