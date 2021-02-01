@@ -41,11 +41,11 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Deploy & Release
 
-1. bump version string in package.json and [./tamperscript.js]
-2. TODO: (now with some issues) ~~`npm run build`~~
-3. `git release v1.0.0`
-4. [release](https://github.com/hilezir/etoro-better-ui/releases) on github
-5. release on [greasyfork.org](https://greasyfork.org/zh-TW/scripts/400518/)
+1. do bump the string of version in package.json
+2. do `npm run changelog`
+3. do `git release v1.0.0`
+4. do [release](https://github.com/hilezir/etoro-better-ui/releases) on github
+5. `git push`, will be deploy to the [netlify](https://etoro-plugins.netlify.app/etoro-better-ui.latest.js)
 
 ## About
 
