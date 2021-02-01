@@ -91,21 +91,23 @@ const ExecutionDialogPrices: React.FC = () => {
 
   return (
     <span css={rootCSS}>
-      {amountCare && (
-        <span
-          css={css`
-            ${priceCSS};
+      <span
+        css={css`
+          ${priceCSS};
 
-            top: 84%;
-            display: block;
-            text-align: center;
-            width: 100%;
-          `}
-        >
-          ⁉️ {amountShouldBe.toNumberFixed(2)} !=={' '}
-          {rate.model?.amount.amount.toNumberFixed(2)}
-        </span>
-      )}
+          top: 83%;
+          display: block;
+          text-align: center;
+          width: 100%;
+          outline: 3px solid ${amountCare ? 'red' : 'green'};
+        `}
+      >
+        {amountCare ? (
+          <span>⁉️ {amountShouldBe.toNumberFixed(2)} !== </span>
+        ) : (
+          <span>${rate.model?.amount.amount.toNumberFixed(2)}</span>
+        )}
+      </span>
 
       <span css={bidCSS}>
         <ProfitText
