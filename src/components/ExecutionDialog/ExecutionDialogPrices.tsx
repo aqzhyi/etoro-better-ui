@@ -12,6 +12,7 @@ import { useInterval } from 'react-use'
 import big from 'big.js'
 import { ChangePoints } from '~/components/ChangePoints'
 import { getChangePoints } from '~/utils/getChangePoints'
+import { AppTrans } from '~/components/AppTrans'
 
 enum Blocks {
   root = 'root',
@@ -91,23 +92,30 @@ const ExecutionDialogPrices: React.FC = () => {
 
   return (
     <span css={rootCSS}>
-      <span
-        css={css`
-          ${priceCSS};
+      {!position && (
+        <span
+          css={css`
+            ${priceCSS};
 
-          top: 83%;
-          display: block;
-          text-align: center;
-          width: 100%;
-          outline: 3px solid ${amountCare ? 'red' : 'green'};
-        `}
-      >
-        {amountCare ? (
-          <span>⁉️ {amountShouldBe.toNumberFixed(2)} !== </span>
-        ) : (
-          <span>${rate.model?.amount.amount.toNumberFixed(2)}</span>
-        )}
-      </span>
+            top: 100%;
+            display: block;
+            text-align: center;
+            width: 100%;
+            outline: 3px solid ${amountCare ? 'red' : 'green'};
+          `}
+        >
+          {amountCare ? (
+            <AppTrans
+              i18nKey={'amountWarning'}
+              values={{
+                value: rate.model?.amount.amount.toNumberFixed(2),
+              }}
+            ></AppTrans>
+          ) : (
+            rate.model?.amount.amount.toNumberFixed(2)
+          )}
+        </span>
+      )}
 
       <span css={bidCSS}>
         <ProfitText
