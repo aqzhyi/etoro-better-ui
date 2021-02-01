@@ -1,6 +1,6 @@
 {
   "name": "etoro-better-ui",
-  "version": "0.40.0-20210131",
+  "version": "0.41.0-20210202",
   "description": "",
   "main": "index.js",
   "husky": {

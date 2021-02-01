@@ -1,3 +1,26 @@
+# [0.41.0-20210202](https://github.com/hilezir/etoro-better-ui/compare/v0.40.0-20210131...v0.41.0-20210202) (2021-02-01)
+
+
+### Bug Fixes
+
+* **ClosePositionDialog:** hotkey the "Space" and "ESC" should work still after you have clicked the Checkbox ([4995a14](https://github.com/hilezir/etoro-better-ui/commit/4995a14ed05e5e82835ab6b209c99f814da9fde2))
+* **history:** fix the wrong logic, it should show the history ([4016778](https://github.com/hilezir/etoro-better-ui/commit/4016778100bf794fbbacaaf4e49548a40502b411))
+* **SeeMoreButton:** auto-click now more smooth, no longer cause the webpage lag ([c1879ab](https://github.com/hilezir/etoro-better-ui/commit/c1879abe8d586a7d2167dc340781428a2e604925))
+* **sidebar,i18n:** update the spell ([08df3c0](https://github.com/hilezir/etoro-better-ui/commit/08df3c0ce8823aebc35f34d5f9b01709da1eec08))
+* **TradeDialog:** add the description for the amount matching warning ([8906fee](https://github.com/hilezir/etoro-better-ui/commit/8906feec8726670bbc2926b4f15ae87ab631b83b))
+* **TradeDialog:** adjust the logic for fixed of amount, hope it more stable ([112ef89](https://github.com/hilezir/etoro-better-ui/commit/112ef89de7a6c419603f48d001d747e959b08ccf))
+* **TradeDialog:** make the warning of amount more obvious ([140174b](https://github.com/hilezir/etoro-better-ui/commit/140174bd22a02e653ab22bd6ca67c02f957b4a54))
+* **TradeDialog:** the warning of amount, no longer to show on the Edit Position ([fa3113f](https://github.com/hilezir/etoro-better-ui/commit/fa3113f1e3d7633b07b9a72b823bea276cda5da5))
+
+
+### Features
+
+* **sidebar:** add plugin video show, so people can learn the usage of the plugin ([579ef71](https://github.com/hilezir/etoro-better-ui/commit/579ef715fa3572416199dad3f8c2674399bfd9d5))
+* **TradeDialog:** add a warning of trade amount, so user can know the amount is not sync yet ([6ca163e](https://github.com/hilezir/etoro-better-ui/commit/6ca163e7786c6efcef0e9ef161725ae521a83db8))
+* **TradeDialog:** add the display view of profits/lost per change point ([af0b4a1](https://github.com/hilezir/etoro-better-ui/commit/af0b4a183ecc93a0ceb81315a28ef168366d6527))
+
+
+
 # [0.40.0-20210131](https://github.com/hilezir/etoro-better-ui/compare/v0.39.0-20210129...v0.40.0-20210131) (2021-01-30)
 
 
