@@ -151,7 +151,7 @@ function _applyEventsObservers() {
     '.more-info-button',
     throttle(() => {
       emitter.emit(Events.onMoreInfoButtonHover)
-    }, 50),
+    }, 1000),
   )
 
   debugAPI.universal('extension events get ready!')

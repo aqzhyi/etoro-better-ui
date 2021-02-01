@@ -107,9 +107,7 @@ emitter.once(Events.ready).then(nativeEtoroAmountSaveToStorage)
  * Auto clicks "More Button"
  */
 emitter.on(Events.onMoreInfoButtonHover, function triggerMoreButton() {
-  globalThis.setTimeout(() => {
     $('.more-info-button').trigger('click')
-  })
 })
 
 /**
