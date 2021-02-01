@@ -1,4 +1,5 @@
 {
+  "amountWarning": "注意：當前下單金額為 ${{value}}，與你的熱鍵金額不吻合",
   "pluginVideoShow": "外掛操作演示",
   "loading": "載入中",
   "showLatelyTradeHistory": "顯示平倉損益",
