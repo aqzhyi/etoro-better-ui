@@ -29,6 +29,8 @@ const showLatelyHistory = () => {
     position: 'bottom-center',
   })
 
+  sendEvent('show_history_lately')
+
   etoroAPI
     .getHistory()
     .then(data => {
