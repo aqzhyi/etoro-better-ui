@@ -112,7 +112,7 @@ const ExecutionDialogPrices: React.FC = () => {
               }}
             ></AppTrans>
           ) : (
-            rate.model?.amount.amount.toNumberFixed(2)
+            <span>${rate.model?.amount.amount.toNumberFixed(2)}</span>
           )}
         </span>
       )}
