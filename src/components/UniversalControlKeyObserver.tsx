@@ -21,7 +21,9 @@ export const UniversalControlKeyObserver = () => {
 
   const isInputUsesFocusing = () => {
     return (
-      $('input').filter((index, element) => $(element).is(':focus')).length > 0
+      $('input')
+        .not('[type="checkbox"]')
+        .filter((index, element) => $(element).is(':focus')).length > 0
     )
   }
 
