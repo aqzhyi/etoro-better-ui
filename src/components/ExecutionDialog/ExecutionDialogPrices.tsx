@@ -29,6 +29,13 @@ const ExecutionDialogPrices: React.FC = () => {
 
   const openRate = position?.OpenRate || rate.model?.orderModeCurrentRate || 0
 
+  const amountShouldBe = useAppSelector(
+    state => state.settings.executionAmountLast,
+  )
+  const amountCare = useAppSelector(
+    state => state.settings.executionAmountLast !== rate.model?.amount.amount,
+  )
+
   const degree = useAppSelector(
     state => state.settings.tradeDialogPriceRenderRate,
   )
@@ -84,6 +91,22 @@ const ExecutionDialogPrices: React.FC = () => {
 
   return (
     <span css={rootCSS}>
+      {amountCare && (
+        <span
+          css={css`
+            ${priceCSS};
+
+            top: 84%;
+            display: block;
+            text-align: center;
+            width: 100%;
+          `}
+        >
+          ⁉️ {amountShouldBe.toNumberFixed(2)} !=={' '}
+          {rate.model?.amount.amount.toNumberFixed(2)}
+        </span>
+      )}
+
       <span css={bidCSS}>
         <ProfitText
           profit={rate.value.lastPrice}
