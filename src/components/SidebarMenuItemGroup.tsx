@@ -19,6 +19,7 @@ import { useAppTranslation } from '~/hooks/useAppTranslation'
 import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import packageJSON from '../../package.json'
+import { SeeCopingHistory } from '~/modules/CopingPeople/SeeCopingHistory'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -193,6 +194,8 @@ export const SidebarMenuItemGroup = () => {
       </SidebarMenuItem>
 
       <SetupsDialog></SetupsDialog>
+
+      <SeeCopingHistory />
     </span>
   )
 }

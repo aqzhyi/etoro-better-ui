@@ -11,6 +11,7 @@ import { registerReactComponent } from '~/utils/registerReactComponent'
 import cogoToast from 'cogo-toast'
 import React, { useCallback, useEffect } from 'react'
 import { useKey } from 'react-use'
+import { copingPeopleStore } from '~/modules/CopingPeople/copingPeopleStore'
 
 const KEYBOARD_ENABLED_CLASSNAME = 'etoro-better-ui__keyboard-enabled'
 const KEYBOARD_DISABLED_CLASSNAME = 'etoro-better-ui__keyboard-disabled'
@@ -51,6 +52,21 @@ export const UniversalControlKeyObserver = () => {
         .addClass(KEYBOARD_DISABLED_CLASSNAME)
     }
   }, [hotkeySettings])
+
+  /** 查詢 coping 者的歷史交易記錄 */
+  useKey(
+    'Y',
+    event => {
+      const canQuery = /portfolio[/][\w\d-_]+/i.test(globalThis.location.href)
+
+      if (isInputUsesFocusing()) return
+      if (!canQuery) return
+
+      copingPeopleStore.getState().showHistory()
+    },
+    {},
+    [hotkeySettings],
+  )
 
   /** 使下單框以 Tab 鍵切換「賣出」及「買入」 */
   useKey(
