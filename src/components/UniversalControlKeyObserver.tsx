@@ -123,6 +123,26 @@ export const UniversalControlKeyObserver = () => {
     [hotkeySettings],
   )
 
+  /** The hotkey "C" able to trigger "Partial Close" button with a click */
+  useKey(
+    'C',
+    event => {
+      const targetElement = $(`[data-etoro-automation-id="close-position-cb"]`)
+
+      if (isInputUsesFocusing()) return
+      if (!targetElement.length) return
+      if (!angularAPI.isNativeTradeDialogOpen) return
+
+      debugAPI.keyboard.extend('PartialCheckbox')(event.key)
+
+      gaAPI.sendEvent(GaEventId.keyboard_openTradeClick)
+      targetElement.trigger('click')
+      event.preventDefault()
+    },
+    {},
+    [hotkeySettings],
+  )
+
   return <span></span>
 }
 
@@ -186,6 +206,16 @@ GM.addStyle(`
 
   .${KEYBOARD_ENABLED_CLASSNAME} [data-etoro-automation-id="close-position-close-button"]:before {
     content: '( Space )';
+    transform: translate(0px, -20px);
+    position: fixed;
+    display: inline-block;
+    text-shadow: 1px 1px 1px black;
+    font-size: 12px;
+    color: #ffffff;
+  }
+
+  .${KEYBOARD_ENABLED_CLASSNAME} [data-etoro-automation-id="close-position-cb-container"]:before {
+    content: '( C )';
     transform: translate(0px, -20px);
     position: fixed;
     display: inline-block;
