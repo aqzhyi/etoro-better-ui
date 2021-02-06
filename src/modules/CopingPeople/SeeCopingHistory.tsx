@@ -45,7 +45,11 @@ export const SeeCopingHistory = memo<ReactProps>(function SeeCopingHistory(
             ${item.Amount} x {item.Leverage}
           </span>
           <span>
-            <ProfitText profit={item.NetProfit} />
+            {item.MirrorID === 0 ? (
+              <ProfitText profit={item.NetProfit} noDollarSign suffix={'%'} />
+            ) : (
+              <ProfitText profit={item.NetProfit} />
+            )}
           </span>
           <span>{dayjs(item.CloseDateTime).format('YYYY/MM/DD hh:mm:ss')}</span>
           <span>開倉＠ {item.OpenRate}</span>
