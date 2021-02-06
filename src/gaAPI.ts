@@ -29,6 +29,8 @@ export enum GaEventId {
   keyboard_closeDialog,
   keyboard_filterTextFocus,
   keyboard_switchBuySell,
+  keyboard_partialCheckboxClick,
+  keyboard_queryHistory,
   setting_intervalCheckingStatus,
   setting_amountButtonsSet,
   setting_compactEnabledSet,

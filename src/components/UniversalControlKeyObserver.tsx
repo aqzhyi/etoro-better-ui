@@ -73,6 +73,8 @@ export const UniversalControlKeyObserver = () => {
       if (isInputUsesFocusing()) return
       if (!username) return
 
+      gaAPI.sendEvent(GaEventId.keyboard_queryHistory)
+
       copingPeopleStore
         .getState()
         .showHistory(username, { public: isPublic })
@@ -170,7 +172,7 @@ export const UniversalControlKeyObserver = () => {
 
       debugAPI.keyboard.extend('PartialCheckbox')(event.key)
 
-      gaAPI.sendEvent(GaEventId.keyboard_openTradeClick)
+      gaAPI.sendEvent(GaEventId.keyboard_partialCheckboxClick)
       targetElement.trigger('click')
       event.preventDefault()
     },
