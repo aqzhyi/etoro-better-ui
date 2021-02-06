@@ -21,7 +21,7 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ## Trading Preview
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lOwRyrGncn0/0.jpg)](https://youtu.be/lOwRyrGncn0?t=16582)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lOwRyrGncn0/0.jpg)](https://www.youtube.com/watch?v=4YKr8F8rkFA)
 
 ## WHY use?
 > TLDR 🤷‍♂️
