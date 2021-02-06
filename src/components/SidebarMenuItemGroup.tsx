@@ -186,7 +186,7 @@ export const SidebarMenuItemGroup = () => {
         iconName='news'
         aProps={{
           target: '_blank',
-          href: 'https://youtu.be/lOwRyrGncn0?t=16829',
+          href: 'https://www.youtube.com/watch?v=4YKr8F8rkFA',
           onClick: sendEvent.bind(sendEvent, 'plugin_video_show'),
         }}
       >
