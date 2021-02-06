@@ -5,32 +5,37 @@ import { angularAPI } from '~/angularAPI'
 import { AppTrans } from '~/components/AppTrans'
 import { etoroAPI } from '~/etoroAPI'
 import { createStore } from '~/store/createStore'
+import { find, keys } from 'lodash'
 
 export const copingPeopleStore = createStore<{
   readonly open: boolean
-  showHistory(): Promise<void>
+  showHistory(username: string, options?: { public?: boolean }): Promise<void>
   data: HistoryPosition[]
   get(username: string): Group | undefined
 }>((set, get) => {
   return {
     open: false,
     data: [],
-    async showHistory() {
+    async showHistory(username, options) {
       const loading = cogoToast.loading(<AppTrans i18nKey={'loading'} />)
 
-      const username =
-        globalThis.location.href.match(
-          /portfolio[/](?<username>[\w\d\-_]+)[/]?/i,
-        )?.groups?.username || ''
-
       const user = this.get(username)
+      const userCID =
+        angularAPI.$rootScope?.session.user.usersFactory?.usernamesMapping[
+          keys(
+            angularAPI.$rootScope?.session.user.usersFactory
+              ?.usernamesMapping || {},
+          ).find(name => name.toLowerCase() === username.toLowerCase()) || 0
+        ]
 
-      if (user?.CID) {
-        const data = await etoroAPI.getHistoryByMirrorID(user.MirrorID)
+      if (userCID || user?.CID) {
+        const data =
+          !options?.public && user
+            ? await etoroAPI.getHistoryByMirrorID(user.MirrorID)
+            : await etoroAPI.getHistoryOfPublicByCID(Number(userCID))
 
         set(state => {
           state.data = data
-          state.open = true
         })
       } else {
         set(state => {
@@ -39,6 +44,12 @@ export const copingPeopleStore = createStore<{
       }
 
       loading.hide?.()
+
+      if (get().data.length) {
+        return
+      }
+
+      throw new Error(`No Data By Searching username: ${username}`)
     },
     get(username) {
       const groups = angularAPI.$rootScope?.session.user.portfolio.groups || []

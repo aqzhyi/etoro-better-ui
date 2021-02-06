@@ -19,6 +19,11 @@ declare interface RootScope extends IRootScopeService {
       }
     }
     user: {
+      usersFactory?: {
+        usernamesMapping: {
+          [username: string]: number
+        }
+      }
       portfolioFactory: {
         isTradingConnectionAvailable: boolean
       }

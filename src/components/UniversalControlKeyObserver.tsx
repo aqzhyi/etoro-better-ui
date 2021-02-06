@@ -57,12 +57,31 @@ export const UniversalControlKeyObserver = () => {
   useKey(
     'Y',
     event => {
-      const canQuery = /portfolio[/][\w\d-_]+/i.test(globalThis.location.href)
+      const copingPeopleHistoryPage = /\.com\/portfolio\/(?<username>[\w\d\-_]+)/i.exec(
+        globalThis.location.href,
+      )?.groups?.username
+
+      const publicPeopleHistoryPage = /\.com\/people\/(?<username>[\w\d\-_]+)\/portfolio\/history/i.exec(
+        globalThis.location.href,
+      )?.groups?.username
+
+      const isPublic = !!publicPeopleHistoryPage
+
+      const username =
+        copingPeopleHistoryPage || publicPeopleHistoryPage || null
 
       if (isInputUsesFocusing()) return
-      if (!canQuery) return
+      if (!username) return
 
-      copingPeopleStore.getState().showHistory()
+      copingPeopleStore
+        .getState()
+        .showHistory(username, { public: isPublic })
+        .then(() => {
+          copingPeopleStore.setState({ open: true })
+        })
+        .catch((error: Error) => {
+          cogoToast.error(error.message)
+        })
     },
     {},
     [hotkeySettings],
