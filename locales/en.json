@@ -1,4 +1,6 @@
 {
+  "openRate": "Open",
+  "closeRate": "Close",
   "amountWarning": "Notice：You are going to open a trade by an amount ${{value}}, but the amount does not match with your amounts in hotkeys",
   "pluginVideoShow": "Plugin Video Show",
   "loading": "Loading...",

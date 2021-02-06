@@ -3,6 +3,7 @@ import { Dialog } from '@material-ui/core'
 import dayjs from 'dayjs'
 import React, { Fragment } from 'react'
 import { memo } from 'react'
+import { AppTrans } from '~/components/AppTrans'
 import { BuyText } from '~/components/BuyText'
 import { InstrumentIcon } from '~/components/InstrumentIcon'
 import { ProfitText } from '~/components/ProfitText'
@@ -52,8 +53,12 @@ export const SeeCopingHistory = memo<ReactProps>(function SeeCopingHistory(
             )}
           </span>
           <span>{dayjs(item.CloseDateTime).format('YYYY/MM/DD hh:mm:ss')}</span>
-          <span>開倉＠ {item.OpenRate}</span>
-          <span>關倉＠ {item.CloseRate}</span>
+          <span>
+            <AppTrans i18nKey='openRate' />＠ {item.OpenRate}
+          </span>
+          <span>
+            <AppTrans i18nKey='closeRate' />＠ {item.CloseRate}
+          </span>
         </div>
       ))}
     </Dialog>
