@@ -52,6 +52,8 @@ export const SeeCopingHistory = memo<ReactProps>(function SeeCopingHistory(
               <ProfitText profit={item.NetProfit} />
             )}
           </span>
+          <span>{dayjs(item.OpenDateTime).format('YYYY/MM/DD hh:mm:ss')}</span>
+          <span> ~ </span>
           <span>{dayjs(item.CloseDateTime).format('YYYY/MM/DD hh:mm:ss')}</span>
           <span>
             <AppTrans i18nKey='openRate' />＠ {item.OpenRate}
