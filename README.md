@@ -17,6 +17,12 @@ Please note that I am not an eToro employee; this is personal side-project; it i
 
 ---
 
+See introduce https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3
+
+Trade with MT5 https://www.notion.so/hilezi/MT5-CFD-cd480d0b631d4a4ea8ea2b84d099edbf
+
+---
+
 > requirement: [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
 
 ## Trading Preview
