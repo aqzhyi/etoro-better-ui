@@ -2,10 +2,7 @@ import { debugAPI } from '~/debugAPI'
 import store from '~/store/_store'
 import { angularAPI } from '~/angularAPI'
 
-/**
- * naming rule
- * e.g. {category}_{event}
- */
+/** Naming rule e.g. {category}_{event} */
 export enum GaEventId {
   fn_SLModeClick,
   fn_TPModeClick,
@@ -15,6 +12,7 @@ export enum GaEventId {
   sidebar_extensionMenuItemClick,
   sidebar_pendingOrdersLinkClick,
   sidebar_dashboardLinkClick,
+  sidebar_mt5PromotionLinkClick,
   watchlists_checkUserBalance,
   watchlists_portfolioLinkClick,
   watchlists_filterByText,

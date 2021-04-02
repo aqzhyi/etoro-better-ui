@@ -20,6 +20,8 @@ import { useAppDispatch, useAppSelector } from '~/store/_store'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 import packageJSON from '../../package.json'
 import { SeeCopingHistory } from '~/modules/CopingPeople/SeeCopingHistory'
+import { mt4PromotionProps } from '~/utils/mt5PromotionProps'
+import { AppTooltip } from '~/components/AppTooltip'
 
 const sendEvent = (label: string) => {
   gaAPI.sendEvent(GaEventId.sidebar_extensionMenuItemClick, label)
@@ -101,6 +103,12 @@ export const SidebarMenuItemGroup = () => {
         }
       `}
     >
+      <SidebarMenuItem iconName='people' aProps={mt4PromotionProps}>
+        <AppTooltip title={<AppTrans i18nKey='mt5Pros'></AppTrans>}>
+          <AppTrans i18nKey='mt5PromotionLink'></AppTrans>
+        </AppTooltip>
+      </SidebarMenuItem>
+
       <div {...attrsToAppend} className='i-menu-sep'>
         <span>
           <AppTrans i18nKey='universal_extensionName_text'></AppTrans>

@@ -6,12 +6,14 @@ import { angularAPI } from '~/angularAPI'
 import { AppTooltip } from '~/components/AppTooltip'
 import { AppTrans } from '~/components/AppTrans'
 import { isDisabledInProchart } from '~/components/ExecutionDialog/isDisabledInProchart'
+import { NotableText } from '~/components/NotableText'
 import { PingProbeValue } from '~/components/PingProbeValue'
 import { ProfitText } from '~/components/ProfitText'
 import { HighlightText } from '~/components/TooltipHighlightText'
 import { TradingStatusValue } from '~/components/TradingStatusValue'
 import { GM } from '~/GM'
 import { useAppSelector } from '~/store/_store'
+import { mt4PromotionProps } from '~/utils/mt5PromotionProps'
 import { registerReactComponent } from '~/utils/registerReactComponent'
 
 export const ExecutionDialogStatusInfo = () => {
@@ -94,6 +96,22 @@ export const ExecutionDialogStatusInfo = () => {
         title={<AppTrans i18nKey='profits_availableValues_text'></AppTrans>}
       >
         <span css={boxCSS}>{availableValueLabel}</span>
+      </AppTooltip>
+
+      <AppTooltip title={<AppTrans i18nKey='mt5Pros'></AppTrans>}>
+        <span
+          css={css`
+            ${boxCSS};
+            font-size: 10px;
+            width: 170px;
+          `}
+        >
+          <a {...mt4PromotionProps}>
+            <NotableText>
+              <AppTrans i18nKey='mt5PromotionLink'></AppTrans>
+            </NotableText>
+          </a>
+        </span>
       </AppTooltip>
     </React.Fragment>
   )
