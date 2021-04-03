@@ -170,7 +170,7 @@ export const SidebarMenuItemGroup = () => {
         iconName='people-ref'
         aProps={{
           target: '_blank',
-          href: 'https://t.me/etoro_better_ui',
+          href: 'https://t.me/mt4_daytrading',
           onClick: () => {
             sendEvent('link_telegram_chatroom')
           },

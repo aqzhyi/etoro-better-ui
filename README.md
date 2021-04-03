@@ -63,7 +63,7 @@ See introduce https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3
 
 ## About
 
-- [💬 UI Feedback](https://t.me/etoro_better_ui) in Telegram 🛩
+- [💬 UI Feedback](https://t.me/mt4_daytrading) in Telegram 🛩
 
 - [💬 Contact](https://t.me/whatisclown)  in Telegram 🛩
 
