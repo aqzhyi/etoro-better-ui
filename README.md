@@ -4,6 +4,7 @@
 [Download My Scripts and Expert Advisor（Auto Trading Assistant）](https://github.com/Aqzhyi/oh-my-ex5)
 ===
 
+[![](./mt5-better-trading.gif)](https://www.notion.so/hilezi/MT5-CFD-cd480d0b631d4a4ea8ea2b84d099edbf#15f0407ace5443e4a26f90744c683587)
 ![](./mt5.jpg)
 
 ---
