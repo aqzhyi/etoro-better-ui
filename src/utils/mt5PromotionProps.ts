@@ -2,8 +2,7 @@ import { AnchorHTMLAttributes } from 'react'
 import { gaAPI, GaEventId } from '~/gaAPI'
 
 export const mt4PromotionProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
-  href:
-    'https://pepperstone.com/zht/?transaction_id=102b4a84b0b785476b06ebaf0d96cc',
+  href: 'https://trk.pepperstonepartners.com/aff_c?offer_id=367&aff_id=28051',
   target: '_self',
   onClick: () => {
     globalThis.window.open(
