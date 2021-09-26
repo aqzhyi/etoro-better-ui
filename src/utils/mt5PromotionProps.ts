@@ -6,7 +6,7 @@ export const mt4PromotionProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
   target: '_self',
   onClick: () => {
     globalThis.window.open(
-      'https://www.notion.so/hilezi/MT5-CFD-cd480d0b631d4a4ea8ea2b84d099edbf',
+      'https://www.notion.so/hilezi/Trading-SPX500-NASDAQ-GER30-GOLD-ETF-stocks-CFD-with-lower-spread-and-Auto-Trading-Assistant-cd480d0b631d4a4ea8ea2b84d099edbf',
       '_blank',
     )
     gaAPI.sendEvent(GaEventId.sidebar_mt5PromotionLinkClick)
