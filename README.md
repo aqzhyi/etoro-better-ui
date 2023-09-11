@@ -1,5 +1,5 @@
-[This plugin will not update again, please consider trade SPX500, NAS100, GER30, GOLD, ETF, and stocks CFD with lower spread, faster prices quoting, and real-time online client services using "WhatsApp". Also, you can have my trading Scripts, Expert Advisor（Auto Trading Assistant）that I developing for now.](https://www.notion.so/hilezi/MT5-CFD-cd480d0b631d4a4ea8ea2b84d099edbf)
-===
+# There will be no more updates for this plugin
+# There will be no more updates for this plugin
 
 ---
 
