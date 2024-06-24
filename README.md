@@ -18,11 +18,11 @@ Better eToro UI
 
 ## An extension, plugin and helper in Chrome, Firefox, and Edge built for the eToro website and available in Tampermonkey.
 
-Please note that I am not an eToro employee; this is personal side-project; it is not official. I use the react and typescript to built that, and it's based on eToro front-end UI if you want to try this project on your trading please see [THIS LINK]([[https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3](https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4)](https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4)), and make sure you know that risks.
+Please note that I am not an eToro employee; this is personal side-project; it is not official. I use the react and typescript to built that, and it's based on eToro front-end UI if you want to try this project on your trading please see [THIS LINK](https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4), and make sure you know that risks.
 
 ---
 
-See introduce https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3
+See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4
 
 ---
 
