@@ -31,6 +31,7 @@ See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enha
 ## Trading Preview
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lOwRyrGncn0/0.jpg)](https://www.youtube.com/watch?v=4YKr8F8rkFA)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faqzhyi%2Fetoro-better-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faqzhyi%2Fetoro-better-ui?ref=badge_shield)
 
 ## WHY use?
 > TLDR 🤷‍♂️
@@ -65,3 +66,7 @@ See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enha
 - [💰 Donation](https://www.notion.so/hilezi/ab484fc786bf44f8b19a017fdbe4a698)
 
 [./tamperscript.js]: https://github.com/hilezir/etoro-better-ui/blob/master/tampermonkey.js
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faqzhyi%2Fetoro-better-ui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Faqzhyi%2Fetoro-better-ui?ref=badge_large)
