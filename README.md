@@ -1,5 +1,6 @@
-# There will be no more updates for this plugin
-# There will be no more updates for this plugin
+# Deprecated!
+# Deprecated!!
+# There will be no more updates for this plugin!!!
 
 ---
 
@@ -18,25 +19,32 @@ Better eToro UI
 
 ## An extension, plugin and helper in Chrome, Firefox, and Edge built for the eToro website and available in Tampermonkey.
 
-Please note that I am not an eToro employee; this is personal side-project; it is not official. I use the react and typescript to built that, and it's based on eToro front-end UI if you want to try this project on your trading please see [THIS LINK](https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4), and make sure you know that risks.
+Please note that I am not an eToro employee; 
+
+this is a personal side-project;
+
+it is not official.
+
+I use the react and typescript to built that, and it's based on eToro front-end UI
+
+if you want to try this project on your trading please see [THIS LINK](https://etoro-better-ui.notion.site/)
+
+and make sure you know that risks.
 
 ---
 
-See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enhancement--4fe69cd704434ff1b82f0cd48dd219c3?pvs=4
+See introduce https://etoro-better-ui.notion.site/
 
 ---
 
 > requirement: [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW)
 
-## Trading Preview
-
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lOwRyrGncn0/0.jpg)](https://www.youtube.com/watch?v=4YKr8F8rkFA)
-
 ## WHY use?
 > TLDR 🤷‍♂️
 
-[![image loading...](./foreign_exchange.gif)](https://www.notion.so/hilezi/4fe69cd704434ff1b82f0cd48dd219c3)
+https://github.com/user-attachments/assets/889ad8b8-8996-4f5e-9df7-f0e1551a0d72
 
+<img width="1798" height="1120" alt="圖片-2KYZcUdx--2025-08-05--08-59-10" src="https://github.com/user-attachments/assets/6f80eb7e-402d-4bd9-a491-435e844f8831" />
 
 ## Development
 
@@ -44,7 +52,7 @@ See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enha
 1. One terminal session for `npm run dev`
 1. add new script that code [./tamperscript.js] to your tampermonkey or install it from [greasyfork](https://greasyfork.org/zh-TW/scripts/400518-etoro-better-ui)
 
-    if you're looking for how multiple etoro-better-UI scripts to exist, visit [eToro-better-UI Switch in another build](https://www.notion.so/hilezi/eToro-better-UI-Switch-in-another-build-eb3b7842ae8e46d58d43b7bb3059b624)
+    if you're looking for how multiple etoro-better-UI scripts to exist, visit [eToro-better-UI Switch in another build](https://etoro-better-ui.notion.site/)
 
 1. make sure be enabled it script
 
@@ -58,10 +66,10 @@ See introduce https://aqzhyi.notion.site/eToro-better-UI-day-trading-helper-enha
 
 ## About
 
-- [💬 UI Feedback](https://t.me/mt4_daytrading) in Telegram 🛩
+- [💬 UI Feedback](https://t.me/+v2uTXkiic9VjNTVi) in Telegram 🛩
 
-- [💬 Contact](https://t.me/whatisclown)  in Telegram 🛩
+- [💬 Contact](https://t.me/whatisautistic)  in Telegram 🛩
 
-- [💰 Donation](https://www.notion.so/hilezi/ab484fc786bf44f8b19a017fdbe4a698)
+- [💰 Donation](https://t.me/whatisautistic)
 
 [./tamperscript.js]: https://github.com/hilezir/etoro-better-ui/blob/master/tampermonkey.js
