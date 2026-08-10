@@ -378,4 +378,12 @@ export const angularAPI = {
       .eq(0)
       .trigger('click')
   },
+  /** 一鍵修改所有倉位止盈百分比 */
+  setTakeProfitForAllPositions: (percent: number) => {
+    const positions = angularAPI.$rootScope?.session.user.portfolio.manualPositions || []
+    positions.forEach(position => {
+      position.TakeProfitPercent = percent
+    })
+    angularAPI.$rootScope?.$apply()
+  },
 }
